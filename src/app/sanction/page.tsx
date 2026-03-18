@@ -161,17 +161,7 @@ export default function SanctionPage() {
                     </div>
                   )}
 
-                  {/* Assistant: Tags */}
-                  {msg.tags && msg.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5">
-                      <span className="text-xs text-gray-400">분석 키워드:</span>
-                      {msg.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          #{tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
+                  {/* Assistant: Tags - hidden */}
 
                   {/* Assistant: Content */}
                   {msg.role === 'assistant' && (
@@ -192,14 +182,10 @@ export default function SanctionPage() {
                           rel="noopener noreferrer"
                           className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30"
                         >
-                          <div className="mb-1 flex items-center justify-between">
-                            <span className="text-xs font-mono text-gray-500">{c.id}</span>
-                            <div className="flex items-center gap-1.5">
+                          <div className="mb-1 flex items-center justify-end">
                               <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${RESULT_COLORS[c.decision_result] || 'bg-gray-100 text-gray-600'}`}>
                                 {RESULT_LABELS[c.decision_result] || c.decision_result}
                               </span>
-                              <ExternalLink size={10} className="text-gray-400" />
-                            </div>
                           </div>
                           <p className="text-xs text-gray-600 line-clamp-2">{c.holding_points || c.title}</p>
                         </a>
