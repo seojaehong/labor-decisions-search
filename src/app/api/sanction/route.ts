@@ -158,7 +158,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: GLM_MODEL,
         messages: [
-          { role: 'system', content: ANALYSIS_PROMPT },
+          { role: 'system', content: EXTRACT_AND_ANALYZE_PROMPT },
           { role: 'user', content: userContext },
         ],
         max_tokens: 4096,
