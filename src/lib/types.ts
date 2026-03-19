@@ -8,6 +8,12 @@ export type ReasonCategory =
   | "misconduct"
   | "redundancy"
   | "probation"
+  | "transfer"
+  | "contract_expiry"
+  | "no_dismissal"
+  | "union_activity"
+  | "worker_status"
+  | "discrimination"
   | "other";
 
 export type DecisionResult =
@@ -24,6 +30,7 @@ export type SanctionType =
   | "suspension"
   | "pay_cut"
   | "warning"
+  | "demotion"
   | "other";
 
 export interface NlrcDecision {
@@ -59,6 +66,12 @@ export const REASON_LABELS: Record<ReasonCategory, string> = {
   misconduct: "비위행위",
   redundancy: "경영상해고",
   probation: "수습해고",
+  transfer: "전보/인사이동",
+  contract_expiry: "갱신기대권/계약만료",
+  no_dismissal: "해고부존재/사직",
+  union_activity: "부당노동행위",
+  worker_status: "근로자성 분쟁",
+  discrimination: "차별시정",
   other: "기타",
 };
 
@@ -77,6 +90,7 @@ export const SANCTION_LABELS: Record<SanctionType, string> = {
   suspension: "정직",
   pay_cut: "감봉",
   warning: "경고/견책",
+  demotion: "강등",
   other: "기타",
 };
 
@@ -94,5 +108,11 @@ export const REASON_TO_TAGS: Record<ReasonCategory, string[]> = {
   misconduct: ["징계해고", "징계양정"],                   // 징계해고+징계양정 교집합
   redundancy: ["부당해고"],                              // 37,888건
   probation: ["수습"],                                  // 1,975건
-  other: [],                                           // AI 분류로 해결 예정
+  transfer: ["전보"],                                   // 전보/전배/인사이동
+  contract_expiry: ["갱신기대권", "비정규직"],             // 기간제 계약만료
+  no_dismissal: ["해고부존재", "사직", "권고사직"],        // 해고부존재/사직
+  union_activity: ["부당노동행위", "지배개입", "불이익취급"], // 노조 관련
+  worker_status: ["근로자성", "당사자적격"],               // 근로자 지위 분쟁
+  discrimination: ["차별시정"],                          // 비정규직 차별
+  other: [],
 };

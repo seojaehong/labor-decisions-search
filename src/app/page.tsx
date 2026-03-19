@@ -12,6 +12,12 @@ const REASON_ICONS: Record<ReasonCategory, string> = {
   misconduct: "⚠️",
   redundancy: "🏢",
   probation: "📋",
+  transfer: "🔄",
+  contract_expiry: "📅",
+  no_dismissal: "❌",
+  union_activity: "✊",
+  worker_status: "🪪",
+  discrimination: "⚖️",
   other: "📌",
 };
 
