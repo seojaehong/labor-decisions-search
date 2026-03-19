@@ -82,40 +82,49 @@ export function extractTags(text: string): string[] {
   return [...tags].filter((t) => (ALL_TAGS as readonly string[]).includes(t));
 }
 
+// 1단계: 태그 기반 후보 검색 (top-N 넓게)
+const CANDIDATE_LIMIT = 20;
+// 2단계: 최종 반환 수
+const RESULT_LIMIT = 5;
+
 export async function searchCases(tags: string[]): Promise<RetrievalResult> {
   const topTags = tags.slice(0, 3);
-  let cases: Record<string, unknown>[] = [];
+  let candidates: Record<string, unknown>[] = [];
 
-  // AND → OR fallback
+  // AND → OR fallback (후보를 넓게 CANDIDATE_LIMIT개)
   const { data: andCases } = await supabase
     .from('nlrc_decisions')
     .select('id, title, decision_result, holding_points, tags, url')
     .contains('tags', topTags)
     .not('holding_points', 'is', null)
-    .limit(10);
+    .limit(CANDIDATE_LIMIT);
 
   if (andCases && andCases.length >= 3) {
-    cases = andCases;
+    candidates = andCases;
   } else {
     const { data: orCases } = await supabase
       .from('nlrc_decisions')
       .select('id, title, decision_result, holding_points, tags, url')
       .overlaps('tags', tags)
       .not('holding_points', 'is', null)
-      .limit(10);
-    cases = orCases || [];
+      .limit(CANDIDATE_LIMIT);
+    candidates = orCases || [];
   }
 
-  const topCases = cases.slice(0, 5);
+  // TODO: hybrid-lite rerank 확장점
+  // 임베딩 준비 완료 후 여기에 벡터 유사도 reranking 추가 예정
+  // candidates = await rerankByEmbedding(query, candidates);
+  const results = candidates.slice(0, RESULT_LIMIT);
+
   return {
     tags,
-    cases: topCases.map((c) => ({
+    cases: results.map((c) => ({
       id: c.id as string,
       title: c.title as string,
       decision_result: c.decision_result as string,
       holding_points: ((c.holding_points as string) || '').slice(0, 150),
       url: c.url as string,
     })),
-    allCases: cases,
+    allCases: candidates,
   };
 }
