@@ -75,11 +75,10 @@ async function main() {
 
     const batchSize = LIMIT ? Math.min(DB_BATCH, LIMIT - processed) : DB_BATCH;
 
-    // embedding이 null인 레코드만 가져옴 (이어서 실행 가능)
+    // cursor 기반 페이지네이션 (embedding IS NULL 대신 id 순회 — 타임아웃 방지)
     let query = supabase
       .from("nlrc_decisions")
-      .select("id, holding_summary, title")
-      .is("embedding", null)
+      .select("id, holding_summary, title, embedding")
       .not("holding_summary", "is", null)
       .order("id")
       .limit(batchSize);
@@ -93,10 +92,20 @@ async function main() {
     }
     if (!data?.length) break;
 
+    // 이미 임베딩이 있는 레코드 건너뛰기
+    const needsEmbedding = data.filter((r) => !r.embedding);
+    if (needsEmbedding.length === 0) {
+      processed += data.length;
+      lastId = data[data.length - 1].id;
+      continue;
+    }
+
     // 임베딩 텍스트 준비: title + holding_summary
-    const texts = data.map(
+    const texts = needsEmbedding.map(
       (r) => `${r.title || ""}\n${r.holding_summary || ""}`
     );
+    // data를 needsEmbedding으로 교체 (아래 로직용)
+    const workData = needsEmbedding;
 
     // 토큰 추정 (한국어 ~1.5자/토큰)
     const charCount = texts.reduce((s, t) => s + t.length, 0);
@@ -107,7 +116,7 @@ async function main() {
       // OpenAI 배치 임베딩 (BATCH_SIZE씩 나눠서)
       for (let i = 0; i < texts.length; i += BATCH_SIZE) {
         const chunk = texts.slice(i, i + BATCH_SIZE);
-        const chunkData = data.slice(i, i + BATCH_SIZE);
+        const chunkData = workData.slice(i, i + BATCH_SIZE);
 
         try {
           const embeddings = await getEmbeddings(chunk);
