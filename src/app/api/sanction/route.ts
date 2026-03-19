@@ -169,7 +169,10 @@ export async function POST(req: NextRequest) {
       }));
 
     // 마지막 메시지에 검색 결과 주입
-    const userContext = `사용자 상황: ${lastUserMsg.content}\n\n추출 키워드: ${extractedTags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}`;
+    const retrievalNote = cases.length === 0
+      ? '\n\n⚠️ 유사 판정례를 찾지 못했습니다. 일반적인 법리 원칙만으로 답변하되, 구체적 판정 경향은 언급하지 마세요.'
+      : '';
+    const userContext = `사용자 상황: ${lastUserMsg.content}\n\n추출 키워드: ${extractedTags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}${retrievalNote}`;
     if (trimmedHistory.length > 0) {
       trimmedHistory[trimmedHistory.length - 1] = { role: 'user', content: userContext };
     }

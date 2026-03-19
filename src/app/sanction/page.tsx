@@ -127,9 +127,10 @@ export default function SanctionPage() {
       }
 
       // 스트리밍 완료 → 메시지로 확정
+      const finalContent = fullText || '응답을 받지 못했습니다. 다시 시도해 주세요.';
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: fullText, tags: meta.tags, cases: meta.cases },
+        { role: 'assistant', content: finalContent, tags: meta.tags, cases: meta.cases },
       ]);
       setStreamingText('');
       setStreamingMeta({});
