@@ -65,10 +65,15 @@ const SANCTION_PATTERNS = [
 
 // === sanction_months 추출 패턴 ===
 const MONTHS_PATTERNS = [
+  // "정직 3월", "정직 3개월", "정직3월"
   /정직\s*(\d+)\s*(?:개월|월)/,
   /감봉\s*(\d+)\s*(?:개월|월)/,
-  /(\d+)\s*(?:개월|월)\s*(?:의\s*)?정직/,
+  // "3개월 정직", "3개월의 정직", "3개월 정직처분", "1개월 임의 정직처분"
+  /(\d+)\s*(?:개월|월)\s*(?:의\s*)?(?:임의\s*)?정직/,
   /(\d+)\s*(?:개월|월)\s*(?:의\s*)?감봉/,
+  // "정직 처분 3월", "감봉처분 2월" (처분 뒤에 숫자)
+  /정직\s*(?:처분)?\s*(\d+)\s*(?:개월|월)/,
+  /감봉\s*(?:처분)?\s*(\d+)\s*(?:개월|월)/,
 ];
 
 function classifyRecord(record) {
@@ -190,6 +195,7 @@ async function main() {
         id: record.id,
         reason_category: result.reason_category,
         sanction_type: result.sanction_type,
+        sanction_months: result.sanction_months,
       });
     }
 
@@ -201,6 +207,7 @@ async function main() {
           .update({
             reason_category: u.reason_category,
             sanction_type: u.sanction_type,
+            ...(u.sanction_months != null && { sanction_months: u.sanction_months }),
           })
           .eq("id", u.id);
 
