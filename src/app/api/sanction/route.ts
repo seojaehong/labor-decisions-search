@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
     // Step 1: 키워드 추출 (~1ms)
     const tags = extractTags(lastUserMsg.content);
 
-    // Step 2: DB 검색 (AND → OR fallback)
-    const retrieval = await searchCases(tags);
+    // Step 2: DB 검색 + hybrid-lite rerank
+    const retrieval = await searchCases(tags, lastUserMsg.content);
 
     // Step 3: 프롬프트 조립 + 히스토리 트리밍
     const userContext = buildUserContext(lastUserMsg.content, tags, retrieval.allCases);

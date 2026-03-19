@@ -6,6 +6,10 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_URL = 'https://api.openai.com/v1/embeddings';
+const EMBEDDING_MODEL = 'text-embedding-3-small';
+
 // 42k 판정례 분류에서 검증된 키워드 패턴
 const KEYWORD_PATTERNS: [RegExp, string][] = [
   // 비위행위 (구체적→일반 순)
@@ -60,12 +64,14 @@ export interface CaseCard {
   decision_result: string;
   holding_points: string;
   url: string;
+  similarity?: number;
 }
 
 export interface RetrievalResult {
   tags: string[];
   cases: CaseCard[];
   allCases: Record<string, unknown>[];
+  reranked: boolean;
 }
 
 export function extractTags(text: string): string[] {
@@ -87,14 +93,14 @@ const CANDIDATE_LIMIT = 20;
 // 2단계: 최종 반환 수
 const RESULT_LIMIT = 5;
 
-export async function searchCases(tags: string[]): Promise<RetrievalResult> {
+export async function searchCases(tags: string[], query?: string): Promise<RetrievalResult> {
   const topTags = tags.slice(0, 3);
   let candidates: Record<string, unknown>[] = [];
 
-  // AND → OR fallback (후보를 넓게 CANDIDATE_LIMIT개)
+  // Stage 1: 태그 기반 후보 검색 (AND → OR fallback)
   const { data: andCases } = await supabase
     .from('nlrc_decisions')
-    .select('id, title, decision_result, holding_points, tags, url')
+    .select('id, title, decision_result, holding_points, tags, url, embedding')
     .contains('tags', topTags)
     .not('holding_points', 'is', null)
     .limit(CANDIDATE_LIMIT);
@@ -104,16 +110,25 @@ export async function searchCases(tags: string[]): Promise<RetrievalResult> {
   } else {
     const { data: orCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, tags, url')
+      .select('id, title, decision_result, holding_points, tags, url, embedding')
       .overlaps('tags', tags)
       .not('holding_points', 'is', null)
       .limit(CANDIDATE_LIMIT);
     candidates = orCases || [];
   }
 
-  // TODO: hybrid-lite rerank 확장점
-  // 임베딩 준비 완료 후 여기에 벡터 유사도 reranking 추가 예정
-  // candidates = await rerankByEmbedding(query, candidates);
+  // Stage 2: hybrid-lite rerank (벡터 유사도 기반)
+  let reranked = false;
+  if (query && OPENAI_API_KEY && candidates.length > RESULT_LIMIT) {
+    try {
+      const rerankedCandidates = await rerankByEmbedding(query, candidates);
+      candidates = rerankedCandidates;
+      reranked = true;
+    } catch {
+      // rerank 실패 시 기존 순서 유지 (graceful fallback)
+    }
+  }
+
   const results = candidates.slice(0, RESULT_LIMIT);
 
   return {
@@ -124,7 +139,56 @@ export async function searchCases(tags: string[]): Promise<RetrievalResult> {
       decision_result: c.decision_result as string,
       holding_points: ((c.holding_points as string) || '').slice(0, 150),
       url: c.url as string,
+      similarity: c._similarity as number | undefined,
     })),
     allCases: candidates,
+    reranked,
   };
+}
+
+// --- hybrid-lite rerank ---
+
+async function getQueryEmbedding(text: string): Promise<number[]> {
+  const resp = await fetch(OPENAI_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({ model: EMBEDDING_MODEL, input: text }),
+  });
+
+  if (!resp.ok) throw new Error(`Embedding API ${resp.status}`);
+  const data = await resp.json();
+  return data.data[0].embedding;
+}
+
+function cosineSimilarity(a: number[], b: number[]): number {
+  let dot = 0, normA = 0, normB = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    normA += a[i] * a[i];
+    normB += b[i] * b[i];
+  }
+  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+async function rerankByEmbedding(
+  query: string,
+  candidates: Record<string, unknown>[],
+): Promise<Record<string, unknown>[]> {
+  // 쿼리 임베딩 생성 (~100ms)
+  const queryEmbedding = await getQueryEmbedding(query);
+
+  // 후보 중 임베딩이 있는 것만 유사도 계산
+  const scored = candidates.map((c) => {
+    const embedding = c.embedding as number[] | null;
+    const similarity = embedding ? cosineSimilarity(queryEmbedding, embedding) : -1;
+    return { ...c, _similarity: similarity };
+  });
+
+  // 유사도 내림차순 정렬
+  scored.sort((a, b) => (b._similarity as number) - (a._similarity as number));
+
+  return scored;
 }
