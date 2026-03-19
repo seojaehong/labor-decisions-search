@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { ALL_TAGS } from '@/lib/tags';
 
@@ -10,6 +10,8 @@ const supabase = createClient(
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
+const REQUEST_TIMEOUT_MS = 15_000;
+const MAX_HISTORY_MESSAGES = 6;
 
 // 로컬 키워드 추출 — 42k 판정례 분류에서 검증된 패턴
 const KEYWORD_PATTERNS: [RegExp, string][] = [
@@ -109,16 +111,16 @@ const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문입니�
 export async function POST(req: NextRequest) {
   try {
     if (!ANTHROPIC_API_KEY) {
-      return NextResponse.json({ content: 'ANTHROPIC_API_KEY가 설정되지 않았습니다.', tags: [], cases: [] });
+      return jsonResponse({ content: 'ANTHROPIC_API_KEY가 설정되지 않았습니다.', tags: [], cases: [] });
     }
 
     const { messages } = await req.json();
     const lastUserMsg = [...messages].reverse().find((m: { role: string }) => m.role === 'user');
     if (!lastUserMsg) {
-      return NextResponse.json({ content: '질문을 입력해주세요.', tags: [], cases: [] });
+      return jsonResponse({ content: '질문을 입력해주세요.', tags: [], cases: [] });
     }
 
-    // Step 1: 로컬 키워드 추출 (즉시, GLM 호출 없음)
+    // Step 1: 로컬 키워드 추출 (~1ms)
     const extractedTags = extractTags(lastUserMsg.content);
 
     // Step 2: DB 검색 (AND → OR fallback)
@@ -144,51 +146,146 @@ export async function POST(req: NextRequest) {
       cases = orCases || [];
     }
 
-    // Step 3: Anthropic Haiku 종합 분석 (1회만 호출)
-    const caseSummary = cases
-      .slice(0, 5)
+    // 판정례 요약 + 메타데이터
+    const topCases = cases.slice(0, 5);
+    const caseSummary = topCases
       .map((c) => `- ${c.title} [${c.decision_result}]: ${(c.holding_points as string || '').slice(0, 200)}`)
       .join('\n');
 
+    const caseCards = topCases.map((c) => ({
+      id: c.id,
+      title: c.title,
+      decision_result: c.decision_result,
+      holding_points: (c.holding_points as string || '').slice(0, 150),
+      url: c.url,
+    }));
+
+    // Step 3: 대화 히스토리 트리밍 (최근 MAX_HISTORY_MESSAGES개만)
+    const trimmedHistory = messages
+      .slice(-MAX_HISTORY_MESSAGES)
+      .map((m: { role: string; content: string }) => ({
+        role: m.role,
+        content: m.content,
+      }));
+
+    // 마지막 메시지에 검색 결과 주입
     const userContext = `사용자 상황: ${lastUserMsg.content}\n\n추출 키워드: ${extractedTags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}`;
+    if (trimmedHistory.length > 0) {
+      trimmedHistory[trimmedHistory.length - 1] = { role: 'user', content: userContext };
+    }
 
-    const resp = await fetch(ANTHROPIC_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: ANTHROPIC_MODEL,
-        max_tokens: 4096,
-        system: SYSTEM_PROMPT,
-        messages: [
-          { role: 'user', content: userContext },
-        ],
-        temperature: 0.3,
-      }),
-    });
+    // Step 4: Anthropic Haiku 스트리밍 호출
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-    if (!resp.ok) throw new Error(await resp.text());
-    const data = await resp.json();
-    const analysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
+    try {
+      const resp = await fetch(ANTHROPIC_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: ANTHROPIC_MODEL,
+          max_tokens: 4096,
+          system: SYSTEM_PROMPT,
+          messages: trimmedHistory,
+          temperature: 0.3,
+          stream: true,
+        }),
+        signal: controller.signal,
+      });
 
-    return NextResponse.json({
-      content: analysis,
-      tags: extractedTags,
-      cases: cases.slice(0, 5).map((c) => ({
-        id: c.id,
-        title: c.title,
-        decision_result: c.decision_result,
-        holding_points: (c.holding_points as string || '').slice(0, 150),
-        url: c.url,
-      })),
-    });
+      clearTimeout(timeout);
+
+      if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Anthropic API ${resp.status}: ${errText.slice(0, 200)}`);
+      }
+
+      // SSE 스트리밍 응답 변환
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        async start(streamController) {
+          // 먼저 메타데이터(태그, 판정례) 전송
+          streamController.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ type: 'meta', tags: extractedTags, cases: caseCards })}\n\n`)
+          );
+
+          const reader = resp.body!.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
+
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split('\n');
+              buffer = lines.pop() || '';
+
+              for (const line of lines) {
+                if (!line.startsWith('data: ')) continue;
+                const payload = line.slice(6);
+                if (payload === '[DONE]') continue;
+
+                try {
+                  const event = JSON.parse(payload);
+                  if (event.type === 'content_block_delta' && event.delta?.text) {
+                    streamController.enqueue(
+                      encoder.encode(`data: ${JSON.stringify({ type: 'delta', text: event.delta.text })}\n\n`)
+                    );
+                  }
+                } catch {
+                  // 파싱 실패한 청크는 무시
+                }
+              }
+            }
+
+            streamController.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done' })}\n\n`));
+          } catch (err) {
+            const errMsg = err instanceof Error ? err.message : 'stream error';
+            streamController.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ type: 'error', message: errMsg })}\n\n`)
+            );
+          } finally {
+            streamController.close();
+          }
+        },
+      });
+
+      return new Response(stream, {
+        headers: {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+        },
+      });
+    } catch (err) {
+      clearTimeout(timeout);
+
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        return jsonResponse({
+          content: '응답 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.',
+          tags: extractedTags,
+          cases: caseCards,
+        });
+      }
+      throw err;
+    }
   } catch (error) {
-    return NextResponse.json(
-      { content: `오류: ${error instanceof Error ? error.message : '알 수 없는 오류'}`, tags: [], cases: [] },
-      { status: 200 }
-    );
+    return jsonResponse({
+      content: `오류가 발생했습니다: ${error instanceof Error ? error.message : '알 수 없는 오류'}. 잠시 후 다시 시도해 주세요.`,
+      tags: [],
+      cases: [],
+    });
   }
+}
+
+function jsonResponse(data: { content: string; tags: string[]; cases: unknown[] }) {
+  return new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json' },
+  });
 }

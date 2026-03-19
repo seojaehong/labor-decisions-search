@@ -54,11 +54,13 @@ export default function SanctionPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [streamingText, setStreamingText] = useState('');
+  const [streamingMeta, setStreamingMeta] = useState<{ tags?: string[]; cases?: CaseCard[] }>({});
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, streamingText]);
 
   async function sendMessage(text: string) {
     if (!text.trim() || loading) return;
@@ -68,6 +70,8 @@ export default function SanctionPage() {
     setMessages(updatedMessages);
     setInput('');
     setLoading(true);
+    setStreamingText('');
+    setStreamingMeta({});
 
     try {
       const res = await fetch('/api/sanction', {
@@ -76,21 +80,66 @@ export default function SanctionPage() {
         body: JSON.stringify({ messages: updatedMessages }),
       });
 
-      const data = await res.json();
+      // JSON 폴백 (타임아웃 등 비스트리밍 응답)
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: data.content, tags: data.tags, cases: data.cases },
+        ]);
+        return;
+      }
+
+      // SSE 스트리밍 처리
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullText = '';
+      let meta: { tags?: string[]; cases?: CaseCard[] } = {};
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          try {
+            const event = JSON.parse(line.slice(6));
+            if (event.type === 'meta') {
+              meta = { tags: event.tags, cases: event.cases };
+              setStreamingMeta(meta);
+            } else if (event.type === 'delta') {
+              fullText += event.text;
+              setStreamingText(fullText);
+            } else if (event.type === 'error') {
+              fullText += `\n\n⚠️ ${event.message}`;
+              setStreamingText(fullText);
+            }
+          } catch {
+            // 파싱 실패 무시
+          }
+        }
+      }
+
+      // 스트리밍 완료 → 메시지로 확정
       setMessages((prev) => [
         ...prev,
-        {
-          role: 'assistant',
-          content: data.content,
-          tags: data.tags,
-          cases: data.cases,
-        },
+        { role: 'assistant', content: fullText, tags: meta.tags, cases: meta.cases },
       ]);
+      setStreamingText('');
+      setStreamingMeta({});
     } catch {
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: '오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' },
       ]);
+      setStreamingText('');
+      setStreamingMeta({});
     } finally {
       setLoading(false);
     }
@@ -102,6 +151,11 @@ export default function SanctionPage() {
   }
 
   const isEmpty = messages.length === 0;
+
+  // 스트리밍 중인 메시지를 포함한 전체 렌더링 목록
+  const displayMessages = streamingText
+    ? [...messages, { role: 'assistant' as const, content: streamingText, tags: streamingMeta.tags, cases: streamingMeta.cases }]
+    : messages;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
@@ -140,7 +194,7 @@ export default function SanctionPage() {
 
           {/* Messages */}
           <div className="space-y-5">
-            {messages.map((msg, i) => (
+            {displayMessages.map((msg, i) => (
               <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
@@ -161,12 +215,14 @@ export default function SanctionPage() {
                     </div>
                   )}
 
-                  {/* Assistant: Tags - hidden */}
-
                   {/* Assistant: Content */}
                   {msg.role === 'assistant' && (
                     <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm leading-relaxed text-gray-800 whitespace-pre-wrap">
                       {msg.content}
+                      {/* 스트리밍 중 커서 표시 */}
+                      {streamingText && i === displayMessages.length - 1 && (
+                        <span className="inline-block w-1.5 h-4 bg-blue-500 animate-pulse ml-0.5 align-text-bottom" />
+                      )}
                     </div>
                   )}
 
@@ -196,7 +252,7 @@ export default function SanctionPage() {
               </div>
             ))}
 
-            {loading && (
+            {loading && !streamingText && (
               <div className="flex gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
                   <Loader2 size={14} className="animate-spin text-gray-500" />
