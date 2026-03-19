@@ -79,3 +79,20 @@ export const SANCTION_LABELS: Record<SanctionType, string> = {
   warning: "경고/견책",
   other: "기타",
 };
+
+// reason_category가 대부분 빈 배열이므로, tags 기반 검색으로 매핑
+// DB 태그 분포 기반 매핑 (2026-03-19 정밀화)
+// - 구체적 사유 태그(폭언,횡령 등)는 DB에 미존재 → 가용 태그로 최선 매핑
+// - AI reason_category 분류 완료 후 이 매핑은 fallback으로 전환 예정
+export const REASON_TO_TAGS: Record<ReasonCategory, string[]> = {
+  sexual_harassment: ["성희롱"],                        // 1,387건
+  workplace_bullying: ["직장내괴롭힘"],                  // 1,621건
+  violence: ["징계해고", "징계양정"],                     // 징계해고 2,665 + 징계양정 10,521
+  absence: ["징계해고"],                                 // 2,665건 (무단결근 태그 없음)
+  embezzlement: ["징계해고"],                            // 2,665건 (횡령/배임 태그 없음)
+  incompetence: ["해고사유"],                            // 16,188건 (업무능력부족 태그 없음)
+  misconduct: ["징계해고", "징계양정"],                   // 징계해고+징계양정 교집합
+  redundancy: ["부당해고"],                              // 37,888건
+  probation: ["수습"],                                  // 1,975건
+  other: [],                                           // AI 분류로 해결 예정
+};

@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   REASON_LABELS,
   RESULT_LABELS,
+  REASON_TO_TAGS,
   type NlrcDecision,
   type ReasonCategory,
   type DecisionResult,
@@ -39,9 +40,19 @@ function SearchContent() {
   );
   const [decisions, setDecisions] = useState<NlrcDecision[]>([]);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const PAGE_SIZE = 20;
+
+  // URL searchParams 변경 시 state 동기화 (직접 접속/새로고침 대응)
+  useEffect(() => {
+    const urlReason = (searchParams.get("reason") as ReasonCategory) || "";
+    const urlResult = (searchParams.get("result") as DecisionResult) || "";
+    const urlQuery = searchParams.get("q") || "";
+    if (urlReason !== reason) setReason(urlReason);
+    if (urlResult !== result) setResult(urlResult);
+    if (urlQuery !== query) setQuery(urlQuery);
+  }, [searchParams]);
 
   useEffect(() => {
     search();
@@ -55,7 +66,14 @@ function SearchContent() {
       .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
       .order("decision_date", { ascending: false });
 
-    if (reason) q = q.contains("reason_category", [reason]);
+    if (reason) {
+      const mappedTags = REASON_TO_TAGS[reason];
+      if (mappedTags && mappedTags.length > 0) {
+        q = q.overlaps("tags", mappedTags);
+      } else {
+        q = q.contains("reason_category", [reason]);
+      }
+    }
     if (result) q = q.eq("decision_result", result);
     if (query) q = q.textSearch("search_vector", query.split(" ").join(" & "));
 
