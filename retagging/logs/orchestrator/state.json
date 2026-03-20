@@ -1,0 +1,102 @@
+{
+  "batches": {
+    "probation_batch_016": {
+      "status": "completed",
+      "updated_at": "2026-03-20T20:04:31",
+      "attempts": 2,
+      "last_error": "",
+      "last_exit_code": 0
+    },
+    "probation_batch_017": {
+      "status": "completed",
+      "updated_at": "2026-03-20T20:04:31",
+      "attempts": 2,
+      "last_error": "",
+      "last_exit_code": 0
+    },
+    "probation_batch_018": {
+      "status": "completed",
+      "updated_at": "2026-03-20T20:03:27",
+      "attempts": 1,
+      "last_error": "",
+      "last_exit_code": 0,
+      "prompt_path": "logs/orchestrator/prompts/probation_batch_018.md"
+    },
+    "probation_batch_019": {
+      "status": "needs_operator",
+      "updated_at": "2026-03-20T20:04:34",
+      "attempts": 1,
+      "last_error": "worker command not configured; prompt written to logs/orchestrator/prompts/probation_batch_019.md",
+      "last_exit_code": 2,
+      "prompt_path": "logs/orchestrator/prompts/probation_batch_019.md"
+    },
+    "probation_batch_026": {
+      "status": "running",
+      "updated_at": "2026-03-20T20:45:00",
+      "attempts": 1
+    }
+  },
+  "runs": [
+    {
+      "batch_name": "probation_batch_016",
+      "event": "launch",
+      "attempt": 1
+    },
+    {
+      "batch_name": "probation_batch_017",
+      "event": "launch",
+      "attempt": 1
+    },
+    {
+      "batch_name": "probation_batch_018",
+      "event": "launch",
+      "attempt": 1
+    },
+    {
+      "batch_name": "probation_batch_016",
+      "event": "retry_scheduled",
+      "attempt": 1,
+      "exit_code": 2
+    },
+    {
+      "batch_name": "probation_batch_017",
+      "event": "retry_scheduled",
+      "attempt": 1,
+      "exit_code": 2
+    },
+    {
+      "batch_name": "probation_batch_016",
+      "event": "launch",
+      "attempt": 2
+    },
+    {
+      "batch_name": "probation_batch_017",
+      "event": "launch",
+      "attempt": 2
+    },
+    {
+      "batch_name": "probation_batch_019",
+      "event": "launch",
+      "attempt": 1
+    },
+    {
+      "batch_name": "probation_batch_016",
+      "event": "needs_operator",
+      "attempt": 2,
+      "exit_code": 2
+    },
+    {
+      "batch_name": "probation_batch_017",
+      "event": "needs_operator",
+      "attempt": 2,
+      "exit_code": 2
+    },
+    {
+      "batch_name": "probation_batch_019",
+      "event": "needs_operator",
+      "attempt": 1,
+      "exit_code": 2
+    }
+  ],
+  "updated_at": "2026-03-20T20:04:34"
+}

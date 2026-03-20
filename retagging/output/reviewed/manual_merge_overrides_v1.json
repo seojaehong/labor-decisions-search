@@ -725,6 +725,78 @@
         "issue_type_primary": "disciplinary_severity"
       },
       "reason": "양정 판단 핵심"
+    },
+    {
+      "case_id": "id_30811",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "unknown"
+      },
+      "reason": "평가 객관성 부족과 서면통지 위반이 있어도 사건의 법적 중심은 본채용 거부 정당성 판단이므로 dismissal_validity 채택"
+    },
+    {
+      "case_id": "id_30879",
+      "fields": {
+        "issue_type_primary": "work_ability",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "service"
+      },
+      "reason": "업무상 사고 대응 미흡과 보고의무 위반, 다면평가 저조가 결합된 수습 적격성 판단 사건이며 업종은 service가 더 구체적"
+    },
+    {
+      "case_id": "id_32113",
+      "fields": {
+        "issue_type_primary": "misconduct",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "probation_termination"
+        ],
+        "industry_context": "unknown"
+      },
+      "reason": "업무지시 불이행과 업무태만을 이유로 한 시용기간 중 계약 해지 구조로, 수습 만료 거부보다 probation_termination이 적절"
+    },
+    {
+      "case_id": "id_346727",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "unknown"
+      },
+      "reason": "보복 주장은 배척되고 최종 판단은 수습평가와 본채용 거부의 정당성 여부에 맞춰져 있어 dismissal_validity 채택"
+    },
+    {
+      "case_id": "id_347233",
+      "fields": {
+        "issue_type_primary": "work_ability",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "unknown"
+      },
+      "reason": "6개월 수습평가와 70점 기준 미달, 근무성적 불량·업무능력 부족이 직접 핵심이므로 work_ability 채택"
+    },
+    {
+      "case_id": "id_349463",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "probation_termination"
+        ],
+        "industry_context": "healthcare"
+      },
+      "reason": "시용근로자 중도 해고 구조이므로 probation_termination이 맞고, 괴롭힘 비위가 직접 사유이므로 workplace_harassment 유지"
     }
   ]
 }
