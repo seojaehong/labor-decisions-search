@@ -100,7 +100,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   // Stage 1: 태그 기반 후보 검색 (AND → OR fallback)
   const { data: andCases } = await supabase
     .from('nlrc_decisions')
-    .select('id, title, decision_result, holding_points, tags, url, embedding')
+    .select('id, title, decision_result, holding_points, tags, url')
     .contains('tags', topTags)
     .not('holding_points', 'is', null)
     .limit(CANDIDATE_LIMIT);
@@ -110,7 +110,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   } else {
     const { data: orCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, tags, url, embedding')
+      .select('id, title, decision_result, holding_points, tags, url')
       .overlaps('tags', tags)
       .not('holding_points', 'is', null)
       .limit(CANDIDATE_LIMIT);
@@ -180,9 +180,21 @@ async function rerankByEmbedding(
   // 쿼리 임베딩 생성 (~100ms)
   const queryEmbedding = await getQueryEmbedding(query);
 
-  // 후보 중 임베딩이 있는 것만 유사도 계산
+  // 후보 ID로 임베딩만 별도 조회 (메타데이터 select에서 제외했으므로)
+  const ids = candidates.map((c) => c.id as string);
+  const { data: embeddingRows } = await supabase
+    .from('nlrc_decisions')
+    .select('id, embedding')
+    .in('id', ids);
+
+  const embeddingMap = new Map<string, number[]>();
+  for (const row of embeddingRows || []) {
+    if (row.embedding) embeddingMap.set(row.id, row.embedding);
+  }
+
+  // 유사도 계산
   const scored = candidates.map((c) => {
-    const embedding = c.embedding as number[] | null;
+    const embedding = embeddingMap.get(c.id as string);
     const similarity = embedding ? cosineSimilarity(queryEmbedding, embedding) : -1;
     return { ...c, _similarity: similarity };
   });
