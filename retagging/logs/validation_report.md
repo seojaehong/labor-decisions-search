@@ -1,100 +1,901 @@
-# validation_report
+# 재태깅 JSONL 검증 리포트
+검증 파일: 148개
+- absence_batch_001_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 12
+- absence_batch_002_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 7
+- absence_batch_003_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 10
+- absence_batch_004_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 12
+- absence_batch_005_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 10
+- absence_batch_006_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_007_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_008_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 1
+- absence_batch_009_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_010_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_011_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_012_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_013_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_014_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_015_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_016_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_017_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_018_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_019_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_020_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_021_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_022_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_023_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_024_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_025_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_026_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 1
+- absence_batch_027_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_028_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_029_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_030_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_031_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_032_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- absence_batch_033_reviewed.jsonl: 20건, 유효 20, 에러 0, 경고 0
+- absence_sample_reviewed.jsonl: 20건, 유효 20, 에러 0, 경고 9
+- incompetence_batch_001_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_002_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_003_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_004_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_005_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_006_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_007_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_008_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_009_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_010_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- incompetence_batch_011_reviewed.jsonl: 22건, 유효 22, 에러 0, 경고 0
+- incompetence_sample_reviewed.jsonl: 20건, 유효 20, 에러 0, 경고 0
+- probation_batch_001_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_002_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 29
+- probation_batch_003_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 23
+- probation_batch_004_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 25
+- probation_batch_005_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 26
+- probation_batch_006_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 4
+- probation_batch_007_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_008_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 11
+- probation_batch_009_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_010_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_011_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_012_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_013_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_014_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_015_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_016_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_017_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_018_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_019_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_020_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_021_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 4
+- probation_batch_022_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_023_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_024_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_025_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_026_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_027_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_028_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_029_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_030_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_031_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 3
+- probation_batch_032_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- probation_batch_033_reviewed.jsonl: 14건, 유효 14, 에러 0, 경고 0
+- probation_sample_reviewed.jsonl: 20건, 유효 20, 에러 0, 경고 12
+- violence_batch_001_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_002_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_003_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_004_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_005_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_006_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_007_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_008_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_009_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_010_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_011_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_012_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_013_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_014_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_015_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_016_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_017_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_018_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_019_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_020_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_021_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_022_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_023_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_024_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_025_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_026_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_027_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_028_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_029_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_030_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_031_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_032_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- violence_batch_033_reviewed.jsonl: 17건, 유효 17, 에러 0, 경고 0
+- violence_sample_reviewed.jsonl: 20건, 유효 20, 에러 0, 경고 0
+- workplace_bullying_batch_001_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 21
+- workplace_bullying_batch_002_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 26
+- workplace_bullying_batch_003_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 28
+- workplace_bullying_batch_004_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 29
+- workplace_bullying_batch_005_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 25
+- workplace_bullying_batch_006_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_007_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_008_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_009_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_010_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_011_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_012_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_013_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_014_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_015_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_016_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_017_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_018_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_019_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_020_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_021_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_022_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_023_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_024_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_025_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_026_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_027_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_028_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_029_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_030_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_031_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_032_reviewed.jsonl: 30건, 유효 30, 에러 0, 경고 0
+- workplace_bullying_batch_033_reviewed.jsonl: 19건, 유효 19, 에러 0, 경고 0
+- workplace_bullying_sample_reviewed.jsonl: 20건, 유효 20, 에러 0, 경고 2
 
-## 1. 개요
-- 작업 목적: merge 전 reviewed 입력의 형식/enum/중복/충돌 상태를 검증
-- 기준 문서:
-  - `prompts/merge_policy_v1.md`
-  - `prompts/validation_merge_checklist_v1.md`
-- 작업 루트: `/mnt/c/dev/labor-decisions-search/retagging`
+합계: 4332건, 유효 4332, 에러 0, 경고 719
 
-## 2. 검증 대상 파일
-- `output/reviewed/probation_sample_reviewed.jsonl`
-- `output/reviewed/violence_sample_reviewed.jsonl`
-- `output/reviewed/absence_sample_reviewed.jsonl`
-- `output/reviewed/incompetence_sample_reviewed.jsonl`
-- `output/reviewed/workplace_bullying_sample_reviewed.jsonl`
+## issue_type_primary 분포
+- disciplinary_severity: 1297
+- dismissal_validity: 822
+- misconduct: 514
+- work_ability: 374
+- workplace_harassment: 252
+- procedure: 251
+- renewal_expectation: 190
+- absence_without_leave: 189
+- transfer_validity: 165
+- unfair_treatment: 129
+- worker_status: 64
+- retaliation: 33
+- performance: 17
+- attendance: 9
+- discrimination: 6
+- redundancy: 5
+- wage_dispute: 4
+- harassment_investigation: 4
+- other: 3
+- low_sales: 2
+- harassment_report: 2
 
-## 3. 형식 검증
-- JSON parse 실패 건수: 0
-- 필수 필드 누락 건수: 0
-- `review_status != reviewed` 건수: 0
-- `tag_version != v1` 건수: 0
+## confidence 분포
+- high: 4064
+- medium: 266
+- low: 2
 
-## 4. enum 검증
-### 4-1. primary / stage / disposition
-- `issue_type_primary` enum 실패 건수: 0
-- `employment_stage` enum 실패 건수: 0
-- `disposition_type` enum 실패 건수: 0
-
-### 4-2. 배열형 필드 enum 검증
-- `issue_type_secondary` enum 실패 건수: 0
-- `fact_markers` enum 실패 건수: 0
-- `legal_focus` enum 실패 건수: 0
-- `exclusion_flags` enum 실패 건수: 0
-
-### 4-3. enum 실패 상세
-| case_id | field | invalid value | source file | 조치 |
-|--------|-------|---------------|-------------|------|
-| 없음 | - | - | - | - |
-
-## 5. case_id 중복 검증
-- 총 `case_id` 수: 100
-- 고유 `case_id` 수: 84
-- 중복 `case_id` 수: 15
-
-### 중복 상세
-| case_id | source file 수 | source 목록 | 자동 병합 후보 여부 |
-|--------|----------------|-------------|----------------------|
-| id_10051 | 2 | absence, workplace_bullying | 아니오 |
-| id_10075 | 2 | violence, workplace_bullying | 아니오 |
-| id_10207 | 2 | absence, violence | 아니오 |
-| id_10419 | 2 | incompetence, probation | 아니오 |
-| id_10555 | 2 | absence, workplace_bullying | 아니오 |
-
-## 6. 핵심 충돌 필드 검증
-### 6-1. `issue_type_primary` 충돌
-| case_id | source A | source B | 충돌 값 | 메모 |
-|--------|----------|----------|---------|------|
-| id_10075 | violence | workplace_bullying | workplace_harassment vs disciplinary_severity | 수동 판정 반영 |
-| id_10555 | absence | workplace_bullying | workplace_harassment vs misconduct | 수동 판정 반영 |
-
-### 6-2. `employment_stage` 충돌
-| case_id | source A | source B | 충돌 값 | 메모 |
-|--------|----------|----------|---------|------|
-| 없음 | - | - | - | - |
-
-### 6-3. `disposition_type` 충돌
-| case_id | source A | source B | 충돌 값 | 메모 |
-|--------|----------|----------|---------|------|
-| id_10207 | absence | violence | dismissal vs disciplinary_dismissal | 수동 판정 반영 |
-| id_10051 | absence | workplace_bullying | dismissal vs disciplinary_dismissal | 수동 판정 반영 |
-| id_10555 | absence | workplace_bullying | dismissal vs disciplinary_dismissal | 수동 판정 반영 |
-
-## 7. confidence / notes 검증
-- confidence 하향 조정 필요 후보 수: 1
-- notes 작성 권장 후보 수: 15
-
-### 후보 상세
-| case_id | 사유 | 권장 조치 |
-|--------|------|-----------|
-| id_10051 | 중복 source 병합 + disposition 수동 확정 | notes 유지 |
-| id_10075 | primary 수동 확정 | notes 유지 |
-| id_10207 | disposition 수동 확정 | notes 유지 |
-| id_10419 | industry_context 수동 확정 | notes 유지 |
-| id_10555 | 복합 충돌 수동 확정 | notes 유지 |
-
-## 8. merge 입력 적합성 판단
-- 즉시 merge 가능한 레코드 수: 79
-- 수동 검토 후 merge 가능한 레코드 수: 5
-- 보류 권장 레코드 수: 0
-
-## 9. 요약
-- 형식 검증 결과: 이상 없음
-- enum 검증 결과: 이상 없음
-- 중복/충돌 상태 요약: 총 5건의 중복 충돌이 있었고 모두 수동 판정으로 해소 가능
-- merge 실행 전 필수 조치: 수동 판정 5건을 병합 정책에 따라 반영
-
-## 10. 후속 메모
-- Claude Code / 스크립트 자동화 연결 포인트: 중복 감지 및 union은 자동화 가능, 핵심 충돌 필드는 수동 훅 필요
-- 추가 batch 유입 전까지 유지할 기준: 현재 merged_sample_v1.jsonl을 샘플 merged 기준본으로 유지
-- 사람이 최종 판단해야 할 필드: `issue_type_primary`, `employment_stage`, `disposition_type`, 대표 summary/retrieval_note 선택
+## 경고
+- [WARN]  absence_batch_001_reviewed.jsonl:2 (id_10563) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:6 (id_10863) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:14 (id_1103) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:16 (id_11047) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:17 (id_11087) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:18 (id_11151) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:19 (id_11157) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:21 (id_11205) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:22 (id_1123) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:26 (id_11339) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:28 (id_11411) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_001_reviewed.jsonl:29 (id_11467) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:1 (id_11569) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:3 (id_11661) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:9 (id_1187) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:14 (id_12055) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:18 (id_1229) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:20 (id_12341) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_002_reviewed.jsonl:24 (id_12463) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:1 (id_12649) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:6 (id_12813) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:7 (id_12841) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:9 (id_12913) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:13 (id_12987) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:16 (id_13063) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:19 (id_13173) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:20 (id_13175) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:25 (id_13389) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_003_reviewed.jsonl:26 (id_1339) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:2 (id_13591) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:5 (id_13629) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:6 (id_13653) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:8 (id_13715) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:14 (id_13807) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:19 (id_13907) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:20 (id_14055) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:21 (id_14057) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:24 (id_14127) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:26 (id_1419) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:27 (id_1423) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_004_reviewed.jsonl:30 (id_14357) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:3 (id_14435) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:7 (id_14729) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:8 (id_14755) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:10 (id_14795) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:13 (id_14837) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:17 (id_14969) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:22 (id_15115) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:23 (id_15159) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:24 (id_15177) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_005_reviewed.jsonl:28 (id_15219) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_batch_008_reviewed.jsonl:30 (id_17837) — legal_focus 내 허용값 밖: 'comparative_fairness'
+- [WARN]  absence_batch_026_reviewed.jsonl:26 (id_33141) — fact_markers 내 허용값 밖: 'attendance'
+- [WARN]  absence_sample_reviewed.jsonl:1 (id_10051) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:3 (id_10081) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:5 (id_10181) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:6 (id_10185) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:8 (id_1019) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:9 (id_10207) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:13 (id_10361) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:16 (id_10469) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  absence_sample_reviewed.jsonl:18 (id_10519) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:1 (id_1159) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:2 (id_11597) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:3 (id_1173) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:4 (id_11811) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:5 (id_11971) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:6 (id_11985) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:7 (id_12053) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:8 (id_12141) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:9 (id_12245) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:10 (id_12267) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:11 (id_12277) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:12 (id_12371) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:13 (id_12381) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:14 (id_12443) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:15 (id_12467) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:16 (id_12471) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:17 (id_12529) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:18 (id_1261) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:19 (id_12611) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:20 (id_12617) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:21 (id_12663) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:22 (id_12771) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:23 (id_12811) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:24 (id_1285) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:25 (id_12863) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:26 (id_12871) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:27 (id_12915) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:28 (id_12969) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_002_reviewed.jsonl:30 (id_13005) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:4 (id_13293) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:5 (id_13323) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:6 (id_13355) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:8 (id_13391) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:9 (id_13415) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:10 (id_13483) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:11 (id_13583) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:12 (id_13601) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:14 (id_13689) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:16 (id_1373) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:17 (id_13937) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:18 (id_13983) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:19 (id_14033) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:20 (id_14079) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:21 (id_14187) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:22 (id_14197) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:23 (id_14229) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:24 (id_14245) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:25 (id_14297) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:27 (id_1441) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:28 (id_1443) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:29 (id_14433) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_003_reviewed.jsonl:30 (id_14463) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:1 (id_14469) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:4 (id_14611) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:5 (id_14773) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:6 (id_14829) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:7 (id_14893) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:8 (id_14977) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:9 (id_15015) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:10 (id_15023) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:11 (id_15099) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:13 (id_15205) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:15 (id_15317) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:17 (id_15499) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:18 (id_15525) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:19 (id_15607) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:20 (id_15693) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:21 (id_15787) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:22 (id_15809) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:23 (id_15853) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:24 (id_15949) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:25 (id_15987) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:26 (id_16013) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:27 (id_16041) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:28 (id_16089) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:29 (id_16121) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_004_reviewed.jsonl:30 (id_16281) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:1 (id_16299) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:2 (id_16419) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:3 (id_16463) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:4 (id_16541) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:5 (id_16547) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:6 (id_16595) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:7 (id_16613) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:8 (id_16649) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:11 (id_16785) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:12 (id_16935) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:13 (id_1701) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:15 (id_17187) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:16 (id_1719) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:17 (id_17275) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:18 (id_17297) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:19 (id_17429) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:20 (id_17501) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:21 (id_17513) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:22 (id_17523) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:23 (id_17615) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:24 (id_17675) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:25 (id_17847) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:27 (id_17893) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:28 (id_17913) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:29 (id_17999) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_005_reviewed.jsonl:30 (id_18079) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_006_reviewed.jsonl:12 (id_18713) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_006_reviewed.jsonl:25 (id_19205) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_006_reviewed.jsonl:26 (id_19235) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_006_reviewed.jsonl:29 (id_19497) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:1 (id_20989) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:2 (id_2099) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:6 (id_21165) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:7 (id_21177) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:9 (id_21279) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:10 (id_2147) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:12 (id_21653) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:15 (id_21719) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:23 (id_21983) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:29 (id_22161) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_008_reviewed.jsonl:30 (id_22181) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_021_reviewed.jsonl:1 (id_34643) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_021_reviewed.jsonl:4 (id_346509) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_021_reviewed.jsonl:6 (id_346727) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_021_reviewed.jsonl:10 (id_346847) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_031_reviewed.jsonl:1 (id_40055) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_031_reviewed.jsonl:16 (id_401041) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_batch_031_reviewed.jsonl:29 (id_401643) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:1 (id_10061) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:2 (id_10081) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:3 (id_1009) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:4 (id_10093) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:5 (id_10127) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:6 (id_10181) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:7 (id_10191) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:9 (id_10265) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:10 (id_10267) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:11 (id_10293) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:14 (id_10419) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  probation_sample_reviewed.jsonl:20 (id_10527) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:2 (id_10819) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:4 (id_10901) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:5 (id_10913) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:6 (id_10929) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:7 (id_10963) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:8 (id_10989) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:9 (id_10991) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:10 (id_10995) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:11 (id_11021) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:13 (id_11137) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:14 (id_11245) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:15 (id_11277) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:17 (id_11339) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:18 (id_11387) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:21 (id_11595) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:22 (id_11619) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:24 (id_11693) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:25 (id_11717) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:27 (id_11761) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:28 (id_11829) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_001_reviewed.jsonl:29 (id_11877) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:1 (id_11911) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:3 (id_11981) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:4 (id_11999) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:6 (id_12013) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:8 (id_12065) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:9 (id_12075) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:10 (id_12117) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:11 (id_12171) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:12 (id_12189) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:13 (id_12333) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:14 (id_12335) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:15 (id_12359) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:16 (id_12383) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:17 (id_12423) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:18 (id_12485) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:19 (id_12491) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:20 (id_12497) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:21 (id_12573) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:22 (id_12583) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:23 (id_12593) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:24 (id_12609) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:25 (id_12667) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:26 (id_12679) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:28 (id_13297) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:29 (id_1331) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_002_reviewed.jsonl:30 (id_1409) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:1 (id_1513) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:2 (id_1521) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:3 (id_1551) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:4 (id_1577) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:5 (id_16071) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:6 (id_1611) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:7 (id_1615) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:8 (id_1643) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:9 (id_1757) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:10 (id_1763) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:11 (id_1813) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:12 (id_18237) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:13 (id_18545) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:14 (id_1855) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:15 (id_18983) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:17 (id_1987) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:18 (id_1989) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:19 (id_199) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:20 (id_20027) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:21 (id_2077) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:22 (id_2111) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:23 (id_213) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:24 (id_21815) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:25 (id_21941) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:26 (id_21959) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:28 (id_2267) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:29 (id_22973) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_003_reviewed.jsonl:30 (id_2313) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:1 (id_2351) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:2 (id_23811) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:3 (id_2383) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:4 (id_24097) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:5 (id_2475) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:6 (id_2491) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:7 (id_253) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:8 (id_255) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:9 (id_2573) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:10 (id_2591) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:11 (id_2605) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:12 (id_2629) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:13 (id_265) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:14 (id_26813) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:15 (id_2837) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:17 (id_2861) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:18 (id_28809) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:19 (id_2915) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:20 (id_2941) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:21 (id_2951) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:22 (id_2971) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:23 (id_2999) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:24 (id_3109) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:25 (id_31357) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:26 (id_3187) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:27 (id_32351) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:28 (id_33465) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:29 (id_3349) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_004_reviewed.jsonl:30 (id_33627) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:2 (id_3381) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:3 (id_343629) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:4 (id_343679) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:5 (id_343685) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:6 (id_343745) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:7 (id_343775) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:9 (id_343921) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:12 (id_343955) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:13 (id_343983) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:14 (id_344023) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:15 (id_344145) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:16 (id_344149) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:17 (id_344161) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:18 (id_344265) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:19 (id_344297) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:20 (id_344413) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:21 (id_344423) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:22 (id_344557) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:23 (id_344573) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:24 (id_344583) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:25 (id_344621) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:27 (id_344653) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:28 (id_344695) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:29 (id_344815) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_batch_005_reviewed.jsonl:30 (id_344869) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_sample_reviewed.jsonl:6 (id_10183) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  workplace_bullying_sample_reviewed.jsonl:16 (id_10489) — notes가 비어있음 — 검색 품질 개선에 유용한 정보가 누락될 수 있음
+- [WARN]  전체 — case_id 중복: 'id_10909' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10991' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11245' (3회)
+- [WARN]  전체 — case_id 중복: 'id_11257' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11339' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11473' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11877' (3회)
+- [WARN]  전체 — case_id 중복: 'id_11911' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11981' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12189' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12333' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12485' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12647' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12649' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1293' (2회)
+- [WARN]  전체 — case_id 중복: 'id_13419' (2회)
+- [WARN]  전체 — case_id 중복: 'id_13583' (2회)
+- [WARN]  전체 — case_id 중복: 'id_14469' (2회)
+- [WARN]  전체 — case_id 중복: 'id_14493' (2회)
+- [WARN]  전체 — case_id 중복: 'id_14663' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15177' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1521' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15229' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15317' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15389' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15419' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15837' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15949' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16069' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1611' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16121' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16145' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16301' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16541' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16693' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16743' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16845' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17201' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17247' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17275' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17297' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17367' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17501' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17557' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17809' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17837' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17909' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1807' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18121' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18237' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18321' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18403' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18541' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18567' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1861' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18983' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1903' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19139' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19187' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19329' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19451' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19497' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19541' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19569' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19927' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20365' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20441' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20589' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20683' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20711' (3회)
+- [WARN]  전체 — case_id 중복: 'id_20793' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20917' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21117' (3회)
+- [WARN]  전체 — case_id 중복: 'id_21165' (3회)
+- [WARN]  전체 — case_id 중복: 'id_21523' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21607' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21785' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22031' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22373' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22713' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22773' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22973' (3회)
+- [WARN]  전체 — case_id 중복: 'id_22983' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22997' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23003' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23179' (3회)
+- [WARN]  전체 — case_id 중복: 'id_23223' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23427' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23551' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23631' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23731' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23783' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24367' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24391' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24393' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24453' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24565' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24667' (3회)
+- [WARN]  전체 — case_id 중복: 'id_24671' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24703' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24737' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25077' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25105' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25157' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25423' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25605' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25655' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25883' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2591' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25991' (2회)
+- [WARN]  전체 — case_id 중복: 'id_26221' (2회)
+- [WARN]  전체 — case_id 중복: 'id_26615' (2회)
+- [WARN]  전체 — case_id 중복: 'id_26711' (2회)
+- [WARN]  전체 — case_id 중복: 'id_26787' (2회)
+- [WARN]  전체 — case_id 중복: 'id_26863' (2회)
+- [WARN]  전체 — case_id 중복: 'id_27275' (2회)
+- [WARN]  전체 — case_id 중복: 'id_27313' (2회)
+- [WARN]  전체 — case_id 중복: 'id_27413' (2회)
+- [WARN]  전체 — case_id 중복: 'id_27603' (2회)
+- [WARN]  전체 — case_id 중복: 'id_27803' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2803' (2회)
+- [WARN]  전체 — case_id 중복: 'id_28363' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2845' (2회)
+- [WARN]  전체 — case_id 중복: 'id_28517' (2회)
+- [WARN]  전체 — case_id 중복: 'id_28925' (2회)
+- [WARN]  전체 — case_id 중복: 'id_28937' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29081' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29083' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29271' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2943' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29563' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29751' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29993' (2회)
+- [WARN]  전체 — case_id 중복: 'id_30085' (3회)
+- [WARN]  전체 — case_id 중복: 'id_30117' (2회)
+- [WARN]  전체 — case_id 중복: 'id_30665' (2회)
+- [WARN]  전체 — case_id 중복: 'id_30861' (2회)
+- [WARN]  전체 — case_id 중복: 'id_30907' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3091' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31083' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31167' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31209' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31231' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31235' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31317' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31635' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31647' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31767' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31989' (2회)
+- [WARN]  전체 — case_id 중복: 'id_32017' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3217' (2회)
+- [WARN]  전체 — case_id 중복: 'id_32517' (2회)
+- [WARN]  전체 — case_id 중복: 'id_32781' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33097' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33279' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33501' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33627' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3363' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33689' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33859' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34007' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34145' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34307' (2회)
+- [WARN]  전체 — case_id 중복: 'id_343855' (2회)
+- [WARN]  전체 — case_id 중복: 'id_343997' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34403' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344109' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344179' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344187' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34441' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344417' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344423' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344535' (3회)
+- [WARN]  전체 — case_id 중복: 'id_344625' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344653' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344699' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344881' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345015' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345077' (3회)
+- [WARN]  전체 — case_id 중복: 'id_345231' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345365' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345433' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345475' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346187' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346507' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346845' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347' (3회)
+- [WARN]  전체 — case_id 중복: 'id_34737' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347389' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347391' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347649' (3회)
+- [WARN]  전체 — case_id 중복: 'id_347891' (3회)
+- [WARN]  전체 — case_id 중복: 'id_347949' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348149' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34819' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348451' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348555' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348721' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348839' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10051' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10081' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10181' (3회)
+- [WARN]  전체 — case_id 중복: 'id_10187' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1019' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10207' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10237' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10555' (2회)
+- [WARN]  전체 — case_id 중복: 'id_13323' (2회)
+- [WARN]  전체 — case_id 중복: 'id_14463' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16547' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16785' (2회)
+- [WARN]  전체 — case_id 중복: 'id_17591' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18717' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19041' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19061' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19179' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19235' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19645' (2회)
+- [WARN]  전체 — case_id 중복: 'id_19741' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20035' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20159' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20289' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20753' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20815' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21037' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21177' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21941' (3회)
+- [WARN]  전체 — case_id 중복: 'id_22147' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23379' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2345' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24147' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24207' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25071' (2회)
+- [WARN]  전체 — case_id 중복: 'id_25631' (2회)
+- [WARN]  전체 — case_id 중복: 'id_26635' (2회)
+- [WARN]  전체 — case_id 중복: 'id_28511' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29041' (2회)
+- [WARN]  전체 — case_id 중복: 'id_29137' (3회)
+- [WARN]  전체 — case_id 중복: 'id_30811' (2회)
+- [WARN]  전체 — case_id 중복: 'id_30879' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31867' (2회)
+- [WARN]  전체 — case_id 중복: 'id_32113' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33125' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3321' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33735' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34167' (2회)
+- [WARN]  전체 — case_id 중복: 'id_343439' (2회)
+- [WARN]  전체 — case_id 중복: 'id_343669' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344265' (3회)
+- [WARN]  전체 — case_id 중복: 'id_34455' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34477' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344901' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345371' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345837' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347233' (3회)
+- [WARN]  전체 — case_id 중복: 'id_347593' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348399' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348477' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348727' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348735' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348909' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348983' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349243' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349675' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350053' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3501' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350209' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350429' (2회)
+- [WARN]  전체 — case_id 중복: 'id_35963' (2회)
+- [WARN]  전체 — case_id 중복: 'id_36271' (2회)
+- [WARN]  전체 — case_id 중복: 'id_37033' (2회)
+- [WARN]  전체 — case_id 중복: 'id_37423' (2회)
+- [WARN]  전체 — case_id 중복: 'id_37665' (2회)
+- [WARN]  전체 — case_id 중복: 'id_37669' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3793' (2회)
+- [WARN]  전체 — case_id 중복: 'id_38289' (2회)
+- [WARN]  전체 — case_id 중복: 'id_38957' (2회)
+- [WARN]  전체 — case_id 중복: 'id_38983' (2회)
+- [WARN]  전체 — case_id 중복: 'id_39693' (2회)
+- [WARN]  전체 — case_id 중복: 'id_400023' (2회)
+- [WARN]  전체 — case_id 중복: 'id_400045' (2회)
+- [WARN]  전체 — case_id 중복: 'id_400879' (2회)
+- [WARN]  전체 — case_id 중복: 'id_401885' (2회)
+- [WARN]  전체 — case_id 중복: 'id_43641' (2회)
+- [WARN]  전체 — case_id 중복: 'id_43873' (2회)
+- [WARN]  전체 — case_id 중복: 'id_45849' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10293' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10419' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12371' (2회)
+- [WARN]  전체 — case_id 중복: 'id_13359' (2회)
+- [WARN]  전체 — case_id 중복: 'id_13415' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1441' (2회)
+- [WARN]  전체 — case_id 중복: 'id_15147' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16613' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16649' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18167' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20461' (2회)
+- [WARN]  전체 — case_id 중복: 'id_20925' (2회)
+- [WARN]  전체 — case_id 중복: 'id_21121' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2267' (2회)
+- [WARN]  전체 — case_id 중복: 'id_22869' (2회)
+- [WARN]  전체 — case_id 중복: 'id_23447' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2971' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31517' (2회)
+- [WARN]  전체 — case_id 중복: 'id_32209' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33087' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346727' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347625' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34903' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349463' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350303' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350539' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350887' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350969' (2회)
+- [WARN]  전체 — case_id 중복: 'id_351039' (2회)
+- [WARN]  전체 — case_id 중복: 'id_351757' (3회)
+- [WARN]  전체 — case_id 중복: 'id_351861' (2회)
+- [WARN]  전체 — case_id 중복: 'id_38763' (2회)
+- [WARN]  전체 — case_id 중복: 'id_402045' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10191' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10465' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11137' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11387' (2회)
+- [WARN]  전체 — case_id 중복: 'id_11829' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12013' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12171' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12383' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12491' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12497' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12573' (2회)
+- [WARN]  전체 — case_id 중복: 'id_12685' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1331' (2회)
+- [WARN]  전체 — case_id 중복: 'id_16071' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1813' (2회)
+- [WARN]  전체 — case_id 중복: 'id_18545' (2회)
+- [WARN]  전체 — case_id 중복: 'id_1989' (2회)
+- [WARN]  전체 — case_id 중복: 'id_199' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2313' (2회)
+- [WARN]  전체 — case_id 중복: 'id_24097' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2491' (2회)
+- [WARN]  전체 — case_id 중복: 'id_255' (2회)
+- [WARN]  전체 — case_id 중복: 'id_2629' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3109' (2회)
+- [WARN]  전체 — case_id 중복: 'id_31357' (2회)
+- [WARN]  전체 — case_id 중복: 'id_32351' (2회)
+- [WARN]  전체 — case_id 중복: 'id_33465' (2회)
+- [WARN]  전체 — case_id 중복: 'id_3349' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344023' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344297' (2회)
+- [WARN]  전체 — case_id 중복: 'id_344961' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345019' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345285' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345833' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345873' (2회)
+- [WARN]  전체 — case_id 중복: 'id_345891' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346245' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346277' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346297' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346409' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346501' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34673' (2회)
+- [WARN]  전체 — case_id 중복: 'id_346931' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347045' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347245' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347483' (2회)
+- [WARN]  전체 — case_id 중복: 'id_347711' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348213' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348333' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348373' (2회)
+- [WARN]  전체 — case_id 중복: 'id_348861' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34905' (2회)
+- [WARN]  전체 — case_id 중복: 'id_34915' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349227' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349273' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349459' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349757' (2회)
+- [WARN]  전체 — case_id 중복: 'id_349773' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350089' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350349' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350431' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350459' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350497' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350625' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350935' (2회)
+- [WARN]  전체 — case_id 중복: 'id_350985' (2회)
+- [WARN]  전체 — case_id 중복: 'id_351527' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10075' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10111' (2회)
+- [WARN]  전체 — case_id 중복: 'id_10325' (2회)

@@ -1,24 +1,73 @@
 {
   "_description": "수동 충돌 판정 결과. merge 시 이 파일의 값이 자동 병합 결과를 override한다.",
-  "_source": "merge_collisions_report.md 수동 검토 (2026-03-20, 1차+2차 bulk + 33건 PM adjudication)",
+  "_source": "merge_collisions_report.md 수동 검토 (2026-03-20, 1차+2차 bulk + 33건 PM adjudication) + 2026-03-21 collision adjudication + 2026-03-21 04:22 PM report sync",
   "_version": "v1",
   "overrides": [
     {
-      "case_id": "id_10419",
-      "fields": {
-        "industry_context": "office"
-      },
-      "reason": "관리직 수습평가, 보고·소통 역량 부족, 관리직 평가체계가 핵심이라 office가 더 구체적"
-    },
-    {
-      "case_id": "id_10207",
+      "case_id": "id_347",
       "fields": {
         "issue_type_primary": "disciplinary_severity",
         "disposition_type": [
           "disciplinary_dismissal"
         ]
       },
-      "reason": "징계사유 일부 인정 후 해고 양정 과다 판단 구조. 일반 해고보다 징계해고 사건으로 보는 것이 정확"
+      "reason": "28일 무단결근이 중대하지만 판정 구조는 징계사유 인정 후 해고 양정·절차 심사에 가까워 disciplinary_severity/disciplinary_dismissal 채택"
+    },
+    {
+      "case_id": "id_1293",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "공공기관 평가절차 위반·이메일 조롱"
+    },
+    {
+      "case_id": "id_1441",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "시용기간 중 해고 정당성 판단"
+    },
+    {
+      "case_id": "id_1521",
+      "fields": {
+        "industry_context": "finance"
+      },
+      "reason": "법인카드 부정사용 포함, 금융기관"
+    },
+    {
+      "case_id": "id_1807",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "28일 무단결근이 핵심 징계사유"
+    },
+    {
+      "case_id": "id_1861",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "부적절 관계+무단결근 복합비위, 비위 존부가 핵심"
+    },
+    {
+      "case_id": "id_1903",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "지시거부+폭언 비위 존부 다툼이 핵심"
+    },
+    {
+      "case_id": "id_2345",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "수습 완료 후 정규직 상태 직권면직, 수습과 무관한 해고 정당성"
+    },
+    {
+      "case_id": "id_3349",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
     },
     {
       "case_id": "id_10051",
@@ -41,6 +90,23 @@
       "reason": "괴롭힘이 비위이긴 하나 판정 중심은 정직 2회 이후 누적 비위에 대한 해고 수위 정당성. disciplinary_severity가 적합"
     },
     {
+      "case_id": "id_10207",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "징계사유 일부 인정 후 해고 양정 과다 판단 구조. 일반 해고보다 징계해고 사건으로 보는 것이 정확"
+    },
+    {
+      "case_id": "id_10419",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "관리직 수습평가, 보고·소통 역량 부족, 관리직 평가체계가 핵심이라 office가 더 구체적"
+    },
+    {
       "case_id": "id_10555",
       "fields": {
         "issue_type_primary": "misconduct",
@@ -51,16 +117,56 @@
       "reason": "무단결근·물품유용·퇴사종용·폭언 복합 비위. 괴롭힘 단일 사건이 아닌 다수 징계사유 종합 판단 구조"
     },
     {
-      "case_id": "id_14663",
+      "case_id": "id_10909",
       "fields": {
-        "issue_type_primary": "disciplinary_severity",
-        "employment_stage": "regular",
+        "industry_context": "manufacturing"
+      },
+      "reason": "공장 생산량 감소·폭행이 핵심, 공공기관 아닌 제조현장"
+    },
+    {
+      "case_id": "id_10991",
+      "fields": {
         "disposition_type": [
           "disciplinary_dismissal"
         ],
-        "industry_context": "healthcare"
+        "industry_context": "public"
       },
-      "reason": "징계사유 인정되나 사직권고 3회·전보 미검토로 양정 과다가 핵심. 의료/조리 분야"
+      "reason": "업무지시 불이행+무단결근 징계해고"
+    },
+    {
+      "case_id": "id_11137",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "유인물 게시·명예훼손·괴롭힘·폭행 복합비위, misconduct가 포괄적"
+    },
+    {
+      "case_id": "id_11245",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "고객 컴플레인+괴롭힘+근태불량 징계사유 인정 후 양정 판단"
+    },
+    {
+      "case_id": "id_11257",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "가맹점 직원 폭행·무단취식, 서비스업 현장"
+    },
+    {
+      "case_id": "id_11339",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "무단결근 해고 정당성이 핵심, 괴롭힘 주장은 항변"
+    },
+    {
+      "case_id": "id_11387",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "성희롱+폭언 징계사유 인정 후 해고 양정 판단"
     },
     {
       "case_id": "id_11473",
@@ -75,6 +181,147 @@
       "reason": "시용근로자 여부 + 본채용 거부 정당성이 판정 프레임. 업무능력 자체가 아닌 법적 구조 판단"
     },
     {
+      "case_id": "id_11829",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "폭행 징계사유 인정되나 해고 양정 과다 여부가 핵심"
+    },
+    {
+      "case_id": "id_11877",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "괴롭힘 신고 후 해고, 징계사유 전제 구조"
+    },
+    {
+      "case_id": "id_11911",
+      "fields": {
+        "issue_type_primary": "unfair_treatment",
+        "industry_context": "public"
+      },
+      "reason": "근무태만 징계 중 괴롭힘 신고→불이익 구조, 공공기관"
+    },
+    {
+      "case_id": "id_11981",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "괴롭힘+규정위반+무단이탈 징계해고"
+    },
+    {
+      "case_id": "id_12013",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "폭언·괴롭힘 징계사유 인정, 정직 15일 양정 적정성 판단"
+    },
+    {
+      "case_id": "id_12171",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "장기간 폭언·괴롭힘 징계, 양정 적정성 핵심"
+    },
+    {
+      "case_id": "id_12189",
+      "fields": {
+        "industry_context": "manufacturing"
+      },
+      "reason": "안전모 미착용·폐기물 수거 태만, 제조/건설 현장"
+    },
+    {
+      "case_id": "id_12333",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "성희롱+괴롭힘+지시위반 복합 징계해고"
+    },
+    {
+      "case_id": "id_12371",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "healthcare"
+      },
+      "reason": "시용기간 해고 정당성이 핵심, 의료기관"
+    },
+    {
+      "case_id": "id_12383",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "괴롭힘 징계사유 인정되나 해고 양정 과다"
+    },
+    {
+      "case_id": "id_12485",
+      "fields": {
+        "disposition_type": [
+          "dismissal",
+          "transfer"
+        ]
+      },
+      "reason": "직권면직+금전보상, 전보도 포함"
+    },
+    {
+      "case_id": "id_12491",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "감봉 양정 적정성이 핵심, 괴롭힘 일부 인정"
+    },
+    {
+      "case_id": "id_12497",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "괴롭힘 징계사유 인정 후 해고 양정 상당성 판단"
+    },
+    {
+      "case_id": "id_12573",
+      "fields": {
+        "issue_type_primary": "procedure"
+      },
+      "reason": "전보 제척기간 도과+감봉 징계 절차 판단"
+    },
+    {
+      "case_id": "id_12647",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "pay_cut"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "정직+감봉 복합처분, 공공기관"
+    },
+    {
+      "case_id": "id_12649",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "transfer"
+        ]
+      },
+      "reason": "정직+전보 복합처분"
+    },
+    {
+      "case_id": "id_12685",
+      "fields": {
+        "disposition_type": [
+          "demotion",
+          "dismissal"
+        ]
+      },
+      "reason": "강등+징계, 괴롭힘 일부 인정"
+    },
+    {
       "case_id": "id_13323",
       "fields": {
         "issue_type_primary": "dismissal_validity",
@@ -85,6 +332,27 @@
         "industry_context": "manufacturing"
       },
       "reason": "수습 만료 후 정식근로자 확인이 선결쟁점. 이미 정식 전환된 상태에서의 해고 정당성 판단"
+    },
+    {
+      "case_id": "id_13359",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "수습기간 만료 전 해약권 행사 여부가 핵심"
+    },
+    {
+      "case_id": "id_13415",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습 3개월 서비스직"
+    },
+    {
+      "case_id": "id_13419",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "정직 양정 과다 여부가 결론 좌우"
     },
     {
       "case_id": "id_13583",
@@ -111,6 +379,17 @@
       "reason": "징계사유 4개 인정+절차 적법 후 수습 중 해고 양정 적정성이 핵심. 교육기관"
     },
     {
+      "case_id": "id_14469",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": [
+          "probation_termination"
+        ],
+        "industry_context": "education"
+      },
+      "reason": "수습 중 징계 6개 사유 4개 인정, 양정 판단이 핵심. 교육기관"
+    },
+    {
       "case_id": "id_14493",
       "fields": {
         "issue_type_primary": "dismissal_validity",
@@ -121,6 +400,27 @@
         "industry_context": "service"
       },
       "reason": "업무범위 설명 부재+계약서 미명시가 핵심. 해고사유로 삼은 업무가 계약 내용인지 판단"
+    },
+    {
+      "case_id": "id_14663",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "employment_stage": "regular",
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "healthcare"
+      },
+      "reason": "징계사유 인정되나 사직권고 3회·전보 미검토로 양정 과다가 핵심. 의료/조리 분야"
+    },
+    {
+      "case_id": "id_15147",
+      "fields": {
+        "disposition_type": [
+          "dismissal"
+        ]
+      },
+      "reason": "대기발령→해고 구조, 징계 아닌 일반 해고"
     },
     {
       "case_id": "id_16547",
@@ -134,268 +434,53 @@
       "reason": "수습근로자 확인+본채용 거부 정당성이 핵심. work_ability보다 dismissal_validity가 판정 프레임"
     },
     {
-      "case_id": "id_10909",
-      "fields": {
-        "industry_context": "manufacturing"
-      },
-      "reason": "공장 생산량 감소·폭행이 핵심, 공공기관 아닌 제조현장"
-    },
-    {
-      "case_id": "id_11257",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "가맹점 직원 폭행·무단취식, 서비스업 현장"
-    },
-    {
-      "case_id": "id_1293",
-      "fields": {
-        "industry_context": "public"
-      },
-      "reason": "공공기관 평가절차 위반·이메일 조롱"
-    },
-    {
-      "case_id": "id_13415",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습 3개월 서비스직"
-    },
-    {
-      "case_id": "id_12189",
-      "fields": {
-        "industry_context": "manufacturing"
-      },
-      "reason": "안전모 미착용·폐기물 수거 태만, 제조/건설 현장"
-    },
-    {
-      "case_id": "id_1521",
-      "fields": {
-        "industry_context": "finance"
-      },
-      "reason": "법인카드 부정사용 포함, 금융기관"
-    },
-    {
-      "case_id": "id_11877",
-      "fields": {
-        "disposition_type": [
-          "disciplinary_dismissal"
-        ]
-      },
-      "reason": "괴롭힘 신고 후 해고, 징계사유 전제 구조"
-    },
-    {
-      "case_id": "id_12647",
-      "fields": {
-        "disposition_type": [
-          "suspension",
-          "pay_cut"
-        ],
-        "industry_context": "public"
-      },
-      "reason": "정직+감봉 복합처분, 공공기관"
-    },
-    {
-      "case_id": "id_12649",
-      "fields": {
-        "disposition_type": [
-          "suspension",
-          "transfer"
-        ]
-      },
-      "reason": "정직+전보 복합처분"
-    },
-    {
-      "case_id": "id_15147",
-      "fields": {
-        "disposition_type": [
-          "dismissal"
-        ]
-      },
-      "reason": "대기발령→해고 구조, 징계 아닌 일반 해고"
-    },
-    {
-      "case_id": "id_10991",
-      "fields": {
-        "disposition_type": [
-          "disciplinary_dismissal"
-        ],
-        "industry_context": "public"
-      },
-      "reason": "업무지시 불이행+무단결근 징계해고"
-    },
-    {
-      "case_id": "id_11981",
-      "fields": {
-        "disposition_type": [
-          "disciplinary_dismissal"
-        ],
-        "industry_context": "public"
-      },
-      "reason": "괴롭힘+규정위반+무단이탈 징계해고"
-    },
-    {
-      "case_id": "id_12333",
-      "fields": {
-        "disposition_type": [
-          "disciplinary_dismissal"
-        ]
-      },
-      "reason": "성희롱+괴롭힘+지시위반 복합 징계해고"
-    },
-    {
-      "case_id": "id_12485",
-      "fields": {
-        "disposition_type": [
-          "dismissal",
-          "transfer"
-        ]
-      },
-      "reason": "직권면직+금전보상, 전보도 포함"
-    },
-    {
-      "case_id": "id_12685",
-      "fields": {
-        "disposition_type": [
-          "demotion",
-          "dismissal"
-        ]
-      },
-      "reason": "강등+징계, 괴롭힘 일부 인정"
-    },
-    {
-      "case_id": "id_21941",
-      "fields": {
-        "disposition_type": [
-          "disciplinary_dismissal"
-        ]
-      },
-      "reason": "업무능력 부족 징계해고, 최하위 근무평정"
-    },
-    {
-      "case_id": "id_11245",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "고객 컴플레인+괴롭힘+근태불량 징계사유 인정 후 양정 판단"
-    },
-    {
-      "case_id": "id_12371",
-      "fields": {
-        "issue_type_primary": "dismissal_validity",
-        "industry_context": "healthcare"
-      },
-      "reason": "시용기간 해고 정당성이 핵심, 의료기관"
-    },
-    {
-      "case_id": "id_13359",
-      "fields": {
-        "issue_type_primary": "dismissal_validity"
-      },
-      "reason": "수습기간 만료 전 해약권 행사 여부가 핵심"
-    },
-    {
-      "case_id": "id_13419",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "정직 양정 과다 여부가 결론 좌우"
-    },
-    {
-      "case_id": "id_1441",
-      "fields": {
-        "issue_type_primary": "dismissal_validity"
-      },
-      "reason": "시용기간 중 해고 정당성 판단"
-    },
-    {
-      "case_id": "id_11137",
-      "fields": {
-        "issue_type_primary": "misconduct"
-      },
-      "reason": "유인물 게시·명예훼손·괴롭힘·폭행 복합비위, misconduct가 포괄적"
-    },
-    {
-      "case_id": "id_11339",
-      "fields": {
-        "issue_type_primary": "dismissal_validity"
-      },
-      "reason": "무단결근 해고 정당성이 핵심, 괴롭힘 주장은 항변"
-    },
-    {
-      "case_id": "id_11387",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "성희롱+폭언 징계사유 인정 후 해고 양정 판단"
-    },
-    {
-      "case_id": "id_11829",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "폭행 징계사유 인정되나 해고 양정 과다 여부가 핵심"
-    },
-    {
-      "case_id": "id_12013",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "폭언·괴롭힘 징계사유 인정, 정직 15일 양정 적정성 판단"
-    },
-    {
-      "case_id": "id_12171",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "장기간 폭언·괴롭힘 징계, 양정 적정성 핵심"
-    },
-    {
-      "case_id": "id_12383",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "괴롭힘 징계사유 인정되나 해고 양정 과다"
-    },
-    {
-      "case_id": "id_12491",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "감봉 양정 적정성이 핵심, 괴롭힘 일부 인정"
-    },
-    {
-      "case_id": "id_12497",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "괴롭힘 징계사유 인정 후 해고 양정 상당성 판단"
-    },
-    {
-      "case_id": "id_12573",
+      "case_id": "id_16613",
       "fields": {
         "issue_type_primary": "procedure"
       },
-      "reason": "전보 제척기간 도과+감봉 징계 절차 판단"
+      "reason": "경위서/서면경고 없이 징계, 절차하자가 결론 좌우"
     },
     {
-      "case_id": "id_14469",
+      "case_id": "id_16649",
       "fields": {
-        "issue_type_primary": "disciplinary_severity",
-        "disposition_type": [
-          "probation_termination"
-        ],
-        "industry_context": "education"
+        "industry_context": "service"
       },
-      "reason": "수습 중 징계 6개 사유 4개 인정, 양정 판단이 핵심. 교육기관"
+      "reason": "미화원 관리직 수습, 서비스업"
     },
     {
-      "case_id": "id_11911",
+      "case_id": "id_17201",
       "fields": {
-        "issue_type_primary": "unfair_treatment",
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "결근사유 증명서류+승인 미제출 무단결근이 핵심 징계사유"
+    },
+    {
+      "case_id": "id_17247",
+      "fields": {
         "industry_context": "public"
       },
-      "reason": "근무태만 징계 중 괴롭힘 신고→불이익 구조, 공공기관"
+      "reason": "6회 무단이탈+근무태도 불량, 공공기관"
+    },
+    {
+      "case_id": "id_17591",
+      "fields": {
+        "industry_context": "education"
+      },
+      "reason": "2년 기간제 근로계약, 교육기관"
+    },
+    {
+      "case_id": "id_17909",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "폭행 징계사유 인정되나 16년 장기근속 대비 양정 과다"
+    },
+    {
+      "case_id": "id_18321",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "1년 기간제 시용, 서비스업"
     },
     {
       "case_id": "id_19041",
@@ -419,6 +504,13 @@
       "reason": "특수경비원 복종의무 위반이 핵심, 업무능력 아닌 비위"
     },
     {
+      "case_id": "id_19187",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
       "case_id": "id_19235",
       "fields": {
         "industry_context": "office"
@@ -426,18 +518,11 @@
       "reason": "본채용 거부, 사무직 평가"
     },
     {
-      "case_id": "id_16613",
+      "case_id": "id_19645",
       "fields": {
-        "issue_type_primary": "procedure"
+        "industry_context": "office"
       },
-      "reason": "경위서/서면경고 없이 징계, 절차하자가 결론 좌우"
-    },
-    {
-      "case_id": "id_16649",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "미화원 관리직 수습, 서비스업"
+      "reason": "PIP 평가 기반 해고, 사무직"
     },
     {
       "case_id": "id_20035",
@@ -454,6 +539,34 @@
       "reason": "수습평가 기반 본채용 거부, 교육"
     },
     {
+      "case_id": "id_20365",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건"
+    },
+    {
+      "case_id": "id_20441",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "원본 정보 부족"
+    },
+    {
+      "case_id": "id_20589",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "원본 정보 부족"
+    },
+    {
+      "case_id": "id_20711",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "시용 2-3일차 무단이탈+폭언+SNS 비위 존부"
+    },
+    {
       "case_id": "id_20753",
       "fields": {
         "issue_type_primary": "dismissal_validity"
@@ -468,11 +581,11 @@
       "reason": "수습평가 부적격, 사무직"
     },
     {
-      "case_id": "id_17591",
+      "case_id": "id_20925",
       "fields": {
-        "industry_context": "education"
+        "industry_context": "service"
       },
-      "reason": "2년 기간제 근로계약, 교육기관"
+      "reason": "수습/시용 사건, 자동 판정"
     },
     {
       "case_id": "id_21037",
@@ -480,125 +593,6 @@
         "issue_type_primary": "procedure"
       },
       "reason": "본채용 거부 서면통지 구체성 부족이 결론 좌우. 실체사유보다 절차"
-    },
-    {
-      "case_id": "id_21177",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "시용기간 본채용 거부, 서비스직"
-    },
-    {
-      "case_id": "id_17201",
-      "fields": {
-        "issue_type_primary": "absence_without_leave"
-      },
-      "reason": "결근사유 증명서류+승인 미제출 무단결근이 핵심 징계사유"
-    },
-    {
-      "case_id": "id_17247",
-      "fields": {
-        "industry_context": "public"
-      },
-      "reason": "6회 무단이탈+근무태도 불량, 공공기관"
-    },
-    {
-      "case_id": "id_18321",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "1년 기간제 시용, 서비스업"
-    },
-    {
-      "case_id": "id_23379",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "전화상담원 판촉, 서비스업"
-    },
-    {
-      "case_id": "id_2345",
-      "fields": {
-        "issue_type_primary": "dismissal_validity"
-      },
-      "reason": "수습 완료 후 정규직 상태 직권면직, 수습과 무관한 해고 정당성"
-    },
-    {
-      "case_id": "id_17909",
-      "fields": {
-        "issue_type_primary": "disciplinary_severity"
-      },
-      "reason": "폭행 징계사유 인정되나 16년 장기근속 대비 양정 과다"
-    },
-    {
-      "case_id": "id_1807",
-      "fields": {
-        "issue_type_primary": "absence_without_leave"
-      },
-      "reason": "28일 무단결근이 핵심 징계사유"
-    },
-    {
-      "case_id": "id_19645",
-      "fields": {
-        "industry_context": "office"
-      },
-      "reason": "PIP 평가 기반 해고, 사무직"
-    },
-    {
-      "case_id": "id_24147",
-      "fields": {
-        "industry_context": "office"
-      },
-      "reason": "시용 3개월 정식채용 전 평가, 사무직"
-    },
-    {
-      "case_id": "id_24207",
-      "fields": {
-        "industry_context": "manufacturing"
-      },
-      "reason": "수습사원 관리지침 평가, 제조업"
-    },
-    {
-      "case_id": "id_1861",
-      "fields": {
-        "issue_type_primary": "misconduct"
-      },
-      "reason": "부적절 관계+무단결근 복합비위, 비위 존부가 핵심"
-    },
-    {
-      "case_id": "id_1903",
-      "fields": {
-        "issue_type_primary": "misconduct"
-      },
-      "reason": "지시거부+폭언 비위 존부 다툼이 핵심"
-    },
-    {
-      "case_id": "id_20711",
-      "fields": {
-        "issue_type_primary": "misconduct"
-      },
-      "reason": "시용 2-3일차 무단이탈+폭언+SNS 비위 존부"
-    },
-    {
-      "case_id": "id_19187",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습/시용 사건, 자동 판정"
-    },
-    {
-      "case_id": "id_25071",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습/시용 사건, 자동 판정"
-    },
-    {
-      "case_id": "id_20925",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습/시용 사건, 자동 판정"
     },
     {
       "case_id": "id_21117",
@@ -622,60 +616,11 @@
       "reason": "수습/시용 사건, 자동 판정"
     },
     {
-      "case_id": "id_20365",
+      "case_id": "id_21177",
       "fields": {
         "industry_context": "service"
       },
-      "reason": "수습/시용 사건"
-    },
-    {
-      "case_id": "id_26635",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습/시용 사건"
-    },
-    {
-      "case_id": "id_20441",
-      "fields": {
-        "industry_context": "unknown"
-      },
-      "reason": "원본 정보 부족"
-    },
-    {
-      "case_id": "id_20589",
-      "fields": {
-        "industry_context": "unknown"
-      },
-      "reason": "원본 정보 부족"
-    },
-    {
-      "case_id": "id_21607",
-      "fields": {
-        "industry_context": "unknown"
-      },
-      "reason": "자동 판정"
-    },
-    {
-      "case_id": "id_28511",
-      "fields": {
-        "industry_context": "unknown"
-      },
-      "reason": "자동 판정"
-    },
-    {
-      "case_id": "id_29041",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습 사건"
-    },
-    {
-      "case_id": "id_29137",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습 사건"
+      "reason": "시용기간 본채용 거부, 서비스직"
     },
     {
       "case_id": "id_21523",
@@ -685,11 +630,41 @@
       "reason": "비위 인정 후 양정"
     },
     {
+      "case_id": "id_21607",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "자동 판정"
+    },
+    {
       "case_id": "id_21785",
       "fields": {
         "issue_type_primary": "disciplinary_severity"
       },
       "reason": "비위 인정 후 양정"
+    },
+    {
+      "case_id": "id_21941",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "업무능력 부족 징계해고, 최하위 근무평정"
+    },
+    {
+      "case_id": "id_22373",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "양정 판단 핵심"
+    },
+    {
+      "case_id": "id_22773",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "양정 판단 핵심"
     },
     {
       "case_id": "id_22869",
@@ -706,6 +681,13 @@
       "reason": "비위 인정 후 양정"
     },
     {
+      "case_id": "id_23379",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "전화상담원 판촉, 서비스업"
+    },
+    {
       "case_id": "id_23447",
       "fields": {
         "industry_context": "unknown"
@@ -713,18 +695,125 @@
       "reason": "자동 판정"
     },
     {
-      "case_id": "id_22373",
+      "case_id": "id_23631",
       "fields": {
-        "issue_type_primary": "disciplinary_severity"
+        "disposition_type": [
+          "probation_termination",
+          "rejection_of_regular_employment"
+        ]
       },
-      "reason": "양정 판단 핵심"
+      "reason": "2인 복합 사건으로 관리소장은 probation_termination, 경리직원은 rejection_of_regular_employment가 함께 문제됨"
     },
     {
-      "case_id": "id_22773",
+      "case_id": "id_23731",
       "fields": {
-        "issue_type_primary": "disciplinary_severity"
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
       },
-      "reason": "양정 판단 핵심"
+      "reason": "배임·무단결근을 사유로 한 징계해고 주장 사건이므로 disciplinary_dismissal이 더 정확"
+    },
+    {
+      "case_id": "id_24147",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "시용 3개월 정식채용 전 평가, 사무직"
+    },
+    {
+      "case_id": "id_24207",
+      "fields": {
+        "industry_context": "manufacturing"
+      },
+      "reason": "수습사원 관리지침 평가, 제조업"
+    },
+    {
+      "case_id": "id_24367",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "직무정지 후 후행 해고로 구제이익이 소멸한 사건이므로 suspension과 disciplinary_dismissal을 함께 유지"
+    },
+    {
+      "case_id": "id_24453",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal",
+          "probation_termination"
+        ]
+      },
+      "reason": "시용기간 중 계약해지의 실질이 징계해고이므로 disciplinary_dismissal과 probation_termination을 함께 유지"
+    },
+    {
+      "case_id": "id_25071",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
+      "case_id": "id_25077",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal",
+          "transfer"
+        ]
+      },
+      "reason": "전보 구제신청과 징계해고가 함께 다뤄진 복합 사건이므로 transfer를 포함해 유지"
+    },
+    {
+      "case_id": "id_26635",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건"
+    },
+    {
+      "case_id": "id_28511",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "자동 판정"
+    },
+    {
+      "case_id": "id_28925",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "횡령·공갈협박·근무태만 일부 인정 후 해고 양정 적정성을 본 징계해고 사건이므로 disciplinary_dismissal 채택"
+    },
+    {
+      "case_id": "id_29041",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습 사건"
+    },
+    {
+      "case_id": "id_29083",
+      "fields": {
+        "industry_context": "transport"
+      },
+      "reason": "택시 운전기사 사건이므로 public보다 transport가 검색 맥락상 더 직접적"
+    },
+    {
+      "case_id": "id_29137",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습 사건"
+    },
+    {
+      "case_id": "id_30117",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "industry_context는 office vs unknown 충돌로, 사무직 맥락이 드러난 source를 채택"
     },
     {
       "case_id": "id_30811",
@@ -751,6 +840,25 @@
       "reason": "업무상 사고 대응 미흡과 보고의무 위반, 다면평가 저조가 결합된 수습 적격성 판단 사건이며 업종은 service가 더 구체적"
     },
     {
+      "case_id": "id_31635",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "dismissal"
+        ]
+      },
+      "reason": "정직과 해고가 함께 문제되었고 해고 양정 판단까지 포함되어 dismissal을 유지"
+    },
+    {
+      "case_id": "id_31647",
+      "fields": {
+        "disposition_type": [
+          "dismissal"
+        ]
+      },
+      "reason": "카톡 비방·욕설·3일 연속 무단결근을 이유로 한 해고 사건으로 pay_cut보다 dismissal이 명백"
+    },
+    {
       "case_id": "id_32113",
       "fields": {
         "issue_type_primary": "misconduct",
@@ -763,40 +871,55 @@
       "reason": "업무지시 불이행과 업무태만을 이유로 한 시용기간 중 계약 해지 구조로, 수습 만료 거부보다 probation_termination이 적절"
     },
     {
-      "case_id": "id_346727",
+      "case_id": "id_32781",
       "fields": {
-        "issue_type_primary": "dismissal_validity",
-        "employment_stage": "probation",
         "disposition_type": [
-          "rejection_of_regular_employment"
-        ],
-        "industry_context": "unknown"
+          "disciplinary_dismissal"
+        ]
       },
-      "reason": "보복 주장은 배척되고 최종 판단은 수습평가와 본채용 거부의 정당성 여부에 맞춰져 있어 dismissal_validity 채택"
+      "reason": "징계사유 존부를 다투는 해고 사건으로 일반 dismissal보다 disciplinary_dismissal이 더 정확"
     },
     {
-      "case_id": "id_347233",
+      "case_id": "id_33125",
       "fields": {
-        "issue_type_primary": "work_ability",
-        "employment_stage": "probation",
-        "disposition_type": [
-          "rejection_of_regular_employment"
-        ],
-        "industry_context": "unknown"
+        "industry_context": "service"
       },
-      "reason": "6개월 수습평가와 70점 기준 미달, 근무성적 불량·업무능력 부족이 직접 핵심이므로 work_ability 채택"
+      "reason": "industry_context는 unknown보다 service가 더 구체적이므로 채택"
     },
     {
-      "case_id": "id_349463",
+      "case_id": "id_33279",
       "fields": {
-        "issue_type_primary": "workplace_harassment",
-        "employment_stage": "probation",
         "disposition_type": [
-          "probation_termination"
-        ],
-        "industry_context": "healthcare"
+          "suspension",
+          "reprimand"
+        ]
       },
-      "reason": "시용근로자 중도 해고 구조이므로 probation_termination이 맞고, 괴롭힘 비위가 직접 사유이므로 workplace_harassment 유지"
+      "reason": "징계처분이 복수로 병존한 사건으로 reprimand를 포함한 쪽이 더 완결적"
+    },
+    {
+      "case_id": "id_33465",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
+    },
+    {
+      "case_id": "id_33501",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "폭행 징계사유는 인정되나 소명·서면통지 하자로 부당해고가 된 징계해고 사건이므로 disciplinary_dismissal 채택"
+    },
+    {
+      "case_id": "id_34673",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "영내폭행·가혹행위·언어폭력에 대한 징계해고 사건이므로 disciplinary_dismissal 채택"
     },
     {
       "case_id": "id_34737",
@@ -809,11 +932,25 @@
       "reason": "무단결근 3회를 이유로 한 수습 중 징계해고 구조라 disciplinary_dismissal과 probation_termination을 함께 유지"
     },
     {
-      "case_id": "id_347949",
+      "case_id": "id_34903",
       "fields": {
         "issue_type_primary": "dismissal_validity"
       },
-      "reason": "서면통지 하자가 있어도 사건의 중심은 시용근로자 본채용 거부의 정당성 판단이므로 dismissal_validity 채택"
+      "reason": "감봉이 함께 있었지만 최종 쟁점은 수습기간 본채용 거부의 정당성 판단이라 dismissal_validity 채택"
+    },
+    {
+      "case_id": "id_34905",
+      "fields": {
+        "industry_context": "finance"
+      },
+      "reason": "법인카드 부정사용 등 금융기관 맥락이 드러나 finance 채택"
+    },
+    {
+      "case_id": "id_36271",
+      "fields": {
+        "industry_context": "healthcare"
+      },
+      "reason": "industry_context는 unknown보다 healthcare가 더 구체적이므로 채택"
     },
     {
       "case_id": "id_37033",
@@ -844,6 +981,13 @@
       "reason": "전보와 대기발령이 함께 문제된 사건이므로 suspension을 포함한 복합 처분으로 확정"
     },
     {
+      "case_id": "id_38763",
+      "fields": {
+        "issue_type_primary": "work_ability"
+      },
+      "reason": "수습기간 근무성적평가의 객관성·공정성이 직접 쟁점이므로 performance보다 work_ability 채택"
+    },
+    {
       "case_id": "id_38957",
       "fields": {
         "industry_context": "construction"
@@ -865,49 +1009,71 @@
       "reason": "민원 응대·상담 오류가 핵심인 서비스 현장 수습평가 사건이라 service 채택"
     },
     {
-      "case_id": "id_401885",
-      "fields": {
-        "industry_context": "service"
-      },
-      "reason": "수습평가 기준과 본채용 거부 맥락상 service가 더 구체적이므로 채택"
-    },
-    {
-      "case_id": "id_34903",
+      "case_id": "id_45849",
       "fields": {
         "issue_type_primary": "dismissal_validity"
       },
-      "reason": "감봉이 함께 있었지만 최종 쟁점은 수습기간 본채용 거부의 정당성 판단이라 dismissal_validity 채택"
+      "reason": "업무부적격·명령거부·괴롭힘 관련 사정이 모두 본채용 거부 정당성 판단으로 수렴하므로 dismissal_validity 채택"
     },
     {
-      "case_id": "id_350303",
+      "case_id": "id_345371",
       "fields": {
-        "issue_type_primary": "dismissal_validity",
+        "industry_context": "service"
+      },
+      "reason": "industry_context는 unknown보다 service가 더 구체적이므로 채택"
+    },
+    {
+      "case_id": "id_345433",
+      "fields": {
         "industry_context": "public"
       },
-      "reason": "비위가 사유로 제시되더라도 본안은 시용근로자 본채용 거부 정당성이고 사건 배경은 공공 쉼터여서 public 채택"
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
     },
     {
-      "case_id": "id_350887",
+      "case_id": "id_345833",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "직장 내 괴롭힘·폭언 반복에 대한 징계해고 양정 사건이므로 disciplinary_dismissal 채택"
+    },
+    {
+      "case_id": "id_345837",
       "fields": {
         "disposition_type": [
           "probation_termination"
         ]
       },
-      "reason": "시용근로계약에서 유보된 해약권 행사에 대한 절차 하자 사건이므로 probation_termination 채택"
+      "reason": "시용기간 중 근로관계 종료 구조가 직접 문제되어 본채용 거부보다 probation_termination이 적절"
     },
     {
-      "case_id": "id_351757",
+      "case_id": "id_345873",
       "fields": {
-        "issue_type_primary": "disciplinary_severity"
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
       },
-      "reason": "폭언·폭행 등 비위는 인정되며 판정의 초점은 해고 양정 및 절차 적정성이라 disciplinary_severity 채택"
+      "reason": "직장 내 괴롭힘을 사유로 한 징계해고 사건이므로 disciplinary_dismissal 채택"
     },
     {
-      "case_id": "id_351861",
+      "case_id": "id_346277",
       "fields": {
-        "issue_type_primary": "disciplinary_severity"
+        "industry_context": "public"
       },
-      "reason": "욕설·몸싸움 자체보다 정직 3개월의 양정 적정성이 중심이어서 disciplinary_severity 채택"
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
+    },
+    {
+      "case_id": "id_346727",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "unknown"
+      },
+      "reason": "보복 주장은 배척되고 최종 판단은 수습평가와 본채용 거부의 정당성 여부에 맞춰져 있어 dismissal_validity 채택"
     },
     {
       "case_id": "id_346845",
@@ -920,14 +1086,30 @@
       "reason": "직무태만·명령불복종·무단결근이 인정된 뒤 양정과 절차를 심사한 징계해고 사건이라 disciplinary_severity/disciplinary_dismissal 채택"
     },
     {
-      "case_id": "id_347",
+      "case_id": "id_347045",
       "fields": {
-        "issue_type_primary": "disciplinary_severity",
-        "disposition_type": [
-          "disciplinary_dismissal"
-        ]
+        "industry_context": "public"
       },
-      "reason": "28일 무단결근이 중대하지만 판정 구조는 징계사유 인정 후 해고 양정·절차 심사에 가까워 disciplinary_severity/disciplinary_dismissal 채택"
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
+    },
+    {
+      "case_id": "id_347233",
+      "fields": {
+        "issue_type_primary": "work_ability",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "unknown"
+      },
+      "reason": "6개월 수습평가와 70점 기준 미달, 근무성적 불량·업무능력 부족이 직접 핵심이므로 work_ability 채택"
+    },
+    {
+      "case_id": "id_347593",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "industry_context는 unknown보다 service가 더 구체적이므로 채택"
     },
     {
       "case_id": "id_347625",
@@ -944,11 +1126,41 @@
       "reason": "3개월 장기 무단결근이 주된 징계사유이므로 disciplinary_severity보다 absence_without_leave가 검색 진입점으로 적절"
     },
     {
-      "case_id": "id_34905",
+      "case_id": "id_347711",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "하급직원 대상 반복 괴롭힘에 대한 해고는 징계해고 맥락이므로 disciplinary_dismissal 채택"
+    },
+    {
+      "case_id": "id_347891",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
+    },
+    {
+      "case_id": "id_347949",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "서면통지 하자가 있어도 사건의 중심은 시용근로자 본채용 거부의 정당성 판단이므로 dismissal_validity 채택"
+    },
+    {
+      "case_id": "id_348333",
       "fields": {
         "industry_context": "finance"
       },
-      "reason": "법인카드 부정사용 등 금융기관 맥락이 드러나 finance 채택"
+      "reason": "허위 경비청구 등 금융기관 맥락이 드러나 finance가 public보다 더 구체적"
+    },
+    {
+      "case_id": "id_348373",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "industry_context는 public vs unknown 충돌로, 공공기관 맥락이 확인된 값을 유지"
     },
     {
       "case_id": "id_349227",
@@ -971,6 +1183,43 @@
         "industry_context": "public"
       },
       "reason": "괴롭힘 일부 성립 여부와 그 징계양정이 핵심이고 센터 운영 맥락상 public이 더 타당"
+    },
+    {
+      "case_id": "id_349463",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "probation_termination"
+        ],
+        "industry_context": "healthcare"
+      },
+      "reason": "시용근로자 중도 해고 구조이므로 probation_termination이 맞고, 괴롭힘 비위가 직접 사유이므로 workplace_harassment 유지"
+    },
+    {
+      "case_id": "id_350053",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "직위해제와 징계해고가 함께 문제되며 해고의 법적 성격은 disciplinary_dismissal이 더 정확"
+    },
+    {
+      "case_id": "id_350209",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "industry_context는 unknown보다 office가 더 구체적이므로 채택"
+    },
+    {
+      "case_id": "id_350303",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "public"
+      },
+      "reason": "비위가 사유로 제시되더라도 본안은 시용근로자 본채용 거부 정당성이고 사건 배경은 공공 쉼터여서 public 채택"
     },
     {
       "case_id": "id_350349",
@@ -1003,6 +1252,15 @@
         "industry_context": "healthcare"
       },
       "reason": "장애인복지기관·위탁복지서비스 맥락이 확인되어 public보다 healthcare가 더 구체적"
+    },
+    {
+      "case_id": "id_350887",
+      "fields": {
+        "disposition_type": [
+          "probation_termination"
+        ]
+      },
+      "reason": "시용근로계약에서 유보된 해약권 행사에 대한 절차 하자 사건이므로 probation_termination 채택"
     },
     {
       "case_id": "id_350969",
@@ -1039,18 +1297,678 @@
       "reason": "조사결과 통지서 기재가 괴롭힘에 해당하는지 여부 자체가 핵심 판단이라 workplace_harassment 채택"
     },
     {
-      "case_id": "id_38763",
+      "case_id": "id_351757",
       "fields": {
-        "issue_type_primary": "work_ability"
+        "issue_type_primary": "disciplinary_severity"
       },
-      "reason": "수습기간 근무성적평가의 객관성·공정성이 직접 쟁점이므로 performance보다 work_ability 채택"
+      "reason": "폭언·폭행 등 비위는 인정되며 판정의 초점은 해고 양정 및 절차 적정성이라 disciplinary_severity 채택"
     },
     {
-      "case_id": "id_45849",
+      "case_id": "id_351861",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "욕설·몸싸움 자체보다 정직 3개월의 양정 적정성이 중심이어서 disciplinary_severity 채택"
+    },
+    {
+      "case_id": "id_401885",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습평가 기준과 본채용 거부 맥락상 service가 더 구체적이므로 채택"
+    },
+    {
+      "case_id": "id_28363",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case; disposition=disciplinary_dismissal; industry=specific_over_unknown. Summary basis: 징계해고의 사유가 존재한다고 보기 어렵고, 징계양정이 과도하며, 징계절차의 하자가 있다고 판단되어 부당해고로 판정한 사례"
+    },
+    {
+      "case_id": "id_30085",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "industry_context": "service"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=fallback_first; industry=specific_over_unknown. Summary basis: 편의점주와의 다툼 등을 이유로 한 대기발령과 정직의 징계는 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_345015",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case; disposition=disciplinary_dismissal; industry=specific_over_unknown. Summary basis: 징계사유가 인정되고, 비위사실로 볼 때 징계양정도 징계권자에게 맡겨진 재량권을 남용하였다고 볼 수 없으며, 징계절차에 하자도 없으므로 해고 처분은 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_346187",
+      "fields": {
+        "disposition_type": [
+          "contract_termination"
+        ],
+        "industry_context": "public",
+        "employment_stage": "renewal_stage"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=contract_termination; industry=fallback_specific; employment_stage=renewal_keyword. Summary basis: 사용자가 근로계약 갱신기대권이 인정되지 않는 근로자에게 근로계약서에 명시한 근로계약기간이 만료되었음을 통지한 것은 해고가 아니라고 판정한 사례"
+    },
+    {
+      "case_id": "id_22983",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_rejection. Summary basis: 수습(실질적 시용)기간 중 직속상사의 업무지시 불응과 부적합한 근무태도를 이유로 유보된 해약권을 행사한 해고는 합리적 이유가 있어 정당하다고 판정"
+    },
+    {
+      "case_id": "id_24391",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "probation_termination"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_primary. Summary basis: 수습평가 결과에 따라 부적격하여 해고(근로계약 해지) 통보한 것은 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_24667",
       "fields": {
         "issue_type_primary": "dismissal_validity"
       },
-      "reason": "업무부적격·명령거부·괴롭힘 관련 사정이 모두 본채용 거부 정당성 판단으로 수렴하므로 dismissal_validity 채택"
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 무단결근 및 교통사고 등을 이유로 한 해고는 정당하나, 운행시간표 변경을 통한 임의결행을 이유로 해고한 것은 징계양정이 과하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_27803",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "service",
+        "employment_stage": "probation"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_rejection; industry=fallback_specific; employment_stage=probation_keyword. Summary basis: 근로자가 사용자에게 해약권이 유보된 시용 근로자가 아니므로 본채용 거부는 해고에 해당한다고 판정한 사례"
+    },
+    {
+      "case_id": "id_29751",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; industry=specific_over_unknown. Summary basis: 인사위원회 심의결과 근태불량 등이 인정되는 수습근로자의 본채용을 거부한 것은 정당하고, 부당노동행위에도 해당되지 않는다고 판정한 사례"
+    },
+    {
+      "case_id": "id_3091",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_rejection. Summary basis: 사용자가 시용기간 중 근로자에 대하여 업무적격성을 판단하여 정식채용을 거부한 것은 정당하고, 해고예고통보를 하면서 해고사유와 해고시기를 기재한 서면으로 하였다면 해고의 서면통지를 한 것으로 인정한 사례"
+    },
+    {
+      "case_id": "id_31209",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal",
+          "probation_termination"
+        ],
+        "industry_context": "public",
+        "employment_stage": "probation"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=union_preserve; industry=specific_over_unknown; employment_stage=probation_keyword. Summary basis: 사용자는 근로기간 전체의 비위행위를 이유로 징계해고하였으나, 인정되는 비위행위의 정도에 비하면 양정이 과도하여 부당한 해고이며, 금전보상명령신청을 수용한다고 판정한 사례"
+    },
+    {
+      "case_id": "id_32517",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "service"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; industry=specific_over_unknown. Summary basis: 수습근로자에 대한 평가 결과 평점이 일정 점수에 이르지 못하여 취업규칙 및 근무평정표에 따라 본채용을 거부한 것은 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_33859",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "transport"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_rejection; industry=specific_over_unknown. Summary basis: 사용자가 근로자의 안전사고 예방을 위해 근무조를 변경한 것은 정당하고, 근로자의 무단결근과 업무지시 불응에 대해 정직 1월은 정당하며, 수습평가를 통해 본채용을 거부한 것도 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_34167",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "transport",
+        "employment_stage": "probation"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=specific_over_unknown; employment_stage=probation_keyword. Summary basis: 징계 사유가 일부 존재하나, 해고처분은 양정이 과해 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_343439",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 시용근로자의 업무능력 부족 등을 사유로 본채용을 거부한 것은 합리적 이유가 있어 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_343669",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 근로자는 시용근로자에 해당하고, 본채용 거부의 합리적인 이유가 존재하며, 절차도 적법하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_343855",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 사용자가 구제신청 이후 복직명령을 하였더라도 해고기간의 임금상당액 지급명령을 구할 구제이익이 인정되고, 시용기간 중인 근로자에게 합리적인 본채용 거부 사유가 없으며 사용자가 구체적？실질적인 본채용 거부 사유를 서면으로 통지하지 아니하여 해고가 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_343997",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 부당해고 기각"
+    },
+    {
+      "case_id": "id_344179",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "service"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_rejection; industry=specific_over_unknown. Summary basis: 시용근로자에 해당하고, 본채용거부가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344265",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 근로자에 대한 본채용 거부에 합리적 이유가 있어 부당해고가 아니라고 판정한 사례"
+    },
+    {
+      "case_id": "id_344535",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 근로자는 시용근로자에 해당하고, 근로자에 대한 본채용 거부는 합리적 이유가 없어 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344699",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 시용근로자에게 행한 본채용 거부에 객관적으로 합리적인 사유가 인정되고 절차 또한 적법하여 본채용 거부가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_34477",
+      "fields": {
+        "employment_stage": "probation"
+      },
+      "reason": "2026-03-21 collision adjudication: employment_stage=probation_keyword. Summary basis: 신청인은 근로자로서 수습기간 종료 후 근로계약해지 통보는 해고에 해당한다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344881",
+      "fields": {
+        "issue_type_primary": "absence_without_leave",
+        "employment_stage": "probation"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core; employment_stage=fallback_first. Summary basis: 2023. 4. 5. 자 해고는 존재하지 않고, 2023. 4. 17. 자 당연퇴직 처분은 정당한 사유가 있어 부당해고로 볼 수 없다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344901",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 근로자는 기간의 정함이 없는 근로계약을 체결한 근로자이고, 해고는 절차가 위법하고 사유도 정당하지 않아 부당한 해고로 판정한 사례"
+    },
+    {
+      "case_id": "id_348399",
+      "fields": {
+        "disposition_type": [
+          "probation_termination",
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "service"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=union_preserve; industry=specific_over_unknown. Summary basis: 근로자는 시용근로자에 해당하고 시용 중 해고 사유와 절차가 정당하므로 부당한 해고가 아니라고 판정한 사례"
+    },
+    {
+      "case_id": "id_349243",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 당사자 사이의 근로계약은 시용근로계약에 해당하고, 시용근로자인 근로자에 대한 해고가 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_3501",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "construction"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; industry=construction_keyword. Summary basis: 구제이익이 존재하나, 시용기간 중 해고에 합리적 사유가 있고 절차상 하자도 없으므로 정당한 해고라고 판정한 사례"
+    },
+    {
+      "case_id": "id_350429",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "office"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; industry=specific_over_unknown. Summary basis: 근로자는 시용근로자에 해당하고, 본채용 거부는 합리적 이유가 존재하고, 절차가 적법하므로 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_35963",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case. Summary basis: 시용(수습)근로계약으로 판단되며, 본채용 거부의 합리적 이유가 없으므로 부당한 해고라고 판정한 사례"
+    },
+    {
+      "case_id": "id_22997",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core. Summary basis: 장기 무단결근(정직 전력 후 재차 무단결근)과 상사 폭행(벌금 100만원 약식명령)을 종합하면 근로관계를 유지할 수 없는 중대한 사유로 징계해고가 정당하다고 판정"
+    },
+    {
+      "case_id": "id_23223",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core. Summary basis: 휴직 미승인 상태에서 장기 무단결근, 근무지 무단이탈, 동료에 대한 성희롱적 언행, 업무지시 불이행 등 복합 비위로 징계해고가 정당하다고 판정"
+    },
+    {
+      "case_id": "id_23783",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core. Summary basis: 조직개편으로 폭행 가해자와 같은 사무실에서 근무하게 된 것을 이유로 33일간 무단결근한 것에 대한 징계해고는 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_24565",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "office"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=fallback_specific. Summary basis: 직장질서를 심각하게 훼손하고 업무상 과실로 사용자에게 손실을 끼치며 상급자의 지시를 불이행한 근로자에게 해고는 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_24667",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 무단결근 및 교통사고 등을 이유로 한 해고는 정당하나, 운행시간표 변경을 통한 임의결행을 이유로 해고한 것은 징계양정이 과하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_24737",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 징계절차상 하자가 없고, 결근·비번일 운송수입금 미납횡령 및 일련의 폭언·업무방해사건 등이 징계사유로 인정되며, 징계양정도 적정하므로 징계처분은 정당하고, 부당노동행위에도 해당되지 않는다고 판정한 사례"
+    },
+    {
+      "case_id": "id_27313",
+      "fields": {
+        "issue_type_primary": "absence_without_leave",
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core; industry=specific_over_unknown. Summary basis: 근로자가 2017. 8. 2.부터 2017. 10. 13.까지 22회 무단결근한 것을 이유로 해고한 것은 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_27413",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "office"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=office_keyword. Summary basis: 아파트 관리사무소장으로서 입주민에 대한 폭행·폭언, 고소·고발 행위, 직원들에 대한 폭언, 사직서 강요 등은 중대한 징계사유에 해당되므로 해고가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_27603",
+      "fields": {
+        "issue_type_primary": "misconduct",
+        "disposition_type": [
+          "suspension",
+          "transfer"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=misconduct_core; disposition=union_preserve. Summary basis: 근로자의 대기발령은 업무상 필요성이 인정되고, 생활상 불이익이 크지 않아 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_2803",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 근로자의 무단결근 등의 비위행위는 정당한 해고사유에 해당되고, 징계양정 및 징계절차도 적정하여 해고가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_28517",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core. Summary basis: 4일 이상 계속된 무단결근 및 형사처분을 받은 행위는 단체협약 및 취업규칙의 해고 및 징계사유에 해당하므로 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_29563",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=misconduct_core. Summary basis: 아파트 관리소장으로서 입주민에 대한 고소&#8228;고발, 직원들에 대한 폭언과 사직서 강요 등은 사회통념상 고용관계를 계속 유지할 수 없을 정도로 중대하므로 해고가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_30907",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": [
+          "dismissal",
+          "transfer"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case; disposition=union_preserve. Summary basis: 배치전환 및 해고처분은 징계사유가 존재하고, 징계양정 또한 징계권자에게 맡겨진 징계재량권을 남용하였다고 볼 수 없으며, 징계절차상 하자도 없으므로 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_31767",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 징계사유가 존재한다고 보기 어렵고, 징계양정이 과도하며, 징계절차에도 하자가 있다고 판단되므로 부당해고에 해당하며, 금전보상명령신청을 수용한다고 판정한 사례"
+    },
+    {
+      "case_id": "id_31989",
+      "fields": {
+        "industry_context": "transport"
+      },
+      "reason": "2026-03-21 collision adjudication: industry=fallback_specific. Summary basis: 업무처리 부적정, 폭행, 무단결근 등 징계사유는 인정되나, 양정이 과도하여 부당해고라고 판정한 사례"
+    },
+    {
+      "case_id": "id_32017",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "industry_context": "transport"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case; industry=specific_over_unknown. Summary basis: 징계사유가 모두 인정되고, 징계양정도 적정하며, 징계절차에 하자가 있다고 보기 어렵다고 판정한 사례"
+    },
+    {
+      "case_id": "id_3217",
+      "fields": {
+        "issue_type_primary": "transfer_validity",
+        "disposition_type": [
+          "transfer"
+        ],
+        "industry_context": "transport"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=transfer_case; disposition=transfer_only; industry=specific_over_unknown. Summary basis: 부당전보-인정, 부당해고-인정, 부당노동행위-기각"
+    },
+    {
+      "case_id": "id_34007",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 징계절차나 해고통지서에서 구체적으로 언급되지 않아 징계사유로 삼을 수 없는 비위행위라도 징계양정에는 참작할 수 있다고 판정한 사례"
+    },
+    {
+      "case_id": "id_34145",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 업무상의 지시 불이행 등 근무태도 불량으로 감봉 3월 징계 이후 발생한 유사사례로 다시 정직 3월을 처분한 징계는 재량권 남용이 아니라고 판정한 사례"
+    },
+    {
+      "case_id": "id_34307",
+      "fields": {
+        "issue_type_primary": "unfair_treatment"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=unfair_treatment_case. Summary basis: 무단결근 등의 근로자의 비위행위들은 복무규정을 위반하였으므로 징계사유에 해당되고, 해당 징계가 부당노동행위 의사로부터 기인된 것으로 보기도 어렵다고 판정한 사례"
+    },
+    {
+      "case_id": "id_34403",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case. Summary basis: 기각해고는 양정이 과도하다는 판정에 따라 기존의 징계사유와 함께 추가 비위행위를 징계사유로 삼아 징계양정을 한 단계 낮춰 다시 징계한 것이므로 정당한 징계라고 판정한 사례"
+    },
+    {
+      "case_id": "id_344417",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=absence_core. Summary basis: 직장 질서 문란 행위 및 무단결근을 행한 근로자에 대한 정직 1월의 징계 처분은 정당하다고 본 사례"
+    },
+    {
+      "case_id": "id_2491",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "disposition_type": [
+          "dismissal"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; disposition=general_dismissal. Summary basis: 직장 내 괴롭힘이 인정된 부장이 징계위원장으로 참석하여 의결한 것은 징계위원회 구성에 중대한 하자. 괴롭힘 피해자의 정당한 권리 주장을 징계한 것은 괴롭힘에 따른 불이익 징계."
+    },
+    {
+      "case_id": "id_255",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "disposition_type": [
+          "pay_cut",
+          "suspension",
+          "transfer"
+        ],
+        "industry_context": "office"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; disposition=union_preserve; industry=specific_over_unknown. Summary basis: 직장내 괴롭힘 상담에서 신고되었다는 것만으로 구체적인 사실관계 조사나 객관적인 입증자료 없이 감봉 3개월 및 정직 1개월의 징계처분을 한 것은 징계사유가 인정되지 않아 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_2629",
+      "fields": {
+        "employment_stage": "renewal_stage"
+      },
+      "reason": "2026-03-21 collision adjudication: employment_stage=renewal_keyword. Summary basis: 근로계약의 갱신기대권은 인정되나, 갱신 거절에 합리적인 이유가 있다고 판정한 사례"
+    },
+    {
+      "case_id": "id_3109",
+      "fields": {
+        "issue_type_primary": "workplace_harassment"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established. Summary basis: 직장 내 괴롭힘의 징계사유가 인정되고, 이를 이유로 한 감봉 2개월의 징계는 양정이 과도하지 않으며, 징계절차도 적법하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_31357",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "disposition_type": [
+          "demotion",
+          "other"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; disposition=union_preserve; industry=specific_over_unknown. Summary basis: 일부 징계사유가 인정되고, 징계양정도 적정하며 징계절차에도 하자가 없어 강직(降職)의 징계가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_3363",
+      "fields": {
+        "disposition_type": [
+          "other",
+          "pay_cut",
+          "suspension"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=union_preserve; industry=specific_over_unknown. Summary basis: 징계사유가 인정되고, 양정이 과하지 않으며, 절차에 하자가 없어 감봉 및 정직의 징계가 모두 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344265",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=probation_case; disposition=probation_rejection. Summary basis: 근로자에 대한 본채용 거부에 합리적 이유가 있어 부당해고가 아니라고 판정한 사례"
+    },
+    {
+      "case_id": "id_344297",
+      "fields": {
+        "issue_type_primary": "misconduct",
+        "disposition_type": [
+          "dismissal",
+          "transfer"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=misconduct_core; disposition=union_preserve. Summary basis: 징계사유가 존재하지 않아 부당한 징계라고 판정한 사례"
+    },
+    {
+      "case_id": "id_344423",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "disposition_type": [
+          "dismissal",
+          "pay_cut"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; disposition=union_preserve. Summary basis: 근로자가 주장하는 직장 내 괴롭힘이 성립하지 아니함에도 가해자를 징계하라고 사용자에게 부당하게 요구하면서 지속적으로 무단결근하는 등 해고 사유가 존재하고, 양정도 정당하며, 해고 절차상 하자도 치유하여 적법하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344653",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=severity_case; industry=specific_over_unknown. Summary basis: 장기간의 무단결근은 정당한 징계사유로 인정되며, 징계양정이 과하다고 보기 어렵고, 징계절차상 하자도 없으므로 징계가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_344961",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; industry=specific_over_unknown. Summary basis: 징계사유가 인정되고 양정이 과다하다고 볼 수 없으며 절차상 하자가 없으므로 정직의 징계가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_345019",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=specific_over_unknown. Summary basis: 징계사유가 존재하고 양정이 적정하며 절차상 하자도 없어 해고처분이 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_345077",
+      "fields": {
+        "issue_type_primary": "workplace_harassment"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established. Summary basis: 이 사건 징계사유 중 직장 내 괴롭힘 부분만 징계사유에 해당하나, 이 사건 근로자의 행위는 직장내 괴롭힘의 정도가 매우 높은 행위에 해당하여 징계양정은 적정하며, 절차상 하자도 발견되지 않는다고 판정한 사례"
+    },
+    {
+      "case_id": "id_345891",
+      "fields": {
+        "disposition_type": [
+          "pay_cut",
+          "transfer"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=union_preserve; industry=specific_over_unknown. Summary basis: '감봉 2개월’의 징계는 징계사유가 인정되고, 비위행위의 정도를 고려할 때 징계양정이 적정하며 징계절차에 하자가 없으므로 정당하며, '직장 내 괴롭힘 행위’에 대한 조치로 행한 '인사발령’은 업무상 필요성이 인정되고 생활상 불이익이 크지 않아 정당하다고 판단한 사례"
+    },
+    {
+      "case_id": "id_346245",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; disposition=disciplinary_dismissal. Summary basis: 사용자가 신고인들에 대한 근로자의 '직장 내 괴롭힘’ 행위를 조사하여 사실로 확인한 비위행위는 정당한 징계사유에 해당하고, 징계양정이 적정하며, 징계절차가 적법하므로 정당한 징계라고 판정한 사례"
+    },
+    {
+      "case_id": "id_346297",
+      "fields": {
+        "disposition_type": [
+          "nonrenewal"
+        ],
+        "industry_context": "office"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=nonrenewal; industry=office_keyword. Summary basis: 근로계약의 갱신기대권이 인정되나, 갱신 거절의 합리적 이유가 있으므로 해고가 부당하지 않다고 판정한 사례"
+    },
+    {
+      "case_id": "id_346409",
+      "fields": {
+        "disposition_type": [
+          "demotion",
+          "reprimand"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=union_preserve; industry=specific_over_unknown. Summary basis: 징계사유가 인정되고, 징계절차에 하자는 없으나 양정이 과하여 부당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_346931",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=specific_over_unknown. Summary basis: 징계사유가 존재하고 사용자가 징계권을 남용하였다고 볼 수 없어 양정이 적정하며 절차상 하자가 없어 징계해고가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_347245",
+      "fields": {
+        "issue_type_primary": "workplace_harassment",
+        "disposition_type": [
+          "dismissal",
+          "transfer"
+        ]
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established; disposition=union_preserve. Summary basis: 전직의 업무상 필요성이 인정되고, 생활상 불이익과 비교교량하였을 때 인사권의 남용으로 보기 어려워 정당한 전직이라고 판정한 사례"
+    },
+    {
+      "case_id": "id_347483",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=specific_over_unknown. Summary basis: 폭언과 욕설 관련 비위행위에 대한 면직 처분이 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_348213",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "2026-03-21 collision adjudication: disposition=disciplinary_dismissal; industry=specific_over_unknown. Summary basis: 징계사유가 대부분이 인정되고 징계양정도 적정하며 징계절차도 적법하므로 해고가 정당하다고 판정한 사례"
+    },
+    {
+      "case_id": "id_348861",
+      "fields": {
+        "issue_type_primary": "workplace_harassment"
+      },
+      "reason": "2026-03-21 collision adjudication: primary=harassment_established. Summary basis: '직장 내 괴롭힘’, '직장 내 성희롱’ 등의 징계사유가 인정되고, 징계양정이 적정하며, 징계절차에 하자가 없어 정직 3개월 처분이 정당하다고 판정한 사례"
     }
   ]
 }
