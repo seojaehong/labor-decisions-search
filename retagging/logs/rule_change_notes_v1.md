@@ -62,3 +62,11 @@
 12. **괴롭힘 인정 + 양정 과다 사건은 `disciplinary_severity` 우선 원칙이 유효함**
    - `id_10345`, `id_10395` 유형은 괴롭힘 성립 자체보다 제재 수위가 결론을 좌우했음.
    - v1의 "표면 키워드보다 실질 쟁점 우선" 원칙은 유지 가능.
+
+13. **probation 배치에 기간만료/갱신기대권/해고부존재 사건이 상당수 혼입됨**
+   - `id_10621`, `id_10737`, `id_1079`, `id_11155`처럼 표면상 수습 태그가 있어도 실질은 `renewal_expectation`, `contract_termination`, `no_formal_disposition` 사건인 경우가 반복됨.
+   - 제안: v1.1 또는 v2에서 probation 배치 검수 가이드에 "수습 키워드보다 종료 구조를 먼저 보라"는 문구를 더 강하게 넣을 필요가 있음.
+
+14. **`worker_status`가 선결 쟁점인 probation 사건 처리 공백**
+   - `id_11225`처럼 상시근로자 수 5인 미만 적용대상성이나 시용근로자성 자체가 결론을 좌우하는 사건은 현재 v1 primary enum에서 다루기 답답함.
+   - 제안: v2에서 `worker_status`를 primary enum으로 승격할지 검토.
