@@ -103,3 +103,17 @@
 - `warning`, `demotion`, `휴업명령`, `직위해제`, `대기발령`처럼 괴롭힘 배치에서 반복 등장하는 처분 유형을 v1 `disposition_type`이 직접 수용하지 못해 `other` 또는 `suspension`/`transfer`로 우회했다. v1.1 또는 v2에서 세분화 검토 가치가 있음.
 - 괴롭힘 조사 후 분리전보·대기발령·휴업명령 사건은 실질 중심이 `transfer_validity`인데 현재는 `unfair_treatment`로 흡수해야 해 해상도가 떨어진다. transfer 계열 primary 보강 필요성이 반복 확인됨.
 - 괴롭힘 배치에도 갱신기대권/전환거절, 사직서 강요, 부당노동행위 결합 사건이 섞여 들어와 `workplace_harassment` 단일축만으로는 분류 정확도가 떨어진다. 배치 생성 단계에서 종료구조/처분유형 기준 선분류를 강화할 필요가 있음.
+
+## 검색 품질 테스트 결과 기반 제안 (2026-03-20)
+
+### 확인된 강점
+- exclusion_flags가 노이즈 제거에 실질적 효과 (absence C1: 28% 감소)
+- probation rejection vs termination 분리 정확
+- 괴롭힘 26건 정밀 태깅 유효
+
+### v1.1 검토 후보
+1. disciplinary_severity(234건)가 너무 넓음 → disposition_type 조합 검색이 사실상 필수
+2. absence primary가 극소수 → fact_markers 기반 검색 병행 필요 (현재 정상이나 검색 인터페이스 반영 필요)
+3. misconduct(127건) 내부 세분화 부족 → secondary로 구분 가능하지만, 검색 시 misconduct만으로는 노이즈
+4. worker_status(1건) → 추가 배치에서 보강 필요
+5. retaliation primary 사건 부재 → secondary에만 존재, primary 태깅 기준 재검토
