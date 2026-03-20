@@ -129,3 +129,6 @@
 - `procedure` primary는 절차 하자가 실체 판단을 덮는 경우에만 사용하고, 실질적 정당성 분석이 먼저 이뤄진 뒤 서면통지 하자가 붙는 사건은 `dismissal_validity` 또는 `work_ability` primary + `procedure` secondary 조합을 우선 고려하는 것이 좋음.
 - `confidence=medium`은 정말로 분류가 애매한 사건에만 제한하고, 단순 경계사례라는 이유만으로는 high를 유지하는 쪽이 배치 일관성에 더 적합함.
 - `resignation_dispute`는 `issue_type_secondary`에 넣지 말고 `fact_markers`/`exclusion_flags`로만 관리하는 규칙을 고정하는 것이 좋음.
+
+## 2026-03-20 probation 001~015 review follow-up
+- validator 경고의 대부분이 `notes` 공란이었음. 검색 품질을 위해 최소한 `confidence=medium` 또는 `worker_status` / `procedure` primary 사건에는 한 줄 사유를 남기도록 운영 규칙을 보강할 가치가 있음.

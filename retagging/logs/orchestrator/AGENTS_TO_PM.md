@@ -52,6 +52,27 @@
   - `output/reviewed/probation_batch_028_reviewed.jsonl`
   - `logs/probation_batch_028_self_review.md`
 
+### Done
+- agent: Codex
+- batch: probation_batch_028
+- changed_files:
+  - `output/reviewed/probation_batch_028_reviewed.jsonl`
+  - `logs/probation_batch_028_self_review.md`
+  - `logs/orchestrator/AGENTS_TO_PM.md`
+- reviewed_count: 30
+- representative_cases:
+  - `id_36857`: 배차거부와 징계해고 정당성이 함께 문제된 수습 운전기사 사건
+  - `id_37015`: 시용근로자성보다 평가 부적합이 본론이었던 본채용 거부 사건
+  - `id_37669`: 부당한 인사발령과 대기발령이 함께 문제된 사건
+  - `id_38001`: 근로계약관계 성립 자체가 부정된 당사자적격 사건
+  - `id_38337`: 근거자료와 평가기준이 부족했던 본채용 거부 부당 사건
+- new_rule_issues:
+  - 없음
+- ambiguities_or_blockers:
+  - 없음
+- validation: 30 valid, 0 error, 0 warning
+- finished_at: 2026-03-20 21:16
+
 ### Running
 - agent: Codex
 - batch: probation_batch_026
@@ -465,3 +486,78 @@
   - 없음
 - validation: local `validate_tagging_jsonl.py` 통과 완료
 - finished_at: 2026-03-20 21:55
+
+### Codex Cross-Check Report — probation_batch_001_015 (2026-03-20)
+
+#### Scope
+- 대상: `probation_batch_001` ~ `probation_batch_015`
+- 총량: 450건
+
+#### Quick Counts
+- `worker_status` primary: 8건
+- `procedure` primary: 39건
+- `confidence=medium`: 31건
+
+#### Representative Cases
+- `id_11225`: 적용대상성/5인 미만 여부가 핵심인 선결쟁점 사례로 `worker_status` primary가 무리 없이 읽힘
+- `id_18475`: 수습기간 만료 후 정규직 전환 구조라 status 쟁점이 보이지만, 본안은 `dismissal_validity`로 이어지는 경계 사례
+- `id_21037`: 실체 사유는 인정되나 서면통지 흠결이 결론을 좌우하는 `procedure` 중심 사례
+
+#### Rule Issues
+- 신규 enum 위반은 발견하지 못함
+- `worker_status`/`procedure`/`medium`는 일부 경계 사례에서만 주의가 필요하고, 001~015 전체로 보면 즉시 보정할 정도의 구조적 이상은 없음
+
+#### Blockers
+- 없음
+
+### Running
+- agent: Codex
+- batch: probation_batch_032
+- target_files:
+  - `output/reviewed/probation_batch_032_reviewed.jsonl`
+  - `logs/probation_batch_032_self_review.md`
+  - `logs/orchestrator/AGENTS_TO_PM.md`
+- status: in_progress
+
+### Done
+- agent: Codex
+- batch: probation_batch_032
+- changed_files:
+  - `output/reviewed/probation_batch_032_reviewed.jsonl`
+  - `logs/probation_batch_032_self_review.md`
+  - `logs/orchestrator/AGENTS_TO_PM.md`
+- reviewed_count: 30
+- representative_cases:
+  - `id_401701`: 출퇴근기록 조작이 인정된 수습 중 misconduct 사례
+  - `id_401719`: 해고사유 서면통지 부재가 결론을 좌우한 procedure 사례
+  - `id_402439`: 권고사직 합의로 해고 부존재가 정리된 사례
+  - `id_402605`: 시용근로관계 부정이 결론을 좌우한 worker_status 사례
+- new_rule_issues:
+  - 없음
+- ambiguities_or_blockers:
+  - 없음
+- validation: local `validate_tagging_jsonl.py` 통과 예정
+- finished_at: 2026-03-20 22:05
+
+---
+
+## Claude Rear Queue Report — batch_031-032 (2026-03-20 21:50)
+
+### Status: Done
+
+| batch | 건수 | 에러 |
+|-------|------|------|
+| absence_batch_031 | 30 | 0 |
+| absence_batch_032 | 30 | 0 |
+| violence_batch_031 | 30 | 0 |
+| violence_batch_032 | 30 | 0 |
+| workplace_bullying_batch_031 | 30 | 0 |
+| workplace_bullying_batch_032 | 30 | 0 |
+| **합계** | **180** | **0** |
+
+### Claude Rear Queue 전체 완료 요약
+- batch_031~033: 3개 주제 × 3묶음 = 9배치, 236건
+- 에러 0, 코덱스 front와 겹침 없음
+
+### Rear queue 종료
+- 코덱스가 030까지 잡았으므로 여기서 stop
