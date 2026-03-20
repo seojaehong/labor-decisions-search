@@ -14,7 +14,9 @@
       "case_id": "id_10207",
       "fields": {
         "issue_type_primary": "disciplinary_severity",
-        "disposition_type": ["disciplinary_dismissal"]
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
       },
       "reason": "징계사유 일부 인정 후 해고 양정 과다 판단 구조. 일반 해고보다 징계해고 사건으로 보는 것이 정확"
     },
@@ -22,7 +24,9 @@
       "case_id": "id_10051",
       "fields": {
         "issue_type_primary": "disciplinary_severity",
-        "disposition_type": ["disciplinary_dismissal"]
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
       },
       "reason": "출퇴근카드 대리체크+괴롭힘 모두 징계사유, 결론은 해고 양정 과다 여부. disciplinary_dismissal이 적절"
     },
@@ -30,7 +34,9 @@
       "case_id": "id_10075",
       "fields": {
         "issue_type_primary": "disciplinary_severity",
-        "disposition_type": ["disciplinary_dismissal"]
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
       },
       "reason": "괴롭힘이 비위이긴 하나 판정 중심은 정직 2회 이후 누적 비위에 대한 해고 수위 정당성. disciplinary_severity가 적합"
     },
@@ -38,9 +44,94 @@
       "case_id": "id_10555",
       "fields": {
         "issue_type_primary": "misconduct",
-        "disposition_type": ["disciplinary_dismissal"]
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
       },
       "reason": "무단결근·물품유용·퇴사종용·폭언 복합 비위. 괴롭힘 단일 사건이 아닌 다수 징계사유 종합 판단 구조"
+    },
+    {
+      "case_id": "id_14663",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "employment_stage": "regular",
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "healthcare"
+      },
+      "reason": "징계사유 인정되나 사직권고 3회·전보 미검토로 양정 과다가 핵심. 의료/조리 분야"
+    },
+    {
+      "case_id": "id_11473",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "service"
+      },
+      "reason": "시용근로자 여부 + 본채용 거부 정당성이 판정 프레임. 업무능력 자체가 아닌 법적 구조 판단"
+    },
+    {
+      "case_id": "id_13323",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "regular",
+        "disposition_type": [
+          "dismissal"
+        ],
+        "industry_context": "manufacturing"
+      },
+      "reason": "수습 만료 후 정식근로자 확인이 선결쟁점. 이미 정식 전환된 상태에서의 해고 정당성 판단"
+    },
+    {
+      "case_id": "id_13583",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "transport"
+      },
+      "reason": "시용근로자 확인 후 결근·승무계획 거부가 본채용 거절 합리적 이유인지 판단. 승무직"
+    },
+    {
+      "case_id": "id_14469",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "probation_termination"
+        ],
+        "industry_context": "education"
+      },
+      "reason": "징계사유 4개 인정+절차 적법 후 수습 중 해고 양정 적정성이 핵심. 교육기관"
+    },
+    {
+      "case_id": "id_14493",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ],
+        "industry_context": "service"
+      },
+      "reason": "업무범위 설명 부재+계약서 미명시가 핵심. 해고사유로 삼은 업무가 계약 내용인지 판단"
+    },
+    {
+      "case_id": "id_16547",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "employment_stage": "probation",
+        "disposition_type": [
+          "rejection_of_regular_employment"
+        ]
+      },
+      "reason": "수습근로자 확인+본채용 거부 정당성이 핵심. work_ability보다 dismissal_validity가 판정 프레임"
     }
   ]
 }
