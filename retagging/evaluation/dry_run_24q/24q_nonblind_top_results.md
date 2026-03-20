@@ -6,17 +6,17 @@
 - candidate_profile: `{"issue_type_primary": ["absence_without_leave"], "fact_markers": ["repeated_absence", "unauthorized_absence"], "disposition_type": ["dismissal", "disciplinary_dismissal"]}`
 - baseline diversity ratio: `0.2`
 - candidate diversity ratio: `0.2`
-- top-1 overlap: `1`
+- top-1 overlap: `0`
 
 ### Baseline Top-5
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_27267 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | dismissal | reason_category overlap: absence, text overlap x2 |  |  |
-| 2 | id_27951 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x2 |  |  |
-| 3 | id_31513 | ○ ○ ○ 부당해고 구제 재심신청 | absence_without_leave | regular | reprimand | reason_category overlap: absence, text overlap x2 |  |  |
-| 4 | id_15687 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x1 |  |  |
-| 5 | id_16387 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x1 |  |  |
+| 1 | id_10561 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 2 | id_10563 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 3 | id_10757 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 4 | id_10815 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 5 | id_10845 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -40,11 +40,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_2717 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 2 | id_2767 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 3 | id_27951 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 4 | id_28267 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 5 | id_29961 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | dismissal | reason_category overlap: absence, text overlap x3 |  |  |
+| 1 | id_10561 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 2 | id_10563 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 3 | id_10757 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 4 | id_10815 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 5 | id_10845 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -62,17 +62,17 @@
 - candidate_profile: `{"issue_type_primary": ["absence_without_leave", "disciplinary_severity"], "industry_context": ["transport"], "fact_markers": ["unauthorized_absence"]}`
 - baseline diversity ratio: `0.2`
 - candidate diversity ratio: `0.2`
-- top-1 overlap: `1`
+- top-1 overlap: `0`
 
 ### Baseline Top-5
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_23381 | ○ ○ ○ 부당해고 구제 재심신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x4 |  |  |
-| 2 | id_17201 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 3 | id_20949 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 4 | id_21651 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
-| 5 | id_21797 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | disciplinary_dismissal | reason_category overlap: absence, text overlap x3 |  |  |
+| 1 | id_10561 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 2 | id_10563 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 3 | id_10757 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 4 | id_10815 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 5 | id_10845 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -96,11 +96,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_38233 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | dismissal | reason_category overlap: workplace_bullying, text overlap x2 |  |  |
-| 2 | id_399891 | ○ ○ ○ 부당해고 구제신청 | harassment_investigation | regular | transfer | reason_category overlap: workplace_bullying, text overlap x1 |  |  |
-| 3 | id_29057 | ○ ○ ○ 부당해고 구제신청 | retaliation | regular | suspension | reason_category overlap: workplace_bullying, text overlap x1 |  |  |
-| 4 | id_43973 | ○ ○ ○ 부당해고 구제신청 | retaliation | regular | dismissal | reason_category overlap: workplace_bullying, text overlap x1 |  |  |
-| 5 | id_10771 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | suspension | reason_category overlap: workplace_bullying, text overlap x1 |  |  |
+| 1 | id_10771 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | suspension | baseline_export |  |  |
+| 2 | id_10819 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
+| 3 | id_10861 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | suspension | baseline_export |  |  |
+| 4 | id_10901 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 5 | id_10913 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | suspension, disciplinary_dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -116,7 +116,7 @@
 
 - baseline_reason_categories: `workplace_bullying, union_activity`
 - candidate_profile: `{"issue_type_primary": ["retaliation", "unfair_treatment"], "fact_markers": ["harassment_report_filed"], "legal_focus": ["protection_against_retaliation"]}`
-- baseline diversity ratio: `0.6`
+- baseline diversity ratio: `0.8`
 - candidate diversity ratio: `0.4`
 - top-1 overlap: `0`
 
@@ -124,11 +124,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_3591 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | transfer, reprimand | reason_category overlap: workplace_bullying, text overlap x3 |  |  |
-| 2 | id_1261 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | probation | other | reason_category overlap: union_activity, text overlap x2 |  |  |
-| 3 | id_15317 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: union_activity, text overlap x2 |  |  |
-| 4 | id_17501 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: union_activity, text overlap x2 |  |  |
-| 5 | id_27323 | ○ ○ ○ 부당해고 구제신청 | misconduct | regular | disciplinary_dismissal, suspension, pay_cut | reason_category overlap: union_activity, text overlap x2 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 | id_10607 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 3 | id_10727 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 4 | id_10771 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | suspension | baseline_export |  |  |
+| 5 | id_10819 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -144,7 +144,7 @@
 
 - baseline_reason_categories: `workplace_bullying, violence`
 - candidate_profile: `{"issue_type_primary": ["disciplinary_severity"], "issue_type_secondary": ["workplace_harassment"], "legal_focus": ["proportionality", "appropriateness_of_discipline"]}`
-- baseline diversity ratio: `0.4`
+- baseline diversity ratio: `0.6`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -152,11 +152,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_11717 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | transfer, pay_cut | reason_category overlap: workplace_bullying, text overlap x3 |  |  |
-| 2 | id_344973 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | dismissal, transfer | reason_category overlap: workplace_bullying, text overlap x3 |  |  |
-| 3 | id_346885 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | reprimand, transfer | reason_category overlap: workplace_bullying, text overlap x3 |  |  |
-| 4 | id_3591 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | transfer, reprimand | reason_category overlap: workplace_bullying, text overlap x3 |  |  |
-| 5 | id_10613 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | reason_category overlap: violence, text overlap x2 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 | id_10509 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 3 | id_10607 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 4 | id_10613 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 5 | id_10677 | ○ ○ ○ 부당해고 구제신청 | misconduct | regular | dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -172,7 +172,7 @@
 
 - baseline_reason_categories: `probation`
 - candidate_profile: `{"employment_stage": ["probation"], "issue_type_primary": ["dismissal_validity"], "disposition_type": ["rejection_of_regular_employment"]}`
-- baseline diversity ratio: `0.6`
+- baseline diversity ratio: `0.8`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -180,11 +180,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_349575 | ○ ○ ○ 부당해고 구제신청 | unfair_treatment | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x4 |  |  |
-| 2 | id_348125 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x4 |  |  |
-| 3 | id_19817 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x3 |  |  |
-| 4 | id_25883 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x3 |  |  |
-| 5 | id_27827 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x3 |  |  |
+| 1 | id_10575 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | baseline_export |  |  |
+| 2 | id_10597 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | regular | dismissal | baseline_export |  |  |
+| 3 | id_10603 | ○ ○ ○ 부당해고 구제 재심신청 | procedure | probation | rejection_of_regular_employment | baseline_export |  |  |
+| 4 | id_10621 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | contract_termination | baseline_export |  |  |
+| 5 | id_10633 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -200,7 +200,7 @@
 
 - baseline_reason_categories: `probation, incompetence`
 - candidate_profile: `{"employment_stage": ["probation"], "issue_type_primary": ["dismissal_validity", "work_ability"], "disposition_type": ["probation_termination", "rejection_of_regular_employment"]}`
-- baseline diversity ratio: `0.2`
+- baseline diversity ratio: `0.8`
 - candidate diversity ratio: `0.4`
 - top-1 overlap: `0`
 
@@ -208,11 +208,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_40327 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, probation, text overlap x5 |  |  |
-| 2 | id_12771 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, probation, text overlap x4 |  |  |
-| 3 | id_14773 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, probation, text overlap x4 |  |  |
-| 4 | id_15525 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, probation, text overlap x4 |  |  |
-| 5 | id_16785 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | probation | probation_termination | reason_category overlap: incompetence, probation, text overlap x4 |  |  |
+| 1 | id_10575 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | baseline_export |  |  |
+| 2 | id_10597 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | regular | dismissal | baseline_export |  |  |
+| 3 | id_10603 | ○ ○ ○ 부당해고 구제 재심신청 | procedure | probation | rejection_of_regular_employment | baseline_export |  |  |
+| 4 | id_10621 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | contract_termination | baseline_export |  |  |
+| 5 | id_10633 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -228,7 +228,7 @@
 
 - baseline_reason_categories: `probation`
 - candidate_profile: `{"employment_stage": ["probation"], "issue_type_primary": ["dismissal_validity", "procedure"], "fact_markers": ["written_notice_missing"], "legal_focus": ["procedural_due_process"]}`
-- baseline diversity ratio: `0.4`
+- baseline diversity ratio: `0.8`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -236,11 +236,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_349649 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | probation | disciplinary_dismissal | reason_category overlap: probation, text overlap x3 |  |  |
-| 2 | id_350055 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | probation | disciplinary_dismissal | reason_category overlap: probation, text overlap x3 |  |  |
-| 3 | id_34297 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | probation_termination | reason_category overlap: probation, text overlap x3 |  |  |
-| 4 | id_34299 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x3 |  |  |
-| 5 | id_343949 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: probation, text overlap x3 |  |  |
+| 1 | id_10575 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | baseline_export |  |  |
+| 2 | id_10597 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | regular | dismissal | baseline_export |  |  |
+| 3 | id_10603 | ○ ○ ○ 부당해고 구제 재심신청 | procedure | probation | rejection_of_regular_employment | baseline_export |  |  |
+| 4 | id_10621 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | contract_termination | baseline_export |  |  |
+| 5 | id_10633 | ○ ○ ○ 부당해고 구제 재심신청 | dismissal_validity | probation | rejection_of_regular_employment | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -256,7 +256,7 @@
 
 - baseline_reason_categories: `incompetence`
 - candidate_profile: `{"employment_stage": ["regular"], "issue_type_primary": ["work_ability"], "fact_markers": ["qualitative_evaluation", "quantitative_evaluation"]}`
-- baseline diversity ratio: `0.4`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -264,11 +264,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_40327 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, text overlap x3 |  |  |
-| 2 | id_19605 | ○ ○ ○ 부당해고 구제신청 | performance | probation | rejection_of_regular_employment | reason_category overlap: incompetence, text overlap x2 |  |  |
-| 3 | id_1111 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, text overlap x2 |  |  |
-| 4 | id_12969 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | probation_termination | reason_category overlap: incompetence, text overlap x2 |  |  |
-| 5 | id_14463 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | probation_termination | reason_category overlap: incompetence, text overlap x2 |  |  |
+| 1 | id_13295 | ○ ○ ○ 부당해고 구제신청 | procedure | regular | transfer | baseline_export |  |  |
+| 2 | id_13323 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | regular | dismissal | baseline_export |  |  |
+| 3 | id_14007 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
+| 4 | id_14077 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | regular | dismissal | baseline_export |  |  |
+| 5 | id_14241 | ○ ○ ○ 부당해고 구제신청 | misconduct | regular | disciplinary_dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -284,7 +284,7 @@
 
 - baseline_reason_categories: `incompetence`
 - candidate_profile: `{"issue_type_primary": ["work_ability", "dismissal_validity"], "fact_markers": ["warning_given", "improvement_opportunity_given", "training_provided"]}`
-- baseline diversity ratio: `0.4`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.4`
 - top-1 overlap: `0`
 
@@ -292,11 +292,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_40327 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, text overlap x4 |  |  |
-| 2 | id_37423 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | probation_termination | reason_category overlap: incompetence, text overlap x3 |  |  |
-| 3 | id_19605 | ○ ○ ○ 부당해고 구제신청 | performance | probation | rejection_of_regular_employment | reason_category overlap: incompetence, text overlap x2 |  |  |
-| 4 | id_1111 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | rejection_of_regular_employment | reason_category overlap: incompetence, text overlap x2 |  |  |
-| 5 | id_12969 | ○ ○ ○ 부당해고 구제신청 | work_ability | probation | probation_termination | reason_category overlap: incompetence, text overlap x2 |  |  |
+| 1 | id_13295 | ○ ○ ○ 부당해고 구제신청 | procedure | regular | transfer | baseline_export |  |  |
+| 2 | id_13323 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | regular | dismissal | baseline_export |  |  |
+| 3 | id_14007 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
+| 4 | id_14077 | ○ ○ ○ 부당해고 구제 재심신청 | work_ability | regular | dismissal | baseline_export |  |  |
+| 5 | id_14241 | ○ ○ ○ 부당해고 구제신청 | misconduct | regular | disciplinary_dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -312,7 +312,7 @@
 
 - baseline_reason_categories: `violence, misconduct, absence`
 - candidate_profile: `{"issue_type_primary": ["disciplinary_severity"], "legal_focus": ["proportionality", "appropriateness_of_discipline"]}`
-- baseline diversity ratio: `0.2`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -320,11 +320,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_29993 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | reason_category overlap: absence, violence, text overlap x2 |  |  |
-| 2 | id_31647 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | reason_category overlap: absence, violence, text overlap x2 |  |  |
-| 3 | id_31989 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | reason_category overlap: absence, violence, text overlap x2 |  |  |
-| 4 | id_25605 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | reason_category overlap: absence, violence, text overlap x1 |  |  |
-| 5 | id_32017 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | reason_category overlap: absence, violence, text overlap x1 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 |  |  |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
 
 ### Candidate Top-5
 
@@ -340,7 +340,7 @@
 
 - baseline_reason_categories: `violence, misconduct`
 - candidate_profile: `{"issue_type_primary": ["disciplinary_severity"], "disposition_type": ["suspension"]}`
-- baseline diversity ratio: `0.2`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -348,11 +348,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_13989 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | suspension | reason_category overlap: violence, text overlap x4 |  |  |
-| 2 | id_30101 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | suspension | reason_category overlap: violence, text overlap x4 |  |  |
-| 3 | id_11561 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | suspension | reason_category overlap: violence, text overlap x3 |  |  |
-| 4 | id_11735 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | reason_category overlap: violence, text overlap x3 |  |  |
-| 5 | id_1243 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | suspension | reason_category overlap: violence, text overlap x3 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 | id_10509 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
 
 ### Candidate Top-5
 
@@ -368,7 +368,7 @@
 
 - baseline_reason_categories: `violence, misconduct`
 - candidate_profile: `{"issue_type_primary": ["disciplinary_severity"], "disposition_type": ["pay_cut"]}`
-- baseline diversity ratio: `0.6`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -376,11 +376,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_29279 | ○ ○ ○ 부당해고 구제신청 | misconduct | regular | pay_cut | reason_category overlap: misconduct, text overlap x3 |  |  |
-| 2 | id_343653 | ○ ○ ○ 부당해고 구제신청 | unfair_treatment | regular | pay_cut | reason_category overlap: violence, text overlap x3 |  |  |
-| 3 | id_11735 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | reason_category overlap: violence, text overlap x2 |  |  |
-| 4 | id_23951 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | pay_cut | reason_category overlap: violence, text overlap x2 |  |  |
-| 5 | id_24279 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | pay_cut | reason_category overlap: violence, text overlap x2 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 | id_10509 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
 
 ### Candidate Top-5
 
@@ -396,19 +396,19 @@
 
 - baseline_reason_categories: `contract_expiry`
 - candidate_profile: `{"employment_stage": ["renewal_stage", "fixed_term"], "issue_type_primary": ["renewal_expectation"], "legal_focus": ["expectation_of_renewal"]}`
-- baseline diversity ratio: `0.2`
+- baseline diversity ratio: `0.4`
 - candidate diversity ratio: `0.2`
-- top-1 overlap: `1`
+- top-1 overlap: `0`
 
 ### Baseline Top-5
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_347015 | ○ ○ ○ 부당해고 구제 재심신청 | renewal_expectation | fixed_term | nonrenewal | reason_category overlap: contract_expiry, text overlap x3 |  |  |
-| 2 | id_347319 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | fixed_term | nonrenewal | reason_category overlap: contract_expiry, text overlap x3 |  |  |
-| 3 | id_347727 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | fixed_term | nonrenewal | reason_category overlap: contract_expiry, text overlap x3 |  |  |
-| 4 | id_348069 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | fixed_term | nonrenewal | reason_category overlap: contract_expiry, text overlap x3 |  |  |
-| 5 | id_348151 | ○ ○ ○ 부당해고 구제 재심신청 | renewal_expectation | fixed_term | nonrenewal | reason_category overlap: contract_expiry, text overlap x3 |  |  |
+| 1 | id_10621 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | contract_termination | baseline_export |  |  |
+| 2 | id_10737 | ○ ○ ○ 부당해고 구제 재심신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
+| 3 | id_1079 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | contract_termination | baseline_export |  |  |
+| 4 | id_10819 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
+| 5 | id_1083 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | regular | no_formal_disposition | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -452,7 +452,7 @@
 
 - baseline_reason_categories: `transfer`
 - candidate_profile: `{"issue_type_primary": ["transfer_validity"], "disposition_type": ["transfer"]}`
-- baseline diversity ratio: `0.8`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -460,11 +460,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_409901 | ○ ○ ○ 부당해고 구제신청 | procedure | regular | reprimand, transfer | reason_category overlap: transfer, text overlap x2 |  |  |
-| 2 | id_12679 | ○ ○ ○ 부당해고 구제 재심신청 | unfair_treatment | regular | transfer | reason_category overlap: transfer, text overlap x2 |  |  |
-| 3 | id_346249 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | reprimand, transfer | reason_category overlap: transfer, text overlap x2 |  |  |
-| 4 | id_34245 | ○ ○ ○ 부당해고 구제 재심신청 | absence_without_leave | regular | transfer | reason_category overlap: transfer, text overlap x1 |  |  |
-| 5 | id_345417 | ○ ○ ○ 부당해고 구제신청 | absence_without_leave | regular | transfer | reason_category overlap: transfer, text overlap x1 |  |  |
+| 1 | id_10613 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 2 | id_10989 | ○ ○ ○ 부당해고 구제신청 | unfair_treatment | renewal_stage | transfer, nonrenewal, no_formal_disposition | baseline_export |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
 
 ### Candidate Top-5
 
@@ -536,19 +536,19 @@
 
 - baseline_reason_categories: `violence`
 - candidate_profile: `{"issue_type_primary": ["disciplinary_severity"], "issue_type_secondary": ["misconduct"], "legal_focus": ["proportionality"]}`
-- baseline diversity ratio: `0.2`
+- baseline diversity ratio: `0.6`
 - candidate diversity ratio: `0.2`
-- top-1 overlap: `1`
+- top-1 overlap: `0`
 
 ### Baseline Top-5
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_11561 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | suspension | reason_category overlap: violence, text overlap x2 |  |  |
-| 2 | id_11735 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | reason_category overlap: violence, text overlap x2 |  |  |
-| 3 | id_16071 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | reason_category overlap: violence, text overlap x2 |  |  |
-| 4 | id_19741 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | reason_category overlap: violence, text overlap x2 |  |  |
-| 5 | id_21795 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | pay_cut | reason_category overlap: violence, text overlap x2 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 | id_10509 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 3 | id_10607 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 4 | id_10613 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | baseline_export |  |  |
+| 5 | id_10677 | ○ ○ ○ 부당해고 구제신청 | misconduct | regular | dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -564,7 +564,7 @@
 
 - baseline_reason_categories: `violence, misconduct`
 - candidate_profile: `{"issue_type_primary": ["misconduct", "disciplinary_severity"], "disposition_type": ["disciplinary_dismissal"], "fact_markers": ["prior_sanction_history"]}`
-- baseline diversity ratio: `0.6`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -572,11 +572,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_350303 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: violence, text overlap x2 |  |  |
-| 2 | id_20925 | ○ ○ ○ 부당해고 구제신청 | misconduct | probation | disciplinary_dismissal | reason_category overlap: violence, text overlap x2 |  |  |
-| 3 | id_27759 | ○ ○ ○ 부당해고 구제 재심신청 | misconduct | regular | disciplinary_dismissal | reason_category overlap: violence, text overlap x2 |  |  |
-| 4 | id_349715 | ○ ○ ○ 부당해고 구제신청 | misconduct | probation | rejection_of_regular_employment | reason_category overlap: violence, text overlap x2 |  |  |
-| 5 | id_350887 | ○ ○ ○ 부당해고 구제신청 | procedure | probation | probation_termination | reason_category overlap: violence, text overlap x2 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 | id_10509 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
 
 ### Candidate Top-5
 
@@ -620,7 +620,7 @@
 
 - baseline_reason_categories: `workplace_bullying`
 - candidate_profile: `{"issue_type_primary": ["unfair_treatment", "disciplinary_severity", "procedure"], "exclusion_flags": ["not_really_harassment_case", "emotional_conflict_not_harassment"]}`
-- baseline diversity ratio: `0.4`
+- baseline diversity ratio: `0.6`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -628,11 +628,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_399891 | ○ ○ ○ 부당해고 구제신청 | harassment_investigation | regular | transfer | reason_category overlap: workplace_bullying, text overlap x2 |  |  |
-| 2 | id_10771 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | suspension | reason_category overlap: workplace_bullying, text overlap x2 |  |  |
-| 3 | id_11717 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | transfer, pay_cut | reason_category overlap: workplace_bullying, text overlap x2 |  |  |
-| 4 | id_344695 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | other | reason_category overlap: workplace_bullying, text overlap x2 |  |  |
-| 5 | id_345339 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | disciplinary_dismissal | reason_category overlap: workplace_bullying, text overlap x2 |  |  |
+| 1 | id_10771 | ○ ○ ○ 부당해고 구제신청 | workplace_harassment | regular | suspension | baseline_export |  |  |
+| 2 | id_10819 | ○ ○ ○ 부당해고 구제신청 | renewal_expectation | renewal_stage | nonrenewal | baseline_export |  |  |
+| 3 | id_10861 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | suspension | baseline_export |  |  |
+| 4 | id_10901 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | baseline_export |  |  |
+| 5 | id_10913 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | suspension, disciplinary_dismissal | baseline_export |  |  |
 
 ### Candidate Top-5
 
@@ -648,7 +648,7 @@
 
 - baseline_reason_categories: `violence, absence, misconduct`
 - candidate_profile: `{"issue_type_primary": ["dismissal_validity"], "legal_focus": ["just_cause", "social_norm_reasonableness"]}`
-- baseline diversity ratio: `0.4`
+- baseline diversity ratio: `1.0`
 - candidate diversity ratio: `0.2`
 - top-1 overlap: `0`
 
@@ -656,11 +656,11 @@
 
 | rank | case_id | title | primary | stage | disposition | why surfaced | relevance | memo |
 |------|---------|-------|---------|-------|-------------|--------------|-----------|------|
-| 1 | id_29993 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | disciplinary_dismissal | reason_category overlap: absence, violence, text overlap x3 |  |  |
-| 2 | id_31647 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | reason_category overlap: absence, violence, text overlap x3 |  |  |
-| 3 | id_31989 | ○ ○ ○ 부당해고 구제신청 | disciplinary_severity | regular | dismissal | reason_category overlap: absence, violence, text overlap x2 |  |  |
-| 4 | id_32017 | ○ ○ ○ 부당해고 구제 재심신청 | disciplinary_severity | regular | dismissal | reason_category overlap: absence, violence, text overlap x2 |  |  |
-| 5 | id_21165 | ○ ○ ○ 부당해고 구제신청 | dismissal_validity | probation | rejection_of_regular_employment | reason_category overlap: absence, violence, text overlap x2 |  |  |
+| 1 | id_10479 | ○ ○ ○ 부당노동행위 구제신청 | unfair_treatment | regular | dismissal | baseline_export |  |  |
+| 2 |  |  |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
 
 ### Candidate Top-5
 
