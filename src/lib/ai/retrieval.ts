@@ -88,7 +88,29 @@ export function extractTags(text: string): string[] {
   return [...tags].filter((t) => (ALL_TAGS as readonly string[]).includes(t));
 }
 
-// 키워드 → reason_category 매핑 (분류 완료된 42k건 활용)
+// 키워드 → 신규 8축 태그 매핑
+const KEYWORD_TO_PRIMARY: [RegExp, string][] = [
+  [/횡령|배임|공금|유용|착복/, 'misconduct'],
+  [/폭언|폭행|욕설|폭력|가혹|모욕/, 'disciplinary_severity'],
+  [/성희롱|성추행|성적.*언동/, 'misconduct'],
+  [/무단결근|결근|지각|조퇴|태만|근무태만|직무유기/, 'absence_without_leave'],
+  [/업무능력|성과.*부족|업무.*부적격|근무.*불량/, 'work_ability'],
+  [/직장.*내.*괴롭힘|따돌림/, 'workplace_harassment'],
+  [/경영.*해고|정리해고|구조조정|경영.*악화/, 'redundancy'],
+  [/수습|시용/, 'dismissal_validity'],
+  [/전보|전직|배치.*전환|인사.*발령/, 'transfer_validity'],
+  [/갱신.*기대|계약.*만료|기간제/, 'renewal_expectation'],
+  [/사직|권고.*사직|합의.*퇴직/, 'dismissal_validity'],
+  [/부당노동행위|노조|지배.*개입/, 'unfair_treatment'],
+  [/근로자.*지위|근로자성/, 'worker_status'],
+  [/차별.*시정|차별적.*처우/, 'discrimination'],
+  [/겸직|허위|위조|음주|기밀|유출|지시.*불이행|금품/, 'misconduct'],
+  [/징계.*양정|양정.*과다|처분.*과중|비례/, 'disciplinary_severity'],
+  [/절차.*위반|서면.*통지|소명.*기회/, 'procedure'],
+  [/괴롭힘.*신고.*불이익|보복/, 'retaliation'],
+];
+
+// 키워드 → reason_category (fallback용)
 const KEYWORD_TO_REASON: [RegExp, string][] = [
   [/횡령|배임|공금|유용|착복/, 'embezzlement'],
   [/폭언|폭행|욕설|폭력|가혹|모욕/, 'violence'],
@@ -107,6 +129,14 @@ const KEYWORD_TO_REASON: [RegExp, string][] = [
   [/겸직|허위|위조|음주|기밀|유출|지시.*불이행|금품/, 'misconduct'],
 ];
 
+function extractPrimaryTypes(text: string): string[] {
+  const types = new Set<string>();
+  for (const [pattern, primary] of KEYWORD_TO_PRIMARY) {
+    if (pattern.test(text)) types.add(primary);
+  }
+  return [...types];
+}
+
 function extractReasonCategories(text: string): string[] {
   const reasons = new Set<string>();
   for (const [pattern, reason] of KEYWORD_TO_REASON) {
@@ -121,21 +151,45 @@ const RESULT_LIMIT = 5;
 export async function searchCases(tags: string[], query?: string): Promise<RetrievalResult> {
   let candidates: Record<string, unknown>[] = [];
 
-  // Stage 1A: reason_category 기반 검색 (우선)
-  const reasons = query ? extractReasonCategories(query) : [];
-  if (reasons.length > 0) {
-    const { data: reasonCases } = await supabase
+  // Stage 1A: 신규 8축 태그 기반 검색 (우선 — 3,839건 태깅 완료)
+  const primaryTypes = query ? extractPrimaryTypes(query) : [];
+  if (primaryTypes.length > 0) {
+    const { data: taggedCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, tags, url')
-      .overlaps('reason_category', reasons)
+      .select('id, title, decision_result, holding_points, tags, url, issue_type_primary, exclusion_flags')
+      .in('issue_type_primary', primaryTypes)
       .not('holding_points', 'is', null)
       .limit(CANDIDATE_LIMIT);
-    candidates = reasonCases || [];
+
+    // exclusion_flags 기반 노이즈 제거
+    if (taggedCases && taggedCases.length > 0) {
+      candidates = taggedCases.filter((c) => {
+        const excl = (c.exclusion_flags as string[]) || [];
+        // 질의와 무관한 사건 제외
+        if (query?.includes('결근') && excl.includes('not_really_absence_case')) return false;
+        if (query?.includes('괴롭힘') && excl.includes('not_really_harassment_case')) return false;
+        if (query?.includes('수습') && excl.includes('unrelated_to_probation')) return false;
+        return true;
+      });
+    }
   }
 
-  // Stage 1B: reason_category로 부족하면 태그 기반 fallback
+  // Stage 1B: 신규 태그 부족하면 기존 reason_category fallback
   if (candidates.length < 3) {
-    const topTags = tags.slice(0, 3);
+    const reasons = query ? extractReasonCategories(query) : [];
+    if (reasons.length > 0) {
+      const { data: reasonCases } = await supabase
+        .from('nlrc_decisions')
+        .select('id, title, decision_result, holding_points, tags, url')
+        .overlaps('reason_category', reasons)
+        .not('holding_points', 'is', null)
+        .limit(CANDIDATE_LIMIT);
+      candidates = reasonCases || [];
+    }
+  }
+
+  // Stage 1C: 둘 다 부족하면 태그 기반 fallback
+  if (candidates.length < 3) {
     const { data: tagCases } = await supabase
       .from('nlrc_decisions')
       .select('id, title, decision_result, holding_points, tags, url')
@@ -145,9 +199,6 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
     candidates = tagCases || [];
   }
 
-  // Stage 2: hybrid-lite rerank — 현재 비활성화 (Vercel 서버리스 타임아웃 이슈)
-  // 임베딩 조회 + OpenAI 쿼리 임베딩이 Vercel 10초 제한을 초과할 수 있어 일시 비활성화
-  // TODO: Vercel Pro 전환 또는 Edge Runtime 전환 시 재활성화
   const reranked = false;
 
   const results = candidates.slice(0, RESULT_LIMIT);
