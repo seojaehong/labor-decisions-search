@@ -5,164 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Retagging Status Dashboard</title>
   <style>
-    :root {
-      --bg: #0b1020;
-      --panel: #121a2f;
-      --panel-2: #18223d;
-      --text: #e8ecf6;
-      --muted: #9aa6c1;
-      --accent: #7c9cff;
-      --green: #3ddc97;
-      --yellow: #ffd166;
-      --red: #ff6b6b;
-      --border: #243252;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, var(--bg), #0f1730 55%, #111a35);
-      color: var(--text);
-      padding: 24px;
-    }
-    .wrap { max-width: 1200px; margin: 0 auto; }
-    h1 { margin: 0 0 8px; font-size: 32px; }
-    .sub { color: var(--muted); margin-bottom: 24px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-    .card {
-      background: rgba(18,26,47,0.92);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.22);
-    }
-    .span-3 { grid-column: span 3; }
-    .span-4 { grid-column: span 4; }
-    .span-6 { grid-column: span 6; }
-    .span-8 { grid-column: span 8; }
-    .span-12 { grid-column: span 12; }
-    .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
-    .value { font-size: 30px; font-weight: 700; margin-top: 8px; }
-    .status {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 12px; border-radius: 999px;
-      background: rgba(61,220,151,0.12); color: var(--green);
-      border: 1px solid rgba(61,220,151,0.35); font-weight: 700;
-    }
-    .dot { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
-    ul { margin: 10px 0 0 18px; padding: 0; }
-    li { margin: 6px 0; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
-    th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
-    code { background: var(--panel-2); padding: 2px 6px; border-radius: 6px; color: #cfe0ff; }
-    .muted { color: var(--muted); }
-    .pill { display:inline-block; padding:4px 8px; border-radius:999px; background:var(--panel-2); border:1px solid var(--border); margin-right:6px; margin-bottom:6px; }
-    @media (max-width: 900px) {
-      .span-3, .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
-    }
+    :root { --bg:#0b1020; --panel:#121a2f; --panel2:#18223d; --text:#e8ecf6; --muted:#9aa6c1; --green:#3ddc97; --border:#243252; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,system-ui,sans-serif; background:linear-gradient(180deg,var(--bg),#0f1730 55%,#111a35); color:var(--text); padding:24px; }
+    .wrap { max-width:1200px; margin:0 auto; }
+    h1 { margin:0 0 8px; font-size:32px; } .sub { color:var(--muted); margin-bottom:24px; }
+    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
+    .card { background:rgba(18,26,47,.92); border:1px solid var(--border); border-radius:16px; padding:18px; box-shadow:0 8px 30px rgba(0,0,0,.22); }
+    .span-3 { grid-column:span 3; } .span-4 { grid-column:span 4; } .span-6 { grid-column:span 6; } .span-8 { grid-column:span 8; } .span-12 { grid-column:span 12; }
+    .label { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+    .value { font-size:30px; font-weight:700; margin-top:8px; }
+    .status { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(61,220,151,.12); color:var(--green); border:1px solid rgba(61,220,151,.35); font-weight:700; }
+    .dot { width:10px; height:10px; border-radius:50%; background:currentColor; }
+    .pill { display:inline-block; padding:4px 8px; border-radius:999px; background:var(--panel2); border:1px solid var(--border); margin-right:6px; margin-bottom:6px; }
+    ul { margin:10px 0 0 18px; padding:0; } li { margin:6px 0; }
+    code { background:var(--panel2); padding:2px 6px; border-radius:6px; color:#cfe0ff; }
+    .muted { color:var(--muted); } .small { font-size:13px; color:var(--muted); margin-top:8px; }
+    @media (max-width:900px) { .span-3,.span-4,.span-6,.span-8,.span-12 { grid-column:span 12; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Retagging Status Dashboard</h1>
     <div class="sub">/mnt/c/dev/labor-decisions-search/retagging 기준 작업 상태창</div>
-
     <div class="grid">
-      <div class="card span-3">
-        <div class="label">현재 상태</div>
-        <div style="margin-top:10px" class="status"><span class="dot"></span>작업중</div>
-      </div>
-      <div class="card span-3">
-        <div class="label">최근 단계</div>
-        <div class="value">2차 Bulk</div>
-      </div>
-      <div class="card span-3">
-        <div class="label">최근 Merged</div>
-        <div class="value">861</div>
-      </div>
-      <div class="card span-3">
-        <div class="label">Override</div>
-        <div class="value">51</div>
-      </div>
+      <div class="card span-3"><div class="label">현재 상태</div><div style="margin-top:10px" class="status"><span class="dot"></span>작업중</div><div class="small">업데이트: 2026-03-20 18:51:48</div></div>
+      <div class="card span-3"><div class="label">Reviewed 파일</div><div class="value">48</div><div class="small">records: 1390</div></div>
+      <div class="card span-3"><div class="label">Merged 파일</div><div class="value">2</div><div class="small">records: 1357</div></div>
+      <div class="card span-3"><div class="label">Override</div><div class="value">66</div><div class="small">self-review: 48</div></div>
 
       <div class="card span-6">
-        <div class="label">지금 내가 하고 있는 것</div>
+        <div class="label">이 대시보드가 하는 일</div>
         <ul>
-          <li>새 <code>reviewed</code> 파일과 <code>self-review</code> 로그가 쌓이는 흐름을 따라감</li>
-          <li><code>merge_collisions_report.md</code> 갱신 시 충돌 선판정</li>
-          <li><code>manual_merge_overrides_v1.json</code> 반영 포인트 정리</li>
-          <li>bulk 진행 중 규칙 이슈는 <code>rule_change_notes_v1.md</code>에만 누적</li>
+          <li>현재 작업 상태를 한 줄로 보여줌</li>
+          <li>reviewed / merged / override 숫자를 파일 기준으로 계산</li>
+          <li>최근 생성된 reviewed 파일 목록 표시</li>
+          <li>내가 실제로 일하고 있는지, 멈췄는지 눈으로 확인 가능</li>
         </ul>
       </div>
 
       <div class="card span-6">
         <div class="label">자동 팔로우 대상</div>
-        <div style="margin-top:10px">
-          <span class="pill">output/reviewed/*.jsonl</span>
-          <span class="pill">logs/*_self_review.md</span>
-          <span class="pill">logs/merge_collisions_report.md</span>
-          <span class="pill">output/reviewed/manual_merge_overrides_v1.json</span>
-          <span class="pill">output/merged/*.jsonl</span>
-          <span class="pill">logs/merge_report.md</span>
-          <span class="pill">logs/validation_report.md</span>
-        </div>
+        <div style="margin-top:10px"><span class="pill">output/reviewed/*.jsonl</span><span class="pill">logs/*_self_review.md</span><span class="pill">logs/merge_collisions_report.md</span><span class="pill">output/reviewed/manual_merge_overrides_v1.json</span><span class="pill">output/merged/*.jsonl</span><span class="pill">logs/merge_report.md</span><span class="pill">logs/validation_report.md</span></div>
       </div>
 
-      <div class="card span-8">
-        <div class="label">진행 현황</div>
-        <table>
-          <thead>
-            <tr>
-              <th>구간</th>
-              <th>상태</th>
-              <th>메모</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>샘플 단계</td>
-              <td>완료</td>
-              <td>reviewed / self-review / merge sample 정리 완료</td>
-            </tr>
-            <tr>
-              <td>1차 bulk</td>
-              <td>완료</td>
-              <td>충돌 판정 및 override 반영 완료</td>
-            </tr>
-            <tr>
-              <td>2차 bulk</td>
-              <td>진행 중</td>
-              <td>violence / workplace_bullying 계열 계속 진행</td>
-            </tr>
-            <tr>
-              <td>검색 품질 테스트</td>
-              <td>완료</td>
-              <td>exclusion_flags 실효성 확인</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card span-6">
+        <div class="label">최근 reviewed 파일</div>
+        <ul><li>workplace_bullying_batch_009_reviewed.jsonl</li><li>violence_batch_009_reviewed.jsonl</li><li>probation_batch_009_reviewed.jsonl</li><li>absence_batch_009_reviewed.jsonl</li><li>incompetence_batch_009_reviewed.jsonl</li><li>workplace_bullying_batch_008_reviewed.jsonl</li><li>absence_batch_008_reviewed.jsonl</li><li>incompetence_batch_008_reviewed.jsonl</li><li>violence_batch_008_reviewed.jsonl</li><li>probation_batch_008_reviewed.jsonl</li><li>workplace_bullying_batch_007_reviewed.jsonl</li><li>probation_batch_007_reviewed.jsonl</li><li>violence_batch_007_reviewed.jsonl</li><li>absence_batch_007_reviewed.jsonl</li></ul>
       </div>
 
-      <div class="card span-4">
+      <div class="card span-6">
         <div class="label">상태 해석</div>
         <ul>
-          <li><b>작업중</b>: 내가 다음 수를 계속 두는 중</li>
-          <li><b>대기</b>: 새 입력이나 방향 지정 필요</li>
-          <li><b>판정필요</b>: 충돌/예외 수동 판단 필요</li>
-          <li><b>외부입력필요</b>: 네가 넘겨줘야 다음 단계 진행 가능</li>
+          <li><b>작업중</b>: 내가 같은 범위 안에서 다음 수를 계속 두는 중</li>
+          <li><b>대기</b>: 새 input 또는 방향 지정이 필요함</li>
+          <li><b>판정필요</b>: 충돌/예외에 대한 수동 판단이 필요함</li>
+          <li><b>외부입력필요</b>: 네가 넘겨줘야 다음 단계로 갈 수 있음</li>
         </ul>
       </div>
 
       <div class="card span-12">
-        <div class="label">파일 위치</div>
-        <div style="margin-top:10px" class="muted">
-          이 대시보드 파일: <code>/mnt/c/dev/labor-decisions-search/retagging/status_dashboard.html</code><br/>
-          상태 요약 마크다운: <code>/mnt/c/dev/labor-decisions-search/retagging/logs/current_status.md</code>
+        <div class="label">반자동 갱신 방법</div>
+        <div class="muted" style="margin-top:10px">
+          이 페이지는 정적 HTML이지만, 아래 스크립트를 다시 실행하면 숫자를 파일 기준으로 재생성함.<br/><br/>
+          <code>python3 /mnt/c/dev/labor-decisions-search/retagging/scripts/update_status_dashboard.py</code>
         </div>
       </div>
     </div>

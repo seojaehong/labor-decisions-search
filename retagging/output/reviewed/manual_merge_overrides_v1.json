@@ -543,6 +543,41 @@
         "industry_context": "office"
       },
       "reason": "PIP 평가 기반 해고, 사무직"
+    },
+    {
+      "case_id": "id_24147",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "시용 3개월 정식채용 전 평가, 사무직"
+    },
+    {
+      "case_id": "id_24207",
+      "fields": {
+        "industry_context": "manufacturing"
+      },
+      "reason": "수습사원 관리지침 평가, 제조업"
+    },
+    {
+      "case_id": "id_1861",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "부적절 관계+무단결근 복합비위, 비위 존부가 핵심"
+    },
+    {
+      "case_id": "id_1903",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "지시거부+폭언 비위 존부 다툼이 핵심"
+    },
+    {
+      "case_id": "id_20711",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "시용 2-3일차 무단이탈+폭언+SNS 비위 존부"
     }
   ]
 }

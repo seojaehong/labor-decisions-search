@@ -1,0 +1,27 @@
+{
+  "updated_at": "2026-03-20 18:51:48",
+  "status": "작업중",
+  "reviewed_file_count": 48,
+  "reviewed_record_count": 1390,
+  "merged_file_count": 2,
+  "merged_record_count": 1357,
+  "override_count": 66,
+  "self_review_count": 48,
+  "recent_reviewed_files": [
+    "workplace_bullying_batch_009_reviewed.jsonl",
+    "violence_batch_009_reviewed.jsonl",
+    "probation_batch_009_reviewed.jsonl",
+    "absence_batch_009_reviewed.jsonl",
+    "incompetence_batch_009_reviewed.jsonl",
+    "workplace_bullying_batch_008_reviewed.jsonl",
+    "absence_batch_008_reviewed.jsonl",
+    "incompetence_batch_008_reviewed.jsonl",
+    "violence_batch_008_reviewed.jsonl",
+    "probation_batch_008_reviewed.jsonl",
+    "workplace_bullying_batch_007_reviewed.jsonl",
+    "probation_batch_007_reviewed.jsonl",
+    "violence_batch_007_reviewed.jsonl",
+    "absence_batch_007_reviewed.jsonl"
+  ],
+  "root": "/mnt/c/dev/labor-decisions-search/retagging"
+}
