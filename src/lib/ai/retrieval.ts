@@ -270,7 +270,7 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       preferredSecondary: ['workplace_harassment', 'unfair_treatment'],
       preferredStages: stageHints,
       penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
-      penalizedKeywords: ['2차 가해', '성희롱'],
+      penalizedKeywords: ['2차 가해', '성희롱', '쟁의행위', '노동조합', '조합원'],
     };
   }
 
