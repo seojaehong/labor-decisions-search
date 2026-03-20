@@ -117,17 +117,10 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
     candidates = orCases || [];
   }
 
-  // Stage 2: hybrid-lite rerank (벡터 유사도 기반)
-  let reranked = false;
-  if (query && OPENAI_API_KEY && candidates.length > RESULT_LIMIT) {
-    try {
-      const rerankedCandidates = await rerankByEmbedding(query, candidates);
-      candidates = rerankedCandidates;
-      reranked = true;
-    } catch {
-      // rerank 실패 시 기존 순서 유지 (graceful fallback)
-    }
-  }
+  // Stage 2: hybrid-lite rerank — 현재 비활성화 (Vercel 서버리스 타임아웃 이슈)
+  // 임베딩 조회 + OpenAI 쿼리 임베딩이 Vercel 10초 제한을 초과할 수 있어 일시 비활성화
+  // TODO: Vercel Pro 전환 또는 Edge Runtime 전환 시 재활성화
+  const reranked = false;
 
   const results = candidates.slice(0, RESULT_LIMIT);
 
