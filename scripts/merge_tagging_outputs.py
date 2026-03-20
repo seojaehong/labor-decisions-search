@@ -1,14 +1,15 @@
 """
-판정례 재태깅 JSONL 병합 스크립트 (v2)
+판정례 재태깅 JSONL 병합 스크립트 (v2.1)
 
 여러 draft/reviewed JSONL 파일을 case_id 기준으로 스마트 병합.
 - 배열 필드: union merge
 - 핵심 필드 충돌: 수동 검토용 collision report 분리
 - reviewed > draft 우선
+- manual_merge_overrides JSON으로 충돌 확정값 적용
 
 사용법:
-    python3 scripts/merge_tagging_outputs.py retagging/output/draft/*.jsonl -o retagging/output/merged/merged_v1.jsonl --report
-    python3 scripts/merge_tagging_outputs.py retagging/output/draft/*.jsonl retagging/output/reviewed/*.jsonl -o merged.jsonl
+    python3 scripts/merge_tagging_outputs.py retagging/output/reviewed/*.jsonl --report
+    python3 scripts/merge_tagging_outputs.py retagging/output/reviewed/*.jsonl --overrides retagging/output/reviewed/manual_merge_overrides_v1.json --report
 """
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
@@ -253,6 +254,7 @@ def main():
     parser.add_argument("-o", "--output", default="retagging/output/merged/merged_v1.jsonl",
                         help="출력 파일 경로")
     parser.add_argument("--report", action="store_true", help="리포트 파일 저장")
+    parser.add_argument("--overrides", help="수동 충돌 판정 JSON 파일 경로")
     args = parser.parse_args()
 
     # 로드
@@ -273,6 +275,49 @@ def main():
 
     # 스마트 병합
     merged, auto_merged, collisions, status_upgrades = merge_records(all_records)
+
+    # override 적용 (수동 충돌 판정)
+    overrides_applied = []
+    collisions_resolved = []
+    if args.overrides:
+        overrides_path = Path(args.overrides)
+        if overrides_path.exists():
+            with open(overrides_path, "r", encoding="utf-8") as f:
+                overrides_data = json.load(f)
+
+            override_map = {o["case_id"]: o for o in overrides_data.get("overrides", [])}
+
+            # 1) merged에 있는 건: 필드 덮어쓰기
+            for case_id, override in override_map.items():
+                if case_id in merged:
+                    for field, value in override["fields"].items():
+                        merged[case_id][field] = value
+                    # notes에 override 이유 추가
+                    existing_notes = merged[case_id].get("notes") or ""
+                    override_note = f"[수동 판정] {override.get('reason', '')}"
+                    merged[case_id]["notes"] = f"{existing_notes}\n{override_note}".strip()
+                    merged[case_id]["review_status"] = "final"
+                    overrides_applied.append(case_id)
+
+            # 2) collisions에서 override된 건 제거
+            remaining_collisions = []
+            for c in collisions:
+                cid = c.get("case_id")
+                if cid in override_map:
+                    collisions_resolved.append(cid)
+                    # override 값으로 merged에 반영 (아직 없으면)
+                    if cid not in merged:
+                        # collision으로 빠진 건 → record_a 기반 + override 적용
+                        base = c.get("record_a", {})
+                        for field, value in override_map[cid]["fields"].items():
+                            base[field] = value
+                        base["notes"] = f"[수동 판정] {override_map[cid].get('reason', '')}"
+                        base["review_status"] = "final"
+                        merged[cid] = base
+                        overrides_applied.append(cid)
+                else:
+                    remaining_collisions.append(c)
+            collisions = remaining_collisions
 
     # notes 경고 수집
     notes_warnings = []
@@ -312,6 +357,11 @@ def main():
     print(f"  핵심 필드 충돌 (수동 검토 필요): {len(collisions)}건")
     print(f"  status 우선순위 교체: {len(status_upgrades)}건")
     print(f"  notes 권장인데 비어있음: {len(notes_warnings)}건")
+
+    if overrides_applied:
+        print(f"  수동 판정 적용 (override): {len(overrides_applied)}건")
+    if collisions_resolved:
+        print(f"  충돌 해소 (override): {len(collisions_resolved)}건")
 
     print(f"\n출력 파일: {output_path}")
 

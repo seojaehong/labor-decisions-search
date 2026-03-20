@@ -1,0 +1,46 @@
+{
+  "_description": "수동 충돌 판정 결과. merge 시 이 파일의 값이 자동 병합 결과를 override한다.",
+  "_source": "merge_collisions_report.md 수동 검토 (2026-03-20)",
+  "_version": "v1",
+  "overrides": [
+    {
+      "case_id": "id_10419",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "관리직 수습평가, 보고·소통 역량 부족, 관리직 평가체계가 핵심이라 office가 더 구체적"
+    },
+    {
+      "case_id": "id_10207",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": ["disciplinary_dismissal"]
+      },
+      "reason": "징계사유 일부 인정 후 해고 양정 과다 판단 구조. 일반 해고보다 징계해고 사건으로 보는 것이 정확"
+    },
+    {
+      "case_id": "id_10051",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": ["disciplinary_dismissal"]
+      },
+      "reason": "출퇴근카드 대리체크+괴롭힘 모두 징계사유, 결론은 해고 양정 과다 여부. disciplinary_dismissal이 적절"
+    },
+    {
+      "case_id": "id_10075",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": ["disciplinary_dismissal"]
+      },
+      "reason": "괴롭힘이 비위이긴 하나 판정 중심은 정직 2회 이후 누적 비위에 대한 해고 수위 정당성. disciplinary_severity가 적합"
+    },
+    {
+      "case_id": "id_10555",
+      "fields": {
+        "issue_type_primary": "misconduct",
+        "disposition_type": ["disciplinary_dismissal"]
+      },
+      "reason": "무단결근·물품유용·퇴사종용·폭언 복합 비위. 괴롭힘 단일 사건이 아닌 다수 징계사유 종합 판단 구조"
+    }
+  ]
+}

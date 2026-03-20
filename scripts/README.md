@@ -85,5 +85,41 @@ docs/
 3. validate로 검증
 4. 필요시 검수 (reviewed 폴더)
 5. merge로 병합 (충돌은 collision report로 분리)
-6. 검색 품질 테스트
-7. 확인 후 DB 반영
+6. **충돌 수동 판정 → override 적용**
+7. 검색 품질 테스트
+8. 확인 후 DB 반영
+
+## 수동 충돌 처리 흐름
+
+merge 실행 시 핵심 필드 충돌(issue_type_primary, employment_stage, disposition_type, industry_context)이 발견되면:
+
+1. `logs/merge_collisions_report.md`에 충돌 상세가 기록됨
+2. 사람이 검토 후 확정값을 결정
+3. `output/reviewed/manual_merge_overrides_v1.json`에 확정값 기록
+4. merge 재실행 시 `--overrides` 옵션으로 적용
+
+```bash
+# 충돌 확인
+python3 scripts/merge_tagging_outputs.py retagging/output/reviewed/*.jsonl --report
+# → logs/merge_collisions_report.md 확인
+
+# 수동 판정 후 override 적용
+python3 scripts/merge_tagging_outputs.py retagging/output/reviewed/*.jsonl \
+  --overrides retagging/output/reviewed/manual_merge_overrides_v1.json \
+  -o retagging/output/merged/merged_sample_v1.jsonl --report
+```
+
+override JSON 형식:
+```json
+{
+  "overrides": [
+    {
+      "case_id": "id_XXXXX",
+      "fields": { "issue_type_primary": "확정값" },
+      "reason": "판정 근거"
+    }
+  ]
+}
+```
+
+override 적용된 건은 `review_status: "final"`로 표시됨.
