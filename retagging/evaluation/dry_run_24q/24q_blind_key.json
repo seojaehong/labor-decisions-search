@@ -1,0 +1,98 @@
+{
+  "Q01": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q02": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q03": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q04": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q05": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q06": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q07": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q08": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q09": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q10": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q11": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q12": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q13": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q14": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q15": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q16": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q17": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q18": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q19": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q20": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q21": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q22": {
+    "A": "baseline",
+    "B": "candidate"
+  },
+  "Q23": {
+    "A": "candidate",
+    "B": "baseline"
+  },
+  "Q24": {
+    "A": "candidate",
+    "B": "baseline"
+  }
+}
