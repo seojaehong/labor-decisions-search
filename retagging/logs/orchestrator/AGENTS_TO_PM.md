@@ -589,3 +589,16 @@
 
 - 로컬 앱을 실제로 띄워 검색 흐름과 AI 검색 쪽 문제를 점검할 예정
 - reviewed/override 본문은 직접 수정하지 않고 QA 메모만 누적 유지
+
+### Local smoke test note
+
+- 홈(`/`)은 정상 응답 확인
+- `/search` HTTP 응답은 30초 내 완료되지 않아 hang 징후 확인
+- `/api/sanction` POST도 40초 내 완료되지 않아 hang 징후 확인
+- 즉 현재 AI 답변 품질 문제는 retagging 품질만의 문제가 아니라, `모델 호출 + Supabase 조회 경로` 병목도 함께 보는 게 맞음
+
+### Codex support tracks
+
+- `logs/codex_parallel_support_plan.md` 생성
+- `logs/local_app_smoke_check.md` 생성
+- Claude가 배치를 생산하는 동안 Codex는 QA 추적, collision pattern 정리, override watchlist, 로컬 앱 병목 진단을 병렬 수행
