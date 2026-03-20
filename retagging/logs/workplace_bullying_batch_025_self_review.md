@@ -7,12 +7,12 @@
 ## 분류 통계
 | issue_type_primary | count |
 |---|---:|
-| disciplinary_severity | 18 |
-| transfer_validity | 4 |
-| workplace_harassment | 4 |
-| retaliation | 2 |
-| dismissal_validity | 1 |
+| disciplinary_severity | 23 |
+| transfer_validity | 2 |
+| dismissal_validity | 2 |
+| workplace_harassment | 1 |
 | renewal_expectation | 1 |
+| unfair_treatment | 1 |
 
 ### confidence 분포
 | confidence | count |
@@ -20,11 +20,11 @@
 | high | 30 |
 
 ## 대표 보정 사례 (2~3건)
-- id_410457: workplace_bullying legacy bucket -> transfer_validity / 괴롭힘은 배경 또는 반론에 가깝고, 실질 쟁점은 전보·해고·절차 등 다른 축에 있음.
-- id_410485: workplace_bullying legacy bucket -> disciplinary_severity / 괴롭힘 사실은 전제되지만 핵심 결론은 징계 수위의 과중 여부에 있음.
-- id_410489: workplace_bullying legacy bucket -> disciplinary_severity / 괴롭힘 사실은 전제되지만 핵심 결론은 징계 수위의 과중 여부에 있음.
+- id_410579: retaliation 오독을 교정해 disciplinary_severity로 재정렬 / 문서조작·허위제출 비위에 대한 징계양정이 핵심.
+- id_411261: transfer_validity로 잡혀 있던 축을 disciplinary_severity로 교정하고, disposition도 dismissal로 맞춤.
+- id_411369: 대기발령 문제를 반영하되, 핵심은 정직 사유와 절차이므로 disciplinary_severity 중심으로 재정리.
 
 ## 특이 사항
-- exclusion_flags 사용 건수: 27건
+- exclusion_flags 사용 건수: 29건
 - notes 기재 건수: 30건
 - medium confidence: 0건
