@@ -1,14 +1,11 @@
 # PM_WATCHDOG
 
-- updated_at: 2026-03-20 21:37:39
+- updated_at: 2026-03-20 21:47:32
 - shared_status_seen: True
 - agents_to_pm_seen: True
 - merge_collisions_seen: True
-- collision_count: 33건 (전건 PM 판정 완료)
-- merged: 1,988건
-- override: 91건
-- progress: 약 52%
-- collisions: 3건
+- collision_count: 36건 (전건 PM 판정 완료)
+- override: 130건
 - dashboard_reviewed_records: 2788
 - dashboard_merged_records: 4695
 - dashboard_override_count: 130

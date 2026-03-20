@@ -561,3 +561,31 @@
 
 ### Rear queue 종료
 - 코덱스가 030까지 잡았으므로 여기서 stop
+
+---
+
+## Codex QA Handoff (2026-03-20 21:47)
+
+### Status
+
+- 생산 라인에서 QA/검수/통합 분석 모드로 전환 완료
+- 이번 라운드는 "한 사람이 끝까지 한 것처럼 보이게" 만드는 통일 기준 정리에 초점
+
+### Added files
+
+- `logs/codex_crosscheck_review.md`
+- `logs/claude_rear_review.md`
+- `logs/override_quality_review.md`
+- `logs/predicted_collision_patterns.md`
+
+### Key takeaways
+
+- Claude rear `031~033`은 현재 corpus에서 가장 안정적인 기준 샘플로 보임
+- Codex probation `015~030`은 `worker_status`, `procedure`, `medium`이 상대적으로 과하게 잡힌 구간이 있어 재검토 후보를 목록화함
+- override 130건 중 `자동 판정` / `원본 정보 부족` 11건은 원문 대조 우선순위로 분리 권고
+- 향후 collision은 `misconduct vs disciplinary_severity`, `dismissal_validity vs procedure`, `dismissal_validity vs worker_status`, topic legacy vs 실제 판정축에서 주로 발생할 가능성이 높음
+
+### Next
+
+- 로컬 앱을 실제로 띄워 검색 흐름과 AI 검색 쪽 문제를 점검할 예정
+- reviewed/override 본문은 직접 수정하지 않고 QA 메모만 누적 유지

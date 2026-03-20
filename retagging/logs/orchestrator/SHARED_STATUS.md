@@ -17,40 +17,39 @@
 - PM: 충돌 판정 / override / 상태판 / 운영 조율
 
 ## Latest Known Progress
-- merged: 1,988건
-- 충돌: 3건
-- override: 91건
-- 진행률: 약 52%
-- 최근 기준: probation_batch_022 ~ 024 완료, front / rear queue 동시 진행 가능
+- reviewed: 97 / 143 batch (약 68%)
+- reviewed records: 2,788건
+- merged unique cases: 2,561건 / 4,232건 (약 61%)
+- 핵심 충돌: 0건
+- override: 130건
+- 최근 기준: probation은 `032`까지, rear queue는 `031~033` 완료
 
 ## Current Running Queue
-- Codex front queue
-  - probation_batch_025
-  - probation_batch_026
-  - probation_batch_027
-- Claude rear queue (reserved)
-  - workplace_bullying_batch_033
-  - violence_batch_033
-  - absence_batch_033
-  - 다음 묶음: workplace_bullying_batch_032, violence_batch_032, absence_batch_032
+- 현재 실행 중 batch 없음
+- 다음 잔여 큐
+  - probation: `031`, `033`
+  - absence: `015~030`
+  - violence: `015~030`
+  - workplace_bullying: `015~030`
 
 ## Recently Finished
-- probation_batch_022
-- probation_batch_023
-- probation_batch_024
+- probation_batch_028
+- probation_batch_029
+- probation_batch_030
+- probation_batch_032
+- absence_batch_031 ~ 033
+- violence_batch_031 ~ 033
+- workplace_bullying_batch_031 ~ 033
 
 ## PM Check Needed
-- `merge_collisions_report.md` 신규 3건 확인 필요
-  - `id_30811`
-  - `id_30879`
-  - `id_32113`
-- `probation_batch_021_reviewed.jsonl` validator warning 4건
+- 핵심 merge collision 없음
+- 필요 시 `probation_batch_021_reviewed.jsonl` validator warning 4건 별도 점검
   - `id_34643`
   - `id_346509`
   - `id_346727`
   - `id_346847`
 
 ## Notes
-- 실제 최신 숫자는 `status_dashboard.html` 및 `logs/status_dashboard_data.json`도 함께 참고
-- merge collision이 발생하면 `merge_collisions_report.md` 우선 확인
-- rear queue 대상 033/032는 현재 reviewed/self-review 산출물이 없어 착수 가능 상태
+- 실제 최신 숫자는 `logs/bulk_progress_report.md`와 `logs/status_dashboard_data.json`을 우선 기준으로 본다
+- `merge_collisions_report.md`의 신규 3건(`id_30811`, `id_30879`, `id_32113`)은 PM 판정 후 override/리포트 동기화 완료
+- 즉시 착수 가능 잔여 작업은 absence/violence/workplace_bullying `015~030`, probation `031`, `033`

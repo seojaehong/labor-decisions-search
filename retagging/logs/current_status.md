@@ -1,6 +1,6 @@
 # current_status
 
-상태: 판정필요
+상태: 작업중
 
 ## 지금 내가 하고 있는 것
 - 작업 루트 `/mnt/c/dev/labor-decisions-search/retagging` 기준으로 batch 오케스트레이션 상태를 추적 중
@@ -8,18 +8,19 @@
 - merge / override / progress report는 기존 v1 산출물을 존중하는 증분 방식으로 갱신
 
 ## 현재 단계
-- 누적 reviewed 완료: 69개 batch
+- reviewed 완료: 97 / 143 batch (약 68%)
+- reviewed 건수: 2,788건
+- merged 고유 case_id: 2,561건 / 4,232건 (약 61%)
 - 실행 중: 0개 batch
-- 대기 중: 73개 batch
-- 입력 미도착: 357개 slot
-- 수동 개입 필요: 1개 batch
+- 핵심 충돌: 0건
+- override 누적: 130건
 
 ## 주제군별 진행
-- probation: 완료 18 / 입력존재 33 / 실행중 0 / 진행률 54.5%
-- incompetence: 완료 9 / 입력존재 11 / 실행중 0 / 진행률 81.8%
-- absence: 완료 14 / 입력존재 33 / 실행중 0 / 진행률 42.4%
-- violence: 완료 14 / 입력존재 33 / 실행중 0 / 진행률 42.4%
-- workplace_bullying: 완료 14 / 입력존재 33 / 실행중 0 / 진행률 42.4%
+- probation: sample+001~014+015~030+032 완료 (31/33), 잔여 `031`, `033`
+- incompetence: sample+001~011 완료 (12/12), 완료
+- absence: sample+001~014+031~033 완료 (18/33), 잔여 `015~030`
+- violence: sample+001~014+031~033 완료 (18/33), 잔여 `015~030`
+- workplace_bullying: sample+001~014+031~033 완료 (18/33), 잔여 `015~030`
 
 ## 내가 자동으로 보는 것
 - `input/batches/*.jsonl`
@@ -30,4 +31,4 @@
 - `logs/bulk_progress_report.md`
 
 ## Watchdog
-- last_watchdog_refresh: 2026-03-20 21:37:39
+- last_watchdog_refresh: 2026-03-20 21:47:33
