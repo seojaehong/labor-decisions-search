@@ -578,6 +578,48 @@
         "issue_type_primary": "misconduct"
       },
       "reason": "시용 2-3일차 무단이탈+폭언+SNS 비위 존부"
+    },
+    {
+      "case_id": "id_19187",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
+      "case_id": "id_25071",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
+      "case_id": "id_20925",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
+      "case_id": "id_21117",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
+      "case_id": "id_21121",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "원본 정보 부족, unknown 유지"
+    },
+    {
+      "case_id": "id_21165",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건, 자동 판정"
     }
   ]
 }
