@@ -99,6 +99,8 @@ def build_profile(query_text: str):
             "preferred_dispositions": [],
             "preferred_fact_markers": ["unauthorized_absence", "written_notice_missing"],
             "preferred_legal_focus": ["procedural_due_process"],
+            "preferred_query_hints": [],
+            "penalized_query_hints": [],
             "boosted_results": [],
             "excluded_results": ["dismissed", "settled"],
             "penalized_keywords": ["구제이익", "복직명령", "상시근로자 수", "채용내정"],
@@ -112,9 +114,11 @@ def build_profile(query_text: str):
             "preferred_stages": ["regular"] if "regular" in stage_hints else ["regular"],
             "penalized_stages": ["probation"] if "regular" in stage_hints else [],
             "preferred_secondary": [],
-            "preferred_dispositions": [],
+            "preferred_dispositions": ["dismissal", "disciplinary_dismissal"],
             "preferred_fact_markers": ["qualitative_evaluation", "quantitative_evaluation", "warning_given", "improvement_opportunity_given", "training_provided"],
             "preferred_legal_focus": ["just_cause", "social_norm_reasonableness"],
+            "preferred_query_hints": ["업무능력 부족", "업무능력 부족 해고 부당", "저성과 해고", "저성과자 해고 부당", "통상해고", "PIP", "개선기회 미부여"],
+            "penalized_query_hints": ["본채용 거부", "수습평가", "수습"],
             "boosted_results": [],
             "excluded_results": [],
             "penalized_keywords": ["수습", "본채용", "시용"],
@@ -131,6 +135,8 @@ def build_profile(query_text: str):
             "preferred_dispositions": ["dismissal", "disciplinary_dismissal", "transfer", "suspension", "pay_cut", "reprimand"],
             "preferred_fact_markers": ["harassment_report_filed"],
             "preferred_legal_focus": ["protection_against_retaliation"],
+            "preferred_query_hints": ["괴롭힘 신고 보복", "괴롭힘 신고 후 보복 징계", "괴롭힘 신고 후 불이익", "괴롭힘 관련 전보", "괴롭힘 신고 불이익 해고"],
+            "penalized_query_hints": ["직장 내 괴롭힘 성립", "직장 내 괴롭힘 성립 요건", "순수 직장내 괴롭힘 성립 사건"],
             "boosted_results": [],
             "excluded_results": [],
             "penalized_keywords": ["2차 가해", "성희롱", "쟁의행위", "노동조합", "조합원"],
@@ -147,6 +153,8 @@ def build_profile(query_text: str):
             "preferred_dispositions": ["dismissal", "disciplinary_dismissal", "suspension", "pay_cut"],
             "preferred_fact_markers": [],
             "preferred_legal_focus": ["proportionality", "appropriateness_of_discipline"],
+            "preferred_query_hints": [],
+            "penalized_query_hints": [],
             "boosted_results": ["granted", "partial", "overturned"],
             "excluded_results": ["dismissed", "settled"],
             "penalized_keywords": ["구제이익", "채용내정", "상시근로자 수", "복직명령", "계약기간 만료"],
@@ -162,6 +170,8 @@ def build_profile(query_text: str):
         "preferred_dispositions": [],
         "preferred_fact_markers": [],
         "preferred_legal_focus": [],
+        "preferred_query_hints": [],
+        "penalized_query_hints": [],
         "boosted_results": [],
         "excluded_results": [],
         "penalized_keywords": [],
@@ -177,6 +187,8 @@ def score_record(row, query_text, profile):
     fact_markers = arr(row, "fact_markers")
     legal_focus = arr(row, "legal_focus")
     exclusions = arr(row, "exclusion_flags")
+    include_queries = arr(row, "include_for_queries")
+    exclude_queries = arr(row, "exclude_for_queries")
     stage = row.get("employment_stage", "")
     decision_result = row.get("decision_result", "")
     haystack = " ".join([
@@ -184,7 +196,8 @@ def score_record(row, query_text, profile):
         row.get("summary_short", ""),
         row.get("holding_summary", ""),
         row.get("retrieval_note", ""),
-    ])
+    ]) 
+    query_hints_text = " ".join(include_queries + exclude_queries)
 
     if primary in profile["primary_boosts"]:
         score += profile["primary_boosts"][primary]
@@ -209,6 +222,16 @@ def score_record(row, query_text, profile):
     if hits:
         score += 6 * len(hits)
         reasons.append(f"focus:{','.join(hits)}")
+
+    hits = [x for x in profile["preferred_query_hints"] if x in query_hints_text]
+    if hits:
+        score += 6 * len(hits)
+        reasons.append(f"hint:{','.join(hits)}")
+
+    hits = [x for x in profile["penalized_query_hints"] if x in query_hints_text]
+    if hits:
+        score -= 6 * len(hits)
+        reasons.append(f"hint_penalty:{','.join(hits)}")
 
     if stage in profile["preferred_stages"]:
         score += 7
@@ -253,6 +276,9 @@ def score_record(row, query_text, profile):
         if primary == "work_ability" and stage == "regular":
             score += 7
             reasons.append("cross:regular_work_ability")
+        if "dismissal" not in dispositions and "disciplinary_dismissal" not in dispositions:
+            score -= 8
+            reasons.append("cross_penalty:not_dismissal")
         if stage == "probation":
             score -= 6
             reasons.append("cross_penalty:probation_mix")

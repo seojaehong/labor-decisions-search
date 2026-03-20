@@ -44,11 +44,11 @@
 
 | rank | case_id | primary | stage | disposition | score | why |
 |------|---------|---------|-------|-------------|-------|-----|
-| 1 | id_33547 | work_ability | regular | disciplinary_dismissal | 53 | primary:work_ability, fact:improvement_opportunity_given,training_provided, focus:just_cause,social_norm_reasonableness, stage:regular, text:2, cross:regular_work_ability |
-| 2 | id_43869 | work_ability | regular | dismissal | 52 | primary:work_ability, fact:quantitative_evaluation,training_provided, focus:just_cause,social_norm_reasonableness, stage:regular, text:1, cross:regular_work_ability |
-| 3 | id_33139 | work_ability | regular | dismissal | 46 | primary:work_ability, fact:improvement_opportunity_given, focus:just_cause,social_norm_reasonableness, stage:regular, cross:regular_work_ability |
-| 4 | id_348635 | work_ability | regular | dismissal | 46 | primary:work_ability, fact:warning_given, focus:just_cause,social_norm_reasonableness, stage:regular, cross:regular_work_ability |
-| 5 | id_23075 | work_ability | regular | dismissal | 41 | primary:work_ability, fact:improvement_opportunity_given, focus:just_cause,social_norm_reasonableness, stage:regular, keyword_penalty:수습, text:1, cross:regular_work_ability |
+| 1 | id_43869 | work_ability | regular | dismissal | 74 | primary:work_ability, disposition:dismissal, fact:quantitative_evaluation,training_provided, focus:just_cause,social_norm_reasonableness, hint:업무능력 부족,저성과자 해고 부당,통상해고, stage:regular, text:1, cross:regular_work_ability |
+| 2 | id_33547 | work_ability | regular | disciplinary_dismissal | 69 | primary:work_ability, disposition:disciplinary_dismissal, fact:improvement_opportunity_given,training_provided, focus:just_cause,social_norm_reasonableness, hint:업무능력 부족,저성과 해고,PIP, hint_penalty:수습, stage:regular, text:2, cross:regular_work_ability |
+| 3 | id_33139 | work_ability | regular | dismissal | 62 | primary:work_ability, disposition:dismissal, fact:improvement_opportunity_given, focus:just_cause,social_norm_reasonableness, hint:저성과 해고,통상해고,PIP, hint_penalty:수습, stage:regular, cross:regular_work_ability |
+| 4 | id_348635 | work_ability | regular | dismissal | 56 | primary:work_ability, disposition:dismissal, fact:warning_given, focus:just_cause,social_norm_reasonableness, hint:업무능력 부족,통상해고, hint_penalty:수습, stage:regular, cross:regular_work_ability |
+| 5 | id_405407 | work_ability | regular | dismissal | 53 | primary:work_ability, disposition:dismissal, focus:just_cause, hint:업무능력 부족,업무능력 부족 해고 부당, stage:regular, text:2, cross:regular_work_ability |
 
 ## Q2 무단결근 + 절차위반
 
@@ -94,11 +94,11 @@
 
 | rank | case_id | primary | stage | disposition | score | why |
 |------|---------|---------|-------|-------------|-------|-----|
-| 1 | id_412537 | retaliation | regular | suspension, transfer | 47 | primary:retaliation, secondary:workplace_harassment, disposition:transfer,suspension, fact:harassment_report_filed, focus:protection_against_retaliation, text:1, cross:retaliation_structure |
-| 2 | id_413701 | retaliation | regular | suspension, reprimand | 47 | primary:retaliation, secondary:workplace_harassment, disposition:suspension,reprimand, fact:harassment_report_filed, focus:protection_against_retaliation, text:1, cross:retaliation_structure |
-| 3 | id_38125 | retaliation | regular | suspension, dismissal | 46 | primary:retaliation, secondary:workplace_harassment, disposition:dismissal,suspension, fact:harassment_report_filed, focus:protection_against_retaliation, cross:retaliation_structure |
-| 4 | id_43547 | retaliation | regular | pay_cut, reprimand | 46 | primary:retaliation, secondary:workplace_harassment,unfair_treatment, disposition:pay_cut,reprimand, focus:protection_against_retaliation, text:1, cross:retaliation_structure |
-| 5 | id_43843 | retaliation | regular | suspension, reprimand | 46 | primary:retaliation, secondary:workplace_harassment,unfair_treatment, disposition:suspension,reprimand, focus:protection_against_retaliation, text:1, cross:retaliation_structure |
+| 1 | id_38125 | retaliation | regular | suspension, dismissal | 52 | primary:retaliation, secondary:workplace_harassment, disposition:dismissal,suspension, fact:harassment_report_filed, focus:protection_against_retaliation, hint:괴롭힘 신고 후 보복 징계, cross:retaliation_structure |
+| 2 | id_12583 | unfair_treatment | regular | transfer, suspension, no_formal_disposition, dismissal | 51 | primary:unfair_treatment, disposition:dismissal,transfer,suspension, fact:harassment_report_filed, focus:protection_against_retaliation, hint:괴롭힘 신고 후 불이익,괴롭힘 관련 전보, hint_penalty:순수 직장내 괴롭힘 성립 사건, text:2, cross:retaliation_structure |
+| 3 | id_344815 | unfair_treatment | regular | transfer, suspension | 47 | primary:unfair_treatment, disposition:transfer,suspension, fact:harassment_report_filed, focus:protection_against_retaliation, hint:괴롭힘 신고 후 불이익,괴롭힘 관련 전보, hint_penalty:순수 직장내 괴롭힘 성립 사건, text:2, cross:retaliation_structure |
+| 4 | id_351399 | retaliation | regular | reprimand, no_formal_disposition | 45 | primary:retaliation, disposition:reprimand, fact:harassment_report_filed, focus:protection_against_retaliation, hint:괴롭힘 신고 보복, text:1, cross:retaliation_structure |
+| 5 | id_18237 | unfair_treatment | regular | transfer, suspension, pay_cut, disciplinary_dismissal | 44 | primary:unfair_treatment, disposition:disciplinary_dismissal,transfer,suspension,pay_cut, hint:괴롭힘 신고 후 불이익,괴롭힘 관련 전보, hint_penalty:순수 직장내 괴롭힘 성립 사건, text:2, cross:retaliation_structure |
 
 ## Next Priorities
 

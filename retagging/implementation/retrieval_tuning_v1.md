@@ -22,6 +22,7 @@
 - primary pool: `work_ability, dismissal_validity`
 - preferred stage: `regular`
 - penalized stage: `probation`
+- preferred disposition: `dismissal, disciplinary_dismissal`
 - preferred fact markers: `qualitative_evaluation, quantitative_evaluation, warning_given, improvement_opportunity_given, training_provided`
 - preferred legal focus: `just_cause, social_norm_reasonableness`
 - penalized keywords: `수습, 본채용, 시용`

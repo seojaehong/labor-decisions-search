@@ -84,6 +84,8 @@ interface CandidateQueryProfile {
   preferredDispositions: string[];
   preferredFactMarkers: string[];
   preferredLegalFocus: string[];
+  preferredQueryHints: string[];
+  penalizedQueryHints: string[];
   boostedDecisionResults: string[];
   excludedDecisionResults: string[];
   penalizedKeywords: string[];
@@ -205,6 +207,8 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
     preferredDispositions: [],
     preferredFactMarkers: [],
     preferredLegalFocus: [],
+    preferredQueryHints: [],
+    penalizedQueryHints: [],
     boostedDecisionResults: [],
     excludedDecisionResults: [],
     penalizedKeywords: [],
@@ -250,6 +254,9 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
       preferredFactMarkers: ['qualitative_evaluation', 'quantitative_evaluation', 'warning_given', 'improvement_opportunity_given', 'training_provided'],
       preferredLegalFocus: ['just_cause', 'social_norm_reasonableness'],
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal'],
+      preferredQueryHints: ['업무능력 부족', '업무능력 부족 해고 부당', '저성과 해고', '저성과자 해고 부당', '통상해고', 'PIP', '개선기회 미부여'],
+      penalizedQueryHints: ['본채용 거부', '수습평가', '수습'],
       penalizedKeywords: ['수습', '본채용', '시용'],
     };
   }
@@ -268,8 +275,10 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       preferredFactMarkers: ['harassment_report_filed'],
       preferredLegalFocus: ['protection_against_retaliation'],
       preferredSecondary: ['workplace_harassment', 'unfair_treatment'],
+      preferredQueryHints: ['괴롭힘 신고 보복', '괴롭힘 신고 후 보복 징계', '괴롭힘 신고 후 불이익', '괴롭힘 관련 전보', '괴롭힘 신고 불이익 해고'],
       preferredStages: stageHints,
       penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
+      penalizedQueryHints: ['직장 내 괴롭힘 성립', '직장 내 괴롭힘 성립 요건', '순수 직장내 괴롭힘 성립 사건'],
       penalizedKeywords: ['2차 가해', '성희롱', '쟁의행위', '노동조합', '조합원'],
     };
   }
@@ -305,6 +314,8 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
   const factMarkers = asStringArray(candidate.fact_markers);
   const legalFocus = asStringArray(candidate.legal_focus);
   const exclusions = asStringArray(candidate.exclusion_flags);
+  const includeQueries = asStringArray(candidate.include_for_queries);
+  const excludeQueries = asStringArray(candidate.exclude_for_queries);
   const stage = (candidate.employment_stage as string) || '';
   const decisionResult = (candidate.decision_result as string) || '';
   const haystack = [
@@ -316,6 +327,7 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     .filter(Boolean)
     .join(' ')
     .toLowerCase();
+  const queryHintsText = [...includeQueries, ...excludeQueries].join(' ').toLowerCase();
 
   const primaryBoost = profile.primaryBoosts[primary];
   if (primaryBoost) {
@@ -345,6 +357,18 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
   if (focusHits.length > 0) {
     score += focusHits.length * 6;
     reasons.push(`focus:${focusHits.join(',')}`);
+  }
+
+  const hintHits = profile.preferredQueryHints.filter((item) => queryHintsText.includes(item.toLowerCase()));
+  if (hintHits.length > 0) {
+    score += hintHits.length * 6;
+    reasons.push(`hint:${hintHits.join(',')}`);
+  }
+
+  const hintPenalties = profile.penalizedQueryHints.filter((item) => queryHintsText.includes(item.toLowerCase()));
+  if (hintPenalties.length > 0) {
+    score -= hintPenalties.length * 6;
+    reasons.push(`hint_penalty:${hintPenalties.join(',')}`);
   }
 
   if (profile.preferredStages.includes(stage)) {
@@ -401,6 +425,10 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     if (primary === 'work_ability' && stage === 'regular') {
       score += 7;
       reasons.push('cross:regular_work_ability');
+    }
+    if (!dispositions.includes('dismissal') && !dispositions.includes('disciplinary_dismissal')) {
+      score -= 8;
+      reasons.push('cross_penalty:not_dismissal');
     }
     if (stage === 'probation') {
       score -= 6;
@@ -480,7 +508,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   if (primaryTypes.length > 0) {
     const { data: taggedCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, summary_short, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags')
+      .select('id, title, decision_result, holding_points, summary_short, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries')
       .in('issue_type_primary', primaryTypes)
       .not('holding_points', 'is', null)
       .limit(DB_CANDIDATE_LIMIT);
