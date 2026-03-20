@@ -473,6 +473,34 @@
         "industry_context": "education"
       },
       "reason": "2년 기간제 근로계약, 교육기관"
+    },
+    {
+      "case_id": "id_21037",
+      "fields": {
+        "issue_type_primary": "procedure"
+      },
+      "reason": "본채용 거부 서면통지 구체성 부족이 결론 좌우. 실체사유보다 절차"
+    },
+    {
+      "case_id": "id_21177",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "시용기간 본채용 거부, 서비스직"
+    },
+    {
+      "case_id": "id_17201",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "결근사유 증명서류+승인 미제출 무단결근이 핵심 징계사유"
+    },
+    {
+      "case_id": "id_17247",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "6회 무단이탈+근무태도 불량, 공공기관"
     }
   ]
 }
