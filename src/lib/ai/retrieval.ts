@@ -74,6 +74,21 @@ export interface RetrievalResult {
   reranked: boolean;
 }
 
+interface CandidateQueryProfile {
+  scenario: 'generic' | 'absence_procedure' | 'regular_work_ability' | 'retaliation' | 'severity_excessive';
+  primaryPool: string[];
+  primaryBoosts: Record<string, number>;
+  preferredStages: string[];
+  penalizedStages: string[];
+  preferredSecondary: string[];
+  preferredDispositions: string[];
+  preferredFactMarkers: string[];
+  preferredLegalFocus: string[];
+  boostedDecisionResults: string[];
+  excludedDecisionResults: string[];
+  penalizedKeywords: string[];
+}
+
 export function extractTags(text: string): string[] {
   const tags = new Set<string>();
   for (const [pattern, tag] of KEYWORD_PATTERNS) {
@@ -108,6 +123,13 @@ const KEYWORD_TO_PRIMARY: [RegExp, string][] = [
   [/징계.*양정|양정.*과다|처분.*과중|비례/, 'disciplinary_severity'],
   [/절차.*위반|서면.*통지|소명.*기회/, 'procedure'],
   [/괴롭힘.*신고.*불이익|보복/, 'retaliation'],
+];
+
+const KEYWORD_TO_STAGE: [RegExp, string][] = [
+  [/정규직|상용직|기간의\s*정함이\s*없는/, 'regular'],
+  [/수습|시용|본채용/, 'probation'],
+  [/기간제|계약직|계약기간\s*만료|갱신/, 'fixed_term'],
+  [/채용내정|채용\s*전|입사\s*전/, 'pre_hire'],
 ];
 
 // 키워드 → reason_category (fallback용)
@@ -145,32 +167,326 @@ function extractReasonCategories(text: string): string[] {
   return [...reasons];
 }
 
+function extractEmploymentStages(text: string): string[] {
+  const stages = new Set<string>();
+  for (const [pattern, stage] of KEYWORD_TO_STAGE) {
+    if (pattern.test(text)) stages.add(stage);
+  }
+  return [...stages];
+}
+
+const DB_CANDIDATE_LIMIT = 60;
 const CANDIDATE_LIMIT = 20;
 const RESULT_LIMIT = 5;
+
+function uniq(values: string[]): string[] {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function includesAny(text: string, needles: string[]): boolean {
+  return needles.some((needle) => text.includes(needle));
+}
+
+function asStringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((v): v is string => typeof v === 'string') : [];
+}
+
+function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
+  const lowered = query.toLowerCase();
+  const primaryPool = extractPrimaryTypes(query);
+  const stageHints = extractEmploymentStages(query);
+  const base: CandidateQueryProfile = {
+    scenario: 'generic',
+    primaryPool: uniq(primaryPool),
+    primaryBoosts: Object.fromEntries(primaryPool.map((primary) => [primary, 10])),
+    preferredStages: stageHints,
+    penalizedStages: [],
+    preferredSecondary: [],
+    preferredDispositions: [],
+    preferredFactMarkers: [],
+    preferredLegalFocus: [],
+    boostedDecisionResults: [],
+    excludedDecisionResults: [],
+    penalizedKeywords: [],
+  };
+
+  const hasAbsence = includesAny(lowered, ['무단결근', '결근', '근무태만', '근무지 이탈']);
+  const hasProcedure = includesAny(lowered, ['절차', '서면통지', '서면 통지', '소명', '인사위원회']);
+  const hasRegular = includesAny(lowered, ['정규직']);
+  const hasWorkAbility = includesAny(lowered, ['업무능력', '저성과', '성과 부족', '성과부족']);
+  const hasRetaliation = includesAny(lowered, ['보복', '불이익', '신고 이후', '신고자']);
+  const hasHarassment = includesAny(lowered, ['직장내괴롭힘', '괴롭힘']);
+  const hasSeverity = includesAny(lowered, ['양정', '과하다', '과도', '너무 과', '수위']);
+  const hasDismissal = includesAny(lowered, ['해고']);
+
+  if (hasAbsence && hasProcedure) {
+    return {
+      ...base,
+      scenario: 'absence_procedure',
+      primaryPool: uniq(['procedure', 'dismissal_validity', 'absence_without_leave']),
+      primaryBoosts: {
+        procedure: 16,
+        dismissal_validity: 10,
+        absence_without_leave: 4,
+      },
+      preferredSecondary: ['procedure', 'absence_without_leave'],
+      preferredFactMarkers: ['unauthorized_absence', 'written_notice_missing'],
+      preferredLegalFocus: ['procedural_due_process'],
+      excludedDecisionResults: ['dismissed', 'settled'],
+      penalizedKeywords: ['구제이익', '복직명령', '상시근로자 수', '채용내정'],
+    };
+  }
+
+  if (hasRegular && hasWorkAbility) {
+    return {
+      ...base,
+      scenario: 'regular_work_ability',
+      primaryPool: uniq(['work_ability', 'dismissal_validity']),
+      primaryBoosts: {
+        work_ability: 15,
+        dismissal_validity: 7,
+      },
+      preferredStages: stageHints.includes('regular') ? ['regular'] : ['regular'],
+      penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
+      preferredFactMarkers: ['qualitative_evaluation', 'quantitative_evaluation', 'warning_given', 'improvement_opportunity_given', 'training_provided'],
+      preferredLegalFocus: ['just_cause', 'social_norm_reasonableness'],
+      penalizedKeywords: ['수습', '본채용', '시용'],
+    };
+  }
+
+  if (hasHarassment && hasRetaliation) {
+    return {
+      ...base,
+      scenario: 'retaliation',
+      primaryPool: uniq(['retaliation', 'unfair_treatment', 'workplace_harassment']),
+      primaryBoosts: {
+        retaliation: 16,
+        unfair_treatment: 13,
+        workplace_harassment: 3,
+      },
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal', 'transfer', 'suspension', 'pay_cut', 'reprimand'],
+      preferredFactMarkers: ['harassment_report_filed'],
+      preferredLegalFocus: ['protection_against_retaliation'],
+      preferredSecondary: ['workplace_harassment', 'unfair_treatment'],
+      preferredStages: stageHints,
+      penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
+      penalizedKeywords: ['2차 가해', '성희롱'],
+    };
+  }
+
+  if (hasSeverity && hasDismissal) {
+    return {
+      ...base,
+      scenario: 'severity_excessive',
+      primaryPool: uniq(['disciplinary_severity', 'misconduct']),
+      primaryBoosts: {
+        disciplinary_severity: 16,
+        misconduct: 5,
+      },
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal', 'suspension', 'pay_cut'],
+      preferredLegalFocus: ['proportionality', 'appropriateness_of_discipline'],
+      preferredSecondary: ['misconduct'],
+      boostedDecisionResults: ['granted', 'partial', 'overturned'],
+      excludedDecisionResults: ['dismissed', 'settled'],
+      penalizedKeywords: ['구제이익', '채용내정', '상시근로자 수', '복직명령', '계약기간 만료'],
+    };
+  }
+
+  return base;
+}
+
+function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string, profile: CandidateQueryProfile): { score: number; reasons: string[] } {
+  const reasons: string[] = [];
+  let score = 0;
+
+  const primary = (candidate.issue_type_primary as string) || '';
+  const secondary = asStringArray(candidate.issue_type_secondary);
+  const dispositions = asStringArray(candidate.disposition_type);
+  const factMarkers = asStringArray(candidate.fact_markers);
+  const legalFocus = asStringArray(candidate.legal_focus);
+  const exclusions = asStringArray(candidate.exclusion_flags);
+  const stage = (candidate.employment_stage as string) || '';
+  const decisionResult = (candidate.decision_result as string) || '';
+  const haystack = [
+    candidate.title,
+    candidate.summary_short,
+    candidate.holding_points,
+    candidate.retrieval_note,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  const primaryBoost = profile.primaryBoosts[primary];
+  if (primaryBoost) {
+    score += primaryBoost;
+    reasons.push(`primary:${primary}`);
+  }
+
+  const secondaryHits = profile.preferredSecondary.filter((item) => secondary.includes(item));
+  if (secondaryHits.length > 0) {
+    score += secondaryHits.length * 4;
+    reasons.push(`secondary:${secondaryHits.join(',')}`);
+  }
+
+  const dispositionHits = profile.preferredDispositions.filter((item) => dispositions.includes(item));
+  if (dispositionHits.length > 0) {
+    score += dispositionHits.length * 4;
+    reasons.push(`disposition:${dispositionHits.join(',')}`);
+  }
+
+  const factHits = profile.preferredFactMarkers.filter((item) => factMarkers.includes(item));
+  if (factHits.length > 0) {
+    score += factHits.length * 5;
+    reasons.push(`fact:${factHits.join(',')}`);
+  }
+
+  const focusHits = profile.preferredLegalFocus.filter((item) => legalFocus.includes(item));
+  if (focusHits.length > 0) {
+    score += focusHits.length * 6;
+    reasons.push(`focus:${focusHits.join(',')}`);
+  }
+
+  if (profile.preferredStages.includes(stage)) {
+    score += 7;
+    reasons.push(`stage:${stage}`);
+  }
+
+  if (profile.penalizedStages.includes(stage)) {
+    score -= 9;
+    reasons.push(`stage_penalty:${stage}`);
+  }
+
+  if (profile.boostedDecisionResults.includes(decisionResult)) {
+    score += 4;
+    reasons.push(`result_boost:${decisionResult}`);
+  }
+
+  if (query.includes('결근') && exclusions.includes('not_really_absence_case')) {
+    score -= 10;
+    reasons.push('exclude:not_really_absence_case');
+  }
+  if (query.includes('괴롭힘') && exclusions.includes('not_really_harassment_case')) {
+    score -= 10;
+    reasons.push('exclude:not_really_harassment_case');
+  }
+
+  for (const keyword of profile.penalizedKeywords) {
+    if (haystack.includes(keyword.toLowerCase())) {
+      score -= 6;
+      reasons.push(`keyword_penalty:${keyword}`);
+    }
+  }
+
+  const queryTokens = query.split(/\s+/).filter((token) => token.length >= 2);
+  const textHits = queryTokens.filter((token) => haystack.includes(token.toLowerCase())).length;
+  if (textHits > 0) {
+    score += Math.min(textHits, 4);
+    reasons.push(`text:${textHits}`);
+  }
+
+  if (profile.scenario === 'absence_procedure') {
+    const hasProcedureEvidence = primary === 'procedure' || secondary.includes('procedure') || legalFocus.includes('procedural_due_process');
+    const hasAbsenceEvidence = primary === 'absence_without_leave' || secondary.includes('absence_without_leave') || factMarkers.includes('unauthorized_absence');
+    if (hasProcedureEvidence && hasAbsenceEvidence) {
+      score += 7;
+      reasons.push('cross:absence+procedure');
+    } else if (primary === 'absence_without_leave') {
+      score -= 6;
+      reasons.push('cross_penalty:absence_only');
+    }
+  }
+
+  if (profile.scenario === 'regular_work_ability') {
+    if (primary === 'work_ability' && stage === 'regular') {
+      score += 7;
+      reasons.push('cross:regular_work_ability');
+    }
+    if (stage === 'probation') {
+      score -= 6;
+      reasons.push('cross_penalty:probation_mix');
+    }
+  }
+
+  if (profile.scenario === 'retaliation') {
+    const hasRetaliationStructure =
+      primary === 'retaliation' ||
+      primary === 'unfair_treatment' ||
+      legalFocus.includes('protection_against_retaliation') ||
+      factMarkers.includes('harassment_report_filed');
+    if (hasRetaliationStructure) {
+      score += 7;
+      reasons.push('cross:retaliation_structure');
+    }
+    if (primary === 'workplace_harassment' && !hasRetaliationStructure) {
+      score -= 7;
+      reasons.push('cross_penalty:harassment_only');
+    }
+  }
+
+  if (profile.scenario === 'severity_excessive') {
+    const hasSeverityStructure =
+      primary === 'disciplinary_severity' &&
+      (legalFocus.includes('proportionality') || legalFocus.includes('appropriateness_of_discipline'));
+    if (hasSeverityStructure) {
+      score += 8;
+      reasons.push('cross:severity_proportionality');
+    }
+    if (decisionResult === 'dismissed' || decisionResult === 'rejected') {
+      score -= 4;
+      reasons.push('cross_penalty:non_excessive_outcome');
+    }
+  }
+
+  return { score, reasons };
+}
+
+function rankTaggedCandidates(query: string, taggedCases: Record<string, unknown>[]): Record<string, unknown>[] {
+  const profile = buildCandidateQueryProfile(query);
+
+  const filtered = taggedCases.filter((candidate) => {
+    const exclusions = asStringArray(candidate.exclusion_flags);
+    const decisionResult = (candidate.decision_result as string) || '';
+    if (query.includes('결근') && exclusions.includes('not_really_absence_case')) return false;
+    if (query.includes('괴롭힘') && exclusions.includes('not_really_harassment_case') && profile.scenario !== 'retaliation') return false;
+    if (query.includes('수습') && exclusions.includes('unrelated_to_probation')) return false;
+    if (profile.excludedDecisionResults.includes(decisionResult)) return false;
+    return true;
+  });
+
+  const scored = filtered.map((candidate) => {
+    const { score, reasons } = scoreTaggedCandidate(candidate, query, profile);
+    return { ...candidate, _score: score, _score_reasons: reasons };
+  });
+
+  scored.sort((a, b) => {
+    const scoreDiff = ((b as Record<string, unknown>)._score as number || 0) - ((a as Record<string, unknown>)._score as number || 0);
+    if (scoreDiff !== 0) return scoreDiff;
+    const aDecision = ((a as Record<string, unknown>).decision_result as string) || '';
+    const bDecision = ((b as Record<string, unknown>).decision_result as string) || '';
+    if (aDecision !== bDecision) return aDecision.localeCompare(bDecision);
+    return (((a as Record<string, unknown>).id as string) || '').localeCompare(((b as Record<string, unknown>).id as string) || '');
+  });
+
+  return scored;
+}
 
 export async function searchCases(tags: string[], query?: string): Promise<RetrievalResult> {
   let candidates: Record<string, unknown>[] = [];
 
   // Stage 1A: 신규 8축 태그 기반 검색 (우선 — 3,839건 태깅 완료)
-  const primaryTypes = query ? extractPrimaryTypes(query) : [];
+  const profile = query ? buildCandidateQueryProfile(query) : null;
+  const primaryTypes = profile?.primaryPool || [];
   if (primaryTypes.length > 0) {
     const { data: taggedCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, tags, url, issue_type_primary, exclusion_flags')
+      .select('id, title, decision_result, holding_points, summary_short, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags')
       .in('issue_type_primary', primaryTypes)
       .not('holding_points', 'is', null)
-      .limit(CANDIDATE_LIMIT);
+      .limit(DB_CANDIDATE_LIMIT);
 
-    // exclusion_flags 기반 노이즈 제거
     if (taggedCases && taggedCases.length > 0) {
-      candidates = taggedCases.filter((c) => {
-        const excl = (c.exclusion_flags as string[]) || [];
-        // 질의와 무관한 사건 제외
-        if (query?.includes('결근') && excl.includes('not_really_absence_case')) return false;
-        if (query?.includes('괴롭힘') && excl.includes('not_really_harassment_case')) return false;
-        if (query?.includes('수습') && excl.includes('unrelated_to_probation')) return false;
-        return true;
-      });
+      candidates = query ? rankTaggedCandidates(query, taggedCases) : taggedCases;
     }
   }
 
@@ -211,7 +527,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
       decision_result: c.decision_result as string,
       holding_points: ((c.holding_points as string) || '').slice(0, 150),
       url: c.url as string,
-      similarity: c._similarity as number | undefined,
+      similarity: (c._score as number | undefined) ?? (c._similarity as number | undefined),
     })),
     allCases: candidates,
     reranked,
