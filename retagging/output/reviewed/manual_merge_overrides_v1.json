@@ -396,6 +396,48 @@
         "industry_context": "public"
       },
       "reason": "근무태만 징계 중 괴롭힘 신고→불이익 구조, 공공기관"
+    },
+    {
+      "case_id": "id_19041",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "시용근로자 해당 여부+해임 통보 정당성이 핵심. 업무능력 자체보다 법적 프레임"
+    },
+    {
+      "case_id": "id_19061",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "가채용기간 본채용 거부, 서비스직"
+    },
+    {
+      "case_id": "id_19179",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "특수경비원 복종의무 위반이 핵심, 업무능력 아닌 비위"
+    },
+    {
+      "case_id": "id_19235",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "본채용 거부, 사무직 평가"
+    },
+    {
+      "case_id": "id_16613",
+      "fields": {
+        "issue_type_primary": "procedure"
+      },
+      "reason": "경위서/서면경고 없이 징계, 절차하자가 결론 좌우"
+    },
+    {
+      "case_id": "id_16649",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "미화원 관리직 수습, 서비스업"
     }
   ]
 }
