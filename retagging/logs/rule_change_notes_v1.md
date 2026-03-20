@@ -45,3 +45,20 @@
 8. **renewal_stage vs fixed_term 구분 보완 필요**
    - 기간제 사건이라도 핵심이 갱신기대권 존부/갱신거절이면 `employment_stage=renewal_stage`가 일관적이었음.
    - `fixed_term`은 단순 기간만료/계약형태 설명용으로 축소 운용하는 편이 나아 보임.
+
+
+9. **괴롭힘 신고 후 불이익 사건에서 `retaliation` 공백이 드러남**
+   - `id_10281` 같은 전형적 신고 후 보복 전보 사건은 현재 v1에서 `unfair_treatment`로 우회해야 함.
+   - 제안: v1.1 또는 v2에서 `retaliation`을 primary enum으로 추가 검토.
+
+10. **괴롭힘 조사·분리조치 사건에서 `transfer_validity` primary 필요성이 큼**
+   - `id_10647`처럼 보복이 아니라 행위자/피해자 분리조치의 정당성이 핵심인 사건은 `transfer_validity`를 primary로 두고 싶어짐.
+   - 현재는 `unfair_treatment`로 흡수되어 다소 뭉개짐.
+
+11. **조사 수행 여부가 괴롭힘 카테고리에서 반복적으로 중요함**
+   - `investigation_conducted`, `duty_of_investigation`이 자주 필요했으나 v1 enum 밖이었음.
+   - 조사 미비/보호조치 의무를 다루는 사건을 위해 fact_marker 또는 legal_focus 확장 검토 필요.
+
+12. **괴롭힘 인정 + 양정 과다 사건은 `disciplinary_severity` 우선 원칙이 유효함**
+   - `id_10345`, `id_10395` 유형은 괴롭힘 성립 자체보다 제재 수위가 결론을 좌우했음.
+   - v1의 "표면 키워드보다 실질 쟁점 우선" 원칙은 유지 가능.
