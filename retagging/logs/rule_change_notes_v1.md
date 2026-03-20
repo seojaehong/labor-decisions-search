@@ -70,3 +70,26 @@
 14. **`worker_status`가 선결 쟁점인 probation 사건 처리 공백**
    - `id_11225`처럼 상시근로자 수 5인 미만 적용대상성이나 시용근로자성 자체가 결론을 좌우하는 사건은 현재 v1 primary enum에서 다루기 답답함.
    - 제안: v2에서 `worker_status`를 primary enum으로 승격할지 검토.
+
+15. **absence batch에서도 경징계/인사처분 disposition 공백이 반복됨**
+   - absence_batch_001~005에서도 `warning/reprimand`, `demotion` 유형이 계속 등장해 reviewed에서는 `other`로 흡수할 수밖에 없었음.
+   - 제안: v1.1 또는 v2에서 `disposition_type`에 `warning(reprimand)`와 `demotion` 별도 enum 추가 검토.
+
+16. **absence 배치 입력 단계의 노이즈 분리 필요**
+   - 결근 배치에 `무단이탈/근무지 이탈/지각·조퇴 중심`, `사직/해고부존재`, `괴롭힘 신고 후 불이익` 사건이 상당수 혼입됨.
+   - 제안: 배치 생성 시 `absence_without_leave`와 `attendance`, `dismissal_validity`, `unfair_treatment` 후보를 사전 분기하거나, 최소한 self-review 우선점검 대상으로 표시하는 규칙 추가 검토.
+
+## probation_batch_002~005 추가 검수에서 확인된 보완점
+
+15. **probation 배치 안의 부당노동행위 결합 사건 처리 가이드 보강 필요**
+   - `id_13103`처럼 수습 적용의 적법성과 동시에 불이익취급·지배개입이 결론을 좌우하는 사건은 `dismissal_validity`와 `unfair_treatment` 경계가 흔들림.
+   - 제안: v1.1 가이드에 "조합활동 보복성이 결론의 핵심이면 `unfair_treatment`를 우선 검토" 문구 추가.
+
+16. **구제이익 소멸/부재 사건의 tagging 우선순위 보강 필요**
+   - `id_14559`, `id_15291`, `id_17855`처럼 실체 판단보다 구제이익 유무가 결론을 좌우하는 사건은 현재 v1에서 `dismissal_validity`로 흡수할 수밖에 없음.
+   - 제안: v2에서 별도 primary 신설 여부를 검토하거나, 최소한 notes 작성 기준을 더 명시할 필요가 있음.
+
+
+## 2026-03-20 incompetence_batch_001~003 review notes
+- `worker_status`가 결론 중심인 사건(당사자적격, 5인 미만 적용대상성, 이미 정식근로자로 전환되었는지 여부)에서 v1 primary enum 공백이 반복적으로 드러남. 현행 v1에서는 `dismissal_validity`/`procedure`/`unfair_treatment`로 우회 가능하지만, v1.1에서는 primary 후보 또는 별도 선결쟁점 필드 신설 검토 가치가 있음.
+- 휴직연장·직위해제·대기발령처럼 해고가 아닌 인사처분이 incompetence 배치에 섞이는 경우 `disposition_type`에 `other`로 흡수하게 되므로, 필요시 v1.1에서 `leave_extension`/`standby_order`/`position_removal` 계열 보강 검토.
