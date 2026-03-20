@@ -59,3 +59,23 @@
 - override 품질 자체는 나쁘지 않다. 다만 `자동 판정`, `원본 정보 부족` 사유는 별도 watchlist로 분리해 두는 편이 좋다.
 - 다음 라운드에서는 위 11건처럼 low-evidence override를 먼저 원문 대조 대상으로 잡고,
   나머지 case-specific reason override는 현 상태 유지가 합리적이다.
+
+## Override Watchlist Snapshot (2026-03-20 22:09)
+
+- override 총량: 130건
+- watchlist(`자동 판정`/`원본 정보 부족`): 11건
+- 상위 수정 필드: `issue_type_primary` 71, `industry_context` 64, `disposition_type` 38, `employment_stage` 14
+- 상위 reason: `수습/시용 사건, 자동 판정` 5, `비위 인정 후 양정` 4, `자동 판정` 3, `수습/시용 사건` 2
+
+### 재확인 우선 대상
+- `id_19187`: 수습/시용 사건, 자동 판정 / industry_context=service
+- `id_25071`: 수습/시용 사건, 자동 판정 / industry_context=service
+- `id_20925`: 수습/시용 사건, 자동 판정 / industry_context=service
+- `id_21117`: 수습/시용 사건, 자동 판정 / industry_context=service
+- `id_21121`: 원본 정보 부족, unknown 유지 / industry_context=unknown
+- `id_21165`: 수습/시용 사건, 자동 판정 / industry_context=service
+- `id_20441`: 원본 정보 부족 / industry_context=unknown
+- `id_20589`: 원본 정보 부족 / industry_context=unknown
+- `id_21607`: 자동 판정 / industry_context=unknown
+- `id_28511`: 자동 판정 / industry_context=unknown
+- `id_23447`: 자동 판정 / industry_context=unknown

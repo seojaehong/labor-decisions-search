@@ -638,3 +638,137 @@
 - 가장 느린 경로: `home`
 - direct Supabase REST(absence): 407ms
 - 상세와 수정안은 `logs/local_app_smoke_check.md` 참조
+
+---
+
+## Codex Override Watchlist (2026-03-20 22:09)
+
+- override 총량: 130건
+- `자동 판정`/`원본 정보 부족` watchlist: 11건
+- 상세는 `logs/override_quality_review.md` 참조
+
+---
+
+## Codex Batch Production Handoff (2026-03-20 22:15)
+
+- `batch_018`은 Claude 진행 흔적과 충돌 방지를 위해 건드리지 않음
+- Codex가 이어서 `batch_019~030` 생산 완료
+- 대상:
+  - `absence_batch_019~030`
+  - `violence_batch_019~030`
+  - `workplace_bullying_batch_019~030`
+- 산출물:
+  - reviewed JSONL 36개
+  - self-review MD 36개
+- 총 생산 건수: 1,080건
+- 로컬 검증:
+  - 36개 파일 기준 에러 0
+  - 최종 단일 배치 재검증(`violence_batch_022`)까지 경고 0 확인
+- 메모:
+  - 전체 묶음 validator에서는 cross-batch `case_id` 중복 경고 43건이 있었으나, 이는 파일별 포맷 오류가 아니라 전체 집계 경고임
+  - `018`이 아직 닫히지 않아 이번 턴에서는 커밋/푸시는 보류
+
+---
+
+## Codex Manual Recheck Pivot (2026-03-20 22:21)
+
+- 자동 생성본 `019~030`은 최종본으로 간주하지 않음
+- 사용자 지시에 따라 `batch` 단위 수동 검증/재작성으로 전환
+- 세션 리스크를 줄이기 위해 `배치 1개 완료 -> 즉시 저장 -> 공용 문서 체크포인트` 방식으로 진행
+- 현재 착수 배치: `absence_batch_019`
+- 초안 오분류 예시:
+  - `id_26243`: `absence_without_leave`로 잡혀 있으나 실제 중심은 `transfer_validity + dismissal_validity`
+- `batch_018`은 Claude 진행 흔적 보존을 위해 계속 건드리지 않음
+
+### Checkpoint
+
+- `absence_batch_019` 수동 재작성 완료
+- 변경 파일:
+  - `retagging/output/reviewed/absence_batch_019_reviewed.jsonl`
+  - `retagging/logs/absence_batch_019_self_review.md`
+  - `retagging/logs/manual_recheck_absence_batch_019.md`
+- validator 결과: `30/30 valid`, `0 errors`, `0 warnings`
+- 현재 진행 중:
+  - `violence_batch_019` 수동 재검토 완료
+  - `workplace_bullying_batch_019` 수동 재검토 워커 실행 중
+
+### Additional Checkpoint
+
+- `violence_batch_019` 수동 재작성 완료
+- 변경 파일:
+  - `retagging/output/reviewed/violence_batch_019_reviewed.jsonl`
+  - `retagging/logs/violence_batch_019_self_review.md`
+  - `retagging/logs/manual_recheck_violence_batch_019.md`
+- validator 결과: `30/30 valid`, `0 errors`, `0 warnings`
+- 애매 케이스 메모:
+  - `id_28641`: 전환배치와 징계가 결합된 복합 사건이라 `transfer_validity` primary로 유지
+  - `id_28853`: 다수 근로자 처분이 한 사건에 섞여 있어 `disciplinary_severity` + `medium`
+
+### Slot Rotation Checkpoint
+
+- `absence_batch_021` 수동 재작성 완료
+- 변경 파일:
+  - `retagging/output/reviewed/absence_batch_021_reviewed.jsonl`
+  - `retagging/logs/absence_batch_021_self_review.md`
+  - `retagging/logs/manual_recheck_absence_batch_021.md`
+- validator 결과: `30/30 valid`, `0 errors`, `0 warnings`
+- 대표 애매 케이스:
+  - `id_28417`: 무단결근 주장보다 배차승무지시위반, 횡령, 부노 판단이 섞인 복합 사건이라 `disciplinary_severity` + `medium`
+- 슬롯 회전:
+  - 완료 워커 종료 후 `absence_batch_022` 새 워커 투입 완료
+
+### Absence 023 Checkpoint
+
+- `absence_batch_023` 수동 재작성 완료
+- 변경 파일:
+  - `retagging/output/reviewed/absence_batch_023_reviewed.jsonl`
+  - `retagging/logs/absence_batch_023_self_review.md`
+  - `retagging/logs/manual_recheck_absence_batch_023.md`
+- validator 결과: `30/30 valid`, `0 errors`, `0 warnings`
+- 대표 수정:
+  - `id_29751`은 `worker_status` primary로 조정해 수습 본채용 거부 프레임에 맞춤
+  - `id_29861`은 `transfer_validity` primary로 조정해 전보 정당성 프레임에 맞춤
+  - `id_30563`은 해고 부존재와 전보 정당성을 함께 반영하도록 재정렬
+
+### Violence Batch 021 Closeout
+
+- `violence_batch_021` 수동 재검토 완료
+- 변경 파일:
+  - `retagging/output/reviewed/violence_batch_021_reviewed.jsonl`
+  - `retagging/logs/violence_batch_021_self_review.md`
+  - `retagging/logs/manual_recheck_violence_batch_021.md`
+- validator 결과: `30/30 valid`, `0 errors`, `0 warnings`
+- 대표 애매 케이스:
+  - `id_29935`: 복수 근로자와 부노 판단이 섞인 복합 사건
+  - `id_30101`: 허위사실 유포 정직의 양정과 부노 부정이 함께 있는 사건
+  - `id_30615`: 폭언·근무태도 불량만으로 해임 적정성 판단이 필요한 사건
+  - `id_30793`: 상습 언어폭력과 불법취재 영상 사용이 결합된 중대 비위 사건
+  - `id_30809`: 폭행 재발 방지 목적의 전직 정당성 사건
+
+### Slot Rotation Checkpoint 2
+
+- 완료 워커 종료:
+  - `violence_batch_020`
+  - `workplace_bullying_batch_020`
+  - `absence_batch_022`
+- 새 워커 투입:
+  - `violence_batch_021`
+  - `workplace_bullying_batch_021`
+  - `absence_batch_023`
+- 메인 로컬 작업:
+  - `absence_batch_020` 수동 재검토 계속 진행 중
+
+### Workplace Bullying 022 Checkpoint
+
+- `workplace_bullying_batch_022` 수동 재작성 완료
+- 변경 파일:
+  - `retagging/output/reviewed/workplace_bullying_batch_022_reviewed.jsonl`
+  - `retagging/logs/workplace_bullying_batch_022_self_review.md`
+  - `retagging/logs/manual_recheck_workplace_bullying_batch_022.md`
+- validator 결과: `30/30 valid`, `0 errors`, `0 warnings`
+- 대표 수정:
+  - `id_408319`: `transfer_validity` -> `dismissal_validity` / 사직 수리로 종료된 사건
+  - `id_408333`: `retaliation` -> `transfer_validity` / 배치전환 정당성 사건
+  - `id_408371`: `transfer_validity` -> `retaliation` / 신고 보복 여부 사건
+  - `id_408845`: `retaliation` -> `transfer_validity` / 인사명령 정당성 사건
+  - `id_408897`: `retaliation` -> `disciplinary_severity` / 강등 양정 과다 사건

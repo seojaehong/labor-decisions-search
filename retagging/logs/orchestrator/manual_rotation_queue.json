@@ -1,0 +1,86 @@
+{
+  "updated_at": "2026-03-21 00:37:13",
+  "range": {
+    "start": 19,
+    "end": 30
+  },
+  "active": [
+    "absence_batch_020",
+    "absence_batch_025",
+    "violence_batch_023",
+    "workplace_bullying_batch_023"
+  ],
+  "skip": [
+    "absence:018",
+    "violence:018",
+    "workplace_bullying:018"
+  ],
+  "topics": [
+    {
+      "topic": "absence",
+      "completed": [
+        "absence_batch_019",
+        "absence_batch_021",
+        "absence_batch_022",
+        "absence_batch_023",
+        "absence_batch_024",
+        "absence_batch_026",
+        "absence_batch_027",
+        "absence_batch_028",
+        "absence_batch_029",
+        "absence_batch_030"
+      ],
+      "active": [
+        "absence_batch_020",
+        "absence_batch_025"
+      ],
+      "blocked": [],
+      "pending": [],
+      "next_candidate": null
+    },
+    {
+      "topic": "violence",
+      "completed": [
+        "violence_batch_019",
+        "violence_batch_020",
+        "violence_batch_021",
+        "violence_batch_022",
+        "violence_batch_024",
+        "violence_batch_025",
+        "violence_batch_026",
+        "violence_batch_027",
+        "violence_batch_028",
+        "violence_batch_029",
+        "violence_batch_030"
+      ],
+      "active": [
+        "violence_batch_023"
+      ],
+      "blocked": [],
+      "pending": [],
+      "next_candidate": null
+    },
+    {
+      "topic": "workplace_bullying",
+      "completed": [
+        "workplace_bullying_batch_019",
+        "workplace_bullying_batch_020",
+        "workplace_bullying_batch_021",
+        "workplace_bullying_batch_022",
+        "workplace_bullying_batch_024",
+        "workplace_bullying_batch_025",
+        "workplace_bullying_batch_026",
+        "workplace_bullying_batch_027",
+        "workplace_bullying_batch_028",
+        "workplace_bullying_batch_029",
+        "workplace_bullying_batch_030"
+      ],
+      "active": [
+        "workplace_bullying_batch_023"
+      ],
+      "blocked": [],
+      "pending": [],
+      "next_candidate": null
+    }
+  ]
+}
