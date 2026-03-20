@@ -1,0 +1,304 @@
+[
+  {
+    "id": "Q01",
+    "query": "반복 무단결근으로 해고된 사건",
+    "query_type": "single_axis",
+    "topic": "absence",
+    "baseline_reason_categories": ["absence"],
+    "candidate_profile": {
+      "issue_type_primary": ["absence_without_leave"],
+      "fact_markers": ["repeated_absence", "unauthorized_absence"],
+      "disposition_type": ["dismissal", "disciplinary_dismissal"]
+    },
+    "notes": "결근이 배경이 아니라 핵심 징계사유인 사건"
+  },
+  {
+    "id": "Q02",
+    "query": "무단결근이 언급되지만 실제 핵심은 절차 위반인 사건",
+    "query_type": "composite",
+    "topic": "absence",
+    "baseline_reason_categories": ["absence"],
+    "candidate_profile": {
+      "issue_type_primary": ["procedure", "dismissal_validity"],
+      "fact_markers": ["unauthorized_absence"],
+      "exclusion_flags": ["not_really_absence_case", "procedure_dominant"]
+    },
+    "notes": "absence baseline의 노이즈 여부 확인"
+  },
+  {
+    "id": "Q03",
+    "query": "택시나 버스 기사 무단결근 징계해고",
+    "query_type": "natural_language",
+    "topic": "absence",
+    "baseline_reason_categories": ["absence"],
+    "candidate_profile": {
+      "issue_type_primary": ["absence_without_leave", "disciplinary_severity"],
+      "industry_context": ["transport"],
+      "fact_markers": ["unauthorized_absence"]
+    },
+    "notes": "산업 맥락까지 맞는지 확인"
+  },
+  {
+    "id": "Q04",
+    "query": "직장내괴롭힘이 실제로 성립하는지 다툰 사건",
+    "query_type": "single_axis",
+    "topic": "workplace_bullying",
+    "baseline_reason_categories": ["workplace_bullying"],
+    "candidate_profile": {
+      "issue_type_primary": ["workplace_harassment"],
+      "legal_focus": ["evidentiary_sufficiency", "duty_of_investigation"]
+    },
+    "notes": "괴롭힘 배경 사건과 분리되는지 확인"
+  },
+  {
+    "id": "Q05",
+    "query": "직장내괴롭힘 신고 후 불이익이나 보복이 문제 된 사건",
+    "query_type": "single_axis",
+    "topic": "workplace_bullying",
+    "baseline_reason_categories": ["workplace_bullying", "union_activity"],
+    "candidate_profile": {
+      "issue_type_primary": ["retaliation", "unfair_treatment"],
+      "fact_markers": ["harassment_report_filed"],
+      "legal_focus": ["protection_against_retaliation"]
+    },
+    "notes": "보복형 쿼리 분리 성능 확인"
+  },
+  {
+    "id": "Q06",
+    "query": "괴롭힘은 인정되는데 징계 수위가 과한지 보는 사건",
+    "query_type": "composite",
+    "topic": "workplace_bullying",
+    "baseline_reason_categories": ["workplace_bullying", "violence"],
+    "candidate_profile": {
+      "issue_type_primary": ["disciplinary_severity"],
+      "issue_type_secondary": ["workplace_harassment"],
+      "legal_focus": ["proportionality", "appropriateness_of_discipline"]
+    },
+    "notes": "성립 여부와 양정 판단 분리 확인"
+  },
+  {
+    "id": "Q07",
+    "query": "수습기간 중 본채용 거부가 정당한지",
+    "query_type": "single_axis",
+    "topic": "probation",
+    "baseline_reason_categories": ["probation"],
+    "candidate_profile": {
+      "employment_stage": ["probation"],
+      "issue_type_primary": ["dismissal_validity"],
+      "disposition_type": ["rejection_of_regular_employment"]
+    },
+    "notes": "probation 대표 핵심 질의"
+  },
+  {
+    "id": "Q08",
+    "query": "수습기간 중 업무능력 부족으로 해고하거나 본채용 거부한 사건",
+    "query_type": "composite",
+    "topic": "probation",
+    "baseline_reason_categories": ["probation", "incompetence"],
+    "candidate_profile": {
+      "employment_stage": ["probation"],
+      "issue_type_primary": ["dismissal_validity", "work_ability"],
+      "disposition_type": ["probation_termination", "rejection_of_regular_employment"]
+    },
+    "notes": "수습 + 능력부족 복합 질의"
+  },
+  {
+    "id": "Q09",
+    "query": "수습인데 서면통지나 절차 문제가 있는 사건",
+    "query_type": "composite",
+    "topic": "probation",
+    "baseline_reason_categories": ["probation"],
+    "candidate_profile": {
+      "employment_stage": ["probation"],
+      "issue_type_primary": ["dismissal_validity", "procedure"],
+      "fact_markers": ["written_notice_missing"],
+      "legal_focus": ["procedural_due_process"]
+    },
+    "notes": "절차형 probation 검색"
+  },
+  {
+    "id": "Q10",
+    "query": "정규직 저성과나 업무능력 부족으로 해고된 사건",
+    "query_type": "single_axis",
+    "topic": "incompetence",
+    "baseline_reason_categories": ["incompetence"],
+    "candidate_profile": {
+      "employment_stage": ["regular"],
+      "issue_type_primary": ["work_ability"],
+      "fact_markers": ["qualitative_evaluation", "quantitative_evaluation"]
+    },
+    "notes": "수습 사건이 섞이면 안 됨"
+  },
+  {
+    "id": "Q11",
+    "query": "개선기회나 경고를 주고도 업무능력 부족으로 해고한 사건",
+    "query_type": "composite",
+    "topic": "incompetence",
+    "baseline_reason_categories": ["incompetence"],
+    "candidate_profile": {
+      "issue_type_primary": ["work_ability", "dismissal_validity"],
+      "fact_markers": ["warning_given", "improvement_opportunity_given", "training_provided"]
+    },
+    "notes": "개선기회 요소 반영 확인"
+  },
+  {
+    "id": "Q12",
+    "query": "징계사유는 인정되지만 해고가 너무 과하다고 본 사건",
+    "query_type": "single_axis",
+    "topic": "disciplinary_severity",
+    "baseline_reason_categories": ["violence", "misconduct", "absence"],
+    "candidate_profile": {
+      "issue_type_primary": ["disciplinary_severity"],
+      "legal_focus": ["proportionality", "appropriateness_of_discipline"]
+    },
+    "notes": "candidate의 대표 강점 후보"
+  },
+  {
+    "id": "Q13",
+    "query": "정직 처분 양정이 적정한지 본 사건",
+    "query_type": "single_axis",
+    "topic": "disciplinary_severity",
+    "baseline_reason_categories": ["violence", "misconduct"],
+    "candidate_profile": {
+      "issue_type_primary": ["disciplinary_severity"],
+      "disposition_type": ["suspension"]
+    },
+    "notes": "해고 사건 과잉 회수 여부 확인"
+  },
+  {
+    "id": "Q14",
+    "query": "감봉 처분이 과한지 본 사건",
+    "query_type": "single_axis",
+    "topic": "disciplinary_severity",
+    "baseline_reason_categories": ["violence", "misconduct"],
+    "candidate_profile": {
+      "issue_type_primary": ["disciplinary_severity"],
+      "disposition_type": ["pay_cut"]
+    },
+    "notes": "비해고 징계 분리 확인"
+  },
+  {
+    "id": "Q15",
+    "query": "기간제 근로자의 갱신기대권이 인정되는지",
+    "query_type": "single_axis",
+    "topic": "contract_expiry",
+    "baseline_reason_categories": ["contract_expiry"],
+    "candidate_profile": {
+      "employment_stage": ["renewal_stage", "fixed_term"],
+      "issue_type_primary": ["renewal_expectation"],
+      "legal_focus": ["expectation_of_renewal"]
+    },
+    "notes": "갱신기대권 대표 질의"
+  },
+  {
+    "id": "Q16",
+    "query": "계약기간 만료인데 사실상 해고처럼 다퉈진 사건",
+    "query_type": "composite",
+    "topic": "contract_expiry",
+    "baseline_reason_categories": ["contract_expiry", "no_dismissal"],
+    "candidate_profile": {
+      "employment_stage": ["renewal_stage", "fixed_term"],
+      "issue_type_primary": ["renewal_expectation", "dismissal_validity"],
+      "disposition_type": ["contract_termination", "nonrenewal"]
+    },
+    "notes": "계약종료 vs 해고 프레임 분리 확인"
+  },
+  {
+    "id": "Q17",
+    "query": "전보나 인사발령이 정당한지 다툰 사건",
+    "query_type": "single_axis",
+    "topic": "transfer",
+    "baseline_reason_categories": ["transfer"],
+    "candidate_profile": {
+      "issue_type_primary": ["transfer_validity"],
+      "disposition_type": ["transfer"]
+    },
+    "notes": "전보 진성 사건 회수"
+  },
+  {
+    "id": "Q18",
+    "query": "대기발령이나 배치전환이 징계인지 인사권 행사인지 다툰 사건",
+    "query_type": "natural_language",
+    "topic": "transfer",
+    "baseline_reason_categories": ["transfer", "misconduct"],
+    "candidate_profile": {
+      "issue_type_primary": ["transfer_validity", "disciplinary_severity"],
+      "disposition_type": ["transfer", "suspension"]
+    },
+    "notes": "transfer와 disciplinary가 섞이는 영역"
+  },
+  {
+    "id": "Q19",
+    "query": "폭행이나 욕설 같은 비위 사실 자체가 인정되는지가 핵심인 사건",
+    "query_type": "single_axis",
+    "topic": "violence",
+    "baseline_reason_categories": ["violence", "misconduct"],
+    "candidate_profile": {
+      "issue_type_primary": ["misconduct"],
+      "fact_markers": ["evidence_sufficient", "investigation_conducted"]
+    },
+    "notes": "misconduct 진성 질의"
+  },
+  {
+    "id": "Q20",
+    "query": "폭행은 있었지만 해고까지는 과하다고 본 사건",
+    "query_type": "composite",
+    "topic": "violence",
+    "baseline_reason_categories": ["violence"],
+    "candidate_profile": {
+      "issue_type_primary": ["disciplinary_severity"],
+      "issue_type_secondary": ["misconduct"],
+      "legal_focus": ["proportionality"]
+    },
+    "notes": "violence 내 severity 분리 확인"
+  },
+  {
+    "id": "Q21",
+    "query": "욕설이나 직장질서 문란이 반복되어 징계해고된 사건",
+    "query_type": "natural_language",
+    "topic": "violence",
+    "baseline_reason_categories": ["violence", "misconduct"],
+    "candidate_profile": {
+      "issue_type_primary": ["misconduct", "disciplinary_severity"],
+      "disposition_type": ["disciplinary_dismissal"],
+      "fact_markers": ["prior_sanction_history"]
+    },
+    "notes": "반복 비위형 질의"
+  },
+  {
+    "id": "Q22",
+    "query": "근로자성이 실제 핵심 쟁점인 사건",
+    "query_type": "single_axis",
+    "topic": "worker_status",
+    "baseline_reason_categories": ["worker_status"],
+    "candidate_profile": {
+      "issue_type_primary": ["worker_status"],
+      "legal_focus": ["worker_status_determination"]
+    },
+    "notes": "희소 카테고리 점검용"
+  },
+  {
+    "id": "Q23",
+    "query": "괴롭힘은 인정되지 않지만 그 신고나 요구 때문에 갈등이 커진 사건",
+    "query_type": "natural_language",
+    "topic": "workplace_bullying",
+    "baseline_reason_categories": ["workplace_bullying"],
+    "candidate_profile": {
+      "issue_type_primary": ["unfair_treatment", "disciplinary_severity", "procedure"],
+      "exclusion_flags": ["not_really_harassment_case", "emotional_conflict_not_harassment"]
+    },
+    "notes": "괴롭힘 배경 사건 노이즈 체크"
+  },
+  {
+    "id": "Q24",
+    "query": "여러 비위가 함께 있었지만 최종적으로는 해고 정당성 전체를 본 사건",
+    "query_type": "natural_language",
+    "topic": "dismissal_validity",
+    "baseline_reason_categories": ["violence", "absence", "misconduct"],
+    "candidate_profile": {
+      "issue_type_primary": ["dismissal_validity"],
+      "legal_focus": ["just_cause", "social_norm_reasonableness"]
+    },
+    "notes": "복합 비위 사건에서 primary 구조가 유지되는지 확인"
+  }
+]
