@@ -711,6 +711,20 @@
         "industry_context": "unknown"
       },
       "reason": "자동 판정"
+    },
+    {
+      "case_id": "id_22373",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "양정 판단 핵심"
+    },
+    {
+      "case_id": "id_22773",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "양정 판단 핵심"
     }
   ]
 }
