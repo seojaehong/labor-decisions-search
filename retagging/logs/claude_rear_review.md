@@ -107,3 +107,48 @@
   - `medium` 절제
   - `notes` 설명력 유지
   방향으로 맞추면 통합 결과가 한 사람이 한 것처럼 보일 가능성이 높다.
+
+## Incremental QA Snapshot (2026-03-20 22:06)
+
+- 범위: `absence, violence, workplace_bullying` / `batch_015~017`
+- 원칙: 직접 수정 없이 `case_id + 수정 제안 + 근거`만 누적
+
+### absence
+
+- 완료 레코드: 90건
+- `worker_status`: 3건
+- `procedure`: 7건
+- `confidence=medium`: 1건 (1.1%)
+- `notes` 공란: 0건
+- 상위 primary: `absence_without_leave` 25, `dismissal_validity` 20, `disciplinary_severity` 15, `misconduct` 14, `procedure` 7
+- 상위 exclusion_flags: `not_really_absence_case` 49, `resignation_dispute` 7, `procedure_dominant` 3, `evidence_too_thin` 3, `unrelated_to_dismissal` 2
+
+- `worker_status` 재검토 후보: `id_22873`, `id_23407`, `id_24435`
+- `procedure` 재검토 후보: `id_22851`, `id_23129`, `id_24281`, `id_24605`, `id_24749`
+- `medium` 재검토 후보: `id_23427`
+
+### violence
+
+- 완료 레코드: 90건
+- `worker_status`: 2건
+- `procedure`: 7건
+- `confidence=medium`: 3건 (3.3%)
+- `notes` 공란: 0건
+- 상위 primary: `disciplinary_severity` 33, `misconduct` 30, `dismissal_validity` 11, `procedure` 7, `absence_without_leave` 2
+- 상위 exclusion_flags: `not_really_performance_case` 7, `resignation_dispute` 7, `unrelated_to_dismissal` 7, `fact_specific_low_reusability` 5, `not_really_harassment_case` 4
+
+- `worker_status` 재검토 후보: `id_25637`, `id_25751`
+- `procedure` 재검토 후보: `id_2491`, `id_25091`, `id_255`, `id_25945`, `id_25949`
+- `medium` 재검토 후보: `id_24577`, `id_24699`, `id_26875`
+
+### workplace_bullying
+
+- 완료 레코드: 90건
+- `worker_status`: 0건
+- `procedure`: 3건
+- `confidence=medium`: 0건 (0.0%)
+- `notes` 공란: 0건
+- 상위 primary: `workplace_harassment` 50, `transfer_validity` 11, `disciplinary_severity` 8, `misconduct` 7, `dismissal_validity` 3
+- 상위 exclusion_flags: `not_really_harassment_case` 32, `unrelated_to_harassment` 3, `procedure_dominant` 3
+
+- `procedure` 재검토 후보: `id_403775`, `id_404371`, `id_404419`

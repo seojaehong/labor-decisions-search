@@ -107,3 +107,16 @@
 - violence/bullying 배치에서 `disciplinary_severity`와 `misconduct`가 함께 보이는 사건
 - bullying 배치에서 `transfer_validity`, `unfair_treatment`, `workplace_harassment`가 경쟁하는 사건
 - probation 관련 사건에서 `worker_status`, `procedure`, `dismissal_validity`가 동시에 붙은 사건
+
+## Observed QA Snapshot (2026-03-20 22:06)
+
+- 범위: `absence, violence, workplace_bullying` / `batch_015~017`
+
+- `misconduct` vs `disciplinary_severity`: 91건
+  사례: `id_22839`, `id_22913`, `id_22973`, `id_23003`, `id_23547`, `id_24565`, `id_24571`, `id_24667`
+- `dismissal_validity` vs `procedure`: 9건
+  사례: `id_22851`, `id_24281`, `id_24323`, `id_24749`, `id_24965`, `id_24543`, `id_24577`, `id_402045`
+- `dismissal_validity` vs `worker_status`: 2건
+  사례: `id_22873`, `id_23407`
+- topic legacy vs 실제 판정축: 96건
+  사례: `id_22839`, `id_22851`, `id_22873`, `id_22913`, `id_22945`, `id_24693`, `id_24699`, `id_24839`

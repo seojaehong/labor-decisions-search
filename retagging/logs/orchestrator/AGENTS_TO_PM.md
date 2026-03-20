@@ -602,3 +602,39 @@
 - `logs/codex_parallel_support_plan.md` 생성
 - `logs/local_app_smoke_check.md` 생성
 - Claude가 배치를 생산하는 동안 Codex는 QA 추적, collision pattern 정리, override watchlist, 로컬 앱 병목 진단을 병렬 수행
+
+---
+
+## Codex QA Snapshot (2026-03-20 22:06)
+
+- 범위: `absence, violence, workplace_bullying` / `batch_015~017`
+- reviewed 레코드: 270건
+- `notes` 공란: 0건
+- `medium`: 4건
+- `worker_status`: 5건
+- `procedure`: 17건
+- 상세는 `logs/claude_rear_review.md` 또는 `logs/codex_crosscheck_review.md`, `logs/predicted_collision_patterns.md` 참조
+
+---
+
+## Codex App Diagnostic (2026-03-20 22:07)
+
+- `/`: 15091ms
+- `/search`: 15015ms
+- `/sanction`: 15017ms
+- `/api/sanction`: 15018ms
+- 가장 느린 경로: `home`
+- direct Supabase REST(absence): 1431ms
+- 상세와 수정안은 `logs/local_app_smoke_check.md` 참조
+
+---
+
+## Codex App Diagnostic (2026-03-20 22:07)
+
+- `/`: 8060ms
+- `/search`: 8023ms
+- `/sanction`: 8025ms
+- `/api/sanction`: 8027ms
+- 가장 느린 경로: `home`
+- direct Supabase REST(absence): 407ms
+- 상세와 수정안은 `logs/local_app_smoke_check.md` 참조

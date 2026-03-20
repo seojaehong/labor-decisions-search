@@ -61,3 +61,49 @@
 - `textSearch` 없는 reason-only query는 빠른지
 - `/api/sanction`에서 retrieval만 별도 측정했을 때 지연이 큰지
 - Claude 신규 배치가 추가된 뒤 검색 precision이 실제로 개선되는지
+
+## Diagnostic Snapshot (2026-03-20 22:07)
+
+### Local endpoint timings
+- `/`: error / 15091ms / error=`timed out`
+- `/search`: error / 15015ms / error=`timed out`
+- `/sanction`: error / 15017ms / error=`timed out`
+- `/api/sanction`: error / 15018ms / error=`timed out`
+
+### Direct Supabase REST timing
+- `supabase reason_category absence`: 200 / 1431ms / size=1018
+
+### Diagnosis
+- 홈이 빠르고 `/search`, `/sanction`, `/api/sanction`이 상대적으로 느리면 초기 데이터 조회 또는 blocking 모델 호출이 병목일 가능성이 높다.
+- direct Supabase REST가 빠른데 `/search`와 `/api/sanction`이 느리면 Next route/client query 조합이나 모델 호출이 우세 병목이다.
+- direct Supabase REST도 느리면 DB 인덱스, `count=exact`, 정렬, text search 조건 조합을 먼저 의심한다.
+
+### Fix proposals
+- `/search`: `count=exact`를 초기 렌더에서 분리하고, free-text가 비어 있을 때 `textSearch`를 붙이지 않도록 조정
+- `/search`: reason-only 조회는 더 가벼운 first page query와 별도 total count query로 분리
+- `/api/sanction`: retrieval 시간과 모델 호출 시간을 별도 로깅해서 병목을 분리
+- `/api/sanction`: retrieval 결과를 먼저 응답 가능한 구조로 바꾸거나, 모델 timeout 시 partial fallback을 반환
+- retrieval: retagged field를 reason-only 검색 필터와 exclusion-aware filter에 더 직접 반영할 후보를 재정리
+
+## Diagnostic Snapshot (2026-03-20 22:07)
+
+### Local endpoint timings
+- `/`: error / 8060ms / error=`timed out`
+- `/search`: error / 8023ms / error=`timed out`
+- `/sanction`: error / 8025ms / error=`timed out`
+- `/api/sanction`: error / 8027ms / error=`timed out`
+
+### Direct Supabase REST timing
+- `supabase reason_category absence`: 200 / 407ms / size=1018
+
+### Diagnosis
+- 홈이 빠르고 `/search`, `/sanction`, `/api/sanction`이 상대적으로 느리면 초기 데이터 조회 또는 blocking 모델 호출이 병목일 가능성이 높다.
+- direct Supabase REST가 빠른데 `/search`와 `/api/sanction`이 느리면 Next route/client query 조합이나 모델 호출이 우세 병목이다.
+- direct Supabase REST도 느리면 DB 인덱스, `count=exact`, 정렬, text search 조건 조합을 먼저 의심한다.
+
+### Fix proposals
+- `/search`: `count=exact`를 초기 렌더에서 분리하고, free-text가 비어 있을 때 `textSearch`를 붙이지 않도록 조정
+- `/search`: reason-only 조회는 더 가벼운 first page query와 별도 total count query로 분리
+- `/api/sanction`: retrieval 시간과 모델 호출 시간을 별도 로깅해서 병목을 분리
+- `/api/sanction`: retrieval 결과를 먼저 응답 가능한 구조로 바꾸거나, 모델 timeout 시 partial fallback을 반환
+- retrieval: retagged field를 reason-only 검색 필터와 exclusion-aware filter에 더 직접 반영할 후보를 재정리
