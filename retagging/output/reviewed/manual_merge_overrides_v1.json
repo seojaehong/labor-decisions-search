@@ -501,6 +501,48 @@
         "industry_context": "public"
       },
       "reason": "6회 무단이탈+근무태도 불량, 공공기관"
+    },
+    {
+      "case_id": "id_18321",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "1년 기간제 시용, 서비스업"
+    },
+    {
+      "case_id": "id_23379",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "전화상담원 판촉, 서비스업"
+    },
+    {
+      "case_id": "id_2345",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "수습 완료 후 정규직 상태 직권면직, 수습과 무관한 해고 정당성"
+    },
+    {
+      "case_id": "id_17909",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "폭행 징계사유 인정되나 16년 장기근속 대비 양정 과다"
+    },
+    {
+      "case_id": "id_1807",
+      "fields": {
+        "issue_type_primary": "absence_without_leave"
+      },
+      "reason": "28일 무단결근이 핵심 징계사유"
+    },
+    {
+      "case_id": "id_19645",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "PIP 평가 기반 해고, 사무직"
     }
   ]
 }
