@@ -620,6 +620,34 @@
         "industry_context": "service"
       },
       "reason": "수습/시용 사건, 자동 판정"
+    },
+    {
+      "case_id": "id_20365",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건"
+    },
+    {
+      "case_id": "id_26635",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습/시용 사건"
+    },
+    {
+      "case_id": "id_20441",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "원본 정보 부족"
+    },
+    {
+      "case_id": "id_20589",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "원본 정보 부족"
     }
   ]
 }
