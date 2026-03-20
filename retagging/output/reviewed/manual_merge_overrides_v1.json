@@ -438,6 +438,41 @@
         "industry_context": "service"
       },
       "reason": "미화원 관리직 수습, 서비스업"
+    },
+    {
+      "case_id": "id_20035",
+      "fields": {
+        "industry_context": "education"
+      },
+      "reason": "외국인 강사 수습 12개월, 교육기관"
+    },
+    {
+      "case_id": "id_20159",
+      "fields": {
+        "industry_context": "education"
+      },
+      "reason": "수습평가 기반 본채용 거부, 교육"
+    },
+    {
+      "case_id": "id_20753",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "본채용 거절 사유 대부분 부정, 지각만 인정. 해고 정당성 프레임"
+    },
+    {
+      "case_id": "id_20815",
+      "fields": {
+        "industry_context": "office"
+      },
+      "reason": "수습평가 부적격, 사무직"
+    },
+    {
+      "case_id": "id_17591",
+      "fields": {
+        "industry_context": "education"
+      },
+      "reason": "2년 기간제 근로계약, 교육기관"
     }
   ]
 }
