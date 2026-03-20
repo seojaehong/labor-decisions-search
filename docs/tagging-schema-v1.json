@@ -1,0 +1,195 @@
+{
+  "$schema": "tag-dictionary-v1",
+  "version": "v1",
+  "description": "노동위 판정례 다축 태깅 체계 — 허용값 사전",
+
+  "employment_stage": {
+    "description": "근로관계 단계",
+    "values": [
+      "probation",
+      "regular",
+      "fixed_term",
+      "renewal_stage",
+      "pre_hire",
+      "unknown"
+    ]
+  },
+
+  "issue_type_primary": {
+    "description": "1차 핵심 쟁점 (반드시 1개만)",
+    "values": [
+      "performance",
+      "low_sales",
+      "work_ability",
+      "attendance",
+      "absence_without_leave",
+      "disciplinary_severity",
+      "workplace_harassment",
+      "harassment_report",
+      "harassment_investigation",
+      "retaliation",
+      "misconduct",
+      "procedure",
+      "renewal_expectation",
+      "dismissal_validity",
+      "unfair_treatment",
+      "redundancy",
+      "transfer_validity",
+      "worker_status",
+      "discrimination",
+      "wage_dispute",
+      "other"
+    ]
+  },
+
+  "issue_type_secondary": {
+    "description": "보조 쟁점 (복수 선택)",
+    "values": [
+      "performance",
+      "low_sales",
+      "work_ability",
+      "attendance",
+      "absence_without_leave",
+      "disciplinary_severity",
+      "workplace_harassment",
+      "harassment_report",
+      "harassment_investigation",
+      "retaliation",
+      "misconduct",
+      "procedure",
+      "renewal_expectation",
+      "dismissal_validity",
+      "unfair_treatment",
+      "warning",
+      "training_opportunity",
+      "evaluation",
+      "comparative_fairness",
+      "redundancy",
+      "transfer_validity",
+      "worker_status",
+      "discrimination",
+      "wage_dispute"
+    ]
+  },
+
+  "disposition_type": {
+    "description": "문제된 인사처분 유형 (복수 선택)",
+    "values": [
+      "dismissal",
+      "disciplinary_dismissal",
+      "probation_termination",
+      "rejection_of_regular_employment",
+      "suspension",
+      "reprimand",
+      "pay_cut",
+      "demotion",
+      "transfer",
+      "contract_termination",
+      "nonrenewal",
+      "corrective_order_related",
+      "no_formal_disposition",
+      "other"
+    ]
+  },
+
+  "fact_markers": {
+    "description": "검색 품질을 높이는 구체 사실 태그 (복수 선택)",
+    "values": [
+      "sales_target_not_met",
+      "quantitative_evaluation",
+      "qualitative_evaluation",
+      "probation_period",
+      "short_tenure",
+      "six_month_tenure",
+      "long_tenure",
+      "warning_given",
+      "improvement_opportunity_given",
+      "training_provided",
+      "repeated_absence",
+      "unauthorized_absence",
+      "investigation_conducted",
+      "harassment_report_filed",
+      "victim_claim",
+      "witness_statement",
+      "disciplinary_committee",
+      "procedural_defect",
+      "written_notice",
+      "written_notice_missing",
+      "comparative_employee_case",
+      "prior_sanction_history",
+      "emotional_conflict_only",
+      "evidence_insufficient",
+      "evidence_sufficient",
+      "public_institution",
+      "mutual_agreement",
+      "resignation_dispute"
+    ]
+  },
+
+  "legal_focus": {
+    "description": "법적 판단의 핵심 기준 (복수 선택)",
+    "values": [
+      "just_cause",
+      "social_norm_reasonableness",
+      "proportionality",
+      "procedural_due_process",
+      "evidentiary_sufficiency",
+      "employer_burden_of_proof",
+      "expectation_of_renewal",
+      "duty_of_investigation",
+      "protection_against_retaliation",
+      "appropriateness_of_discipline",
+      "suitability_for_regular_employment",
+      "worker_status_determination",
+      "discrimination_prohibition"
+    ]
+  },
+
+  "industry_context": {
+    "description": "산업 맥락",
+    "values": [
+      "sales",
+      "retail",
+      "office",
+      "manufacturing",
+      "service",
+      "education",
+      "healthcare",
+      "public",
+      "construction",
+      "transport",
+      "finance",
+      "it",
+      "unknown"
+    ]
+  },
+
+  "exclusion_flags": {
+    "description": "특정 검색에서 상위 노출 방지 (복수 선택)",
+    "values": [
+      "not_really_performance_case",
+      "not_really_harassment_case",
+      "not_really_absence_case",
+      "renewal_expectation_dominant",
+      "settlement_or_mutual_termination",
+      "resignation_dispute",
+      "procedure_dominant",
+      "evidence_too_thin",
+      "fact_specific_low_reusability",
+      "unrelated_to_probation",
+      "unrelated_to_dismissal",
+      "unrelated_to_harassment",
+      "emotional_conflict_not_harassment"
+    ]
+  },
+
+  "confidence": {
+    "description": "태깅 신뢰도",
+    "values": ["high", "medium", "low"]
+  },
+
+  "review_status": {
+    "description": "검수 상태",
+    "values": ["pending", "reviewed", "final"]
+  }
+}
