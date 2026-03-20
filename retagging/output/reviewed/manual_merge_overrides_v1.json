@@ -648,6 +648,69 @@
         "industry_context": "unknown"
       },
       "reason": "원본 정보 부족"
+    },
+    {
+      "case_id": "id_21607",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "자동 판정"
+    },
+    {
+      "case_id": "id_28511",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "자동 판정"
+    },
+    {
+      "case_id": "id_29041",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습 사건"
+    },
+    {
+      "case_id": "id_29137",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습 사건"
+    },
+    {
+      "case_id": "id_21523",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "비위 인정 후 양정"
+    },
+    {
+      "case_id": "id_21785",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "비위 인정 후 양정"
+    },
+    {
+      "case_id": "id_22869",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "비위 인정 후 양정"
+    },
+    {
+      "case_id": "id_23179",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "비위 인정 후 양정"
+    },
+    {
+      "case_id": "id_23447",
+      "fields": {
+        "industry_context": "unknown"
+      },
+      "reason": "자동 판정"
     }
   ]
 }
