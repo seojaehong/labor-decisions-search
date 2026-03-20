@@ -536,7 +536,7 @@
   - 없음
 - ambiguities_or_blockers:
   - 없음
-- validation: local `validate_tagging_jsonl.py` 통과 예정
+- validation: local `validate_tagging_jsonl.py` 통과 완료
 - finished_at: 2026-03-20 22:05
 
 ---
