@@ -67,12 +67,8 @@ function SearchContent() {
       .order("decision_date", { ascending: false });
 
     if (reason) {
-      const mappedTags = REASON_TO_TAGS[reason];
-      if (mappedTags && mappedTags.length > 0) {
-        q = q.overlaps("tags", mappedTags);
-      } else {
-        q = q.contains("reason_category", [reason]);
-      }
+      // reason_category 분류 완료 — 직접 검색 (태그 fallback 불필요)
+      q = q.contains("reason_category", [reason]);
     }
     if (result) q = q.eq("decision_result", result);
     if (query) q = q.textSearch("search_vector", query.split(" ").join(" & "));

@@ -94,25 +94,23 @@ export const SANCTION_LABELS: Record<SanctionType, string> = {
   other: "기타",
 };
 
-// reason_category가 대부분 빈 배열이므로, tags 기반 검색으로 매핑
-// DB 태그 분포 기반 매핑 (2026-03-19 정밀화)
-// - 구체적 사유 태그(폭언,횡령 등)는 DB에 미존재 → 가용 태그로 최선 매핑
-// - AI reason_category 분류 완료 후 이 매핑은 fallback으로 전환 예정
+// reason_category 분류 완료 (42,105건) — reason_category 컬럼으로 직접 검색
+// REASON_TO_TAGS는 태그 기반 fallback용으로만 유지
 export const REASON_TO_TAGS: Record<ReasonCategory, string[]> = {
-  sexual_harassment: ["성희롱"],                        // 1,387건
-  workplace_bullying: ["직장내괴롭힘"],                  // 1,621건
-  violence: ["징계해고", "징계양정"],                     // 징계해고 2,665 + 징계양정 10,521
-  absence: ["징계해고"],                                 // 2,665건 (무단결근 태그 없음)
-  embezzlement: ["징계해고"],                            // 2,665건 (횡령/배임 태그 없음)
-  incompetence: ["해고사유"],                            // 16,188건 (업무능력부족 태그 없음)
-  misconduct: ["징계해고", "징계양정"],                   // 징계해고+징계양정 교집합
-  redundancy: ["부당해고"],                              // 37,888건
-  probation: ["수습"],                                  // 1,975건
-  transfer: ["전보"],                                   // 전보/전배/인사이동
-  contract_expiry: ["갱신기대권", "비정규직"],             // 기간제 계약만료
-  no_dismissal: ["해고부존재", "사직", "권고사직"],        // 해고부존재/사직
-  union_activity: ["부당노동행위", "지배개입", "불이익취급"], // 노조 관련
-  worker_status: ["근로자성", "당사자적격"],               // 근로자 지위 분쟁
-  discrimination: ["차별시정"],                          // 비정규직 차별
+  sexual_harassment: ["성희롱"],
+  workplace_bullying: ["직장내괴롭힘"],
+  violence: ["징계해고", "징계양정"],
+  absence: ["징계해고"],
+  embezzlement: ["징계해고"],
+  incompetence: ["해고사유"],
+  misconduct: ["징계해고", "징계양정"],
+  redundancy: ["부당해고"],
+  probation: ["수습"],
+  transfer: ["전보"],
+  contract_expiry: ["갱신기대권", "비정규직"],
+  no_dismissal: ["해고부존재", "사직", "권고사직"],
+  union_activity: ["부당노동행위", "지배개입", "불이익취급"],
+  worker_status: ["근로자성", "당사자적격"],
+  discrimination: ["차별시정"],
   other: [],
 };

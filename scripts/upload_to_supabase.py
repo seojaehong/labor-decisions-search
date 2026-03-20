@@ -40,9 +40,11 @@ ALLOWED_TAGS = {
 
 # decisionResult → DB decision_result 매핑
 RESULT_MAP = {
-    '인용': 'granted', '기각': 'dismissed', '각하': 'rejected',
-    '초심유지': 'upheld', '초심취소': 'overturned', '화해': 'settled', '취하': 'settled',
-    '조정성립': 'settled', '일부인용': 'partial', '일부인정': 'partial',
+    '인용': 'granted', '전부인정': 'granted', '전부시정': 'granted',
+    '기각': 'dismissed', '각하': 'rejected',
+    '초심유지': 'upheld', '초심취소': 'overturned', '초심일부취소': 'partial',
+    '화해': 'settled', '취하': 'settled', '조정성립': 'settled',
+    '일부인용': 'partial', '일부인정': 'partial', '일부시정': 'partial',
 }
 
 
