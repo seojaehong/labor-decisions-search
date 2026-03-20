@@ -117,3 +117,15 @@
 3. misconduct(127건) 내부 세분화 부족 → secondary로 구분 가능하지만, 검색 시 misconduct만으로는 노이즈
 4. worker_status(1건) → 추가 배치에서 보강 필요
 5. retaliation primary 사건 부재 → secondary에만 존재, primary 태깅 기준 재검토
+
+## 2026-03-20 probation batching adjustment notes
+- `worker_status`는 worker status 자체가 결론인 경우에만 primary로 쓰고, 단순히 dismissal validity로 넘어가는 관문일 뿐이면 primary 남용을 피할 것.
+- `procedure`는 본안의 실체 판단이 먼저이고 그 뒤 서면통지 하자가 따라오는 사건에서 과용하지 말고, 필요시 `dismissal_validity` 또는 `work_ability`를 primary로 두고 `procedure`는 secondary로 두는 편이 더 일관적임.
+- `confidence=medium`은 실제로 태깅 판단이 모호할 때만 사용하고, 단순한 검토 편의나 관행적 완충값으로는 쓰지 말 것.
+- `resignation_dispute`는 `issue_type_secondary`에 두지 말고 `fact_markers` 또는 `exclusion_flags`로만 기록할 것.
+
+## 2026-03-20 probation cross-check adjustment
+- `worker_status`는 최종 쟁점이 근로자 지위 자체인 경우에만 쓰고, 본채용 거부/해고 적법성으로 귀결되는 사건에서는 `evaluation`/`procedure`/`dismissal_validity` 쪽으로 우선 분기하는 편이 검색 품질에 유리함.
+- `procedure` primary는 절차 하자가 실체 판단을 덮는 경우에만 사용하고, 실질적 정당성 분석이 먼저 이뤄진 뒤 서면통지 하자가 붙는 사건은 `dismissal_validity` 또는 `work_ability` primary + `procedure` secondary 조합을 우선 고려하는 것이 좋음.
+- `confidence=medium`은 정말로 분류가 애매한 사건에만 제한하고, 단순 경계사례라는 이유만으로는 high를 유지하는 쪽이 배치 일관성에 더 적합함.
+- `resignation_dispute`는 `issue_type_secondary`에 넣지 말고 `fact_markers`/`exclusion_flags`로만 관리하는 규칙을 고정하는 것이 좋음.

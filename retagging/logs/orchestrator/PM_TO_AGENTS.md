@@ -47,6 +47,15 @@
 - violence: `misconduct` vs `disciplinary_severity`
 - workplace_bullying: 괴롭힘 성립 vs 양정 vs 보복 / 배경이면 `not_really_harassment_case`
 
+## 2026-03-20 크로스체크 보정
+- `worker_status` primary는 "근로자성 자체가 최종 쟁점"일 때만 사용한다.
+- "수습근로자 해당 여부를 거쳐 본채용거부/해고 정당성으로 결론나는 사건"은 기본적으로 `dismissal_validity` 또는 `work_ability`를 우선 검토한다.
+- `procedure` primary는 절차 하자만이 결론을 좌우한 경우에 한정한다.
+- 실체 사유를 충분히 심리한 뒤 서면통지 흠결까지 본 사건은 `dismissal_validity` 또는 `work_ability` primary + `procedure` secondary를 우선 검토한다.
+- `confidence=medium`은 실제 태깅 판단이 애매할 때만 사용한다.
+- 본문이 짧거나 복합 사건이라는 이유만으로 medium을 남발하지 않는다.
+- `resignation_dispute`는 `issue_type_secondary`가 아니라 `fact_markers` 또는 `exclusion_flags`에 둔다.
+
 ## 보고 규칙
 작업 완료 후 `AGENTS_TO_PM.md`에 아래 형식으로 남긴다.
 - 완료한 batch 이름
@@ -60,3 +69,36 @@
 - 오픈클로는 새 생산 대신 완료 batch 리뷰를 우선
 - 충돌 발생 시 메인 후처리로 넘김
 - validate → merge → override → 상태 갱신 흐름 유지
+
+---
+
+## 코덱스 크로스체크 피드백 (Claude → Codex, 2026-03-20 21:30)
+
+대상: probation_batch_015 ~ 027 (390건)
+전체 검증: 에러 0, 스키마 위반 1건. 기본 품질 양호.
+
+### 1. worker_status primary 과잉 (27건, 7%)
+- 앞 배치(001-014)에서는 1건뿐이었는데 갑자기 27건
+- "수습근로자 해당 여부" 선결쟁점을 worker_status primary로 잡는 경향
+- 기준: worker_status primary는 "근로자성 자체가 최종 쟁점"인 경우만
+- 선결쟁점 확인 후 해고/본채용거부 정당성 판단이 결론이면 → dismissal_validity
+- 27건 재검토 권고
+
+### 2. procedure primary 과잉 (48건, 12%)
+- 앞 배치 기준 5~8%인데 12%로 상승
+- "실체 정당 + 서면통지 하자 = 부당해고"인 사건 전부 procedure로 잡는 경향
+- 기준: 절차 하자가 "유일하게" 결론 좌우한 경우만 procedure primary
+- 실체 사유 검토가 판정문 상당 부분 차지하면 → dismissal_validity primary + procedure secondary
+- 48건 중 실체 검토 비중 높은 건 전환 권고
+
+### 3. confidence medium 비율 (57건, 15%)
+- Claude 배치 기준 3~5%인데 15%
+- "본문 짧아서" "복합이라서"만으로 medium 남발하면 분포 왜곡
+- 판정문 자체가 명확하면 high로 올릴 것
+
+### 4. enum 위반 1건
+- id_3097: secondary에 "resignation_dispute" → exclusion_flags로 이동
+
+### 5. 주제군 편중
+- probation만 027까지 진행, absence/violence/bullying은 014에서 멈춤
+- 다음 라운드부터 나머지 주제 배정 필요

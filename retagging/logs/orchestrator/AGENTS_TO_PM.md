@@ -36,6 +36,24 @@
 
 ### Running
 - agent: Codex
+- batch: probation_batch_030
+- started_at: 2026-03-20 21:40
+- input: `input/batches/probation_batch_030.jsonl`
+- expected_outputs:
+  - `output/reviewed/probation_batch_030_reviewed.jsonl`
+  - `logs/probation_batch_030_self_review.md`
+
+### Running
+- agent: Codex
+- batch: probation_batch_028
+- started_at: 2026-03-20 21:16
+- input: `input/batches/probation_batch_028.jsonl`
+- expected_outputs:
+  - `output/reviewed/probation_batch_028_reviewed.jsonl`
+  - `logs/probation_batch_028_self_review.md`
+
+### Running
+- agent: Codex
 - batch: probation_batch_026
 - started_at: 2026-03-20 21:12
 - input: `input/batches/probation_batch_026.jsonl`
@@ -395,3 +413,55 @@
 
 ### Next
 - batch_032 진행 예정 (absence, violence, workplace_bullying)
+
+
+### Done
+- agent: Codex
+- batch: probation_batch_030
+- changed_files:
+  - `output/reviewed/probation_batch_030_reviewed.jsonl`
+  - `logs/probation_batch_030_self_review.md`
+  - `logs/orchestrator/AGENTS_TO_PM.md`
+- reviewed_count: 30
+- representative_cases:
+  - `id_39293`: 근무성적 평가 미달과 서면통지 적법성이 함께 인정된 본채용 거부 사례
+  - `id_39475`: 감봉 처분과 본채용 거부 논리가 결합된 경계 사례
+  - `id_39945`: 사직서 제출로 해고 부존재가 정리된 사례
+  - `id_400259`: 시용성이 부정되어 일반해고 서면통지 하자가 문제된 사례
+  - `id_400483`: 계약기간 만료와 구제이익 소멸이 핵심인 fixed-term 사건
+- new_rule_issues:
+  - 없음
+- ambiguities_or_blockers:
+  - 없음
+- validation: local `validate_tagging_jsonl.py` 통과 완료
+- finished_at: 2026-03-20 21:40
+
+### Running
+- agent: Codex
+- batch: probation_batch_029
+- target_files:
+  - `output/reviewed/probation_batch_029_reviewed.jsonl`
+  - `logs/probation_batch_029_self_review.md`
+  - `logs/orchestrator/AGENTS_TO_PM.md`
+- status: in_progress
+
+### Done
+- agent: Codex
+- batch: probation_batch_029
+- changed_files:
+  - `output/reviewed/probation_batch_029_reviewed.jsonl`
+  - `logs/probation_batch_029_self_review.md`
+  - `logs/orchestrator/AGENTS_TO_PM.md`
+- reviewed_count: 30
+- representative_cases:
+  - `id_38361`: 구두해고와 서면통지 위반이 함께 걸린 절차 쟁점 사례
+  - `id_38417`: 강요된 사직과 노조 관련 주장 혼입을 분리한 unfair_treatment 경계 사례
+  - `id_38433`: 갱신기대권과 비갱신 통보가 핵심인 renewal_stage 사례
+  - `id_38595`: 징계사유가 핵심인 misconduct 사례
+  - `id_39135`: 정직/감봉 경력과 수습 종료가 섞인 disciplinary_severity 경계 사례
+- new_rule_issues:
+  - 없음
+- ambiguities_or_blockers:
+  - 없음
+- validation: local `validate_tagging_jsonl.py` 통과 완료
+- finished_at: 2026-03-20 21:55
