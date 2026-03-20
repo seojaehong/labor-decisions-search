@@ -1,21 +1,50 @@
 # 재태깅 병합 충돌 리포트
 
-날짜: 2026-03-20 17:36
-충돌 건수: 7건
+날짜: 2026-03-20 17:50
+충돌 건수: 33건
 
 이 파일의 사건들은 핵심 필드(issue_type_primary, employment_stage, disposition_type, industry_context)에서 서로 다른 값이 발견되어 자동 병합되지 않았습니다.
 수동 검토 후 reviewed 폴더에 확정본을 넣어주세요.
 
 ---
 
-## 1. id_14663
+## 1. id_10909
 
-소스 A: absence_batch_005_reviewed.jsonl
-소스 B: incompetence_batch_001_reviewed.jsonl
+소스 A: absence_batch_001_reviewed.jsonl
+소스 B: violence_batch_001_reviewed.jsonl
 
 충돌 필드: industry_context
-  A: "healthcare"
+  A: "public"
+  B: "manufacturing"
+
+---
+
+## 2. id_11245
+
+소스 A: absence_batch_001_reviewed.jsonl
+소스 B: violence_batch_001_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "disciplinary_severity"
+  B: "workplace_harassment"
+
+---
+
+## 3. id_11257
+
+소스 A: absence_batch_001_reviewed.jsonl
+소스 B: violence_batch_001_reviewed.jsonl
+
+충돌 필드: industry_context
+  A: "service"
   B: "unknown"
+
+---
+
+## 4. id_11877
+
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: violence_batch_002_reviewed.jsonl
 
 충돌 필드: disposition_type
   A: ["dismissal"]
@@ -23,150 +52,370 @@
 
 ---
 
-## 2. id_11473
+## 5. id_12371
 
-소스 A: absence_batch_001_reviewed.jsonl
-소스 B: probation_batch_001_reviewed.jsonl
+소스 A: probation_batch_002_reviewed.jsonl
+소스 B: violence_batch_002_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["disciplinary_dismissal"]
+  B: ["probation_termination"]
 
 충돌 필드: issue_type_primary
   A: "dismissal_validity"
-  B: "work_ability"
+  B: "procedure"
 
 충돌 필드: industry_context
-  A: "unknown"
-  B: "service"
+  A: "healthcare"
+  B: "unknown"
 
 ---
 
-## 3. id_13323
+## 6. id_12647
 
-소스 A: incompetence_batch_001_reviewed.jsonl
-소스 B: probation_batch_003_reviewed.jsonl
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: violence_batch_003_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["suspension"]
+  B: ["suspension", "pay_cut"]
+
+충돌 필드: industry_context
+  A: "public"
+  B: "unknown"
+
+---
+
+## 7. id_12649
+
+소스 A: absence_batch_003_reviewed.jsonl
+소스 B: violence_batch_003_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["suspension"]
+  B: ["suspension", "transfer"]
+
+---
+
+## 8. id_1293
+
+소스 A: absence_batch_003_reviewed.jsonl
+소스 B: violence_batch_003_reviewed.jsonl
+
+충돌 필드: industry_context
+  A: "public"
+  B: "unknown"
+
+---
+
+## 9. id_13359
+
+소스 A: probation_batch_003_reviewed.jsonl
+소스 B: violence_batch_004_reviewed.jsonl
 
 충돌 필드: issue_type_primary
   A: "dismissal_validity"
-  B: "work_ability"
+  B: "procedure"
 
 ---
 
-## 4. id_13583
+## 10. id_13415
 
-소스 A: absence_batch_004_reviewed.jsonl
-소스 B: probation_batch_003_reviewed.jsonl
+소스 A: probation_batch_003_reviewed.jsonl
+소스 B: violence_batch_004_reviewed.jsonl
 
-충돌 필드: issue_type_primary
-  A: "dismissal_validity"
-  B: "misconduct"
+충돌 필드: industry_context
+  A: "service"
+  B: "healthcare"
 
 ---
 
-## 5. id_14469
+## 11. id_13419
 
-소스 A: absence_batch_005_reviewed.jsonl
-소스 B: probation_batch_004_reviewed.jsonl
+소스 A: absence_batch_003_reviewed.jsonl
+소스 B: violence_batch_004_reviewed.jsonl
 
 충돌 필드: issue_type_primary
   A: "disciplinary_severity"
   B: "misconduct"
 
+---
+
+## 12. id_1441
+
+소스 A: probation_batch_003_reviewed.jsonl
+소스 B: violence_batch_004_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "dismissal_validity"
+  B: "procedure"
+
+---
+
+## 13. id_15147
+
+소스 A: probation_batch_004_reviewed.jsonl
+소스 B: violence_batch_005_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["disciplinary_dismissal"]
+  B: ["dismissal"]
+
+---
+
+## 14. id_10991
+
+소스 A: absence_batch_001_reviewed.jsonl
+소스 B: workplace_bullying_batch_001_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["dismissal"]
+  B: ["disciplinary_dismissal"]
+
+충돌 필드: issue_type_primary
+  A: "unfair_treatment"
+  B: "disciplinary_severity"
+
+충돌 필드: industry_context
+  A: "public"
+  B: "unknown"
+
+---
+
+## 15. id_11137
+
+소스 A: violence_batch_001_reviewed.jsonl
+소스 B: workplace_bullying_batch_001_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "misconduct"
+
+---
+
+## 16. id_11339
+
+소스 A: absence_batch_001_reviewed.jsonl
+소스 B: workplace_bullying_batch_001_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "dismissal_validity"
+
+---
+
+## 17. id_11387
+
+소스 A: violence_batch_001_reviewed.jsonl
+소스 B: workplace_bullying_batch_001_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
+
 충돌 필드: industry_context
   A: "unknown"
   B: "office"
 
-충돌 필드: disposition_type
-  A: ["dismissal"]
-  B: ["probation_termination"]
+---
+
+## 18. id_11829
+
+소스 A: violence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_001_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
 
 ---
 
-## 6. id_14493
+## 19. id_11877
 
-소스 A: absence_batch_005_reviewed.jsonl
-소스 B: probation_batch_004_reviewed.jsonl
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_001_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["dismissal"]
+  B: ["disciplinary_dismissal"]
 
 충돌 필드: issue_type_primary
-  A: "dismissal_validity"
-  B: "work_ability"
+  A: "unfair_treatment"
+  B: "workplace_harassment"
+
+---
+
+## 20. id_11911
+
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "unfair_treatment"
+  B: "misconduct"
+
+충돌 필드: industry_context
+  A: "public"
+  B: "unknown"
+
+---
+
+## 21. id_11981
+
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["dismissal"]
+  B: ["disciplinary_dismissal"]
+
+충돌 필드: industry_context
+  A: "public"
+  B: "unknown"
+
+---
+
+## 22. id_12013
+
+소스 A: violence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
+
+---
+
+## 23. id_12171
+
+소스 A: violence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "misconduct"
+
+충돌 필드: industry_context
+  A: "unknown"
+  B: "public"
+
+---
+
+## 24. id_12189
+
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: industry_context
+  A: "manufacturing"
+  B: "finance"
+
+---
+
+## 25. id_12333
+
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["dismissal"]
+  B: ["disciplinary_dismissal"]
+
+---
+
+## 26. id_12383
+
+소스 A: violence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
+
+---
+
+## 27. id_12485
+
+소스 A: absence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["dismissal"]
+  B: ["transfer", "dismissal"]
+
+---
+
+## 28. id_12491
+
+소스 A: violence_batch_003_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
+
+---
+
+## 29. id_12497
+
+소스 A: violence_batch_003_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
+
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
 
 충돌 필드: industry_context
   A: "unknown"
   B: "service"
 
-충돌 필드: disposition_type
-  A: ["dismissal"]
-  B: ["rejection_of_regular_employment"]
-
 ---
 
-## 7. id_16547
+## 30. id_12573
 
-소스 A: incompetence_batch_001_reviewed.jsonl
-소스 B: probation_batch_005_reviewed.jsonl
+소스 A: violence_batch_003_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
 
 충돌 필드: issue_type_primary
-  A: "dismissal_validity"
-  B: "work_ability"
-
-충돌 필드: disposition_type
-  A: ["probation_termination"]
-  B: ["rejection_of_regular_employment"]
+  A: "procedure"
+  B: "unfair_treatment"
 
 ---
 
-# 수동 검토 최종 판정 (2026-03-20, 1차 bulk)
+## 31. id_12685
 
-## 1. id_14663 최종안
-- `issue_type_primary`: disciplinary_severity
-- `employment_stage`: regular
-- `disposition_type`: ["disciplinary_dismissal"]
-- `industry_context`: healthcare
-- 근거: 근무태만·업무능력 부족·직원 다툼 등 징계사유 인정되나, 사직권고 3회·전보 검토 없이 해고에 이른 점에서 양정 과다가 핵심 판단구조. 의료/조리 분야이므로 healthcare. 징계사유 전제 해고이므로 disciplinary_dismissal.
+소스 A: violence_batch_003_reviewed.jsonl
+소스 B: workplace_bullying_batch_002_reviewed.jsonl
 
-## 2. id_11473 최종안
-- `issue_type_primary`: dismissal_validity
-- `employment_stage`: probation
-- `disposition_type`: ["rejection_of_regular_employment"]
-- `industry_context`: service
-- 근거: 시용근로자 여부 + 본채용 거부 정당성이 중심. 업무능력 자체보다 "시용근로자인지 → 본채용 거부가 정당한지" 법적 구조가 핵심.
+충돌 필드: disposition_type
+  A: ["dismissal"]
+  B: ["other", "dismissal"]
 
-## 3. id_13323 최종안
-- `issue_type_primary`: dismissal_validity
-- `employment_stage`: regular
-- `disposition_type`: ["dismissal"]
-- `industry_context`: manufacturing
-- 근거: 선결쟁점이 "수습기간 만료 후 정식근로자 신분인지"이고, 정식근로자 확인 후 해고 정당성 판단. 이미 정식 전환된 상태에서의 해고이므로 regular + dismissal_validity.
+충돌 필드: issue_type_primary
+  A: "workplace_harassment"
+  B: "disciplinary_severity"
 
-## 4. id_13583 최종안
-- `issue_type_primary`: dismissal_validity
-- `employment_stage`: probation
-- `disposition_type`: ["rejection_of_regular_employment"]
-- `industry_context`: transport
-- 근거: 시용근로자 확인 후, 잦은 결근·승무계획 거부가 본채용 거절의 합리적 이유인지 판단. 핵심은 본채용 거부 정당성. 승무직 → transport.
+---
 
-## 5. id_14469 최종안
-- `issue_type_primary`: disciplinary_severity
-- `employment_stage`: probation
-- `disposition_type`: ["probation_termination"]
-- `industry_context`: education
-- 근거: 징계사유 6개 중 4개 인정 + 절차 적법 후, 수습기간 중 해고 양정 적정성이 핵심. 비위 존부보다 양정 판단이 결론 좌우. 교육기관. 수습 중도 해고이므로 probation_termination.
+## 32. id_1521
 
-## 6. id_14493 최종안
-- `issue_type_primary`: dismissal_validity
-- `employment_stage`: probation
-- `disposition_type`: ["rejection_of_regular_employment"]
-- `industry_context`: service
-- 근거: 업무범위(시설관리) 설명 부재 + 계약서 미명시가 핵심. 업무적격성 자체보다 "해고사유로 삼은 업무범위가 계약 내용인지"가 판정 좌우. 관리소 → service.
+소스 A: absence_batch_005_reviewed.jsonl
+소스 B: workplace_bullying_batch_003_reviewed.jsonl
 
-## 7. id_16547 최종안
-- `issue_type_primary`: dismissal_validity
-- `employment_stage`: probation
-- `disposition_type`: ["rejection_of_regular_employment"]
-- `industry_context`: unknown
-- 근거: 수습근로자 여부 확인 + 본채용 거부 정당성 판단이 핵심. work_ability보다 dismissal_validity가 판정의 실질 프레임.
+충돌 필드: industry_context
+  A: "public"
+  B: "finance"
 
-## 판정 패턴 요약
-- dismissal_validity vs work_ability (4건): 모두 "해고/본채용거부의 법적 정당성"이 판정 프레임 → dismissal_validity
-- disciplinary_severity vs misconduct (2건): 비위 존부가 아니라 양정 과다가 결론 좌우 → disciplinary_severity
-- dismissal vs disciplinary_dismissal: 징계사유 전제 해고 → disciplinary_dismissal, 해고 존재 다툼 → dismissal
-- rejection vs probation_termination: 수습 만료 시 본채용 거부 → rejection, 수습 중도 해고 → probation_termination
+---
+
+## 33. id_21941
+
+소스 A: incompetence_batch_002_reviewed.jsonl
+소스 B: workplace_bullying_batch_003_reviewed.jsonl
+
+충돌 필드: disposition_type
+  A: ["disciplinary_dismissal"]
+  B: ["dismissal"]
+
+---
 

@@ -93,3 +93,13 @@
 ## 2026-03-20 incompetence_batch_001~003 review notes
 - `worker_status`가 결론 중심인 사건(당사자적격, 5인 미만 적용대상성, 이미 정식근로자로 전환되었는지 여부)에서 v1 primary enum 공백이 반복적으로 드러남. 현행 v1에서는 `dismissal_validity`/`procedure`/`unfair_treatment`로 우회 가능하지만, v1.1에서는 primary 후보 또는 별도 선결쟁점 필드 신설 검토 가치가 있음.
 - 휴직연장·직위해제·대기발령처럼 해고가 아닌 인사처분이 incompetence 배치에 섞이는 경우 `disposition_type`에 `other`로 흡수하게 되므로, 필요시 v1.1에서 `leave_extension`/`standby_order`/`position_removal` 계열 보강 검토.
+
+## 2026-03-20 violence_batch_001~005 review notes
+- violence 배치에서 `부당노동행위` 문구가 함께 등장하더라도, 판정의 중심이 징계사유·양정·절차이면 `unfair_treatment`로 자동 이동시키면 과대분류가 발생함. v1.1 가이드에는 "부당노동행위 병합 사건은 결론의 중심 질문이 해고/징계인지, 불이익취급인지 먼저 분기"라는 문구를 추가할 필요가 있음.
+- violence 배치에는 정직·감봉·전보처럼 해고가 아닌 처분이 자주 섞여 있어 `unrelated_to_dismissal` 사용 빈도가 높음. 배치 생성 단계에서 해고/비해고 처분을 한 번 더 분기하거나, review checklist에 비해고 처분 우선 점검 문구를 넣으면 후속 검수 효율이 좋아질 것으로 보임.
+
+## 2026-03-20 workplace_bullying_batch_001~005 추가 검수에서 확인된 보완점
+
+- `warning`, `demotion`, `휴업명령`, `직위해제`, `대기발령`처럼 괴롭힘 배치에서 반복 등장하는 처분 유형을 v1 `disposition_type`이 직접 수용하지 못해 `other` 또는 `suspension`/`transfer`로 우회했다. v1.1 또는 v2에서 세분화 검토 가치가 있음.
+- 괴롭힘 조사 후 분리전보·대기발령·휴업명령 사건은 실질 중심이 `transfer_validity`인데 현재는 `unfair_treatment`로 흡수해야 해 해상도가 떨어진다. transfer 계열 primary 보강 필요성이 반복 확인됨.
+- 괴롭힘 배치에도 갱신기대권/전환거절, 사직서 강요, 부당노동행위 결합 사건이 섞여 들어와 `workplace_harassment` 단일축만으로는 분류 정확도가 떨어진다. 배치 생성 단계에서 종료구조/처분유형 기준 선분류를 강화할 필요가 있음.

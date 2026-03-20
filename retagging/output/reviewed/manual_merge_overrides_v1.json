@@ -1,6 +1,6 @@
 {
   "_description": "수동 충돌 판정 결과. merge 시 이 파일의 값이 자동 병합 결과를 override한다.",
-  "_source": "merge_collisions_report.md 수동 검토 (2026-03-20)",
+  "_source": "merge_collisions_report.md 수동 검토 (2026-03-20, 1차+2차 bulk)",
   "_version": "v1",
   "overrides": [
     {
@@ -132,6 +132,270 @@
         ]
       },
       "reason": "수습근로자 확인+본채용 거부 정당성이 핵심. work_ability보다 dismissal_validity가 판정 프레임"
+    },
+    {
+      "case_id": "id_10909",
+      "fields": {
+        "industry_context": "manufacturing"
+      },
+      "reason": "공장 생산량 감소·폭행이 핵심, 공공기관 아닌 제조현장"
+    },
+    {
+      "case_id": "id_11257",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "가맹점 직원 폭행·무단취식, 서비스업 현장"
+    },
+    {
+      "case_id": "id_1293",
+      "fields": {
+        "industry_context": "public"
+      },
+      "reason": "공공기관 평가절차 위반·이메일 조롱"
+    },
+    {
+      "case_id": "id_13415",
+      "fields": {
+        "industry_context": "service"
+      },
+      "reason": "수습 3개월 서비스직"
+    },
+    {
+      "case_id": "id_12189",
+      "fields": {
+        "industry_context": "manufacturing"
+      },
+      "reason": "안전모 미착용·폐기물 수거 태만, 제조/건설 현장"
+    },
+    {
+      "case_id": "id_1521",
+      "fields": {
+        "industry_context": "finance"
+      },
+      "reason": "법인카드 부정사용 포함, 금융기관"
+    },
+    {
+      "case_id": "id_11877",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "괴롭힘 신고 후 해고, 징계사유 전제 구조"
+    },
+    {
+      "case_id": "id_12647",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "pay_cut"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "정직+감봉 복합처분, 공공기관"
+    },
+    {
+      "case_id": "id_12649",
+      "fields": {
+        "disposition_type": [
+          "suspension",
+          "transfer"
+        ]
+      },
+      "reason": "정직+전보 복합처분"
+    },
+    {
+      "case_id": "id_15147",
+      "fields": {
+        "disposition_type": [
+          "dismissal"
+        ]
+      },
+      "reason": "대기발령→해고 구조, 징계 아닌 일반 해고"
+    },
+    {
+      "case_id": "id_10991",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "업무지시 불이행+무단결근 징계해고"
+    },
+    {
+      "case_id": "id_11981",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ],
+        "industry_context": "public"
+      },
+      "reason": "괴롭힘+규정위반+무단이탈 징계해고"
+    },
+    {
+      "case_id": "id_12333",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "성희롱+괴롭힘+지시위반 복합 징계해고"
+    },
+    {
+      "case_id": "id_12485",
+      "fields": {
+        "disposition_type": [
+          "dismissal",
+          "transfer"
+        ]
+      },
+      "reason": "직권면직+금전보상, 전보도 포함"
+    },
+    {
+      "case_id": "id_12685",
+      "fields": {
+        "disposition_type": [
+          "demotion",
+          "dismissal"
+        ]
+      },
+      "reason": "강등+징계, 괴롭힘 일부 인정"
+    },
+    {
+      "case_id": "id_21941",
+      "fields": {
+        "disposition_type": [
+          "disciplinary_dismissal"
+        ]
+      },
+      "reason": "업무능력 부족 징계해고, 최하위 근무평정"
+    },
+    {
+      "case_id": "id_11245",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "고객 컴플레인+괴롭힘+근태불량 징계사유 인정 후 양정 판단"
+    },
+    {
+      "case_id": "id_12371",
+      "fields": {
+        "issue_type_primary": "dismissal_validity",
+        "industry_context": "healthcare"
+      },
+      "reason": "시용기간 해고 정당성이 핵심, 의료기관"
+    },
+    {
+      "case_id": "id_13359",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "수습기간 만료 전 해약권 행사 여부가 핵심"
+    },
+    {
+      "case_id": "id_13419",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "정직 양정 과다 여부가 결론 좌우"
+    },
+    {
+      "case_id": "id_1441",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "시용기간 중 해고 정당성 판단"
+    },
+    {
+      "case_id": "id_11137",
+      "fields": {
+        "issue_type_primary": "misconduct"
+      },
+      "reason": "유인물 게시·명예훼손·괴롭힘·폭행 복합비위, misconduct가 포괄적"
+    },
+    {
+      "case_id": "id_11339",
+      "fields": {
+        "issue_type_primary": "dismissal_validity"
+      },
+      "reason": "무단결근 해고 정당성이 핵심, 괴롭힘 주장은 항변"
+    },
+    {
+      "case_id": "id_11387",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "성희롱+폭언 징계사유 인정 후 해고 양정 판단"
+    },
+    {
+      "case_id": "id_11829",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "폭행 징계사유 인정되나 해고 양정 과다 여부가 핵심"
+    },
+    {
+      "case_id": "id_12013",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "폭언·괴롭힘 징계사유 인정, 정직 15일 양정 적정성 판단"
+    },
+    {
+      "case_id": "id_12171",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "장기간 폭언·괴롭힘 징계, 양정 적정성 핵심"
+    },
+    {
+      "case_id": "id_12383",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "괴롭힘 징계사유 인정되나 해고 양정 과다"
+    },
+    {
+      "case_id": "id_12491",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "감봉 양정 적정성이 핵심, 괴롭힘 일부 인정"
+    },
+    {
+      "case_id": "id_12497",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity"
+      },
+      "reason": "괴롭힘 징계사유 인정 후 해고 양정 상당성 판단"
+    },
+    {
+      "case_id": "id_12573",
+      "fields": {
+        "issue_type_primary": "procedure"
+      },
+      "reason": "전보 제척기간 도과+감봉 징계 절차 판단"
+    },
+    {
+      "case_id": "id_14469",
+      "fields": {
+        "issue_type_primary": "disciplinary_severity",
+        "disposition_type": [
+          "probation_termination"
+        ],
+        "industry_context": "education"
+      },
+      "reason": "수습 중 징계 6개 사유 4개 인정, 양정 판단이 핵심. 교육기관"
+    },
+    {
+      "case_id": "id_11911",
+      "fields": {
+        "issue_type_primary": "unfair_treatment",
+        "industry_context": "public"
+      },
+      "reason": "근무태만 징계 중 괴롭힘 신고→불이익 구조, 공공기관"
     }
   ]
 }
