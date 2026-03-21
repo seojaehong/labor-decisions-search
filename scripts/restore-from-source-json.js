@@ -151,7 +151,7 @@ function loadSourceMap(sourcePath) {
 
 async function fetchCandidateRows(supabase, desiredCount, skipIds = new Set()) {
   const rows = [];
-  const pageSize = Math.max(desiredCount * 10, 500);
+  const pageSize = Math.min(1000, Math.max(desiredCount * 2, 500));
   let from = 0;
 
   while (rows.length < desiredCount) {
