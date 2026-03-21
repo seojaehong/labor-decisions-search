@@ -1,33 +1,31 @@
-# contract_expiry_batch_054_reviewed.jsonl 2nd pass self-review
-
-변경 건수: 50 / 50
-
-## id_35365
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 사용자2는 근로자의 실질적 사용자가 아니므로 사용자1에게 구제신청의 당사자 적격은 있으나 근로계약이 1회에 한하여 갱신되었고 갱신 관련 규정이 없으므로 근로자에게는 갱신기대권이 존재하지 않는다고 판정.
-- confidence: high
-
-## id_35371
-- primary: renewal_expectation
-- secondary: ['worker_status', 'dismissal_validity']
-- notes: 기간제근로자에게 갱신기대권이 인정되지 않아 근로계약기간 만료로 근로관계가 종료되었다고 판정.
-- confidence: high
-
-## id_35375
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로자에게 근로계약 갱신기대권이 인정된다고 보기 어렵고 근로계약 기간이 만료되어 구제이익이 존재하지 않는다고 판정.
-- confidence: high
+# contract_expiry_batch_054 2차 패스
 
 ## id_35385
-- primary: discrimination
-- secondary: ['worker_status', 'dismissal_validity', 'renewal_expectation']
-- notes: 기간제근로자로서 근로계약의 갱신기대권은 인정되나 갱신거절에 합리적인 이유가 있으므로 근로관계 종료는 정당하다고 판정.
+- primary 수정: discrimination → renewal_expectation
+- notes: 기간제근로자로서 근로계약의 갱신기대권은 인정되나 갱신거절에 합리적인 이유가 있으므로 근로관계 종료는 정당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'worker_status']
 - confidence: high
 
-## id_35391
-- primary: renewal_expectation
+## id_35419
+- primary 수정: discrimination → renewal_expectation
+- notes: 기간의 정함이 있는 근로자에 대한 사용자의 계약갱신 거절에 합리적 이유가 없어 부당하고, 노조원임을 이유로 한 불이익 취급의 부당노동행위에 해당하지만, 근로계약 종료와 근로계약 변경이 지배·개입의 부당노동행위에는 해 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'unfair_treatment']
+- confidence: high
+
+## id_35433
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자에 대한 갱신기대권이 인정되고 갱신거절의 합리적 이유가 없음을 이유로 부당해고임을 인정한 사례 — discrimination 판단이 핵심
 - secondary: ['procedure', 'dismissal_validity']
-- notes: 해고의 효력을 다투던 중 근로계약기간의 만료로 근로관계가 종료되어 구제이익이 없다고 판정.
+- confidence: high
+
+## id_35469
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자의 정규직 전환 기대권이 인정되나 정규직 전환 거절에 합리적 이유가 없다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity']
+- confidence: high
+
+## id_35763
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자에게 근로계약의 갱신기대권이 존재함에도 불구하고 사용자가 합리적인 이유 없이 근로계약의 갱신을 거절한 것은 부당하나, 불이익 취급의 부당노동행위에는 해당하지 않는다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'unfair_treatment']
 - confidence: high
