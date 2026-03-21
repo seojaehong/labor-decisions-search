@@ -9,11 +9,6 @@ const SOURCE_JSON_PATH = "C:\\Users\\iceam\\OneDrive\\5.산업안전\\문서\\Ob
 const LOG_DIR = path.join(__dirname, "logs");
 const PROGRESS_LOG = path.join(LOG_DIR, "restore-from-source-progress.log");
 const FAILURE_LOG = path.join(LOG_DIR, "restore-from-source-failures.jsonl");
-const loadedEnvState = {
-  fileAnonKey: "",
-  fileServiceRoleKey: "",
-};
-
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
 }
@@ -21,6 +16,21 @@ function ensureDir(dirPath) {
 function appendLog(filePath, line) {
   ensureDir(path.dirname(filePath));
   fs.appendFileSync(filePath, `${line}\n`, "utf8");
+}
+
+function loadFailedIds() {
+  if (!fs.existsSync(FAILURE_LOG)) return new Set();
+  const failedIds = new Set();
+  for (const line of fs.readFileSync(FAILURE_LOG, "utf8").split(/\r?\n/)) {
+    if (!line) continue;
+    try {
+      const parsed = JSON.parse(line);
+      if (parsed?.id) failedIds.add(parsed.id);
+    } catch {
+      // ignore malformed log entries
+    }
+  }
+  return failedIds;
 }
 
 function parseArgs(argv) {
@@ -61,32 +71,19 @@ function loadEnvFile(filePath) {
 
 function initEnv() {
   try {
-    const localResult = require("dotenv").config({ path: path.join(ROOT, ".env.local") });
-    const envResult = require("dotenv").config({ path: path.join(ROOT, ".env") });
-    loadedEnvState.fileAnonKey =
-      localResult?.parsed?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      envResult?.parsed?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      "";
-    loadedEnvState.fileServiceRoleKey =
-      localResult?.parsed?.SUPABASE_SERVICE_ROLE_KEY ||
-      envResult?.parsed?.SUPABASE_SERVICE_ROLE_KEY ||
-      "";
+    require("dotenv").config({ path: path.join(ROOT, ".env.local") });
+    require("dotenv").config({ path: path.join(ROOT, ".env") });
   } catch {
     loadEnvFile(path.join(ROOT, ".env.local"));
     loadEnvFile(path.join(ROOT, ".env"));
-    loadedEnvState.fileAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-    loadedEnvState.fileServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
   }
 }
 
 function getSupabase({ dryRun }) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = dryRun
-    ? loadedEnvState.fileAnonKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    : loadedEnvState.fileServiceRoleKey ||
-      process.env.SUPABASE_SERVICE_ROLE_KEY ||
-      loadedEnvState.fileAnonKey ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
     throw new Error("Supabase env is missing.");
@@ -152,19 +149,34 @@ function loadSourceMap(sourcePath) {
   return parsed;
 }
 
-async function fetchCandidateRows(supabase, desiredCount) {
-  const { data, error } = await supabase
-    .from("nlrc_decisions")
-    .select("id, url, holding_points, case_number")
-    .order("id", { ascending: true })
-    .limit(Math.max(desiredCount * 5, 200));
+async function fetchCandidateRows(supabase, desiredCount, skipIds = new Set()) {
+  const rows = [];
+  const pageSize = Math.max(desiredCount * 10, 500);
+  let from = 0;
 
-  if (error) throw error;
+  while (rows.length < desiredCount) {
+    const { data, error } = await supabase
+      .from("nlrc_decisions")
+      .select("id, url, holding_points, case_number")
+      .order("id", { ascending: true })
+      .range(from, from + pageSize - 1);
 
-  return (data || []).filter((row) => {
-    const length = typeof row.holding_points === "string" ? row.holding_points.trim().length : 0;
-    return length < 100;
-  }).slice(0, desiredCount);
+    if (error) throw error;
+    if (!data || data.length === 0) break;
+
+    for (const row of data) {
+      const length = typeof row.holding_points === "string" ? row.holding_points.trim().length : 0;
+      if (length < 100 && !skipIds.has(row.id)) {
+        rows.push(row);
+        if (rows.length >= desiredCount) break;
+      }
+    }
+
+    if (data.length < pageSize) break;
+    from += pageSize;
+  }
+
+  return rows;
 }
 
 async function updateDecisionRecord(supabase, id, holdingPoints, holdingSummary, caseNumber) {
@@ -184,51 +196,64 @@ async function main() {
   const targetCount = args.dryRun ? args.limit : args.batchSize;
   const supabase = getSupabase({ dryRun: args.dryRun });
   const sourceMap = loadSourceMap(args.source);
+  const failedIds = loadFailedIds();
 
   appendLog(PROGRESS_LOG, `[${new Date().toISOString()}] start dryRun=${args.dryRun} target=${targetCount}`);
-
-  const rows = await fetchCandidateRows(supabase, targetCount);
-  console.log(`Loaded ${rows.length} short holding_points rows from DB.`);
-
   let processed = 0;
-  for (const row of rows) {
-    try {
-      const sourceEntry = sourceMap[row.id];
-      const sourceKey = getSourceKeyFromRow(row);
-      const resolvedEntry = sourceMap[sourceKey];
-      if (!resolvedEntry) {
-        throw new Error("Missing source JSON entry");
-      }
+  let batchIndex = 0;
 
-      const { holdingPoints, holdingSummary, caseNumber } = getCandidateText(resolvedEntry);
-      if (!holdingPoints || holdingPoints.length < 100) {
-        throw new Error("Source JSON holding text is too short or missing");
-      }
+  while (true) {
+    const rows = await fetchCandidateRows(supabase, targetCount, failedIds);
+    if (rows.length === 0) break;
 
-      if (args.dryRun) {
-        console.log(`\n[DRY-RUN] ${row.id}`);
-        console.log(`source_key: ${sourceKey || "(none)"}`);
-        console.log(`case_number: ${caseNumber || row.case_number || "(none)"}`);
-        console.log(`holding_points.length=${holdingPoints.length}`);
-        console.log(`holding_summary.length=${holdingSummary.length}`);
-        console.log(holdingPoints.slice(0, 600));
-      } else {
-        await updateDecisionRecord(supabase, row.id, holdingPoints, holdingSummary, caseNumber);
-        appendLog(PROGRESS_LOG, `[${new Date().toISOString()}] updated ${row.id} len=${holdingPoints.length}`);
-      }
+    batchIndex += 1;
+    console.log(`Loaded ${rows.length} short holding_points rows from DB (batch ${batchIndex}).`);
 
-      processed += 1;
-    } catch (error) {
-      appendLog(
-        FAILURE_LOG,
-        JSON.stringify({
-          ts: new Date().toISOString(),
-          id: row.id,
-          error: error instanceof Error ? error.message : String(error),
-        })
-      );
-      console.error(`Failed ${row.id}: ${error instanceof Error ? error.message : String(error)}`);
+    for (const row of rows) {
+      try {
+        const sourceKey = getSourceKeyFromRow(row);
+        const resolvedEntry = sourceMap[sourceKey];
+        if (!resolvedEntry) {
+          throw new Error("Missing source JSON entry");
+        }
+
+        const { holdingPoints, holdingSummary, caseNumber } = getCandidateText(resolvedEntry);
+        if (!holdingPoints || holdingPoints.length < 100) {
+          throw new Error("Source JSON holding text is too short or missing");
+        }
+
+        if (args.dryRun) {
+          console.log(`\n[DRY-RUN] ${row.id}`);
+          console.log(`source_key: ${sourceKey || "(none)"}`);
+          console.log(`case_number: ${caseNumber || row.case_number || "(none)"}`);
+          console.log(`holding_points.length=${holdingPoints.length}`);
+          console.log(`holding_summary.length=${holdingSummary.length}`);
+          console.log(holdingPoints.slice(0, 600));
+        } else {
+          await updateDecisionRecord(supabase, row.id, holdingPoints, holdingSummary, caseNumber);
+          appendLog(PROGRESS_LOG, `[${new Date().toISOString()}] updated ${row.id} len=${holdingPoints.length}`);
+        }
+
+        processed += 1;
+        if (!args.dryRun && processed % 500 === 0) {
+          appendLog(PROGRESS_LOG, `[${new Date().toISOString()}] checkpoint processed=${processed}`);
+          console.log(`Checkpoint: processed=${processed}`);
+        }
+      } catch (error) {
+        failedIds.add(row.id);
+        appendLog(
+          FAILURE_LOG,
+          JSON.stringify({
+            ts: new Date().toISOString(),
+            id: row.id,
+            error: error instanceof Error ? error.message : String(error),
+          })
+        );
+        console.error(`Failed ${row.id}: ${error instanceof Error ? error.message : String(error)}`);
+      }
     }
+
+    if (args.dryRun) break;
   }
 
   appendLog(PROGRESS_LOG, `[${new Date().toISOString()}] done processed=${processed}`);
