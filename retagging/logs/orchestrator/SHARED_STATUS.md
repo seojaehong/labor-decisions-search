@@ -17,39 +17,29 @@
 - PM: 충돌 판정 / override / 상태판 / 운영 조율
 
 ## Latest Known Progress
-- reviewed: 97 / 143 batch (약 68%)
-- reviewed records: 2,788건
-- merged unique cases: 2,561건 / 4,232건 (약 61%)
+- reviewed: 148 / 148 batch (100%) ✅ ALL COMPLETE
+- reviewed records: 4,332건
+- merged unique cases: 3,923건 (`merged_final_v2.jsonl`) — v1(3,839) 대비 +84건
 - 핵심 충돌: 0건
-- override: 130건
-- 최근 기준: probation은 `032`까지, rear queue는 `031~033` 완료
+- override: 233건
+- merge 실행: 2026-03-21 (all 148 files)
 
 ## Current Running Queue
 - 현재 실행 중 batch 없음
-- 다음 잔여 큐
-  - probation: `031`, `033`
-  - absence: `015~030`
-  - violence: `015~030`
-  - workplace_bullying: `015~030`
+- 잔여 reviewed 배치: 없음 (모두 완료)
 
 ## Recently Finished
-- probation_batch_028
-- probation_batch_029
-- probation_batch_030
-- probation_batch_032
-- absence_batch_031 ~ 033
-- violence_batch_031 ~ 033
-- workplace_bullying_batch_031 ~ 033
+- merged_final_v2.jsonl 생성 완료 (148개 파일 전체 재merge)
+- absence/violence/workplace_bullying batch_001 ~ 033 전체 완료
+- probation batch_001 ~ 033 전체 완료
 
 ## PM Check Needed
-- 핵심 merge collision 없음
-- 필요 시 `probation_batch_021_reviewed.jsonl` validator warning 4건 별도 점검
-  - `id_34643`
-  - `id_346509`
-  - `id_346727`
-  - `id_346847`
+- **Supabase DB 업데이트 승인 필요**: v2 기준 3,923건 → 현재 DB 3,839건 → +84건 반영 예정
+  - 실행: `python scripts/load_merged_tags_to_supabase.py --input retagging/output/merged/merged_final_v2.jsonl --apply --snapshot-version merged_final_v2`
+- notes 경고 61건 backlog (confidence=medium 공란, exclusion_flags 2개 이상 공란)
+- probation_batch_021 validator warning 4건 (id_34643 등) — 낮은 우선순위
 
 ## Notes
-- 실제 최신 숫자는 `logs/bulk_progress_report.md`와 `logs/status_dashboard_data.json`을 우선 기준으로 본다
-- `merge_collisions_report.md`의 신규 3건(`id_30811`, `id_30879`, `id_32113`)은 PM 판정 후 override/리포트 동기화 완료
-- 즉시 착수 가능 잔여 작업은 absence/violence/workplace_bullying `015~030`, probation `031`, `033`
+- `merged_final_v2.jsonl`이 실질 최신 기준. v1은 archive 대상
+- notes 경고 61건은 `merge_report.md` 참조
+- v2 dry-run 완료, apply는 PM 확인 후 진행

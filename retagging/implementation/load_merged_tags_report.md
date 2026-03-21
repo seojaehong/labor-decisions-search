@@ -1,26 +1,29 @@
 # Load Merged Tags Report
 
-- input: `C:\dev\labor-decisions-search\retagging\output\merged\merged_final_v1.jsonl`
-- rows read: `5`
+- input: `retagging\output\merged\merged_final_v2.jsonl`
+- rows read: `3923`
 - mode: `dry-run`
 - target table: `nlrc_decisions`
-- snapshot version: `merged_final_v1`
+- snapshot version: `merged_final_v2`
 
 ## Primary Distribution
 
-- `disciplinary_severity`: `3`
-- `unfair_treatment`: `1`
-- `work_ability`: `1`
+- `disciplinary_severity`: `1174`
+- `dismissal_validity`: `763`
+- `misconduct`: `432`
+- `work_ability`: `313`
+- `workplace_harassment`: `235`
+- `procedure`: `232`
+- `renewal_expectation`: `180`
+- `absence_without_leave`: `175`
+- `transfer_validity`: `158`
+- `unfair_treatment`: `120`
 
 ## Sample Mapping
 
-- `id_10479` -> primary `unfair_treatment`, stage `regular`
-- `id_10509` -> primary `disciplinary_severity`, stage `regular`
-- `id_10561` -> primary `disciplinary_severity`, stage `regular`
-
-## Existing ID Check
-
-- existing check unavailable: `{'message': "Could not find the table 'public.nlrc_decisions' in the schema cache", 'code': 'PGRST205', 'hint': "Perhaps you meant the table 'public.subsidy_exclusions'", 'details': None}`
+- `2017부해OOO` -> primary `misconduct`, stage `regular`
+- `2022부노OOO` -> primary `unfair_treatment`, stage `regular`
+- `id_10015` -> primary `misconduct`, stage `regular`
 
 ## Dry-Run Result
 
