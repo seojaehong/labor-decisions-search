@@ -1,40 +1,11 @@
-# misconduct_remaining_batch_003 self-review
+# misconduct_remaining_batch_003_reviewed.jsonl 2nd pass
 
-## 1. batch 개요
-- batch: `misconduct_remaining_batch_003`
-- reviewed 건수: 50
-- 작업 기준:
-  - `docs/tagging-schema-v1.json`
-  - misconduct vs disciplinary_severity vs procedure 3-way 구분
+변경 건수: 2 / 50
 
-## 2. representative review notes
-- `id_11175`
-  - reviewed primary/disposition: procedure / ['dismissal']
-  - secondary: ['misconduct', 'disciplinary_severity']
-  - exclusion_flags: ['procedure_dominant']
-  - 변경 이유: 실체 사유보다 서면통지·소명기회 등 절차 하자가 결론을 좌우한 사례
-- `id_11193`
-  - reviewed primary/disposition: procedure / ['suspension', 'pay_cut']
-  - secondary: ['misconduct', 'training_opportunity', 'disciplinary_severity']
-  - exclusion_flags: ['procedure_dominant', 'unrelated_to_dismissal']
-  - 변경 이유: 실체 사유보다 서면통지·소명기회 등 절차 하자가 결론을 좌우한 사례
-- `id_11215`
-  - reviewed primary/disposition: disciplinary_severity / ['suspension']
-  - secondary: ['misconduct', 'procedure']
-  - exclusion_flags: ['evidence_too_thin', 'unrelated_to_dismissal']
-  - 변경 이유: 비위사실 자체보다 제재 수위가 결론을 좌우해 disciplinary_severity를 primary로 선택
-- `id_11221`
-  - reviewed primary/disposition: procedure / ['dismissal']
-  - secondary: ['misconduct', 'disciplinary_severity']
-  - exclusion_flags: ['procedure_dominant', 'evidence_too_thin']
-  - 변경 이유: 실체 사유보다 서면통지·소명기회 등 절차 하자가 결론을 좌우한 사례
-- `id_11287`
-  - reviewed primary/disposition: procedure / ['dismissal']
-  - secondary: ['misconduct', 'disciplinary_severity']
-  - exclusion_flags: ['procedure_dominant']
-  - 변경 이유: 실체 사유보다 서면통지·소명기회 등 절차 하자가 결론을 좌우한 사례
+## id_11425
+- primary: misconduct | secondary: ['transfer_validity']
+- confidence: high
 
-## 3. batch-level consistency notes
-- 비위사실이 인정되더라도 결론이 양정 판단이면 `disciplinary_severity`를 우선으로 선택했다.
-- 비위사실 존부/입증이 핵심이면 `misconduct`, 절차 하자가 결론을 좌우하면 `procedure`를 선택했다.
-- 해고 부존재/합의해지 사건은 legacy misconduct 태그를 따라가지 않고 `dismissal_validity`로 보정했다.
+## id_11541
+- primary: procedure | secondary: ['misconduct', 'disciplinary_severity']
+- confidence: high
