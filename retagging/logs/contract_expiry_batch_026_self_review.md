@@ -1,33 +1,25 @@
-# contract_expiry_batch_026_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_026 2차 패스
 
-변경 건수: 50 / 50
-
-## id_257
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 갱신기대권이 인정되지 않아 근로계약기간 만료에 따라 근로관계가 정당하게 종료되었다고 판정.
+## id_25891
+- primary 수정: discrimination → renewal_expectation
+- notes: 신뢰관계 회복이 어려운 근로자는 갱신거절의 합리적 이유가 있고 징계 전력 등이 없는 근로자는 거절의 합리적 이유가 없다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'misconduct', 'dismissal_validity']
 - confidence: high
 
-## id_25731
-- primary: dismissal_validity
-- secondary: ['procedure', 'worker_status']
-- notes: 근로관계 종료에 있어 사용자는 파견사업주이고, 파견계약 만료에 따른 근로계약 종료는 해고에 해당하지 않는다고 판정.
+## id_26093
+- primary 수정: discrimination → renewal_expectation
+- notes: 계약 갱신에 대한 규정이 없고 갱신 사례가 드물다 하더라도 수의사로서 상시적·계속적 업무를 수행하던 중 다음 학기 진료진에 이미 편성되는 등의 특별한 사정이 있는 경우 갱신기대권이 인정된다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity']
 - confidence: high
 
-## id_25771
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 갱신기대권은 있으나 갱신거절의 합리적 이유가 있다고 판정.
+## id_2617
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로계약의 갱신기대권이 인정되고, 갱신거절의 합리적인 이유가 없어 근로계약 만료 통보는 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'procedure', 'dismissal_validity']
 - confidence: high
 
-## id_25787
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 계약기간 만료로 근로관계 종료 후 20여 일이 지나 새로 채용된 경우에는 계속 근로한 것이 아니므로 무기계약직으로 전환된 것으로 볼 수 없고 갱신기대권도 인정할 수 없어 해고에 해당하지 않는다고 판정.
-- confidence: high
-
-## id_25809
-- primary: dismissal_validity
-- secondary: ['procedure', 'unfair_treatment']
-- notes: 조합에서 운영하던 의원이 폐업되고 개인이 인수하면서 근로관계를 포함한 포괄적 양도·양수가 이루어졌음에도 고용배제의 특약을 이유로 고용을 승계하지 않은 것은 부당해고에 해당한다고 판정.
+## id_26321
+- primary 수정: discrimination → renewal_expectation
+- notes: 위탁업체와의 묵시적 근로계약관계나 근로자파견관계는 성립되지 않고, 수탁업체와 체결한 기간제 근로계약은 갱신기대권이 인정되고 갱신거절에 합리적 이유가 없어 근로자들에게 행한 근로계약 갱신거부는 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'worker_status']
 - confidence: high

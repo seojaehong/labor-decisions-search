@@ -1,33 +1,19 @@
-# contract_expiry_batch_023_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_023 2차 패스
 
-변경 건수: 50 / 50
-
-## id_23941
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 근로자에게 근로계약 종료 시 정규직 전환에 대한 정당한 기대권이 인정되지 않으므로 근로관계는 계약기간 만료로 종료되었다고 판정.
+## id_24047
+- primary 수정: discrimination → renewal_expectation
+- notes: 기간의 정함이 없는 근로계약을 체결한 근로자로의 인정 신청은 노동위원회 구제명령 대상이 아니므로 각하하고, 해당사업을 지속하는 한 그 범위 안에서 갱신기대권을 인정할 수 있으며, 갱신 거절의 합리적인 이유가 없다고  — discrimination 판단이 핵심
+- secondary: ['procedure', 'dismissal_validity', 'worker_status']
 - confidence: high
 
-## id_23943
-- primary: dismissal_validity
-- secondary: []
-- notes: 인사권을 남용한 대기발령 처분은 구제이익이 있어 부당한 인사처분이라고 판정.
+## id_24335
+- primary 수정: discrimination → renewal_expectation
+- notes: 기간제근로자의 근로계약 갱신기대권은 인정되나 갱신거절에 합리적 사유가 있어 근로계약을 종료한 것은 정당하고, 기간의 정함이 없는 근로계약을 체결한 근로자에 대해 근로계약기간 만료를 이유로 한 해고는 부당하다고 판정 — discrimination 판단이 핵심
+- secondary: ['procedure', 'dismissal_validity', 'worker_status']
 - confidence: high
 
-## id_2395
-- primary: renewal_expectation
+## id_24527
+- primary 수정: discrimination → renewal_expectation
+- notes: 기간제 근로자로 근로계약 갱신기대권이 인정되고, 갱신 거절에 합리적 이유가 없어 사용자가 근로계약 갱신을 거절한 것은 부당해고라고 판정한 사례 — discrimination 판단이 핵심
 - secondary: ['dismissal_validity']
-- notes: 기간제근로자의 근로계약 갱신기대권이 인정됨에도 합리적 이유 없이 계약기간 만료로 근로관계를 종료한 것은 부당해고라고 판정.
-- confidence: high
-
-## id_23983
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 계약갱신에 관한 요건과 절차 규정 없이 인력수요 및 근로자의 근무태도에 따라 재량적으로 계약 갱신 여부를 결정하여 온 사실을 알 수 있으므로 근로자에게 근로계약의 갱신기대권이 인정되지 않는다고 판정.
-- confidence: high
-
-## id_24003
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로계약 갱신기대권이 인정되지 않아 계약기간 만료로 근로관계가 종료되었다고 판정.
 - confidence: high
