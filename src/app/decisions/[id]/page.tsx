@@ -10,7 +10,28 @@ import {
   type DecisionResult,
   type SanctionType,
 } from "@/lib/types";
+import { parseHoldingText } from "@/lib/format-holding";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+
+function renderHoldingBlocks(text: string) {
+  return parseHoldingText(text).map((block, index) => (
+    <p
+      key={`${block.kind}-${index}`}
+      className={cn(
+        "text-sm leading-relaxed whitespace-pre-wrap",
+        block.kind === "level1" && "font-semibold mt-4 first:mt-0",
+        block.kind === "level2" && "pl-4 mt-2",
+        block.kind === "level3" && "pl-8 mt-1.5",
+        block.kind === "numbered" && (block.indent === 1 ? "pl-4 mt-2" : "font-semibold mt-4 first:mt-0"),
+        block.kind === "bullet" && (block.indent === 2 ? "pl-8" : "pl-4"),
+        block.kind === "paragraph" && (block.indent === 2 ? "pl-8" : block.indent === 1 ? "pl-4" : "")
+      )}
+    >
+      {block.text}
+    </p>
+  ));
+}
 
 export default async function DecisionPage({
   params,
@@ -86,14 +107,14 @@ export default async function DecisionPage({
         {d.holding_points && (
           <div className="mb-6">
             <h3 className="font-semibold mb-2">판정사항</h3>
-            <p className="text-sm whitespace-pre-wrap leading-relaxed">{d.holding_points}</p>
+            <div>{renderHoldingBlocks(d.holding_points)}</div>
           </div>
         )}
 
         {d.holding_summary && (
           <div className="mb-6">
             <h3 className="font-semibold mb-2">판정요지</h3>
-            <p className="text-sm whitespace-pre-wrap leading-relaxed">{d.holding_summary}</p>
+            <div>{renderHoldingBlocks(d.holding_summary)}</div>
           </div>
         )}
 

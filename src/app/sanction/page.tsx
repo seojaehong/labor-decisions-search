@@ -184,7 +184,7 @@ export default function SanctionPage() {
                               </span>
                           </div>
                           <p className="text-xs text-gray-600 line-clamp-2">
-                            {c.holding_summary || c.holding_points || c.title}
+                            {c.holding_points || c.holding_summary || c.title}
                           </p>
                         </a>
                       ))}
