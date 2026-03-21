@@ -17,6 +17,7 @@ export interface SearchCard {
   decision_date: string | null;
   decision_result: string;
   key_issue: string | null;
+  holding_points?: string | null;
   url: string | null;
   reason_category: string[];
   case_id?: string;
@@ -87,7 +88,7 @@ async function runBaselineSearch({
   const baseSelect = () =>
     supabase
       .from('nlrc_decisions')
-      .select('id, title, department, decision_date, decision_result, key_issue, url, reason_category', { count: 'exact' })
+      .select('id, title, department, decision_date, decision_result, key_issue, holding_points, url, reason_category', { count: 'exact' })
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order('decision_date', { ascending: false });
 
@@ -130,6 +131,7 @@ async function runBaselineSearch({
     decision_date: row.decision_date,
     decision_result: row.decision_result,
     key_issue: row.key_issue,
+    holding_points: row.holding_points || null,
     url: row.url,
     reason_category: row.reason_category || [],
     why_surfaced: toBaselineWhy(query, reason, result),
@@ -149,7 +151,7 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
 
   const { data, error } = await supabase
     .from('nlrc_decisions')
-    .select('id, title, department, decision_date, decision_result, key_issue, url, reason_category')
+    .select('id, title, department, decision_date, decision_result, key_issue, holding_points, url, reason_category')
     .in('id', ids);
 
   if (error) throw error;
@@ -165,6 +167,7 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
       decision_date: base?.decision_date || null,
       decision_result: base?.decision_result || String(row.decision_result || ''),
       key_issue: base?.key_issue || null,
+      holding_points: base?.holding_points || null,
       url: base?.url || null,
       reason_category: base?.reason_category || [],
       case_id: typeof row.id === 'string' ? row.id : String(row.id),

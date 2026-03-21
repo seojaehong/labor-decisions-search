@@ -23,6 +23,7 @@ interface SearchCard {
   decision_date: string | null;
   decision_result: string;
   key_issue: string | null;
+  holding_points?: string | null;
   url: string | null;
   reason_category: string[];
   case_id?: string;
@@ -89,6 +90,12 @@ function SectionPill({ children }: { children: React.ReactNode }) {
   );
 }
 
+function getIssuePreview(item: SearchCard): string {
+  const preview = item.key_issue?.trim() || item.holding_points?.trim() || "";
+  if (!preview) return "핵심 쟁점 요약 없음";
+  return preview.length > 100 ? `${preview.slice(0, 100)}...` : preview;
+}
+
 function SearchResultCard({ item }: { item: SearchCard }) {
   return (
     <Link key={item.id} href={`/decisions/${item.id}`}>
@@ -100,7 +107,7 @@ function SearchResultCard({ item }: { item: SearchCard }) {
               {item.department || "-"} | {item.decision_date || "-"}
             </p>
             <p className="text-xs mt-2 text-muted-foreground line-clamp-2">
-              {item.key_issue || "핵심 쟁점 요약 없음"}
+              {getIssuePreview(item)}
             </p>
           </div>
           <div className="flex flex-col gap-1 items-end shrink-0">
