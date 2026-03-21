@@ -1,26 +1,18 @@
-# other_batch_011 self review
+# other_batch_011_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 24건
+primary 분포: {'misconduct': 28, 'transfer_validity': 2, 'unfair_treatment': 3, 'disciplinary_severity': 4, 'dismissal_validity': 1, 'procedure': 6, 'worker_status': 6}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 45 |
-| procedure | 3 |
-| dismissal_validity | 2 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_14867
+- primary: misconduct | secondary: []
+- notes: ① 임금협약 제5조제1호가 기능직종을 11개로 한정하여 규정한 것이라고 보기 어려운 점, ② 해석 신청의 적용 대상자가 단순히 정규직 공무원을 
 
-## 대표 사례 (2~3건)
-- id_14867: misconduct / ① 임금협약 제5조제1호가 기능직종을 11개로 한정하여 규정한 것이라고 보기 어려운 점, ② 해석 신청의 적용 대상자가 단순히 정규직 공무원을 지원하는 사무보조 업무를 한 것이 아
-- id_15081: procedure / 근로자가 ‘징계처분을 받은 자가 그 처분에 대하여 불복이 있을 때에는 징계처분 사유서를 받은 날로부터 14일 이내에 재심청구서를 이사장에게 제출하여 재심을 청구할 수 있다.’는 인
-- id_15013: dismissal_validity / ① 근로자와 사용자 사이에 근로관계가 성립된 후 사용자가 근로자에게 고객사로 파견근무를 명한 점, ② 고객사 과장이 근로자에게 같이 일하기 힘들겠다고 한 사실이 있더라도, 고객사 
+### id_14899
+- primary: transfer_validity | secondary: []
+- notes: 유휴인력의 객관적인 선정 기준 및 처리절차에 관한 규정 없이 근로자들의 적응 가능성을 기준으로 전적을 요구하고 이를 거부하자 관리역 및 대기발령
 
-## 특이 사항
-- exclusion_flags: 5건
-- medium confidence: 0건
+### id_149
+- primary: unfair_treatment | secondary: []
+- notes: 군산간호대학교교수노동조합은 단체협약 및 임금협약 관련 ‘23.

@@ -1,24 +1,18 @@
-# other_batch_018 self review
+# other_batch_018_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 26건
+primary 분포: {'misconduct': 26, 'procedure': 11, 'unfair_treatment': 11, 'disciplinary_severity': 1, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 2 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_18741
+- primary: misconduct | secondary: []
+- notes: ① 사용자는 근로자에게 서면 및 SNS 메시지로 출근명령을 하였고 심문회의에서도 같은 취지로 진술하여 복직명령의 진정성이 없다고 보기 어려운 점
 
-## 대표 사례 (2~3건)
-- id_18741: misconduct / ① 사용자는 근로자에게 서면 및 SNS 메시지로 출근명령을 하였고 심문회의에서도 같은 취지로 진술하여 복직명령의 진정성이 없다고 보기 어려운 점, ② 근로자는 이미 다른 회사에서 
-- id_18861: procedure / ① 사용자가 근로자에게 해고사유 및 해고시기를 서면으로 통보하지 않은 것은 「근로기준법」 제27조에서 규정하는 해고의 서면통지 의무를 위반한 점, ② 사용자가 취업규칙에 따라 징계
+### id_18751
+- primary: misconduct | secondary: []
+- notes: 「노동조합 및 노동관계조정법」 제26조는 “노동조합의 대표자는 회계연도마다 결산결과와 운영상황을 공표하여야 하며 조합원의 요구가 있을 때에는 이
 
-## 특이 사항
-- exclusion_flags: 2건
-- medium confidence: 0건
+### id_18755
+- primary: misconduct | secondary: ['procedure']
+- notes: 지부 사무처장의 징계권은 지부 회장에게 그 권한이 있다고 명시된 규정에도 불구하고 중앙회에서 징계권한을 지부에 위임한 것이므로 이를 다시 중앙회
