@@ -51,6 +51,8 @@ interface SearchResponsePayload {
   result: DecisionResult | "";
   baseline?: SearchBucket;
   candidate?: SearchBucket;
+  baselineError?: string;
+  candidateError?: string;
 }
 
 const RESULT_COLORS: Record<string, string> = {
@@ -79,52 +81,32 @@ function SearchModeButton({
   );
 }
 
-function DebugBadge({ label }: { label: string }) {
+function SectionPill({ children }: { children: React.ReactNode }) {
   return (
-    <Badge variant="outline" className="text-[11px]">
-      {label}
-    </Badge>
+    <span className="inline-flex items-center rounded-full border px-2 py-1 text-[11px] text-muted-foreground">
+      {children}
+    </span>
   );
 }
 
-function SearchResultCard({ item, source }: { item: SearchCard; source: "baseline" | "candidate" }) {
+function SearchResultCard({ item }: { item: SearchCard }) {
   return (
-    <Link key={`${source}-${item.id}`} href={`/decisions/${item.id}`}>
+    <Link key={item.id} href={`/decisions/${item.id}`}>
       <Card className="p-4 hover:border-primary transition-colors cursor-pointer mb-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
             <p className="text-xs text-muted-foreground mt-1">
-              {item.department || "-"} | {item.decision_date || "-"} | {item.case_id || item.id}
+              {item.department || "-"} | {item.decision_date || "-"}
             </p>
-            {item.key_issue && (
-              <p className="text-xs mt-2 text-muted-foreground line-clamp-2">{item.key_issue}</p>
-            )}
-            {source === "candidate" && (
-              <div className="flex flex-wrap gap-1 mt-3">
-                {item.issue_type_primary && <DebugBadge label={`primary:${item.issue_type_primary}`} />}
-                {item.employment_stage && <DebugBadge label={`stage:${item.employment_stage}`} />}
-                {(item.disposition_type || []).slice(0, 2).map((value) => (
-                  <DebugBadge key={value} label={`disp:${value}`} />
-                ))}
-                {typeof item.score === "number" && <DebugBadge label={`score:${item.score}`} />}
-              </div>
-            )}
-            {item.why_surfaced && item.why_surfaced.length > 0 && (
-              <p className="text-[11px] mt-2 text-muted-foreground line-clamp-2">
-                why: {item.why_surfaced.slice(0, 4).join(", ")}
-              </p>
-            )}
+            <p className="text-xs mt-2 text-muted-foreground line-clamp-2">
+              {item.key_issue || "핵심 쟁점 요약 없음"}
+            </p>
           </div>
           <div className="flex flex-col gap-1 items-end shrink-0">
             <Badge className={RESULT_COLORS[item.decision_result] || ""}>
               {RESULT_LABELS[item.decision_result as DecisionResult] || item.decision_result}
             </Badge>
-            {(item.reason_category || []).slice(0, 2).map((reason) => (
-              <Badge key={reason} variant="outline" className="text-xs">
-                {REASON_LABELS[reason as ReasonCategory] || reason}
-              </Badge>
-            ))}
           </div>
         </div>
       </Card>
@@ -136,23 +118,39 @@ function SearchBucketSection({
   title,
   bucket,
   source,
+  summary,
+  error,
 }: {
   title: string;
   bucket?: SearchBucket;
   source: "baseline" | "candidate";
+  summary: string;
+  error?: string;
 }) {
   return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-semibold">{title}</h2>
+    <div className="rounded-2xl border bg-card/40 p-4">
+      <div className="flex items-center justify-between mb-2">
+        <div>
+          <h2 className="text-lg font-semibold">{title}</h2>
+          <p className="text-xs text-muted-foreground mt-1">{summary}</p>
+        </div>
         <span className="text-sm text-muted-foreground">{bucket?.total?.toLocaleString() || 0}건</span>
       </div>
+      {error && (
+        <Card className="p-3 mb-3 text-xs text-amber-700 border-amber-200 bg-amber-50">
+          {source} search warning: {error}
+        </Card>
+      )}
       <div className="space-y-3">
-        {(bucket?.items || []).map((item) => (
-          <SearchResultCard key={`${source}-${item.id}`} item={item} source={source} />
+        {(bucket?.items || []).map((item, index) => (
+          <SearchResultCard key={`${source}-${item.id}`} item={item} />
         ))}
         {(!bucket || bucket.items.length === 0) && (
-          <Card className="p-4 text-sm text-muted-foreground">결과가 없습니다.</Card>
+          <Card className="p-4 text-sm text-muted-foreground">
+            {source === "candidate"
+              ? "candidate 결과가 없습니다. 현재는 질의 기반 retrieval 중심이라 q 없이 사유만 고르면 비어 있을 수 있습니다."
+              : "결과가 없습니다."}
+          </Card>
         )}
       </div>
     </div>
@@ -339,15 +337,52 @@ function SearchContent() {
           {loading ? "검색 중..." : `${total.toLocaleString()}건`}
         </p>
 
+        <div className="rounded-2xl border bg-muted/30 p-4 mb-6">
+          <div className="flex flex-wrap gap-2 mb-3">
+            <SectionPill>mode: {mode}</SectionPill>
+            <SectionPill>query: {query || "(없음)"}</SectionPill>
+            <SectionPill>reason: {reason ? REASON_LABELS[reason] : "전체"}</SectionPill>
+            <SectionPill>result: {result ? RESULT_LABELS[result] : "전체"}</SectionPill>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            compare는 baseline reason_category 검색과 candidate 8축 retrieval 결과를 같은 질의 기준으로 나란히 보여줍니다.
+            candidate는 top 5 중심, baseline은 기준선 역할입니다.
+          </p>
+        </div>
+
         {mode === "compare" ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <SearchBucketSection title="Baseline" bucket={baselineBucket} source="baseline" />
-            <SearchBucketSection title="Candidate" bucket={candidateBucket} source="candidate" />
+            <SearchBucketSection
+              title="Baseline"
+              bucket={baselineBucket}
+              source="baseline"
+              summary="기존 reason_category / search_vector 기준선"
+              error={payload?.baselineError}
+            />
+            <SearchBucketSection
+              title="Candidate"
+              bucket={candidateBucket}
+              source="candidate"
+              summary="8축 태그 retrieval + query-aware reranking"
+              error={payload?.candidateError}
+            />
           </div>
         ) : mode === "candidate" ? (
-          <SearchBucketSection title="Candidate" bucket={candidateBucket} source="candidate" />
+          <SearchBucketSection
+            title="Candidate"
+            bucket={candidateBucket}
+            source="candidate"
+            summary="8축 태그 retrieval + query-aware reranking"
+            error={payload?.candidateError}
+          />
         ) : (
-          <SearchBucketSection title="Baseline" bucket={baselineBucket} source="baseline" />
+          <SearchBucketSection
+            title="Baseline"
+            bucket={baselineBucket}
+            source="baseline"
+            summary="기존 reason_category / search_vector 기준선"
+            error={payload?.baselineError}
+          />
         )}
 
         {mode === "baseline" && baselineBucket && baselineBucket.total > baselineBucket.pageSize && (
