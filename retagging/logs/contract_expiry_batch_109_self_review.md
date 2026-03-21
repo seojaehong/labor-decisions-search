@@ -1,33 +1,19 @@
-# contract_expiry_batch_109_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_109 2차 패스
 
-변경 건수: 50 / 50
-
-## id_55163
-- primary: renewal_expectation
-- secondary: ['unfair_treatment', 'dismissal_validity']
-- notes: 근로자에게 무기계약직 전환기대권이 인정되지 않아 근로관계는 계약기간 만료로 정당하게 종료되었고, 불이익 취급 및 지배·개입의 부당노동행위에도 해당하지 않는다고 판정.
+## id_55251
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자들에게는 갱신기대권이 존재하며 사용자의 갱신거절에는 합리적 이유가 없어 계약만료에 의한 근로관계 종료는 부당하고, 부당노동행위에는 해당하지 않는다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'dismissal_validity', 'unfair_treatment']
 - confidence: high
 
-## id_55167
-- primary: dismissal_validity
-- secondary: []
-- notes: 기간제근로자의 계약기간 만료로 근로계약이 종료되었고, 이에 앞서 종전의 근로계약서 재계약 관련 조항에 따라 계약이 이미 갱신되었다는 근로자의 주장을 뒷받침할 근거가 없어 해고가 존재하지 않는다고 판정.
+## id_5551
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로계약의 갱신기대권이 인정되고, 갱신거절에 합리적 이유가 없으므로 근로계약기간 만료 통보는 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'procedure', 'dismissal_validity']
 - confidence: high
 
-## id_55175
-- primary: renewal_expectation
-- secondary: ['procedure', 'unfair_treatment', 'dismissal_validity']
-- notes: 근로자들에게 근로계약의 갱신기대권이 인정되고, 갱신거절의 합리적인 이유가 존재하지 않으며, 근로계약 만료 통보는 불이익 취급의 부당노동행위에 해당한다고 판정.
-- confidence: high
-
-## id_55179
-- primary: renewal_expectation
+## id_55567
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자에게 촉탁직 근로계약 갱신기대권이 인정되고, 갱신 거절에 합리적 이유가 없어 부당해고에 해당한다고 판정한 사례 — discrimination 판단이 핵심
 - secondary: ['dismissal_validity']
-- notes: 사용자1에게 당사자적격이 인정되며 정규직 전환 기대권이 인정되나 전환 거절에 합리적 이유가 있어 근로관계를 종료한 것은 정당하다고 판정.
-- confidence: high
-
-## id_55181
-- primary: renewal_expectation
-- secondary: ['worker_status', 'dismissal_validity']
-- notes: 근로자는 기간제 근로자에 해당하고, 근로자의 근로계약 갱신기대권이 인정되나, 사용자의 근로계약 갱신거절에 합리적 이유가 존재하므로 사용자가 계약기간 만료를 이유로 근로관계를 종료한 것은 정당하다고 판정.
 - confidence: high
