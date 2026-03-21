@@ -1,23 +1,18 @@
-# other_batch_101 self review
+# other_batch_101_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'unfair_treatment': 7, 'procedure': 11, 'misconduct': 26, 'worker_status': 5, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 50 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 48 |
-| medium | 2 |
+### id_4699
+- primary: unfair_treatment | secondary: []
+- notes: 경영성과금 산정 및 지급의 기초가 되는 단체협약 제52조의 ‘영업이익’을 사업실 단위의 영업이익으로 해석하여 견해를 제시한 사례.
 
-## 대표 사례 (2~3건)
-- id_4699: misconduct / 경영성과금 산정 및 지급의 기초가 되는 단체협약 제52조의 ‘영업이익’을 사업실 단위의 영업이익으로 해석하여 견해를 제시한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접
+### id_46991
+- primary: unfair_treatment | secondary: []
+- notes: 차별적 내용이 없는 단체협약이 이미 시행되고 있고 단체교섭을 처음부터 다시 하는 것은 사실상 실현할 수 없다 하더라도 교섭과정에서의 공정대표의무
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 2건
+### id_47005
+- primary: procedure | secondary: []
+- notes: 근로자가 정당한 사유 없이 심문회의에 2회 불출석하여 구제신청 의사를 포기한 것.

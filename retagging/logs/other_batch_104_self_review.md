@@ -1,24 +1,18 @@
-# other_batch_104 self review
+# other_batch_104_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 19, 'transfer_validity': 1, 'procedure': 16, 'worker_status': 7, 'unfair_treatment': 6, 'redundancy': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_49153
+- primary: misconduct | secondary: []
+- notes: 근로자들을 해고하면서 그 사유와 시기를 서면으로 통지하지 않아 부당해고.
 
-## 대표 사례 (2~3건)
-- id_49153: misconduct / 근로자들을 해고하면서 그 사유와 시기를 서면으로 통지하지 않아 부당해고라고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_49249: procedure / 징계절차에 중대한 하자가 존재하여 해고가 부당하다고 판정한 사례 — 절차 하자(서면통지·소명기회 미부여)가 판정을 좌우
+### id_49169
+- primary: transfer_validity | secondary: []
+- notes: 직무대기발령의 구제이익이 존재하나, 직무대기발령의 업무상 필요성이 인정되고 생활상 불이익의 정도도 크지 않아 정당하.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 0건
+### id_49185
+- primary: procedure | secondary: []
+- notes: 근로자가 정당한 사유 없이 심문회의에 2회 불출석하여 구제신청 의사를 포기한 것.

@@ -1,25 +1,18 @@
-# other_batch_073 self review
+# other_batch_073_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 33, 'procedure': 7, 'worker_status': 5, 'unfair_treatment': 5}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 44 |
-| medium | 6 |
+### id_403365
+- primary: misconduct | secondary: ['procedure']
+- notes: 근로자는 수습근로자에 해당하고, 수습기간은 취업규칙에 명시된 3개월 이내 기간인 2024.
 
-## 대표 사례 (2~3건)
-- id_403365: misconduct / 근로자는 수습근로자에 해당하고, 수습기간은 취업규칙에 명시된 3개월 이내 기간인 2024. 12. 31.~2025. 3. 30.로 사용자가 행한 2025. 3. 30. 수습근로계약
-- id_403443: procedure / 근로자가 “(해고통보서를 가리키며) 그거 파일 보내주세요”라고 하자 사용자 측은 “제가 보내드릴 의무는 없어요”라며 교부를 거부한 점, 근로자에 대해 등기우편 등의 형식을 통해 해
+### id_403383
+- primary: misconduct | secondary: []
+- notes: 청원경찰직종을 별도의 교섭단위로 분리한다.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 6건
+### id_403387
+- primary: misconduct | secondary: ['procedure', 'disciplinary_severity']
+- notes: 징계사유가 모두 존재하고 징계양정도 적정하며 징계절차의 하자도 없어 부당해고가 아니.

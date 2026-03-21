@@ -1,25 +1,18 @@
-# other_batch_049 self review
+# other_batch_049_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 27, 'disciplinary_severity': 2, 'unfair_treatment': 9, 'worker_status': 5, 'procedure': 6, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 44 |
-| medium | 6 |
+### id_345565
+- primary: misconduct | secondary: []
+- notes: 신청인은 신청취지에서 원직복직을 희망하나 구제신청일인 2023녀 12월 20일 이전에 피신청인은 대상 사업장에서 이미 사업을 완료한 상태여서 복
 
-## 대표 사례 (2~3건)
-- id_345565: misconduct / 신청인은 신청취지에서 원직복직을 희망하나 구제신청일인 2023녀 12월 20일 이전에 피신청인은 대상 사업장에서 이미 사업을 완료한 상태여서 복직이 불가능하므로 구제의 실익이 없어
-- id_345609: procedure / 대표이사가 불참한 가운데 인사위원회를 개최하여 정직 1월로 의결하였으나, 이후 취업규칙의 '의결이 동수일 경우 위원장이 최종 결정한다’는 조항을 근거로 의결이 동수가 아님에도 불구
+### id_345571
+- primary: misconduct | secondary: []
+- notes: 별지 기재 참조.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 6건
+### id_345589
+- primary: misconduct | secondary: []
+- notes: 근로자들이 기간의 정함이 없는 근로자로 전환되었다고 볼 수 없고, 예산의 축소 등으로 인해 통상해고(계약해지) 한 것으로 근로관계가 적법하게 종

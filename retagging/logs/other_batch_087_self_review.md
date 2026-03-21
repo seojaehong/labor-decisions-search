@@ -1,25 +1,18 @@
-# other_batch_087 self review
+# other_batch_087_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'transfer_validity': 3, 'misconduct': 28, 'procedure': 10, 'dismissal_validity': 1, 'unfair_treatment': 2, 'worker_status': 6}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 49 |
-| medium | 1 |
+### id_411165
+- primary: transfer_validity | secondary: []
+- notes: 대기발령의 필요성이 인정되지 않는.
 
-## 대표 사례 (2~3건)
-- id_411165: misconduct / 대기발령의 필요성이 인정되지 않는다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_411349: worker_status / 위탁판매 방식으로 사업을 영위한 자는 임금을 목적으로 종속적인 관계에서 근로를 제공한 근로자에 해당하지 않는다고 판정한 사례 — 근로자성(사용종속관계) 판단이 결론을 좌우
+### id_411179
+- primary: misconduct | secondary: []
+- notes: 기걱(정년이 지나 구제신청하여 구제이익이 없음).
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 1건
+### id_411185
+- primary: procedure | secondary: ['worker_status']
+- notes: 사용자가 운영하는 사업장의 상시근로자 수가 5명 미만으로 부당해고 구제신청 대상이 되지 않아 각하.

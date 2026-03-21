@@ -1,25 +1,18 @@
-# other_batch_108 self review
+# other_batch_108_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'unfair_treatment': 5, 'misconduct': 21, 'transfer_validity': 3, 'procedure': 11, 'worker_status': 9, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 47 |
-| medium | 3 |
+### id_51847
+- primary: unfair_treatment | secondary: []
+- notes: 단체협약의 특별휴가 규정을 근로기준법상 연차휴가에 준하여 해석한 사례.
 
-## 대표 사례 (2~3건)
-- id_51847: misconduct / 단체협약의 특별휴가 규정을 근로기준법상 연차휴가에 준하여 해석한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_52291: worker_status / 근로자가 「근로기준법」에 따른 근로자에 해당하지 않는다고 판정한 사례 — 근로자성(사용종속관계) 판단이 결론을 좌우
+### id_5185
+- primary: misconduct | secondary: []
+- notes: 초심취소:각하.
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 3건
+### id_51857
+- primary: transfer_validity | secondary: []
+- notes: 업무상 필요성이 인정되고 생활상 불이익의 정도도 크지 않으며 협의절차를 준수하였으므로 직무 대기발령은 정당하.

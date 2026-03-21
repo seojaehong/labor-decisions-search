@@ -1,24 +1,18 @@
-# other_batch_128 self review
+# other_batch_128_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 19건
-- 출력: 19건
+건수: 19 | 재분류: 0건
+primary 분포: {'procedure': 5, 'misconduct': 8, 'unfair_treatment': 3, 'worker_status': 3}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 18 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 19 |
+### id_975
+- primary: procedure | secondary: []
+- notes: 구제신청의 기산일을 재심처분일로 인정할 만한 사유가 없으므로 원처분일로부터3개월이 지난 시점에 제기된 구제신청은 제척기간이 도과하였.
 
-## 대표 사례 (2~3건)
-- id_975: misconduct / 구제신청의 기산일을 재심처분일로 인정할 만한 사유가 없으므로 원처분일로부터3개월이 지난 시점에 제기된 구제신청은 제척기간이 도과하였다고 판정한 사례 — 비위사실 존부·중대성이 해고
-- id_9957: worker_status / 임원위촉계약을 체결하고 회사로부터 건자재 영업 업무를 총괄 위임받아 처리한 임원은 근로기준법에서 정한 근로자에 해당하지 않는다고 판정한 사례 — 근로자성(사용종속관계) 판단이 결론
+### id_9761
+- primary: misconduct | secondary: ['procedure']
+- notes: 근로자는 수습기간 중에 있었다고 보기 어렵고, (수습기간 중으로 보더라도) 수습평가가 객관성과 합리성을 결여하였고, 해고의 사유 및 시기를 서면
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 0건
+### id_9777
+- primary: unfair_treatment | secondary: []
+- notes: 임금동결은 교섭창구 단일화 절차에 참여한 모든 노동조합에 대하여 공통적으로 적용되므로 소수노동조합에 대한 차별로 볼 수 없고, 교섭과정에서의 절

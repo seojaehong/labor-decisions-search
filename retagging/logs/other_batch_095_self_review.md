@@ -1,26 +1,18 @@
-# other_batch_095 self review
+# other_batch_095_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 28, 'procedure': 7, 'unfair_treatment': 7, 'worker_status': 8}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 1 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_43119
+- primary: misconduct | secondary: []
+- notes: 공무직근로자로서 수습근로자에 해당하고, 본채용 거절에 합리적인 사유가 있.
 
-## 대표 사례 (2~3건)
-- id_43119: misconduct / 공무직근로자로서 수습근로자에 해당하고, 본채용 거절에 합리적인 사유가 있다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_43349: procedure / 사용자가 취업규칙 등에 정한 징계절차를 따르지 않고, 근로자에게 소명기회도 부여하지 않아 절차의 하자가 있는 부당해고라고 판정한 사례 — 절차 하자(서면통지·소명기회 미부여)가 판
-- id_43479: worker_status / 신청인은 피신청인으로부터 분양대행업무를 위임받아 수행하고 그 성과에 따라 수수료를 받는 자로서 근로기준법에서 정한 근로자에 해당하지 않는다고 판정한 사례 — 근로자성(사용종속관계)
+### id_43131
+- primary: misconduct | secondary: ['procedure']
+- notes: 상시근로자 수가 5인 이상이고, 해고한 사실이 있으며, 서면통지하지 않아 절차상 하자가 있어 부당한 해고.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 0건
+### id_43151
+- primary: misconduct | secondary: ['procedure']
+- notes: 업무상 필요성이 인정되고, 근로자의 생활상 불이익도 발생하였다고 보기 어려우며 절차상 하자도 확인되지 않아 정당한 인사 및 분리조치.

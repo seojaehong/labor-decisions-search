@@ -1,25 +1,18 @@
-# other_batch_122 self review
+# other_batch_122_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 27, 'worker_status': 11, 'redundancy': 1, 'unfair_treatment': 7, 'procedure': 3, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| dismissal_validity | 2 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 47 |
-| medium | 3 |
+### id_61303
+- primary: misconduct | secondary: []
+- notes: 승급누락은 ‘그 밖의 징벌’이 아니므로 노동위원회의 구제신청 대상에 해당하지 않는.
 
-## 대표 사례 (2~3건)
-- id_61303: misconduct / 승급누락은 ‘그 밖의 징벌’이 아니므로 노동위원회의 구제신청 대상에 해당하지 않는다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_6319: dismissal_validity / 근로자가 적법한 채용절차를 거치지 않고 부정한 방법으로 채용된 것은 당연퇴직사유에 해당하고, 사용자가 인사위원회를 개최하여 당연퇴직을 결정하고 이를 서면으로 통지하였으므로 절차도 
+### id_61315
+- primary: misconduct | secondary: []
+- notes: 이 사건 당사자 간 근로계약의 내용이 구체적이고 확정적으로 결정되었다고 보기 어려우므로 채용내정이 성립되었다고 볼 수 없어 구제신청을 기각.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 3건
+### id_61355
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 사업장의 상시근로자 수가 5인 미만이므로 근로기준법에서 정한 부당해고 구제신청에 관한 규정이 적용되지 않는.

@@ -1,25 +1,18 @@
-# other_batch_116 self review
+# other_batch_116_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 15, 'unfair_treatment': 19, 'worker_status': 7, 'procedure': 8, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 48 |
-| medium | 2 |
+### id_57653
+- primary: misconduct | secondary: []
+- notes: 부당해고가 아니.
 
-## 대표 사례 (2~3건)
-- id_57653: misconduct / 부당해고가 아니라고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_57895: procedure / 사용자가 근로자를 징계하면서 취업규칙에 명시된 징계 혐의에 대한 근로자의 소명기회를 부여하지 않는 등 절차상 하자가 있어 부당징계라고 판정한 사례 — 절차 하자(서면통지·소명기회 
+### id_57661
+- primary: unfair_treatment | secondary: []
+- notes: 단체협약 내용 중 촉탁직 채용 시 조합장의 추천서를 반드시 받아야 한다는 조항은 대한민국헌법 제11조제1항, 고용정책기본법 제7조제1항, 민법 
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 2건
+### id_57669
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 상시근로자 수가 5명 미만의 사업장에 해당되므로 부당해고 구제신청의 적용 대상이 아니.

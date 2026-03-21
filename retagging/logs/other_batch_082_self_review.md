@@ -1,23 +1,18 @@
-# other_batch_082 self review
+# other_batch_082_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 27, 'worker_status': 9, 'procedure': 7, 'unfair_treatment': 4, 'transfer_validity': 2, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 50 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 48 |
-| medium | 2 |
+### id_408745
+- primary: misconduct | secondary: []
+- notes: 근로자는 최종합격 통보를 받은 사실이 없고 당사자 간 연봉 협상 등 근로조건을 정한 사실도 없으므로 채용내정은 없는 것으로 판단된다.
 
-## 대표 사례 (2~3건)
-- id_408745: misconduct / 근로자는 최종합격 통보를 받은 사실이 없고 당사자 간 연봉 협상 등 근로조건을 정한 사실도 없으므로 채용내정은 없는 것으로 판단된다. 따라서 채용내정이 성립함을 전제로 한 나머지 
+### id_408751
+- primary: misconduct | secondary: []
+- notes: 기각: 해고가 정당하.
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 2건
+### id_408753
+- primary: misconduct | secondary: []
+- notes: 기각: 해고가 정당하.

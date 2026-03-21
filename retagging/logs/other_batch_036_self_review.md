@@ -1,27 +1,18 @@
-# other_batch_036 self review
+# other_batch_036_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'worker_status': 4, 'misconduct': 25, 'unfair_treatment': 11, 'procedure': 6, 'disciplinary_severity': 3, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| disciplinary_severity | 1 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 49 |
-| medium | 1 |
+### id_28531
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 근로자들은 해고일(2017. 11. 28.) 이전 1개월 동안 사용자의 상시근로자 수가 5명 이상이라고 주장하나, 아래와 같은 사유로 상시 4명
 
-## 대표 사례 (2~3건)
-- id_28531: misconduct / 근로자들은 해고일(2017. 11. 28.) 이전 1개월 동안 사용자의 상시근로자 수가 5명 이상이라고 주장하나, 아래와 같은 사유로 상시 4명 이하로 구제신청의 대상이 되지 않는
-- id_29141: disciplinary_severity / 가. 구제이익 존재 여부사용자로서는 이 사건 재심신청을 통해 정직 3월의 징계처분이 정당하다고 우리 위원회에서 인정될 경우 징계처분 결정의 정당성을 확보할 수 있을 뿐만 아니라, 
-- id_29193: procedure / 외국에서 설립한 서류상의 회사와 국내에서 설립한 회사가 사실상 동일체로서 각각의 근로자 수를 합하면 상시근로자 수는 5명 이상이고, 해고의 서면통지 의무를 위반하여 부당해고로 판정
+### id_28541
+- primary: misconduct | secondary: []
+- notes: 가. 업무상 필요성① 소재창고 업무 부여는 근로자의 작업 중 부상에 대한 배려 차원에서 행하여진 특수한 사정이 있는 점, ② 해당 업무를 10여
 
-## 특이 사항
-- exclusion_flags: 2건
-- medium confidence: 1건
+### id_28547
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: ① 급상여대장에 임금을 지급받는 근로자가 2명으로 확인되는 점, ② 회사 설립 이후 고용보험 취득자 역시 급상여대장과 동일한 2명으로 확인되는

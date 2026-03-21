@@ -1,25 +1,18 @@
-# other_batch_096 self review
+# other_batch_096_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'worker_status': 8, 'procedure': 8, 'misconduct': 25, 'unfair_treatment': 7, 'disciplinary_severity': 1, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 49 |
-| medium | 1 |
+### id_4373
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 상시 사용하는 근로자의 수가 5명 미만인 사업장으로 부당해고 구제신청의 대상 사업장에 해당되지 않는.
 
-## 대표 사례 (2~3건)
-- id_4373: misconduct / 상시 사용하는 근로자의 수가 5명 미만인 사업장으로 부당해고 구제신청의 대상 사업장에 해당되지 않는다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_44065: procedure / 사용자의 복직명령은 진정성이 없는 것으로 보이므로 해고가 존재하여 구제신청의 구제이익이 있고, 사용자가 해고의 서면통지 의무를 위반하여 부당해고에 해당한다고 판정한 사례 — 절차 
+### id_43731
+- primary: procedure | secondary: []
+- notes: 사용자의 근무복귀 지시로 구제신청의 목적이 달성되어 구제이익이 없.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 1건
+### id_43743
+- primary: procedure | secondary: ['worker_status']
+- notes: 회사의 상시근로자 수가 5명 미만이므로 근로기준법에서 정한 부당해고 등 구제신청에 관한 규정이 적용되지 않아 각하.

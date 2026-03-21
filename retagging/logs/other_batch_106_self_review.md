@@ -1,25 +1,18 @@
-# other_batch_106 self review
+# other_batch_106_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 28, 'procedure': 10, 'worker_status': 7, 'unfair_treatment': 3, 'transfer_validity': 2}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 49 |
-| medium | 1 |
+### id_5075
+- primary: misconduct | secondary: []
+- notes: 장애인 보호시설에 근무하는 사회재활교사가 다수의 장애인이 탑승한 회사 차량을 운행하면서 특정 장애인이 운전 중인 자신의 팔을 2~3회 쳤다는 이
 
-## 대표 사례 (2~3건)
-- id_5075: misconduct / 장애인 보호시설에 근무하는 사회재활교사가 다수의 장애인이 탑승한 회사 차량을 운행하면서 특정 장애인이 운전 중인 자신의 팔을 2~3회 쳤다는 이유로 고의적으로 급격하게 핸들을 조작
-- id_50913: worker_status / 근로자들이 종속적인 관계에서 임금을 목적으로 사용자에게 근로를 제공한 것으로 볼 수 없어 근로기준법에서 정한 근로자에 해당하지 않음 — 근로자성(사용종속관계) 판단이 결론을 좌우
+### id_50755
+- primary: misconduct | secondary: []
+- notes: 시용근로자에 대한, 본채용 거부에 합리적인 이유가 있고, 본채용거부(해고)통지서를 서면으로 전달하였므로 해고는 정당하.
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 1건
+### id_50777
+- primary: procedure | secondary: []
+- notes: 재심 징계처분을 통지받은 날부터 3개월 이내에 구제신청하여 구제신청의 제척기간이 도과하지 않았고, 징계처분의 사유와 양정은 정당하다고 하더라도,

@@ -1,25 +1,18 @@
-# other_batch_107 self review
+# other_batch_107_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'worker_status': 5, 'procedure': 16, 'misconduct': 18, 'transfer_validity': 2, 'unfair_treatment': 8, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 46 |
-| medium | 4 |
+### id_51287
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 상시근로자 수가 5명 미만인 사업장으로 부당해고 구제신청 대상 사업장에 해당하지 않는.
 
-## 대표 사례 (2~3건)
-- id_51287: misconduct / 상시근로자 수가 5명 미만인 사업장으로 부당해고 구제신청 대상 사업장에 해당하지 않는다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_51529: procedure / 근로자와 사용자 사이에 채용내정이 성립하였고, 채용취소는 서면으로 통지하지 않아 절차상 중대한 하자가 있으므로 부당하다고 판정한 사례 — 절차 하자(서면통지·소명기회 미부여)가 판
+### id_51289
+- primary: procedure | secondary: []
+- notes: 근로자가 보정요구에 2회 이상 응하지 않는 등 구제신청의 의사가 없.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 4건
+### id_51335
+- primary: misconduct | secondary: []
+- notes: 근로자에 대한 징계해고 사유를 확인할 수 있는 객관적인 자료를 제시하지 못하고 있어 해고는 부당하.

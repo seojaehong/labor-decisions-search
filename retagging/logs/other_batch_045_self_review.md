@@ -1,28 +1,18 @@
-# other_batch_045 self review
+# other_batch_045_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'unfair_treatment': 9, 'misconduct': 21, 'procedure': 13, 'transfer_validity': 2, 'disciplinary_severity': 1, 'dismissal_validity': 1, 'worker_status': 3}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 47 |
-| worker_status | 1 |
-| disciplinary_severity | 1 |
-| dismissal_validity | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 48 |
-| medium | 2 |
+### id_3385
+- primary: unfair_treatment | secondary: []
+- notes: 교섭정보 미공개 부분은 ‘화해’로 확정된 판정의 취지와 동일하고, 2019년도 임금협약 조정(수락)안에 대한 신청 노동조합의 찬반투표 결과를 반
 
-## 대표 사례 (2~3건)
-- id_3385: misconduct / 교섭정보 미공개 부분은 ‘화해’로 확정된 판정의 취지와 동일하고, 2019년도 임금협약 조정(수락)안에 대한 신청 노동조합의 찬반투표 결과를 반영하지 않은 부분과 2019년도 임금
-- id_3403: disciplinary_severity / 근로자의 기계 조작으로 불량품이 생긴 사고가 발생하였으므로 징계의 사유는 존재하나 근로자의 행위에 고의가 있었다고 보기 어렵고, 사고 발생으로 인한 피해가 비교적 경미한 점, 징계
-- id_33975: worker_status / ① 법 적용 사유 발생일 전 1개월 동안 고용보험 가입자 수는 4명으로 이들 모두 상시근로자 수에 포함된다는 사실에 대하여는 당사자 간 이견이 없음, ② 그 밖에 근로자가 상시근로
+### id_33873
+- primary: misconduct | secondary: []
+- notes: 당사자가 체결한 근로계약서에는 경비업무 외에도 입주민에 대한 서비스도 근로조건으로 포함하는 것으로 되어 있는 점, 근로자가 작성한 동의서의 수기
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 2건
+### id_33931
+- primary: procedure | secondary: []
+- notes: 노동위원회법 제25조의 위임에 따라 노동위원회의 권한과 직무를 신속&#8228;공정하게 처리하기 위하여 제정된 노동위원회규칙 제60조제1항제7호

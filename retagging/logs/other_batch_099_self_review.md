@@ -1,26 +1,18 @@
-# other_batch_099 self review
+# other_batch_099_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 26, 'procedure': 6, 'transfer_validity': 1, 'unfair_treatment': 14, 'worker_status': 2, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| worker_status | 1 |
-| renewal_expectation | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 49 |
-| medium | 1 |
+### id_45637
+- primary: misconduct | secondary: ['procedure']
+- notes: 취업규칙 상 방어권 보장에 본질적인 영향을 미치는 중대한 징계절차 위반 및 해고의 서면통지 의무에 관한 근로기준법 제27조를 위반한 절차상 하자
 
-## 대표 사례 (2~3건)
-- id_45637: misconduct / 취업규칙 상 방어권 보장에 본질적인 영향을 미치는 중대한 징계절차 위반 및 해고의 서면통지 의무에 관한 근로기준법 제27조를 위반한 절차상 하자가 있어 해고는 부당하다고 판정한 사
-- id_4595: worker_status / 잠실점과 회사는 실질적으로 하나의 사업장이고, 상시근로자 수는 5명 이상으로 부당해고등 구제신청에 관한 규정이 적용되나, 신청인이 근로기준법에서 정한 근로자에 해당하지 않는다고 판
+### id_45651
+- primary: procedure | secondary: []
+- notes: 근로자가 해고가 있었던 날로부터 3개월이 지난 후 부당해고 구제신청을 하였으므로 근로기준법에서 정한 권리구제 신청기간이 지났.
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 1건
+### id_45661
+- primary: misconduct | secondary: []
+- notes: 상시근로자 수가 5인 이상인 사업장으로 볼 수 없어 근로기준법에서 정한 부당해고 구제신청 대상 사업장에 해당하지 않는.

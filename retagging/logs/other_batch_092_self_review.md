@@ -1,25 +1,18 @@
-# other_batch_092 self review
+# other_batch_092_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 26, 'procedure': 13, 'worker_status': 6, 'transfer_validity': 2, 'unfair_treatment': 3}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 49 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 48 |
-| medium | 2 |
+### id_414073
+- primary: misconduct | secondary: []
+- notes: 해고한 정당한 사유가 존재한.
 
-## 대표 사례 (2~3건)
-- id_414073: misconduct / 해고한 정당한 사유가 존재한다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_41683: procedure / 해고의 서면통지 의무를 위반하여 부당하다고 판정한 사례 — 절차 하자(서면통지·소명기회 미부여)가 판정을 좌우
+### id_414077
+- primary: misconduct | secondary: []
+- notes: 해고금지기간인 산재요양기간 중 해고에 해당하고 부당하.
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 2건
+### id_41409
+- primary: misconduct | secondary: []
+- notes: 초심유지 (초심:인정).

@@ -1,27 +1,18 @@
-# other_batch_070 self review
+# other_batch_070_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'worker_status': 11, 'disciplinary_severity': 2, 'unfair_treatment': 5, 'misconduct': 23, 'dismissal_validity': 3, 'procedure': 5, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 1 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 47 |
-| medium | 3 |
+### id_401327
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 근로자가 주장하는 해고일 이전 1개월간의 출퇴근 기록에 따르면 사용자가 상시 사용하는 근로자는 5명 미만으로 근로기준법 제28조에 따른 부당해고
 
-## 대표 사례 (2~3건)
-- id_401327: misconduct / 근로자가 주장하는 해고일 이전 1개월간의 출퇴근 기록에 따르면 사용자가 상시 사용하는 근로자는 5명 미만으로 근로기준법 제28조에 따른 부당해고등 구제신청 대상 사업장에 해당하지 
-- id_401359: procedure / 사용자는 정관 제110조에서 준용하는 사립학교법 제70조의5 및 같은 법 시행령 제24조의10에 따라, 징계의결 기한 60일 이내에 근로자에 대한 징계를 해야 하나 이를 도과하여 
-- id_401573: worker_status / 근로자는 자신이 체결한 위탁계약서에 따라 사용자가 제공한 DB를 기반으로 전화로 보험가입자를 모집하는 업무를 수행하고 보험모집 실적 등에 따라 보수를 받아 왔고, 사용자의 취업규칙
+### id_40133
+- primary: disciplinary_severity | secondary: ['misconduct', 'procedure']
+- notes: 해고가 정당한 해고가 되려면 근로기준법 제23조에 따른 정당한 이유와 근로기준법 제27조에 따른 서면통지의 요건을 갖추어야 하는데, 사용자가 근
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 3건
+### id_401331
+- primary: unfair_treatment | secondary: []
+- notes: 가. 노동조합법 제29조의2제3항 내지 제5항, 같은 법 시행령 제14조의8제1항 및 제14조의9제1항의 문리해석상 공동교섭대표단 구성은 과반수

@@ -1,24 +1,18 @@
-# other_batch_044 self review
+# other_batch_044_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 19, 'procedure': 13, 'transfer_validity': 3, 'unfair_treatment': 8, 'worker_status': 6, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 47 |
-| procedure | 3 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_3333
+- primary: misconduct | secondary: ['procedure']
+- notes: ① 취업규칙에 ‘인사위원회에 근로자위원을 최소 1명 이상 포함되도록 해야한다’고 규정되어 있음, ② 인사위원회에 근로자위원을 최소 1명 이상 포
 
-## 대표 사례 (2~3건)
-- id_3333: misconduct / ① 취업규칙에 ‘인사위원회에 근로자위원을 최소 1명 이상 포함되도록 해야한다’고 규정되어 있음, ② 인사위원회에 근로자위원을 최소 1명 이상 포함하도록 한 이유는 징계의 객관성 및
-- id_33709: procedure / 사용자는 상시근로자 수가 5인 미만일 뿐만 아니라 근로자가 임금 감액 제안을 수용할 수 없다며 스스로 사직한 것이라고 주장하나, ① 상시근로자 산정 시점에 사용자가 주장하는 안○○
+### id_33331
+- primary: misconduct | secondary: []
+- notes: 업무상 배임죄의 1심 판결(유죄)에 대해 항소 제기하여 소송 진행 중인 상태에서 원심의 판결만을 가지고 직무유기의 고의성이 있다고 징계 해고한 
 
-## 특이 사항
-- exclusion_flags: 3건
-- medium confidence: 0건
+### id_33335
+- primary: procedure | secondary: []
+- notes: 근로관계 종료일이 2014. 7. 31.이고 이 날로부터 3개월이 도과한 2018. 6. 12. 부당해고 구제신청을 하였으므로 근로기준법 제28

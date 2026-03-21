@@ -1,27 +1,18 @@
-# other_batch_075 self review
+# other_batch_075_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'transfer_validity': 2, 'procedure': 10, 'disciplinary_severity': 1, 'misconduct': 24, 'worker_status': 8, 'dismissal_validity': 1, 'unfair_treatment': 4}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| worker_status | 1 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 45 |
-| medium | 5 |
+### id_404583
+- primary: transfer_validity | secondary: []
+- notes: 직위해제 및 대기발령의 정당성.
 
-## 대표 사례 (2~3건)
-- id_404583: misconduct / 직위해제 및 대기발령의 정당성 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_405075: procedure / 직무대행자와 김 고문은 근로자의 징계사유인 '직무대행자 지시 거부 또는 불이행’ 사유와 관계있는 자에 해당하여 취업규칙 제65조(징계심의)제3호의 제척사유에 해당함에도 직무대행자와
-- id_404669: worker_status / 근로자는 같은 장소에서 동일 대표가 운영하는 두 법인은 동일한 회사라고 주장하나 ① 두 회사는 업종을 달리하는 별개의 법인으로 등재된 점, ② 법인별 임대차계약 각각 체결하고 인건
+### id_404593
+- primary: procedure | secondary: []
+- notes: 근로자는 채용 면접 중 사용자에게서 채용내정을 통보받았고, 예정된 날짜에 첫 출근을 하였으나 사용자가 이미 다른 근로자를 채용하였다는 이유로 채
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 5건
+### id_404597
+- primary: disciplinary_severity | secondary: ['misconduct', 'procedure']
+- notes: 근로자1에 대한 정직처분은 1차 징계와 징계 혐의 사실이 동일한 처분이어서 이중징계로서 부당징계에 해당하며,근로자2에 대해서는 징계사유는 존재하

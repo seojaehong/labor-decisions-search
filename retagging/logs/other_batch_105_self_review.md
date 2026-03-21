@@ -1,26 +1,18 @@
-# other_batch_105 self review
+# other_batch_105_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'procedure': 14, 'misconduct': 22, 'worker_status': 4, 'unfair_treatment': 8, 'transfer_validity': 2}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 1 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_49869
+- primary: procedure | secondary: []
+- notes: 구제신청의 제척기간이 도과하였.
 
-## 대표 사례 (2~3건)
-- id_49869: misconduct / 구제신청의 제척기간이 도과하였다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_50197: procedure / 기간의 정함이 없는 근로계약을 체결한 근로자에게 해고에 이를 정도의 책임있는 사유가 있었다고 보기 어렵고, 서면 통지 위반 등 절차상 중대한 하자도 존재하므로 부당하다고 판정한 사
-- id_50259: worker_status / 근로기준법상의 근로자에 해당하지 않는다고 판정한 사례 — 근로자성(사용종속관계) 판단이 결론을 좌우
+### id_49873
+- primary: procedure | secondary: []
+- notes: 근로자에게 보낸 2회의 심문회의 일정 통지 공문이 모두 반송되었고, 근로자는 문자메시지로 발송된 심문일정을 확인하였으나 2회 개최된 심문회의에 
 
-## 특이 사항
-- exclusion_flags: 1건
-- medium confidence: 0건
+### id_49889
+- primary: misconduct | secondary: ['disciplinary_severity']
+- notes: 구제신청이 관계 법령의 규정에 따른 신청기간을 도과하여 신청요건을 갖추지 못하였.

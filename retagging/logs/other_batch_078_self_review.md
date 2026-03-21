@@ -1,25 +1,18 @@
-# other_batch_078 self review
+# other_batch_078_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'unfair_treatment': 6, 'misconduct': 22, 'procedure': 15, 'dismissal_validity': 1, 'worker_status': 5, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 2 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 45 |
-| medium | 5 |
+### id_40623
+- primary: unfair_treatment | secondary: []
+- notes: 단체협약에 특정 노동조합 조합원을 우선 채용하도록 의무를 부과하는 것은 노동조합 조합원 외의 구직자에게 기회의 공정성을 제한하고 헌법에서 보장된
 
-## 대표 사례 (2~3건)
-- id_40623: misconduct / 단체협약에 특정 노동조합 조합원을 우선 채용하도록 의무를 부과하는 것은 노동조합 조합원 외의 구직자에게 기회의 공정성을 제한하고 헌법에서 보장된 평등권을 해치는 것이다. 따라서 단
-- id_406407: procedure / 사용자가 근로자에 대해 정직의 징계를 하면서 취업규칙에 “직원에 대한 징계 처분시 해당 직원에게 사전에 소명의 기회를 제공하여야 하고 징계의 결과는 징계해고를 제외하고 구두 또는 
+### id_406231
+- primary: misconduct | secondary: []
+- notes: 과반수노동조합이 존재하지 않는다.
 
-## 특이 사항
-- exclusion_flags: 2건
-- medium confidence: 5건
+### id_406237
+- primary: unfair_treatment | secondary: []
+- notes: 신청 외 노동조합1이 이 사건 회사 교섭대표노동조합 지위를 유지하고 있으므로 사용자는 신청 노동조합의 교섭요구 사실을 공고할 의무가 없.

@@ -1,23 +1,18 @@
-# other_batch_079 self review
+# other_batch_079_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'procedure': 12, 'misconduct': 27, 'transfer_validity': 2, 'unfair_treatment': 2, 'worker_status': 7}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 50 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 47 |
-| medium | 3 |
+### id_406873
+- primary: procedure | secondary: []
+- notes: 이 사건 심문회의는 2024.
 
-## 대표 사례 (2~3건)
-- id_406873: misconduct / 이 사건 심문회의는 2024. 12. 12. 개최된 바 있으나, 근로자의 불출석으로 연기되었고, 2025. 1. 9. 2차로 개최된 심문회의에서도 근로자가 출석하지 않아 노동위원회
+### id_406883
+- primary: misconduct | secondary: []
+- notes: 이 사건 검침원들은 업무수행에 있어 사용자로부터 상당한 지휘ㆍ감독을 받고 있는 점, 근로조건의 유지나 개선, 근로제공자의 지위 향상 등 노동3권
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 3건
+### id_406891
+- primary: misconduct | secondary: ['procedure']
+- notes: 사용자가 근로자를 징계(정직 및 해고)하면서 취업규칙에 반하여 징계사유와 이해관계 있는 자가 해당 징계위원회의 위원으로 참석하고, 그 의결에 참

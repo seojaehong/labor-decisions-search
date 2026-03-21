@@ -1,25 +1,18 @@
-# other_batch_055 self review
+# other_batch_055_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 24, 'procedure': 9, 'worker_status': 10, 'unfair_treatment': 6, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 2 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 46 |
-| medium | 4 |
+### id_349217
+- primary: misconduct | secondary: ['procedure']
+- notes: 이 사건 이해관계인이 제출한 '김○○ 조합원의 절차적 퇴출요청’ 안건을 2023.
 
-## 대표 사례 (2~3건)
-- id_349217: misconduct / 이 사건 이해관계인이 제출한 '김○○ 조합원의 절차적 퇴출요청’ 안건을 2023. 7. 25. 운영위원회에서 폐기한 이 사건 노동조합의 결정과 이 사건 이해관계인이 2023. 7 
-- id_349595: procedure / 사용자가 해고의 서면통지 의무를 위반하였으므로 절차적으로 부당하다고 판정한 사례 — 절차 하자(서면통지·소명기회 미부여)가 판정을 좌우
+### id_34923
+- primary: procedure | secondary: ['worker_status']
+- notes: 사용자는 중앙노동위원회 판정에 따라 2018.
 
-## 특이 사항
-- exclusion_flags: 2건
-- medium confidence: 4건
+### id_349245
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 근무 스케쥴표 및 4대 보험 가입자 급여대장, 사업소득자 간이지급명세, 모니터링 요원 위촉계약서, 고용보험 취득자 및 상실자 목록, 위촉계약서

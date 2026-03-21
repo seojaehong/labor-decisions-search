@@ -1,23 +1,18 @@
-# other_batch_119 self review
+# other_batch_119_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'unfair_treatment': 9, 'procedure': 6, 'worker_status': 9, 'transfer_validity': 1, 'misconduct': 23, 'disciplinary_severity': 1, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 50 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 47 |
-| medium | 3 |
+### id_59065
+- primary: unfair_treatment | secondary: ['misconduct']
+- notes: 단체협약에서 정한 징계절차를 준수하지 않은 하자가 존재하여 해고가 부당하.
 
-## 대표 사례 (2~3건)
-- id_59065: misconduct / 단체협약에서 정한 징계절차를 준수하지 않은 하자가 존재하여 해고가 부당하다고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
+### id_59101
+- primary: procedure | secondary: []
+- notes: 근로자가 관계 법령에서 정한 기간을 도과하여 재심신청함에 따라 각하.
 
-## 특이 사항
-- exclusion_flags: 0건
-- medium confidence: 3건
+### id_59107
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 사업장의 상시근로자 수가 5명 미만이므로 근로기준법에서 정한 부당해고 등 구제신청에 관한 규정이 적용되지 않는.

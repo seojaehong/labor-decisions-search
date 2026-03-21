@@ -1,27 +1,18 @@
-# other_batch_046 self review
+# other_batch_046_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'misconduct': 28, 'procedure': 6, 'unfair_treatment': 10, 'worker_status': 3, 'disciplinary_severity': 1, 'dismissal_validity': 1, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 1 |
-| dismissal_validity | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 43 |
-| medium | 7 |
+### id_343697
+- primary: misconduct | secondary: []
+- notes: 전부인정(부당감봉, 부당견책 전부 부당징계로 인정).
 
-## 대표 사례 (2~3건)
-- id_343697: misconduct / 전부인정(부당감봉, 부당견책 전부 부당징계로 인정) — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_343889: procedure / 사용자가 징계위원회 개최 시 징계위원에 외부위원 및 근로자대표를 포함하지 않은 것은 취업규칙에 규정된 징계절차를 위반한 것으로 징계처분은 절차상 중대한 하자가 있어 부당하다. 따라
-- id_343911: dismissal_validity / 근로자는 사용자로부터 2023. 8. 30. 구두로 해고당하였다고 주장하나, 사용자가 2023. 5.경 근로자에게 퇴근시간을 1시간 늦춰줄 것을 요청하였으나 근로자가 거절한 점, 
+### id_343723
+- primary: procedure | secondary: []
+- notes: 가. 구제신청의 제척기간 도과 여부재심 징계처분을 통지받은 날부터 3개월 이내에 구제신청을 하였으므로 구제신청의 제척기간이 도과하지 않았다.나.
 
-## 특이 사항
-- exclusion_flags: 2건
-- medium confidence: 7건
+### id_343727
+- primary: unfair_treatment | secondary: []
+- notes: 교섭단위에 과반수 노동조합이 존재하므로 공동교섭대표단 구성요건을 충족하지 못하여 각하.

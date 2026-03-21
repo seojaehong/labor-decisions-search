@@ -1,27 +1,18 @@
-# other_batch_086 self review
+# other_batch_086_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 0건
+primary 분포: {'transfer_validity': 3, 'misconduct': 26, 'procedure': 10, 'worker_status': 7, 'unfair_treatment': 3, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 45 |
-| procedure | 4 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 45 |
-| medium | 5 |
+### id_410765
+- primary: transfer_validity | secondary: []
+- notes: 부당대기발령이 아니.
 
-## 대표 사례 (2~3건)
-- id_410765: misconduct / 부당대기발령이 아니라고 판정한 사례 — 비위사실 존부·중대성이 해고/징계 정당성을 직접 좌우
-- id_410949: procedure / 해고가 존재하고, 해고의 서면통지 의무를 위반하여 부당하다고 판정한 사례 — 절차 하자(서면통지·소명기회 미부여)가 판정을 좌우
-- id_410981: worker_status / 특수형태근로종사자인 골프장 캐디(Caddie)는 사용자의 지휘ㆍ감독하에 근로를 제공한 근로기준법상의 근로자에 해당하지 않는다고 판정한 사례 — 근로자성(사용종속관계) 판단이 결론을
+### id_410779
+- primary: misconduct | secondary: []
+- notes: 업무상 필요성이 인정되고, 생활상 불이익이 통상 감수할 수준을 벗어났다고 볼 수 없어 휴업명령이 정당하.
 
-## 특이 사항
-- exclusion_flags: 4건
-- medium confidence: 5건
+### id_410783
+- primary: misconduct | secondary: ['disciplinary_severity']
+- notes: 조합원 수 산정 기준일(2025.
