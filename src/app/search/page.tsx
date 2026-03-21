@@ -49,6 +49,59 @@ interface SearchResponsePayload {
   candidateError?: string;
 }
 
+function isSearchBucket(value: unknown): value is SearchBucket {
+  if (!value || typeof value !== "object") return false;
+  const bucket = value as Partial<SearchBucket>;
+  return Array.isArray(bucket.items) && typeof bucket.total === "number";
+}
+
+function normalizeSearchPayload(
+  raw: unknown,
+  fallback: {
+    mode: SearchMode;
+    query: string;
+    reason: ReasonCategory | "";
+    result: DecisionResult | "";
+  }
+): SearchResponsePayload {
+  if (raw && typeof raw === "object") {
+    const maybePayload = raw as Partial<SearchResponsePayload> & Record<string, unknown>;
+
+    if (isSearchBucket(maybePayload.candidate) || isSearchBucket(maybePayload.baseline)) {
+      return {
+        mode: (maybePayload.mode as SearchMode) || fallback.mode,
+        query: typeof maybePayload.query === "string" ? maybePayload.query : fallback.query,
+        reason: (maybePayload.reason as ReasonCategory | "") ?? fallback.reason,
+        result: (maybePayload.result as DecisionResult | "") ?? fallback.result,
+        baseline: isSearchBucket(maybePayload.baseline) ? maybePayload.baseline : undefined,
+        candidate: isSearchBucket(maybePayload.candidate) ? maybePayload.candidate : undefined,
+        baselineError: typeof maybePayload.baselineError === "string" ? maybePayload.baselineError : undefined,
+        candidateError: typeof maybePayload.candidateError === "string" ? maybePayload.candidateError : undefined,
+      };
+    }
+
+    if (isSearchBucket(raw)) {
+      return {
+        ...fallback,
+        baseline: fallback.mode === "baseline" ? raw : undefined,
+        candidate: fallback.mode === "candidate" ? raw : undefined,
+      };
+    }
+  }
+
+  return {
+    ...fallback,
+    baseline: fallback.mode === "baseline" || fallback.mode === "compare"
+      ? { items: [], total: 0, page: 0, pageSize: 20 }
+      : undefined,
+    candidate: fallback.mode === "candidate" || fallback.mode === "compare"
+      ? { items: [], total: 0, page: 0, pageSize: 5 }
+      : undefined,
+    baselineError: fallback.mode !== "candidate" ? "search payload format mismatch" : undefined,
+    candidateError: fallback.mode !== "baseline" ? "search payload format mismatch" : undefined,
+  };
+}
+
 const RESULT_COLORS: Record<string, string> = {
   granted: "bg-green-100 text-green-800",
   partial: "bg-yellow-100 text-yellow-800",
@@ -244,6 +297,12 @@ function SearchContent() {
 
     async function fetchSearch() {
       setLoading(true);
+      const requestContext = {
+        mode,
+        query,
+        reason,
+        result,
+      };
       const params = new URLSearchParams({
         q: query,
         mode,
@@ -254,13 +313,33 @@ function SearchContent() {
 
       const resp = await fetch(`/api/search?${params.toString()}`, { cache: "no-store" });
       const data = await resp.json();
+      if (!resp.ok) {
+        throw new Error(
+          typeof data?.error === "string" ? data.error : `search request failed (${resp.status})`
+        );
+      }
+
+      const normalized = normalizeSearchPayload(data, requestContext);
       if (!aborted) {
-        setPayload(data);
+        setPayload(normalized);
         setLoading(false);
       }
     }
 
-    fetchSearch();
+    fetchSearch().catch((error) => {
+      if (!aborted) {
+        setPayload(
+          normalizeSearchPayload(
+            {
+              baselineError: mode !== "candidate" ? (error instanceof Error ? error.message : "search failed") : undefined,
+              candidateError: mode !== "baseline" ? (error instanceof Error ? error.message : "search failed") : undefined,
+            },
+            { mode, query, reason, result }
+          )
+        );
+        setLoading(false);
+      }
+    });
     return () => {
       aborted = true;
     };
