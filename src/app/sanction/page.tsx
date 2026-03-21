@@ -9,6 +9,7 @@ interface CaseCard {
   id: string;
   title: string;
   decision_result: string;
+  holding_summary?: string;
   holding_points: string;
   url: string;
 }
@@ -182,7 +183,9 @@ export default function SanctionPage() {
                                 {RESULT_LABELS[c.decision_result] || c.decision_result}
                               </span>
                           </div>
-                          <p className="text-xs text-gray-600 line-clamp-2">{c.holding_points || c.title}</p>
+                          <p className="text-xs text-gray-600 line-clamp-2">
+                            {c.holding_summary || c.holding_points || c.title}
+                          </p>
                         </a>
                       ))}
                     </div>

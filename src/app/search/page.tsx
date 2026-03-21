@@ -19,10 +19,12 @@ type SearchMode = "baseline" | "candidate" | "compare";
 interface SearchCard {
   id: string;
   title: string;
+  case_number?: string | null;
   department: string | null;
   decision_date: string | null;
   decision_result: string;
   key_issue: string | null;
+  holding_summary?: string | null;
   holding_points?: string | null;
   url: string | null;
   reason_category: string[];
@@ -81,8 +83,13 @@ function SectionPill({ children }: { children: React.ReactNode }) {
 }
 
 function getIssuePreview(item: SearchCard): string {
-  const preview = item.key_issue?.trim() || item.holding_points?.trim() || "";
-  if (!preview) return "핵심 쟁점 요약 없음";
+  const preview =
+    item.holding_summary?.trim() ||
+    item.key_issue?.trim() ||
+    item.holding_points?.trim() ||
+    item.title?.trim() ||
+    "";
+  if (!preview) return "";
   return preview.length > 100 ? `${preview.slice(0, 100)}...` : preview;
 }
 
@@ -95,6 +102,7 @@ function SearchResultCard({ item }: { item: SearchCard }) {
             <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
             <p className="text-xs text-muted-foreground mt-1">
               {item.department || "-"} | {item.decision_date || "-"}
+              {item.case_number ? ` | ${item.case_number}` : ""}
             </p>
             <p className="text-xs mt-2 text-muted-foreground line-clamp-2">
               {getIssuePreview(item)}

@@ -13,10 +13,12 @@ export type SearchMode = 'baseline' | 'candidate' | 'compare';
 export interface SearchCard {
   id: string;
   title: string;
+  case_number?: string | null;
   department: string | null;
   decision_date: string | null;
   decision_result: string;
   key_issue: string | null;
+  holding_summary?: string | null;
   holding_points?: string | null;
   url: string | null;
   reason_category: string[];
@@ -78,7 +80,7 @@ async function runBaselineSearch({
   const baseSelect = () =>
     supabase
       .from('nlrc_decisions')
-      .select('id, title, department, decision_date, decision_result, key_issue, holding_points, url, reason_category', { count: 'exact' })
+      .select('id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category', { count: 'exact' })
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order('decision_date', { ascending: false });
 
@@ -117,10 +119,12 @@ async function runBaselineSearch({
   const items: SearchCard[] = (data || []).map((row) => ({
     id: row.id,
     title: row.title,
+    case_number: row.case_number || '',
     department: row.department,
     decision_date: row.decision_date,
     decision_result: row.decision_result,
     key_issue: row.key_issue,
+    holding_summary: row.holding_summary || null,
     holding_points: row.holding_points || null,
     url: row.url,
     reason_category: row.reason_category || [],
@@ -141,7 +145,7 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
 
   const { data, error } = await supabase
     .from('nlrc_decisions')
-    .select('id, title, department, decision_date, decision_result, key_issue, holding_points, url, reason_category')
+    .select('id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category')
     .in('id', ids);
 
   if (error) throw error;
@@ -153,10 +157,12 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
     return {
       id: String(row.id),
       title: base?.title || String(row.title || ''),
+      case_number: base?.case_number || '',
       department: base?.department || null,
       decision_date: base?.decision_date || null,
       decision_result: base?.decision_result || String(row.decision_result || ''),
       key_issue: base?.key_issue || null,
+      holding_summary: base?.holding_summary || null,
       holding_points: base?.holding_points || null,
       url: base?.url || null,
       reason_category: base?.reason_category || [],
