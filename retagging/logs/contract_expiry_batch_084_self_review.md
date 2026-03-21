@@ -1,33 +1,25 @@
-# contract_expiry_batch_084_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_084 2차 패스
 
-변경 건수: 50 / 50
-
-## id_41553
-- primary: dismissal_validity
-- secondary: []
-- notes: 정년도달로 근로관계가 종료되었고, 촉탁직 고용에 대한 기대권은 있으나 촉탁직 고용 거절에 합리적인 이유가 있다고 판정.
+## id_41751
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로계약서 등에 계약 갱신 등의 근거가 없는 등 근로계약 갱신기대권이 인정되지 않아 기간만료로 근로관계를 종료한 것을 부당하다 할 수 없다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'dismissal_validity']
 - confidence: high
 
-## id_41583
-- primary: dismissal_validity
-- secondary: ['procedure']
-- notes: 근로자가 해고의 증거로 제시한 자료만으로는 이 사건 해고가 존재한다는 단정을 할 수 없다고 판정.
+## id_41783
+- primary 수정: discrimination → renewal_expectation
+- notes: 갱신기대권이 인정되고 갱신거절에 합리적 이유가 없다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'procedure', 'dismissal_validity']
 - confidence: high
 
-## id_41593
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 기간의 정함이 있는 근로자이며, 근로계약 갱신기대권이 인정되지 않아 근로계약 기간 만료로 근로관계가 종료되었다고 판단.
+## id_41889
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자들에게 정년 이후 촉탁 근로계약 갱신기대권이 인정됨에도 불구하고, 사용자가 사직서 미작성을 이유로 갱신을 거절한 것은 합리적 이유가 없으나 부당노동행위는 아니라고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'unfair_treatment']
 - confidence: high
 
-## id_41623
-- primary: dismissal_validity
-- secondary: []
-- notes: 취업규칙상 근로계약기간은 2년이므로 근로계약서상 근로계약기간 1년 만료를 이유로 근로관계를 종료한 것은 부당하다고 판정.
-- confidence: high
-
-## id_41633
-- primary: dismissal_validity
-- secondary: ['procedure']
-- notes: 근로자의 근로계약은 기간만료로 종료되었고 근로계약이 갱신되었다거나 근로계약이 갱신된다는 신뢰관계가 형성되었다고 보기 어렵다고 판정.
+## id_41905
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자에게 갱신기대권이 인정되고 갱신 거절의 합리적 이유도 없어 부당하다고 판단한 사례 — discrimination 판단이 핵심
+- secondary: ['procedure', 'dismissal_validity', 'worker_status']
 - confidence: high
