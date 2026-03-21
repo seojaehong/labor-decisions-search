@@ -122,7 +122,7 @@ const KEYWORD_TO_PRIMARY: [RegExp, string][] = [
   [/근로자.*지위|근로자성/, 'worker_status'],
   [/차별.*시정|차별적.*처우/, 'discrimination'],
   [/겸직|허위|위조|음주|기밀|유출|지시.*불이행|금품/, 'misconduct'],
-  [/징계.*양정|양정.*과다|처분.*과중|비례/, 'disciplinary_severity'],
+  [/징계.*양정|양정.*과다|처분.*과중|비례|해고.*과다|해고.*과하|징계.*과다|징계.*과하|과도.*해고|과도.*징계/, 'disciplinary_severity'],
   [/절차.*위반|서면.*통지|소명.*기회/, 'procedure'],
   [/괴롭힘.*신고.*불이익|보복/, 'retaliation'],
 ];
@@ -220,7 +220,7 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
   const hasWorkAbility = includesAny(lowered, ['업무능력', '저성과', '성과 부족', '성과부족']);
   const hasRetaliation = includesAny(lowered, ['보복', '불이익', '신고 이후', '신고자']);
   const hasHarassment = includesAny(lowered, ['직장내괴롭힘', '괴롭힘']);
-  const hasSeverity = includesAny(lowered, ['양정', '과하다', '과도', '너무 과', '수위']);
+  const hasSeverity = includesAny(lowered, ['양정', '과하다', '과도', '너무 과', '수위', '과다']);
   const hasDismissal = includesAny(lowered, ['해고']);
 
   if (hasAbsence && hasProcedure) {
