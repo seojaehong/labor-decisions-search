@@ -1,33 +1,13 @@
-# contract_expiry_batch_081_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_081 2차 패스
 
-변경 건수: 50 / 50
-
-## id_412175
-- primary: dismissal_validity
-- secondary: ['procedure']
-- notes: 해고 사유의 정당성이 인정되지 않고 해고의 절차도 적법하지 않으므로 부당하다고 판정.
+## id_412425
+- primary 수정: discrimination → renewal_expectation
+- notes: 시용근로자에 해당하지 않으나, 근로계약 갱신기대권이 존재하고, 갱신거절의 합리적 이유가 없어 근로계약 기간만료를 이유로 고용관계를 종료한 것은 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'attendance', 'absence_without_leave']
 - confidence: high
 
-## id_412177
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로계약의 갱신기대권이 인정되지 않아 근로계약기간 만료를 사유로 근로관계를 종료한 것은 정당하다고 판정.
-- confidence: high
-
-## id_412179
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로자에게 근로계약의 갱신기대권이 인정되나 갱신거절의 합리적 이유가 존재하여 근로계약 종료는 정당하다고 판정.
-- confidence: high
-
-## id_412183
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 계약기간만료 사유가 발생한 것으로 보여 해고로 볼 수 없고, 해고로 보더라도 구제이익이 존재하지 않는다고 판정.
-- confidence: high
-
-## id_412205
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 촉탁직 근로계약에 대한 갱신 기대권이 인정되지 않는다고 판정.
+## id_412757
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로계약의 갱신기대권이 인정되고, 갱신 거절에 합리적 이유가 없으므로 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['procedure', 'dismissal_validity', 'unfair_treatment']
 - confidence: high
