@@ -8,6 +8,10 @@ const ROOT = path.resolve(__dirname, "..");
 const LOG_DIR = path.join(__dirname, "logs");
 const PROGRESS_LOG = path.join(LOG_DIR, "restore-progress.log");
 const FAILURE_LOG = path.join(LOG_DIR, "restore-failures.jsonl");
+const loadedEnvState = {
+  fileAnonKey: "",
+  fileServiceRoleKey: "",
+};
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -57,15 +61,33 @@ function loadEnvFile(filePath) {
 }
 
 function initEnv() {
-  loadEnvFile(path.join(ROOT, ".env.local"));
-  loadEnvFile(path.join(ROOT, ".env"));
+  try {
+    const localResult = require("dotenv").config({ path: path.join(ROOT, ".env.local") });
+    const envResult = require("dotenv").config({ path: path.join(ROOT, ".env") });
+    loadedEnvState.fileAnonKey =
+      localResult?.parsed?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      envResult?.parsed?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      "";
+    loadedEnvState.fileServiceRoleKey =
+      localResult?.parsed?.SUPABASE_SERVICE_ROLE_KEY ||
+      envResult?.parsed?.SUPABASE_SERVICE_ROLE_KEY ||
+      "";
+  } catch {
+    loadEnvFile(path.join(ROOT, ".env.local"));
+    loadEnvFile(path.join(ROOT, ".env"));
+    loadedEnvState.fileAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+    loadedEnvState.fileServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+  }
 }
 
-function getSupabase() {
+function getSupabase({ dryRun }) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const key = dryRun
+    ? loadedEnvState.fileAnonKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    : loadedEnvState.fileServiceRoleKey ||
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      loadedEnvState.fileAnonKey ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !key) {
     throw new Error("Supabase env is missing. Check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY/NEXT_PUBLIC_SUPABASE_ANON_KEY.");
@@ -228,7 +250,7 @@ async function main() {
 
   const args = parseArgs(process.argv.slice(2));
   const targetCount = args.dryRun ? args.limit : args.batchSize;
-  const supabase = getSupabase();
+  const supabase = getSupabase({ dryRun: args.dryRun });
 
   appendLog(PROGRESS_LOG, `[${new Date().toISOString()}] start dryRun=${args.dryRun} target=${targetCount}`);
 
