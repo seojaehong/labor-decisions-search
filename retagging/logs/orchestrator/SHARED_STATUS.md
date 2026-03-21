@@ -6,9 +6,10 @@
 ---
 
 ## Current Mode
-- 상태: 작업중
-- 운영 방식: batch 단위 bulk retagging
+- 상태: 38k 확장 태깅 대기 중
+- 운영 방식: batch 단위 bulk retagging (38k 2단계)
 - 병렬 제한: 최대 3개
+- 현재 기준본: merged_final_v2.jsonl (3,923건, DB 반영 완료)
 
 ## Work Split
 - 코덱스: 앞 배치부터 진행
@@ -26,7 +27,15 @@
 
 ## Current Running Queue
 - 현재 실행 중 batch 없음
-- 잔여 reviewed 배치: 없음 (모두 완료)
+- 38k 2단계 대기 큐 (retagging/input/batches_38k/)
+  - [T1] transfer: 85배치 (4,245건)
+  - [T1] contract_expiry: 126배치 (6,297건)
+  - [T1] sexual_harassment: 20배치 (993건)
+  - [T2] misconduct_remaining: 155배치 (7,712건)
+  - [T2] union_activity: 44배치 (2,185건)
+  - [T2] redundancy: 10배치 (477건)
+  - [T2] discrimination: 6배치 (256건)
+  - 합계: 446배치 / 22,165건
 
 ## Recently Finished
 - merged_final_v2.jsonl 생성 완료 (148개 파일 전체 재merge)
