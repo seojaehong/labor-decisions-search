@@ -1,33 +1,7 @@
-# contract_expiry_batch_119_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_119 2차 패스
 
-변경 건수: 50 / 50
-
-## id_60927
-- primary: worker_status
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 시용 근로자에 해당하고 해고 사유가 인정되며 절차에 하자도 없어 해고가 정당하다고 판정.
-- confidence: high
-
-## id_60949
-- primary: discrimination
-- secondary: []
-- notes: 기간제근로자가 아닌 자들이 차별시정을 신청한 것으로 당사자적격이 인정되지 않는다고 판정.
-- confidence: high
-
-## id_61013
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로자를 1일 단위로 근로계약을 체결하는 일용근로자로 보아 해고가 존재하지 않는다고 판정.
-- confidence: high
-
-## id_61029
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로자에게 근로계약의 갱신기대권이 인정되나, 갱신거절에 합리적인 이유가 있어 근로관계 종료가 정당하다고 판정.
-- confidence: high
-
-## id_6105
-- primary: dismissal_validity
-- secondary: ['procedure']
-- notes: 일반직(무기계약직) 전환기대권은 인정되나, 일반직 전환을 거절할 합리적 이유가 있다고 판정.
+## id_6169
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자는 기간의 정함이 있는 근로계약을 체결하였고 근로계약 갱신기대권이 인정됨에도 합리적 이유 없이 근로계약 갱신을 거절한 것은 부당해고라고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'worker_status']
 - confidence: high
