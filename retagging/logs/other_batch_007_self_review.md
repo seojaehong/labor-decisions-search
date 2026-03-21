@@ -1,26 +1,18 @@
-# other_batch_007 self review
+# other_batch_007_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 22건
+primary 분포: {'procedure': 10, 'misconduct': 30, 'unfair_treatment': 5, 'worker_status': 2, 'disciplinary_severity': 3}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 43 |
-| procedure | 4 |
-| disciplinary_severity | 3 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_12845
+- primary: procedure | secondary: []
+- notes: 같은 취지의 확정된 판정이 있음에도 불구하고 구제신청을 제기한 경우에 해당되어 「노동위원회규칙」 제60조제1항제5호의 각하사유에 해당될 뿐만 아
 
-## 대표 사례 (2~3건)
-- id_12845: misconduct / 같은 취지의 확정된 판정이 있음에도 불구하고 구제신청을 제기한 경우에 해당되어 「노동위원회규칙」 제60조제1항제5호의 각하사유에 해당될 뿐만 아니라 「근로기준법」 제28조제2항에서
-- id_12921: disciplinary_severity / ① 인사규정의 면직조항 대부분이 해고사유로 규정되어 있고, 단체협약에 직권면직을 징계면직과 같은 해고로 보고 있어 면직조항을 해고에 준하여 처리하여야 할 것인 점, ② 근로자의 노
-- id_12939: procedure / 근로자를 징계해고 할 경우 취업규칙에 징계위원회를 개최하여 근로자에게 소명의 기회를 부여하도록 규정되어 있으나, 사용자가 이를 지키지 않았으므로 절차상 중대한 하자가 있는 부당한 
+### id_12867
+- primary: misconduct | secondary: ['procedure']
+- notes: 근로자는 ○○○ 부장과 근로계약서를 작성한 사실에서 근로관계 성립의 외관이 갖추어졌고, 가사, ○○○ 부장이 대리권한을 넘어선 대리행위를 하였다
 
-## 특이 사항
-- exclusion_flags: 4건
-- medium confidence: 0건
+### id_12873
+- primary: misconduct | secondary: ['procedure']
+- notes: ① 구두로 근로계약을 체결한 정황이 인정되고 근로자의 명함 및 사용자의 해고통지 문자에 근로자의 직위가 ‘관리부장’으로 되어 있으며, 4대 보험

@@ -1,26 +1,18 @@
-# other_batch_005 self review
+# other_batch_005_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 25건
+primary 분포: {'misconduct': 29, 'worker_status': 2, 'unfair_treatment': 9, 'procedure': 9, 'transfer_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 45 |
-| procedure | 4 |
-| dismissal_validity | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_11807
+- primary: misconduct | secondary: ['procedure']
+- notes: 가. 해고사유의 정당성 여부바이어와 대화과정에서의 언행으로 인한 영업손실 및 회사 위신 실추, 업무태도 문제로 구매자들의 불만 고조는 객관적으로
 
-## 대표 사례 (2~3건)
-- id_11807: misconduct / 가. 해고사유의 정당성 여부바이어와 대화과정에서의 언행으로 인한 영업손실 및 회사 위신 실추, 업무태도 문제로 구매자들의 불만 고조는 객관적으로 확인되지 않거나 입증할 근거가 미흡
-- id_11907: procedure / 가. 해고사유의 정당성 여부사용자가 직원들 간의 멱살잡이 등 위협적인 행동 및 주문오류로 근로자에게 사용자 및 동료 직원과의 신뢰관계가 회복할 수 없는 파탄에 이르게 하여 사회통념
-- id_11935: dismissal_validity / 근로자의 개인질병이 재직하는 동안 발병하고 악화되었을 가능성을 배제할 수 없고, 취업규칙상 휴직기간 최대 3개월이 사회에서 통용되는 기간보다 다소 짧아 질병을 회복하기에 충분하지 
+### id_11813
+- primary: worker_status | secondary: []
+- notes: ① 근로자는 구제신청서에서 사업장의 상시근로자 수가 5명 이상이라고 주장하나, 입증자료를 제출하지 않았고, 심문회의에 출석하여 소명하지 않았으므
 
-## 특이 사항
-- exclusion_flags: 5건
-- medium confidence: 0건
+### id_11823
+- primary: misconduct | secondary: []
+- notes: 사업장은 근로관계 종료일(법 적용 사유 발생일) 이전 1개월간 사용자가 사용한 상시근로자 수가 5명 이상이라고 볼 수 없으므로 근로기준법 적용
