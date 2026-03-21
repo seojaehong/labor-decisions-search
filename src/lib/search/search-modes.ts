@@ -20,16 +20,6 @@ export interface SearchCard {
   holding_points?: string | null;
   url: string | null;
   reason_category: string[];
-  case_id?: string;
-  employment_stage?: string | null;
-  issue_type_primary?: string | null;
-  issue_type_secondary?: string[];
-  disposition_type?: string[];
-  fact_markers?: string[];
-  legal_focus?: string[];
-  exclusion_flags?: string[];
-  why_surfaced?: string[];
-  score?: number | null;
 }
 
 export interface SearchBucket {
@@ -170,16 +160,6 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
       holding_points: base?.holding_points || null,
       url: base?.url || null,
       reason_category: base?.reason_category || [],
-      case_id: typeof row.id === 'string' ? row.id : String(row.id),
-      employment_stage: typeof row.employment_stage === 'string' ? row.employment_stage : null,
-      issue_type_primary: typeof row.issue_type_primary === 'string' ? row.issue_type_primary : null,
-      issue_type_secondary: toStringArray(row.issue_type_secondary),
-      disposition_type: toStringArray(row.disposition_type),
-      fact_markers: toStringArray(row.fact_markers),
-      legal_focus: toStringArray(row.legal_focus),
-      exclusion_flags: toStringArray(row.exclusion_flags),
-      why_surfaced: toStringArray(row._score_reasons),
-      score: typeof row._score === 'number' ? row._score : null,
     };
   });
 }

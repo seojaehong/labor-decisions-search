@@ -26,16 +26,6 @@ interface SearchCard {
   holding_points?: string | null;
   url: string | null;
   reason_category: string[];
-  case_id?: string;
-  employment_stage?: string | null;
-  issue_type_primary?: string | null;
-  issue_type_secondary?: string[];
-  disposition_type?: string[];
-  fact_markers?: string[];
-  legal_focus?: string[];
-  exclusion_flags?: string[];
-  why_surfaced?: string[];
-  score?: number | null;
 }
 
 interface SearchBucket {
