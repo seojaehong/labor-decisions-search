@@ -1,28 +1,18 @@
-# other_batch_025 self review
+# other_batch_025_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 30건
+primary 분포: {'transfer_validity': 4, 'unfair_treatment': 8, 'misconduct': 22, 'worker_status': 2, 'procedure': 11, 'disciplinary_severity': 3}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 45 |
-| procedure | 2 |
-| dismissal_validity | 2 |
-| disciplinary_severity | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 48 |
-| medium | 2 |
+### id_22455
+- primary: transfer_validity | secondary: []
+- notes: 근로자는 사용자의 부당한 대기발령 처분으로 임금을 지급받지 못하여 근로조건을 위반한 손해를 입었다고 주장하나, 사용자의 대기발령 처분에 대하여 
 
-## 대표 사례 (2~3건)
-- id_22455: misconduct / 근로자는 사용자의 부당한 대기발령 처분으로 임금을 지급받지 못하여 근로조건을 위반한 손해를 입었다고 주장하나, 사용자의 대기발령 처분에 대하여 노동위원회 등으로부터 판정 등을 받지
-- id_22925: disciplinary_severity / 노동조합의 구두 경고에도 불구하고 노동조합 간부인 이해관계인이 조합원들에게 사실관계가 구체적으로 확인되지 않은 내용으로 위원장을 비방하는 발언을 반복한 것은 노노 간 갈등으로 이어
-- id_22493: procedure / 취업규칙에 근로자를 징계할 경우 징계대상 근로자에게 변명의 기회를 부여하도록 규정되어 있음에도, 충분한 소명기회를 부여하지 않고 징계해고를 결정하여 통보한 것은 절차상 중대한 하자
+### id_22457
+- primary: unfair_treatment | secondary: []
+- notes: 단체협약에서 ‘근속승진제 도입’만 규정하고 있을 뿐 그 절차 및 방법 등에 대한 명시적 규정은 없으나, 인사적체 해소 및 장기근속자 사기진작이라
 
-## 특이 사항
-- exclusion_flags: 4건
-- medium confidence: 2건
+### id_2247
+- primary: unfair_treatment | secondary: []
+- notes: ① 사용자와 교섭대표노조는 2019.

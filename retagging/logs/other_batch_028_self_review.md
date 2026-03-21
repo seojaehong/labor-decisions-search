@@ -1,26 +1,18 @@
-# other_batch_028 self review
+# other_batch_028_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 24건
+primary 분포: {'misconduct': 27, 'transfer_validity': 2, 'unfair_treatment': 10, 'procedure': 7, 'worker_status': 1, 'redundancy': 1, 'disciplinary_severity': 1, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 47 |
-| dismissal_validity | 2 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_2429
+- primary: misconduct | secondary: ['procedure']
+- notes: 대법원에서 징역 6개월에 집행유예 2년이 확정되었고, 이는 인사규정상 당연면직의 사유에 해당한다.
 
-## 대표 사례 (2~3건)
-- id_2429: misconduct / 대법원에서 징역 6개월에 집행유예 2년이 확정되었고, 이는 인사규정상 당연면직의 사유에 해당한다. 유죄판결을 받은 내용이 수행업무와 직접적으로 관련된 법 위반으로 인한 것이므로 당
-- id_24697: procedure / 해고통지서에 해고시기만 기재하고 해고사유를 명시하지 아니한 경우로, ① 사용자는 근로자에게 해고통지서를 교부하였으나 해고통지서에는 해고의 사유가 기재되어 있지 않은 점, ② 사용자
-- id_24547: dismissal_validity / 사기미수 및 위조사문서 행사로 징역 10월의 확정판결을 받은 범죄행위로 인하여 사용자와의 신뢰관계는 더 이상 유지되기 어려운 것으로 보여 규정에 따라 당연퇴직 처분을 한 것은 정당
+### id_24293
+- primary: misconduct | secondary: ['procedure']
+- notes: 근로자가 자필로 퇴직사유를 ‘해고’라고 기재한 퇴직원을 작성하여 제출하고 사용자가 이를 수리하여 해고한 경우로, ① 근로자가 자필로 작성한 퇴직
 
-## 특이 사항
-- exclusion_flags: 3건
-- medium confidence: 0건
+### id_24297
+- primary: transfer_validity | secondary: []
+- notes: 대기발령과 지정연구위원 발령은 징계가 아닌 인사명령이므로 이중징계에 해당하지 아니한다.

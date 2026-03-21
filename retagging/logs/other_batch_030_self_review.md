@@ -1,27 +1,18 @@
-# other_batch_030 self review
+# other_batch_030_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 22건
+primary 분포: {'worker_status': 6, 'misconduct': 28, 'procedure': 11, 'disciplinary_severity': 1, 'transfer_validity': 1, 'unfair_treatment': 2, 'dismissal_validity': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 45 |
-| disciplinary_severity | 2 |
-| dismissal_validity | 2 |
-| procedure | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 50 |
+### id_25429
+- primary: worker_status | secondary: ['dismissal_validity']
+- notes: 이 사건 사용자1은 임금대장, 건강보험 가입자 명단에 의하면 상시 근로자 수는 4명으로 조회되는 점, 이 사건 근로자는 이 사건 사용자1이 상시
 
-## 대표 사례 (2~3건)
-- id_25429: misconduct / 이 사건 사용자1은 임금대장, 건강보험 가입자 명단에 의하면 상시 근로자 수는 4명으로 조회되는 점, 이 사건 근로자는 이 사건 사용자1이 상시 근로자 수가 5명 이상임을 입증할 
-- id_2567: disciplinary_severity / 사용자는 징계절차상 하자가 없다고 주장하나, 징계규칙 제6조제6항에서 “징계혐의자가 노동조합원일 경우에는 조합위원장이 징계위원으로 참석한다.”라고 규정하고 있음에도 사용자는 노동조
-- id_25679: procedure / 사용자는 근로자들을 해고한 사실이 없다고 주장하나, 사용자가 ① 심문회의에 출석하여 근로자를 해고한 것이라고 진술한 점, ② 근로자와의 전화통화에서 “너도 해고통보를 해줄게.”라는
+### id_25441
+- primary: worker_status | secondary: []
+- notes: 근로자가 손해 발생을 주장하는 법 적용 사유 발생일은 2014.
 
-## 특이 사항
-- exclusion_flags: 3건
-- medium confidence: 0건
+### id_25447
+- primary: misconduct | secondary: []
+- notes: 사용자가 근로자에게 해고취소 및 원직복직 명령을 하고, 근로자가 원직복직 공문을 수령한 점, 근로자가 원직복직 통보를 받고, 사용자를 만나 복직
