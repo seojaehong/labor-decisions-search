@@ -1,27 +1,18 @@
-# other_batch_031 self review
+# other_batch_031_reviewed.jsonl 2nd pass
 
-## 처리 결과
-- 입력: 50건
-- 출력: 50건
+건수: 50 | 재분류: 21건
+primary 분포: {'misconduct': 31, 'unfair_treatment': 8, 'procedure': 9, 'redundancy': 1, 'worker_status': 1}
 
-## 분류 통계
-| issue_type_primary | count |
-|---|---:|
-| misconduct | 48 |
-| procedure | 1 |
-| worker_status | 1 |
+## 샘플 (처음 3건)
 
-### confidence 분포
-| confidence | count |
-|---|---:|
-| high | 49 |
-| medium | 1 |
+### id_26005
+- primary: misconduct | secondary: []
+- notes: 근로자는 2017. 1. 14. 해고당하였다고 주장하고 있고 구제신청은 같은 해 10. 10. 제기되었는바, 이는 신청의 기간을 지나서 신청한 
 
-## 대표 사례 (2~3건)
-- id_26005: misconduct / 근로자는 2017. 1. 14. 해고당하였다고 주장하고 있고 구제신청은 같은 해 10. 10. 제기되었는바, 이는 신청의 기간을 지나서 신청한 경우에 해당하고 이 점을 부인할 수 
-- id_26303: procedure / 근로자에게 해고를 통지한 주임 이○○은 객실 팀장업무를 대행하고 있으며, 근무스케줄을 작성·관리하고 객실직원의 신규채용에도 일정한 권한을 행사하는 등 객실운영업무 전반에 대한 업무
-- id_26387: worker_status / 근로자는 주식회사의 등기이사로서 ‘전무이사’ 직함으로 이 사건 회사의 에너지 사업부문 총괄 업무를 수행하였고, 대표이사로부터 업무 내용 전반에 대한 구체적인 지휘·감독을 받았다고 
+### id_26011
+- primary: unfair_treatment | secondary: []
+- notes: 교섭대표노동조합은 임금협약이 체결되기 이전에 소수 노동조합들에 대하여 충분한 의견을 수렴하였다거나 교섭진행상황 등에 대한 정보제공 등을 하였다고
 
-## 특이 사항
-- exclusion_flags: 2건
-- medium confidence: 1건
+### id_26023
+- primary: misconduct | secondary: []
+- notes: 특별한 사정이 없는 한 계약서에 기재된 대로의 의사표시 존재 및 내용을 인정하여야 하고, 임금협약 제7조에 ‘기본급 인상은 2017년 4월 1일
