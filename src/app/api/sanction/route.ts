@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     return NextResponse.json({
-      content: `오류가 발생했습니다: ${error instanceof Error ? error.message : '알 수 없는 오류'}. 잠시 후 다시 시도해 주세요.`,
+      content: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.',
       tags: [],
       cases: [],
     });

@@ -3,7 +3,7 @@ import { ALL_TAGS } from '@/lib/tags';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;

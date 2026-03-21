@@ -262,18 +262,18 @@ function SearchContent() {
 
         <h1 className="text-2xl font-bold mb-3">판정례 검색</h1>
         <p className="text-sm text-muted-foreground mb-6">
-          baseline은 기존 reason_category 검색, candidate는 8축 태그 retrieval, compare는 둘을 나란히 보여줍니다.
+          키워드 또는 사유를 선택하여 판정례를 검색합니다.
         </p>
 
         <div className="flex gap-2 mb-6">
           <SearchModeButton active={mode === "baseline"} onClick={() => handleModeChange("baseline")}>
-            baseline
+            기본 검색
           </SearchModeButton>
           <SearchModeButton active={mode === "candidate"} onClick={() => handleModeChange("candidate")}>
-            candidate
+            AI 검색
           </SearchModeButton>
           <SearchModeButton active={mode === "compare"} onClick={() => handleModeChange("compare")}>
-            compare
+            비교
           </SearchModeButton>
         </div>
 
@@ -342,42 +342,41 @@ function SearchContent() {
             <SectionPill>result: {result ? RESULT_LABELS[result] : "전체"}</SectionPill>
           </div>
           <p className="text-xs text-muted-foreground">
-            compare는 baseline reason_category 검색과 candidate 8축 retrieval 결과를 같은 질의 기준으로 나란히 보여줍니다.
-            candidate는 top 5 중심, baseline은 기준선 역할입니다.
+            기본 검색과 AI 검색 결과를 나란히 비교합니다.
           </p>
         </div>
 
         {mode === "compare" ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <SearchBucketSection
-              title="Baseline"
+              title="기본 검색"
               bucket={baselineBucket}
               source="baseline"
-              summary="기존 reason_category / search_vector 기준선"
+              summary="사유 분류 기반 검색"
               error={payload?.baselineError}
             />
             <SearchBucketSection
-              title="Candidate"
+              title="AI 검색"
               bucket={candidateBucket}
               source="candidate"
-              summary="8축 태그 retrieval + query-aware reranking"
+              summary="AI 정밀 분류 기반 검색"
               error={payload?.candidateError}
             />
           </div>
         ) : mode === "candidate" ? (
           <SearchBucketSection
-            title="Candidate"
+            title="AI 검색"
             bucket={candidateBucket}
             source="candidate"
-            summary="8축 태그 retrieval + query-aware reranking"
+            summary="AI 정밀 분류 기반 검색"
             error={payload?.candidateError}
           />
         ) : (
           <SearchBucketSection
-            title="Baseline"
+            title="기본 검색"
             bucket={baselineBucket}
             source="baseline"
-            summary="기존 reason_category / search_vector 기준선"
+            summary="사유 분류 기반 검색"
             error={payload?.baselineError}
           />
         )}

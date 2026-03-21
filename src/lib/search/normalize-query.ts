@@ -190,10 +190,10 @@ export function normalizeQuery(raw: string): NormalizedQuery {
   // 5. exclusion 힌트
   const exclusionHints: string[] = [];
   if (text.includes('결근') && intent !== 'procedure_check') {
-    // 결근 질의인데 절차 질의가 아니면 not_really_absence_case 제외
+    exclusionHints.push('not_really_absence_case');
   }
   if (text.includes('괴롭힘') && intent !== 'retaliation_check') {
-    // 괴롭힘 질의인데 보복 질의가 아니면
+    exclusionHints.push('not_really_harassment_case');
   }
   if (stageCandidates.includes('regular')) {
     exclusionHints.push('unrelated_to_probation');
