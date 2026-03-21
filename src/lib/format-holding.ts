@@ -18,6 +18,13 @@ const LEVEL3_PATTERN = /^[①-⑳]\s*/;
 const NUMBERED_PATTERN = /^\d+\.\s+/;
 const BULLET_PATTERN = /^[-·]\s+/;
 
+function injectStructuralBreaks(input: string): string {
+  return input
+    .replace(/\s*(?=([가-힣]\.\s+\S{2,}))/g, (match, marker, offset) => (offset === 0 ? "" : "\n"))
+    .replace(/\s*(?=(\(\d+\)\s+\S{2,}))/g, (match, marker, offset) => (offset === 0 ? "" : "\n"))
+    .replace(/\s*(?=([①-⑳]\s*\S{2,}))/g, (match, marker, offset) => (offset === 0 ? "" : "\n"));
+}
+
 function clampIndent(value: number): 0 | 1 | 2 {
   if (value <= 0) return 0;
   if (value === 1) return 1;
@@ -27,7 +34,9 @@ function clampIndent(value: number): 0 | 1 | 2 {
 export function parseHoldingText(input: string | null | undefined): HoldingBlock[] {
   if (!input) return [];
 
-  const lines = input
+  const normalizedInput = injectStructuralBreaks(input);
+
+  const lines = normalizedInput
     .split(/\r?\n/)
     .map((line) => line.trimEnd())
     .filter((line) => line.trim().length > 0);
