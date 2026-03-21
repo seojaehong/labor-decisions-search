@@ -1,31 +1,33 @@
-# sexual_harassment_batch_003_reviewed.jsonl 1차 self-review 메모
+# sexual_harassment_batch_003_reviewed.jsonl 2nd pass self-review
+
+변경 건수: 50 / 50
 
 ## id_21565
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct', 'procedure']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 인정; 해고 양정 과도하여 구제.
+- confidence: high
 
 ## id_21627
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 인정; 해고 양정 과도하여 구제.
+- confidence: high
 
 ## id_21799
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct', 'performance', 'procedure']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 해고 양정 적정으로 정당 판정.
+- confidence: high
+
+## id_21813
+- primary: dismissal_validity
+- secondary: ['misconduct', 'disciplinary_severity']
+- notes: 해고 부존재 또는 합의해지 여부가 쟁점.
+- confidence: medium
 
 ## id_22223
-- reviewed primary/disposition: misconduct / ['disciplinary_dismissal']
+- primary: misconduct
 - secondary: ['procedure', 'disciplinary_severity']
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
-
-## id_22349
-- reviewed primary/disposition: disciplinary_severity / ['dismissal']
-- secondary: ['misconduct', 'procedure']
-- exclusion_flags: ['unrelated_to_dismissal']
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 근로자가 워크숍 행사 중 동료 여성근로자 3명을 성희롱한 것을 이유로 해고한 것은 정당하다고 판정한 사례.
+- confidence: high

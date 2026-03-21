@@ -1,31 +1,33 @@
-# sexual_harassment_batch_002_reviewed.jsonl 1차 self-review 메모
+# sexual_harassment_batch_002_reviewed.jsonl 2nd pass self-review
+
+변경 건수: 50 / 50
 
 ## id_14495
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 징계사유 일부 인정; 해고 양정 과도하여 구제.
+- confidence: high
 
 ## id_14651
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: []
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 해고 양정 적정으로 정당 판정.
+- confidence: high
 
 ## id_14655
-- reviewed primary/disposition: misconduct / ['disciplinary_dismissal']
+- primary: misconduct
 - secondary: ['disciplinary_severity']
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 성희롱의 행위가 지속적이고 반복적으로 이루어진 것을 이유로 해임 처분한 것은 정당하다고 판정한 사례.
+- confidence: high
 
 ## id_14703
-- reviewed primary/disposition: disciplinary_severity / ['suspension']
+- primary: disciplinary_severity
 - secondary: ['misconduct']
-- exclusion_flags: ['unrelated_to_dismissal']
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 정직 양정 적정으로 정당 판정.
+- confidence: high
 
 ## id_14859
-- reviewed primary/disposition: misconduct / ['pay_cut']
+- primary: misconduct
 - secondary: ['procedure', 'unfair_treatment']
-- exclusion_flags: ['unrelated_to_dismissal']
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 사용자의 언론의 자유 범위내에서 이루어진 노동조합과 관련된 발언은 지배개입의 부당노동행위에 해당되지 않는다고 판정한 사례.
+- confidence: high

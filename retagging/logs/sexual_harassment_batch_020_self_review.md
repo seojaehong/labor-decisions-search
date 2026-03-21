@@ -1,31 +1,33 @@
-# sexual_harassment_batch_020_reviewed.jsonl 1차 self-review 메모
+# sexual_harassment_batch_020_reviewed.jsonl 2nd pass self-review
+
+변경 건수: 43 / 43
 
 ## id_6829
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct', 'procedure', 'unfair_treatment']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 인정; 해고 양정 적정으로 정당 판정.
+- confidence: high
 
 ## id_683
-- reviewed primary/disposition: misconduct / ['disciplinary_dismissal']
+- primary: misconduct
 - secondary: []
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 임금 등 경제적 불이익만 있고 법률상 불이익이 없으며, 동일한 사유로 후속처분인 징계해고가 있어 인사대기 명령은 실효되었으므로 구제이익이 없다고.
+- confidence: high
 
 ## id_6851
-- reviewed primary/disposition: misconduct / ['disciplinary_dismissal']
+- primary: misconduct
 - secondary: ['training_opportunity']
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 성희롱 성립 인정.
+- confidence: high
 
 ## id_6913
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct', 'procedure']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 인정; 해고 양정 적정으로 정당 판정.
+- confidence: high
 
 ## id_6961
-- reviewed primary/disposition: misconduct / ['suspension']
+- primary: misconduct
 - secondary: ['procedure', 'disciplinary_severity']
-- exclusion_flags: ['unrelated_to_dismissal']
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 성희롱 성립 인정.
+- confidence: high

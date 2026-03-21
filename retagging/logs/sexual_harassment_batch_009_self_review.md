@@ -1,31 +1,33 @@
-# sexual_harassment_batch_009_reviewed.jsonl 1차 self-review 메모
+# sexual_harassment_batch_009_reviewed.jsonl 2nd pass self-review
+
+변경 건수: 50 / 50
 
 ## id_401505
-- reviewed primary/disposition: misconduct / ['disciplinary_dismissal']
-- secondary: ['procedure']
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- primary: misconduct
+- secondary: ['procedure', 'disciplinary_severity']
+- notes: 성희롱 성립 인정.
+- confidence: high
 
 ## id_401533
-- reviewed primary/disposition: misconduct / ['disciplinary_dismissal']
+- primary: misconduct
 - secondary: []
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 성희롱 성립 인정.
+- confidence: high
 
 ## id_401857
-- reviewed primary/disposition: disciplinary_severity / ['suspension']
+- primary: disciplinary_severity
 - secondary: ['misconduct', 'procedure']
-- exclusion_flags: ['unrelated_to_dismissal']
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 인정; 정직 양정 과도하여 구제.
+- confidence: high
 
 ## id_401867
-- reviewed primary/disposition: disciplinary_severity / ['disciplinary_dismissal']
+- primary: disciplinary_severity
 - secondary: ['misconduct', 'procedure']
-- exclusion_flags: []
-- 변경 이유: 성희롱 사실은 인정되고 징계양정(해고/정직 등 수위)의 상당성이 핵심.
+- notes: 성희롱 인정; 해고 양정 과도하여 구제.
+- confidence: high
 
 ## id_401871
-- reviewed primary/disposition: misconduct / ['suspension']
+- primary: misconduct
 - secondary: ['disciplinary_severity']
-- exclusion_flags: []
-- 변경 이유: 성희롱 성립 여부가 주된 쟁점.
+- notes: 성희롱 성립 인정; 정직 양정 과도.
+- confidence: high
