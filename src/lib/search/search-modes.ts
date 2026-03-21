@@ -191,12 +191,33 @@ async function runCandidateSearch({
   page = 0,
   pageSize = 5,
 }: SearchRequestOptions): Promise<SearchBucket> {
-  if (!query.trim()) {
+  // query가 없어도 reason 필터가 있으면 검색 수행
+  if (!query.trim() && !reason && !result) {
     return { items: [], total: 0, page, pageSize };
   }
 
-  const tags = extractTags(query);
-  const retrieval = await searchCases(tags, query);
+  // reason → 검색 키워드 변환 (query가 비어있을 때 fallback)
+  const REASON_TO_QUERY: Record<string, string> = {
+    sexual_harassment: '성희롱',
+    workplace_bullying: '직장내괴롭힘',
+    violence: '폭행 폭언',
+    absence: '무단결근',
+    embezzlement: '횡령 배임',
+    incompetence: '업무능력 부족',
+    misconduct: '비위행위',
+    redundancy: '경영상 해고',
+    probation: '수습 본채용',
+    transfer: '전보 인사발령',
+    contract_expiry: '갱신기대권 계약만료',
+    no_dismissal: '해고부존재 사직',
+    union_activity: '부당노동행위',
+    worker_status: '근로자성',
+    discrimination: '차별시정',
+  };
+
+  const effectiveQuery = query.trim() || (reason ? REASON_TO_QUERY[reason] || reason : '');
+  const tags = extractTags(effectiveQuery);
+  const retrieval = await searchCases(tags, effectiveQuery);
   let items = await hydrateCandidateRows(retrieval.allCases);
 
   items = items.filter((item) => {
