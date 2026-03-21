@@ -257,7 +257,7 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       preferredDispositions: ['dismissal', 'disciplinary_dismissal'],
       preferredQueryHints: ['업무능력 부족', '업무능력 부족 해고 부당', '저성과 해고', '저성과자 해고 부당', '통상해고', 'PIP', '개선기회 미부여'],
       penalizedQueryHints: ['본채용 거부', '수습평가', '수습'],
-      penalizedKeywords: ['수습', '본채용', '시용'],
+      penalizedKeywords: ['수습', '본채용', '본채용 거부', '시용', '갱신기대권', '갱신 거절', '계약기간 만료'],
     };
   }
 
@@ -279,7 +279,7 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       preferredStages: stageHints,
       penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
       penalizedQueryHints: ['직장 내 괴롭힘 성립', '직장 내 괴롭힘 성립 요건', '순수 직장내 괴롭힘 성립 사건'],
-      penalizedKeywords: ['2차 가해', '성희롱', '쟁의행위', '노동조합', '조합원'],
+      penalizedKeywords: ['2차 가해', '성희롱', '쟁의행위', '노동조합', '조합원', '전보의 업무상 필요성', '징계양정이 적정', '징계절차에도 하자가 없어'],
     };
   }
 
@@ -430,8 +430,12 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
       score -= 8;
       reasons.push('cross_penalty:not_dismissal');
     }
+    if (dispositions.includes('rejection_of_regular_employment') || dispositions.includes('nonrenewal')) {
+      score -= 12;
+      reasons.push('cross_penalty:probation_or_nonrenewal');
+    }
     if (stage === 'probation') {
-      score -= 6;
+      score -= 12;
       reasons.push('cross_penalty:probation_mix');
     }
   }
@@ -449,6 +453,10 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     if (primary === 'workplace_harassment' && !hasRetaliationStructure) {
       score -= 7;
       reasons.push('cross_penalty:harassment_only');
+    }
+    if (decisionResult === 'dismissed' && primary !== 'workplace_harassment') {
+      score -= 8;
+      reasons.push('cross_penalty:dismissed_general_theory');
     }
   }
 
