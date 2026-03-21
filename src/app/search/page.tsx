@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 
 type SearchMode = "baseline" | "candidate" | "compare";
+const IS_DEV = process.env.NODE_ENV === "development";
 
 interface SearchCard {
   id: string;
@@ -82,6 +83,22 @@ function SectionPill({ children }: { children: React.ReactNode }) {
   );
 }
 
+function getModeLabel(mode: SearchMode): string {
+  if (mode === "baseline") return "기본 검색";
+  if (mode === "candidate") return "AI 검색";
+  return "비교 보기";
+}
+
+function getModeDescription(mode: SearchMode): string {
+  if (mode === "baseline") {
+    return "기존 reason_category와 검색 인덱스 기준으로 판정례를 보여줍니다.";
+  }
+  if (mode === "candidate") {
+    return "8축 태그 기반 AI 검색 결과를 보여줍니다.";
+  }
+  return "기본 검색과 AI 검색 결과를 나란히 비교합니다.";
+}
+
 function getIssuePreview(item: SearchCard): string {
   const preview =
     item.holding_summary?.trim() ||
@@ -93,6 +110,11 @@ function getIssuePreview(item: SearchCard): string {
   return preview.length > 100 ? `${preview.slice(0, 100)}...` : preview;
 }
 
+function getDisplayCaseNumber(caseNumber?: string | null): string {
+  if (!caseNumber) return "";
+  return /^id_/i.test(caseNumber) ? "" : caseNumber;
+}
+
 function SearchResultCard({ item }: { item: SearchCard }) {
   return (
     <Link key={item.id} href={`/decisions/${item.id}`}>
@@ -102,7 +124,7 @@ function SearchResultCard({ item }: { item: SearchCard }) {
             <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
             <p className="text-xs text-muted-foreground mt-1">
               {item.department || "-"} | {item.decision_date || "-"}
-              {item.case_number ? ` | ${item.case_number}` : ""}
+              {getDisplayCaseNumber(item.case_number) ? ` | ${getDisplayCaseNumber(item.case_number)}` : ""}
             </p>
             <p className="text-xs mt-2 text-muted-foreground line-clamp-2">
               {getIssuePreview(item)}
@@ -342,17 +364,19 @@ function SearchContent() {
           {loading ? "검색 중..." : `${total.toLocaleString()}건`}
         </p>
 
-        <div className="rounded-2xl border bg-muted/30 p-4 mb-6">
-          <div className="flex flex-wrap gap-2 mb-3">
-            <SectionPill>mode: {mode}</SectionPill>
-            <SectionPill>query: {query || "(없음)"}</SectionPill>
-            <SectionPill>reason: {reason ? REASON_LABELS[reason] : "전체"}</SectionPill>
-            <SectionPill>result: {result ? RESULT_LABELS[result] : "전체"}</SectionPill>
+        {IS_DEV ? (
+          <div className="rounded-2xl border bg-muted/30 p-4 mb-6">
+            <div className="flex flex-wrap gap-2 mb-3">
+              <SectionPill>{getModeLabel(mode)}</SectionPill>
+              <SectionPill>검색어: {query || "없음"}</SectionPill>
+              <SectionPill>사유: {reason ? REASON_LABELS[reason] : "전체"}</SectionPill>
+              <SectionPill>판정결과: {result ? RESULT_LABELS[result] : "전체"}</SectionPill>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {getModeDescription(mode)}
+            </p>
           </div>
-          <p className="text-xs text-muted-foreground">
-            기본 검색과 AI 검색 결과를 나란히 비교합니다.
-          </p>
-        </div>
+        ) : null}
 
         {mode === "compare" ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

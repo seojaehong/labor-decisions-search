@@ -14,6 +14,11 @@ import { parseHoldingText } from "@/lib/format-holding";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
+function getDisplayCaseNumber(caseNumber?: string | null) {
+  if (!caseNumber) return "";
+  return /^id_/i.test(caseNumber) ? "" : caseNumber;
+}
+
 function renderHoldingBlocks(text: string) {
   return parseHoldingText(text).map((block, index) => (
     <p
@@ -49,6 +54,10 @@ export default async function DecisionPage({
     return <div className="p-8">판정례를 찾을 수 없습니다.</div>;
   }
 
+  const displayCaseNumber = getDisplayCaseNumber(d.case_number);
+  const holdingPointsText = typeof d.holding_points === "string" ? d.holding_points.trim() : "";
+  const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
+
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-3xl mx-auto px-4 py-8">
@@ -58,7 +67,8 @@ export default async function DecisionPage({
 
         <h1 className="text-xl font-bold mb-2">{d.title}</h1>
         <p className="text-sm text-muted-foreground mb-4">
-          {d.department} | {d.case_number} | {d.decision_date}
+          {d.department} | {d.decision_date}
+          {displayCaseNumber ? ` | ${displayCaseNumber}` : ""}
         </p>
 
         <div className="flex flex-wrap gap-2 mb-6">
@@ -104,10 +114,26 @@ export default async function DecisionPage({
 
         <Separator className="my-6" />
 
-        {d.holding_points && (
+        {holdingPointsText && (
           <div className="mb-6">
             <h3 className="font-semibold mb-2">판정사항</h3>
-            <div>{renderHoldingBlocks(d.holding_points)}</div>
+            {hasDetailedHoldingPoints ? (
+              <div>{renderHoldingBlocks(holdingPointsText)}</div>
+            ) : (
+              <Card className="p-4 bg-muted/40">
+                <p className="text-sm text-muted-foreground">상세 내용은 원문을 확인해주세요.</p>
+                {d.url && (
+                  <a
+                    href={d.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center mt-3 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
+                  >
+                    원문 보기 (법제처)
+                  </a>
+                )}
+              </Card>
+            )}
           </div>
         )}
 
