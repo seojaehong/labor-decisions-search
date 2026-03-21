@@ -1,33 +1,13 @@
-# contract_expiry_batch_004_reviewed.jsonl 2nd pass self-review
-
-변경 건수: 50 / 50
-
-## id_11841
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 당사자 간 근로관계는 계약기간이 만료됨으로써 종료되었고, 근로자에게 근로계약의 갱신기대권이 존재하지 않는다고 판정.
-- confidence: high
-
-## id_1185
-- primary: renewal_expectation
-- secondary: ['worker_status', 'dismissal_validity']
-- notes: 변경된 위탁업체에게 고용승계 의무가 있다거나 근로자들에게 고용승계 기대권이 형성되었다고 볼 수 없어 사용자 적격이 없다고 판정.
-- confidence: high
+# contract_expiry_batch_004 2차 패스
 
 ## id_11865
-- primary: discrimination
-- secondary: ['dismissal_validity', 'renewal_expectation']
-- notes: 근로자에게 근로계약에 대한 갱신기대권이 존재하고 사용자의 갱신 거절에는 합리적 이유가 없어 근로계약 종료는 부당하다고 판정.
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자에게 근로계약에 대한 갱신기대권이 존재하고 사용자의 갱신 거절에는 합리적 이유가 없어 근로계약 종료는 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'dismissal_validity']
 - confidence: high
 
-## id_1189
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 근로자의 갱신기대권이 인정되지 않아 계약기간 만료로 근로관계가 종료되었다고 판정.
-- confidence: high
-
-## id_11891
-- primary: dismissal_validity
-- secondary: ['procedure']
-- notes: 사용자가 서면통지 의무를 위반하여 근로자에게 행한 해고가 부당하다고 판정.
+## id_1227
+- primary 수정: worker_status → dismissal_validity
+- notes: 신청인은 피신청인과 위임계약을 체결한 어린이집 원장이지만 실제 근로형태를 보았을 때 근로기준법상 근로자이며, 징계사유는 인정되나 양정이 과도하여 부당한 해고라고 판단한 사례 — worker_status 판단이 핵심
+- secondary: ['disciplinary_severity', 'worker_status']
 - confidence: high

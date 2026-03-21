@@ -1,33 +1,25 @@
-# contract_expiry_batch_006_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_006 2차 패스
 
-변경 건수: 50 / 50
-
-## id_13581
-- primary: dismissal_validity
-- secondary: ['procedure']
-- notes: 해고의 효력을 다투던 중 근로계약기간의 만료로 근로계약관계가 종료되어 구제의 이익이 없다고 판정.
+## id_13821
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자들에게 갱신기대권이 인정되지 않으므로 사용자가 계약 갱신을 거절한 것이 부당해고에 해당하지 않고, 부당노동행위에도 해당되지 않는다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'unfair_treatment']
 - confidence: high
 
-## id_13617
-- primary: discrimination
-- secondary: ['dismissal_validity']
-- notes: 이 사건 사용자가 이 사건 근로자에게 행한 계약기간 종료 처분은 부당해고에 해당한다고 판정.
+## id_13895
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자는 「기간제 및 단시간근로자 보호 등에 관한 법률」 제4조제1항제1호 및 제6호에 해당하여 기간제근로자의 사용기간에 제한을 받지 않고, 근로계약의 갱신에 대한 신뢰관계도 형성되지 아니하여 갱신기대권이 인정되지  — discrimination 판단이 핵심
+- secondary: ['procedure', 'dismissal_validity', 'worker_status']
 - confidence: high
 
-## id_13633
-- primary: discrimination
-- secondary: ['procedure']
-- notes: 비교대상근로자에 비하여 명절휴가보전금, 교통보조비, 정액급식비, 가족수당을 지급하지 않은 것은 합리적인 이유 없는 차별이라고 판정.
+## id_14065
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자1은 갱신기대권이 인정되지 않고, 근로자2는 갱신기대권이 인정되고 갱신거절의 합리적 이유가 없어 부당해고에 해당되나, 근로계약 갱신 거절이 불이익취급의 부당노동행위에 해당하지 않는다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['dismissal_validity', 'unfair_treatment']
 - confidence: high
 
-## id_13643
-- primary: dismissal_validity
-- secondary: []
-- notes: 근로계약기간의 만료로 인해 부당해고 구제신청의 이익이 소멸되었다고 판정.
-- confidence: high
-
-## id_13649
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 기간의 정함이 있는 근로계약이 기간만료로 종료되었으나 갱신기대권이 있다고 보기 어려워 해고가 존재하지 않는다고 판정.
+## id_14131
+- primary 수정: discrimination → renewal_expectation
+- notes: 근로자에게 갱신기대권이 있음에도 객관성 없는 평가를 통해 근로계약의 갱신을 거절한 것은 합리적 이유가 없어 부당하다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'procedure', 'dismissal_validity']
 - confidence: high

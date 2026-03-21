@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-03-21 17:24:15",
+  "updated_at": "2026-03-21 18:04:15",
   "status": "작업중",
-  "reviewed_file_count": 356,
-  "reviewed_record_count": 14687,
+  "reviewed_file_count": 487,
+  "reviewed_record_count": 21234,
   "merged_file_count": 4,
   "merged_record_count": 12457,
   "override_count": 236,
-  "self_review_count": 356,
+  "self_review_count": 788,
   "recent_reviewed_files": [
     "sexual_harassment_batch_020_reviewed.jsonl",
     "sexual_harassment_batch_019_reviewed.jsonl",

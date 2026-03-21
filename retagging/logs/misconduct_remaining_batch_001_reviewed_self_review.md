@@ -1,28 +1,28 @@
-# misconduct_remaining_batch_001_reviewed 2nd-pass self-review
+# misconduct_remaining_batch_001 직접 판독 self-review
 
-- 배치: `misconduct_remaining_batch_001_reviewed`
-- 2차 패스 처리 건수: 50
-- 실질 변경 건수: 50
-- 개선 항목: notes(holding_points 기반), retrieval_note, secondary, confidence
+## 1. batch 개요
+- batch: `misconduct_remaining_batch_001`
+- reviewed 건수: 50건
+- 작업 방식: Claude가 holding_points 직접 읽고 사건별 판단
 
-## 변경 대표 사례
-- `2016부해OOO` [misconduct]
-  - 변경: notes
-  - notes: 청렴의무 준수 지시 이후에도 불법찬조금 임의 사용 등 계속된 규정 위반에 대해 행해진 해고는 정당하다고 판정한 사례 — 비위행위 존재 및 중대성
-- `2020부노OOO` [unfair_treatment]
-  - 변경: notes
-  - notes: 징계는 그 사유가 인정되므로 부당노동행위에 해당되지 않는다고 판정한 사례 — 부당노동행위(불이익취급·지배개입) 여부가 핵심
-- `2022부해OOO` [procedure]
-  - 변경: notes, conf:medium→high
-  - notes: 징계사유가 존재하지 않고, 근로기준법 제27조에서 정한 해고의 서면통지 절차를 위반하여 징계해고가 부당하다고 판정한 사례 — 소명기회 미부여 또
-- `2023부해OOO` [unfair_treatment]
-  - 변경: notes, conf:medium→high
-  - notes: 근로자들은 이 사건 구제신청 당사자로 적법하고, 징계사유가 모두 부당하고, 징계절차에 중대한 하자가 존재하므로 부당해고이며, 불이익 취급 및 지
-- `id_10003` [disciplinary_severity]
-  - 변경: notes
-  - notes: 징계사유가 모두 인정되고, 양정이 적정하며, 절차가 적법하여 징계해고는 정당하다고 판정한 사례 — 징계양정(제재 수위)의 적정성이 핵심 쟁점
+## 2. issue_type_primary 분포
+- misconduct: 25건
+- disciplinary_severity: 17건
+- unfair_treatment: 4건
+- procedure: 3건
+- worker_status: 1건
 
-## 일관성 메모
-- notes: holding_points 기반 사건별 생성 (템플릿 제거)
-- confidence: genuine ambiguity 키워드 있을 때만 medium, 기본 high
-- secondary: holding_points + source_text 양쪽 기반 보강
+## 3. 3-way 분류 근거
+- **misconduct**: 비위사실 존부·중대성이 결론을 직접 좌우하는 사건
+- **disciplinary_severity**: 비위가 인정되나 해고·징계 수위의 적정성(양정)이 핵심인 사건
+- **procedure**: 서면통지·소명기회 등 절차 하자가 판정 결론을 좌우하는 사건
+
+## 4. 대표 사례
+- `2016부해OOO` [misconduct]: 청렴의무 교육 후에도 찬조금 임의사용 — 비위 명확
+- `id_10019` [disciplinary_severity]: 사유 모두 인정이나 해고 양정 과다
+- `id_10159` [procedure]: 서면 해고통지 없어 절차 부당
+- `id_10079` [worker_status]: 근로자성 자체가 쟁점 — 당사자 적격 없음 각하
+- `id_10571` [misconduct]: 미확정 유죄판결로 해고 = 사유 불인정
+
+## 5. confidence 판단
+- 전체 50건 high — holding_points가 명확한 판정을 담고 있어 분류 모호성 없음
