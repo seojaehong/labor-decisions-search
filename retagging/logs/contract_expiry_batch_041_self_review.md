@@ -1,33 +1,25 @@
-# contract_expiry_batch_041_reviewed.jsonl 2nd pass self-review
-
-변경 건수: 50 / 50
-
-## id_33989
-- primary: dismissal_validity
-- secondary: []
-- notes: 근로계약기간이 만료되고 공사현장도 종료되어 구제신청의 이익이 없다고 판정.
-- confidence: high
-
-## id_34001
-- primary: renewal_expectation
-- secondary: ['procedure', 'dismissal_validity']
-- notes: 당사자 간의 근로관계는 근로계약기간 만료로 종료된 것으로, 근로계약 갱신에 대한 기대권이 인정되지 않는다고 판정.
-- confidence: high
-
-## id_34015
-- primary: renewal_expectation
-- secondary: ['dismissal_validity']
-- notes: 갱신기대권이 인정된다고 보기 어려워 계약기간 만료에 의한 근로관계 종료는 정당하다고 판정.
-- confidence: high
-
-## id_34025
-- primary: dismissal_validity
-- secondary: []
-- notes: 해고의 효력을 다투던 중 계약기간 종료로 인해 구제이익이 없다고 판정.
-- confidence: high
+# contract_expiry_batch_041 2차 패스
 
 ## id_34035
-- primary: worker_status
-- secondary: ['dismissal_validity']
-- notes: 상시 근로자 수가 5명 미만으로 구제신청 대상이 되지 않는다고 판정.
+- primary 수정: worker_status → dismissal_validity
+- notes: 상시 근로자 수가 5명 미만으로 구제신청 대상이 되지 않는다고 판정한 사례 — worker_status 판단이 핵심
+- secondary: ['renewal_expectation', 'worker_status']
+- confidence: high
+
+## id_34171
+- primary 수정: discrimination → renewal_expectation
+- notes: 갱신 기대권이 있는 근로자에 대한 합리적 이유가 없는 근로계약 종료는 부당한 해고라고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'procedure', 'dismissal_validity']
+- confidence: high
+
+## id_34253
+- primary 수정: worker_status → dismissal_validity
+- notes: 근로기준법상 근로자에 해당하고, 해고로 근로관계가 종료되었으나 정당한 사유가 인정되지 않아 부당해고라고 판정한 사례 — worker_status 판단이 핵심
+- secondary: ['worker_status']
+- confidence: high
+
+## id_34289
+- primary 수정: worker_status → dismissal_validity
+- notes: 근로기준법상 근로자에 해당하고, 계약만료를 이유로 서면통지 없이 근로관계를 종료한 것은 부당하다고 판정한 사례 — worker_status 판단이 핵심
+- secondary: ['procedure', 'worker_status']
 - confidence: high
