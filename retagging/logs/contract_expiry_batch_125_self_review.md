@@ -1,33 +1,19 @@
-# contract_expiry_batch_125_reviewed.jsonl 2nd pass self-review
+# contract_expiry_batch_125 2차 패스
 
-변경 건수: 50 / 50
-
-## id_8991
-- primary: renewal_expectation
-- secondary: ['procedure', 'unfair_treatment', 'dismissal_validity']
-- notes: 근로자에게 촉탁직 재고용의 기대권이 인정되지 않고, 촉탁직 재고용 거절이 불이익 취급 및 지배·개입의 부당노동행위에 해당하지 않는다고 판정.
+## id_9059
+- primary 수정: discrimination → renewal_expectation
+- notes: 당사자가 계약기간이 1년인 기간제 근로계약을 체결한 것이 인정되고 근로자에게 근로계약 갱신기대권이 인정되나 사용자의 근로계약 갱신거절에 합리적 이유가 없다고 판정한 사례 — discrimination 판단이 핵심
+- secondary: ['work_ability', 'dismissal_validity']
 - confidence: high
 
-## id_8997
-- primary: discrimination
-- secondary: ['unfair_treatment', 'dismissal_validity']
-- notes: 정규직 전환기대권이 인정되고, 정규직 전환거절의 합리적 이유가 없어 부당하나, 정규직 전환거절은 부당노동행위로 인정하기 어렵다고 판정.
+## id_9311
+- primary 수정: worker_status → dismissal_validity
+- notes: 구제신청은 적법한 기간 내에 신청되었고, 근로기준법상 근로자이며, 근로계약의 묵시적 갱신은 인정된다고 볼 수 없고, 근로자의 갱신기대권은 인정되나 사용자의 갱신거절에 합리적 이유가 인정되므로 근로계약기간 만료에 의한 — worker_status 판단이 핵심
+- secondary: ['procedure', 'renewal_expectation', 'worker_status']
 - confidence: high
 
-## id_905
-- primary: dismissal_validity
+## id_9423
+- primary 수정: worker_status → dismissal_validity
+- notes: 근로자는 사용자1의 지휘·감독을 받는 근로기준법상 근로자로, 근로기간의 정함이 없는 근로자에 해당하며, 사용자1이 근로자를 해고한 것은 사유와 절차를 위반한 부당한 해고라고 판정한 사례 — worker_status 판단이 핵심
 - secondary: ['procedure', 'worker_status']
-- notes: 사용자의 퇴직 권고를 근로자가 수용하여 근로관계가 종료되었으므로 해고가 존재하지 않는다고 판정.
-- confidence: high
-
-## id_9055
-- primary: renewal_expectation
-- secondary: ['procedure', 'worker_status', 'dismissal_validity']
-- notes: 근로자가 무기계약 근로자에 해당하지는 않으나, 근로자에게 무기계약 전환기대권이 인정됨에도 불구하고 사용자가 무기계약 전환 심사절차를 거치지 않는 등 합리적 이유 없이 근로자와의 근로관계를 종료하였다고 판정.
-- confidence: high
-
-## id_9057
-- primary: discrimination
-- secondary: ['dismissal_validity']
-- notes: 기간의 정함이 없는 근로계약을 체결하였고, 이후 근로자의 연령이 취업규칙상 정년에 도달하여 퇴직한 것으로 해고가 존재하지 않는다고 판정.
 - confidence: high
