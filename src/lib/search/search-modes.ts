@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
+import { normalizeQuery } from '@/lib/search/normalize-query';
 import type { DecisionResult, ReasonCategory } from '@/lib/types';
 
 const supabase = createClient(
@@ -44,6 +45,8 @@ export interface SearchResponsePayload {
   result: DecisionResult | '';
   baseline?: SearchBucket;
   candidate?: SearchBucket;
+  baselineError?: string;
+  candidateError?: string;
 }
 
 export interface SearchRequestOptions {
@@ -81,17 +84,43 @@ async function runBaselineSearch({
   page = 0,
   pageSize = 20,
 }: SearchRequestOptions): Promise<SearchBucket> {
-  let q = supabase
-    .from('nlrc_decisions')
-    .select('id, title, department, decision_date, decision_result, key_issue, url, reason_category', { count: 'exact' })
-    .range(page * pageSize, (page + 1) * pageSize - 1)
-    .order('decision_date', { ascending: false });
+  const baseSelect = () =>
+    supabase
+      .from('nlrc_decisions')
+      .select('id, title, department, decision_date, decision_result, key_issue, url, reason_category', { count: 'exact' })
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('decision_date', { ascending: false });
 
+  let q = baseSelect();
   if (reason) q = q.contains('reason_category', [reason]);
   if (result) q = q.eq('decision_result', result);
-  if (query) q = q.textSearch('search_vector', query.split(' ').join(' & '));
+  if (query) {
+    // 자연어 질의를 정규화하여 핵심 키워드만 추출 후 textSearch
+    const normalized = normalizeQuery(query);
+    const searchTerms = normalized.keywords.length > 0
+      ? normalized.keywords.slice(0, 4).join(' & ')
+      : query.split(' ').join(' & ');
+    q = q.textSearch('search_vector', searchTerms);
+  }
 
-  const { data, count, error } = await q;
+  let { data, count, error } = await q;
+
+  if ((error || (query && (count || 0) === 0))) {
+    let fallback = baseSelect();
+    if (reason) fallback = fallback.contains('reason_category', [reason]);
+    if (result) fallback = fallback.eq('decision_result', result);
+    if (query) {
+      fallback = fallback.or(
+        `title.ilike.%${query}%,key_issue.ilike.%${query}%,holding_points.ilike.%${query}%`
+      );
+    }
+
+    const fallbackResp = await fallback;
+    data = fallbackResp.data;
+    count = fallbackResp.count;
+    error = fallbackResp.error;
+  }
+
   if (error) throw error;
 
   const items: SearchCard[] = (data || []).map((row) => ({
@@ -196,11 +225,21 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
   };
 
   if (options.mode === 'baseline' || options.mode === 'compare') {
-    payload.baseline = await runBaselineSearch({ ...options, page, pageSize: options.mode === 'compare' ? 5 : pageSize });
+    try {
+      payload.baseline = await runBaselineSearch({ ...options, page, pageSize: options.mode === 'compare' ? 5 : pageSize });
+    } catch (error) {
+      payload.baseline = { items: [], total: 0, page, pageSize: options.mode === 'compare' ? 5 : pageSize };
+      payload.baselineError = error instanceof Error ? error.message : 'baseline search failed';
+    }
   }
 
   if (options.mode === 'candidate' || options.mode === 'compare') {
-    payload.candidate = await runCandidateSearch({ ...options, page: 0, pageSize: 5 });
+    try {
+      payload.candidate = await runCandidateSearch({ ...options, page: 0, pageSize: 5 });
+    } catch (error) {
+      payload.candidate = { items: [], total: 0, page: 0, pageSize: 5 };
+      payload.candidateError = error instanceof Error ? error.message : 'candidate search failed';
+    }
   }
 
   return payload;
