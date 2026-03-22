@@ -119,6 +119,10 @@ function getModeDescription(mode: SearchMode): string {
   return "기본 검색과 AI 검색 결과를 나란히 비교합니다.";
 }
 
+function getDebugScenarioLabel(payload: SearchResponsePayload | null): string | null {
+  return payload?.debug?.candidate?.scenario || null;
+}
+
 function getIssuePreview(item: SearchCard): string {
   const preview =
     item.holding_summary?.trim() ||
@@ -417,10 +421,27 @@ function SearchContent() {
               <SectionPill>검색어: {query || "없음"}</SectionPill>
               <SectionPill>사유: {reason ? REASON_LABELS[reason] : "전체"}</SectionPill>
               <SectionPill>판정결과: {result ? RESULT_LABELS[result] : "전체"}</SectionPill>
+              {getDebugScenarioLabel(payload) ? <SectionPill>시나리오: {getDebugScenarioLabel(payload)}</SectionPill> : null}
             </div>
             <p className="text-xs text-muted-foreground">
               {getModeDescription(mode)}
             </p>
+            {payload?.debug ? (
+              <div className="mt-3 space-y-1 text-[11px] text-muted-foreground">
+                {payload.debug.baseline ? (
+                  <div>baseline top ids: {payload.debug.baseline.top_ids.join(", ") || "없음"}</div>
+                ) : null}
+                {payload.debug.candidate ? (
+                  <div>
+                    candidate top ids: {payload.debug.candidate.top_ids.join(", ") || "없음"} / primary:{" "}
+                    {payload.debug.candidate.intended_primary.join(", ") || "없음"}
+                  </div>
+                ) : null}
+                {payload.debug.candidate?.top_score_reasons?.length ? (
+                  <div>candidate score reasons: {payload.debug.candidate.top_score_reasons.join(" | ")}</div>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         ) : null}
 

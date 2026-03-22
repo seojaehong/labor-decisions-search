@@ -1,16 +1,16 @@
 # Phase C Label Report
 
 - total: 42,105
-- usable: 37,716
-- worker_win: 12,455 (33.0%)
-- user_win: 25,261 (67.0%)
-- undecidable: 4,389 (10.4%)
+- usable: 40,242
+- worker_win: 13,309 (33.1%)
+- user_win: 26,933 (66.9%)
+- undecidable: 1,863 (4.4%)
 
 ## Label Source
 
 - direct: 25,712
-- mapped: 12,004
-- deferred_rehearing: 4,287
+- mapped: 14,530
+- deferred_rehearing: 1,761
 - deferred_other: 102
 
 ## decision_result counts

@@ -122,6 +122,23 @@ const USER_WIN_PATTERNS = [
   /적격이\s*없/g,
   /볼\s*수\s*없/g,
   /이유\s*없다/g,
+  /근로자에\s*해당하지\s*않/g,
+  /갱신기대권이\s*인정되지\s*않/g,
+  /해고가\s*존재하지\s*않/g,
+];
+
+const WORKER_WIN_STRONG_PATTERNS = [
+  /구제신청을\s*인용/g,
+  /부당해고에\s*해당/g,
+  /부당징계에\s*해당/g,
+  /시정명령을\s*한다/g,
+];
+
+const USER_WIN_STRONG_PATTERNS = [
+  /구제신청을\s*기각/g,
+  /각하한다/g,
+  /정당한\s*해고/g,
+  /정당한\s*징계/g,
 ];
 
 function getTailText(text) {
@@ -129,6 +146,27 @@ function getTailText(text) {
   const value = String(text).trim();
   if (value.length <= 300) return value;
   return value.slice(-300);
+}
+
+function getCombinedEvidenceText(row) {
+  const parts = [
+    row.holding_summary ? `[summary] ${String(row.holding_summary).trim()}` : "",
+    row.key_issue ? `[issue] ${String(row.key_issue).trim()}` : "",
+    row.holding_points ? `[tail] ${getTailText(row.holding_points)}` : "",
+  ].filter(Boolean);
+
+  return parts.join("\n");
+}
+
+function getLikelyFinalSentence(text) {
+  const normalized = String(text || "")
+    .replace(/\s+/g, " ")
+    .split(/(?<=[.!?。])\s+|(?<=다\.)\s+|(?<=다)\s+(?=[가-힣])/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (normalized.length === 0) return "";
+  return normalized.slice(-3).join(" ");
 }
 
 function getLastMatchIndex(text, patterns) {
@@ -143,7 +181,7 @@ function getLastMatchIndex(text, patterns) {
   return lastIndex;
 }
 
-function mapDecisionResult(decisionResult, holdingPoints) {
+function mapDecisionResult(decisionResult, row) {
   if (DIRECT_WORKER_WIN.has(decisionResult)) {
     return {
       ml_binary_label: "worker_win",
@@ -165,9 +203,33 @@ function mapDecisionResult(decisionResult, holdingPoints) {
   }
 
   if (REHEARING_RESULTS.has(decisionResult)) {
-    const tail = getTailText(holdingPoints);
-    const workerLast = getLastMatchIndex(tail, WORKER_WIN_PATTERNS);
-    const userLast = getLastMatchIndex(tail, USER_WIN_PATTERNS);
+    const evidenceText = getCombinedEvidenceText(row);
+    const finalSentence = getLikelyFinalSentence(evidenceText);
+    const workerStrongLast = getLastMatchIndex(finalSentence, WORKER_WIN_STRONG_PATTERNS);
+    const userStrongLast = getLastMatchIndex(finalSentence, USER_WIN_STRONG_PATTERNS);
+
+    if (workerStrongLast === -1 && userStrongLast !== -1) {
+      return {
+        ml_binary_label: "user_win",
+        label_bucket: "기각",
+        label_source: "mapped",
+        needs_review: false,
+        exclusion_reason: null,
+      };
+    }
+
+    if (userStrongLast === -1 && workerStrongLast !== -1) {
+      return {
+        ml_binary_label: "worker_win",
+        label_bucket: "인용",
+        label_source: "mapped",
+        needs_review: false,
+        exclusion_reason: null,
+      };
+    }
+
+    const workerLast = getLastMatchIndex(evidenceText, [...WORKER_WIN_STRONG_PATTERNS, ...WORKER_WIN_PATTERNS]);
+    const userLast = getLastMatchIndex(evidenceText, [...USER_WIN_STRONG_PATTERNS, ...USER_WIN_PATTERNS]);
 
     if (workerLast === -1 && userLast === -1) {
       return {
@@ -211,7 +273,7 @@ function mapDecisionResult(decisionResult, holdingPoints) {
 }
 
 function buildDatasetRow(row) {
-  const mapped = mapDecisionResult(row.decision_result, row.holding_points);
+  const mapped = mapDecisionResult(row.decision_result, row);
 
   return {
     id: row.id,
@@ -226,6 +288,7 @@ function buildDatasetRow(row) {
     legal_focus: normalizeArray(row.legal_focus),
     industry_context: row.industry_context || null,
     holding_summary: row.holding_summary || null,
+    key_issue: row.key_issue || null,
     holding_points: row.holding_points || null,
     ...mapped,
   };
@@ -313,6 +376,7 @@ async function fetchBatch(from, to) {
     .from("nlrc_decisions")
     .select(
       "id, case_number, decision_result, decision_date, department, issue_type_primary, employment_stage, disposition_type, fact_markers, legal_focus, industry_context, holding_summary, holding_points"
+      + ", key_issue"
     )
     .order("id")
     .range(from, to);

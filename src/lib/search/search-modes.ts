@@ -5,6 +5,8 @@ import { parseCandidateQuery } from '@/lib/search/query-parser';
 import type {
   SearchBucket,
   SearchCard,
+  SearchDebugBucket,
+  SearchDebugCandidateBucket,
   SearchRequestOptions,
   SearchResponsePayload,
 } from '@/lib/search/types';
@@ -16,6 +18,7 @@ const supabase = createClient(
 );
 
 type CandidateMetaRow = Record<string, unknown>;
+const IS_DEV = process.env.NODE_ENV === 'development';
 
 const COMPARE_BUCKET_SIZE = 5;
 const BASELINE_PAGE_SIZE = 20;
@@ -150,6 +153,31 @@ async function runCandidateRecall(query: string, reason: ReasonCategory | ''): P
   return retrieval.allCases;
 }
 
+function toDebugBucket(items: SearchCard[]): SearchDebugBucket {
+  return {
+    top_ids: items.slice(0, 5).map((item) => item.id),
+  };
+}
+
+function toCandidateDebugBucket(
+  items: SearchCard[],
+  parsed: Awaited<ReturnType<typeof parseCandidateQuery>>,
+  rows: CandidateMetaRow[]
+): SearchDebugCandidateBucket {
+  return {
+    ...toDebugBucket(items),
+    normalized_query: parsed.normalized_query,
+    scenario: parsed.query_scenario,
+    intended_primary: parsed.intended_primary,
+    intended_stage: parsed.intended_stage,
+    intended_disposition: parsed.intended_disposition,
+    top_score_reasons: rows
+      .slice(0, 3)
+      .flatMap((row) => (Array.isArray(row._score_reasons) ? row._score_reasons.slice(0, 2) : []))
+      .map((value) => String(value)),
+  };
+}
+
 function runCandidatePrecision(
   rows: SearchCard[],
   {
@@ -192,6 +220,29 @@ async function runCandidateSearch({
   return runCandidatePrecision(hydrated, { reason, result, page, pageSize });
 }
 
+async function runCandidateSearchWithDebug(
+  options: SearchRequestOptions,
+  parsedCandidateQuery: Awaited<ReturnType<typeof parseCandidateQuery>> | null
+): Promise<{ bucket: SearchBucket; debug?: SearchDebugCandidateBucket }> {
+  const recalled = await runCandidateRecall(options.query, options.reason || '');
+  const hydrated = await hydrateCandidateRows(recalled);
+  const bucket = runCandidatePrecision(hydrated, {
+    reason: options.reason || '',
+    result: options.result || '',
+    page: options.page ?? 0,
+    pageSize: options.pageSize ?? CANDIDATE_PAGE_SIZE,
+  });
+
+  if (!IS_DEV || !parsedCandidateQuery) {
+    return { bucket };
+  }
+
+  return {
+    bucket,
+    debug: toCandidateDebugBucket(bucket.items, parsedCandidateQuery, recalled),
+  };
+}
+
 async function runCompareSearch(options: SearchRequestOptions): Promise<Pick<SearchResponsePayload, 'baseline' | 'candidate' | 'baselineError' | 'candidateError'>> {
   const compareState: Pick<SearchResponsePayload, 'baseline' | 'candidate' | 'baselineError' | 'candidateError'> = {};
 
@@ -214,6 +265,10 @@ async function runCompareSearch(options: SearchRequestOptions): Promise<Pick<Sea
 
 export async function runSearch(options: SearchRequestOptions): Promise<SearchResponsePayload> {
   const page = options.page ?? 0;
+  const effectiveQuery = options.query.trim() || (options.reason ? REASON_TO_QUERY[options.reason] || options.reason : '');
+  const parsedCandidateQuery = options.mode !== 'baseline' && effectiveQuery
+    ? await parseCandidateQuery(effectiveQuery)
+    : null;
 
   const payload: SearchResponsePayload = {
     mode: options.mode,
@@ -227,6 +282,11 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
   if (options.mode === 'baseline') {
     try {
       payload.baseline = await runBaselineSearch({ ...options, page, pageSize: BASELINE_PAGE_SIZE });
+      if (IS_DEV && payload.baseline) {
+        payload.debug = {
+          baseline: toDebugBucket(payload.baseline.items),
+        };
+      }
     } catch (error) {
       payload.baselineError = error instanceof Error ? error.message : 'baseline search failed';
     }
@@ -235,7 +295,16 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
 
   if (options.mode === 'candidate') {
     try {
-      payload.candidate = await runCandidateSearch({ ...options, page: 0, pageSize: CANDIDATE_PAGE_SIZE });
+      const candidateState = await runCandidateSearchWithDebug(
+        { ...options, page: 0, pageSize: CANDIDATE_PAGE_SIZE },
+        parsedCandidateQuery
+      );
+      payload.candidate = candidateState.bucket;
+      if (IS_DEV && payload.candidate && parsedCandidateQuery) {
+        payload.debug = {
+          candidate: candidateState.debug,
+        };
+      }
     } catch (error) {
       payload.candidateError = error instanceof Error ? error.message : 'candidate search failed';
     }
@@ -243,8 +312,19 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
   }
 
   const compareState = await runCompareSearch(options);
+  const compareCandidateDebug =
+    IS_DEV && parsedCandidateQuery && compareState.candidate
+      ? toCandidateDebugBucket(compareState.candidate.items, parsedCandidateQuery, await runCandidateRecall(options.query, options.reason || ''))
+      : undefined;
+  const debug = IS_DEV
+    ? {
+        baseline: compareState.baseline ? toDebugBucket(compareState.baseline.items) : undefined,
+        candidate: compareCandidateDebug,
+      }
+    : undefined;
   return {
     ...payload,
     ...compareState,
+    debug,
   };
 }

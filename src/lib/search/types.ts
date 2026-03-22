@@ -32,6 +32,7 @@ export interface SearchResponsePayload {
   candidate?: SearchBucket;
   baselineError?: string;
   candidateError?: string;
+  debug?: SearchDebugPayload;
 }
 
 export interface SearchRequestOptions {
@@ -61,4 +62,22 @@ export interface ParsedCandidateQuery {
   penalized_markers: string[];
   query_scenario: QueryScenario;
   explanation: string;
+}
+
+export interface SearchDebugBucket {
+  top_ids: string[];
+}
+
+export interface SearchDebugCandidateBucket extends SearchDebugBucket {
+  normalized_query: string;
+  scenario: QueryScenario;
+  intended_primary: string[];
+  intended_stage: string[];
+  intended_disposition: string[];
+  top_score_reasons: string[];
+}
+
+export interface SearchDebugPayload {
+  baseline?: SearchDebugBucket;
+  candidate?: SearchDebugCandidateBucket;
 }
