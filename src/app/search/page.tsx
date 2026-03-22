@@ -12,42 +12,9 @@ import {
   type ReasonCategory,
   type DecisionResult,
 } from "@/lib/types";
+import type { SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
 import Link from "next/link";
-
-type SearchMode = "baseline" | "candidate" | "compare";
 const IS_DEV = process.env.NODE_ENV === "development";
-
-interface SearchCard {
-  id: string;
-  title: string;
-  case_number?: string | null;
-  department: string | null;
-  decision_date: string | null;
-  decision_result: string;
-  key_issue: string | null;
-  holding_summary?: string | null;
-  holding_points?: string | null;
-  url: string | null;
-  reason_category: string[];
-}
-
-interface SearchBucket {
-  items: SearchCard[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
-
-interface SearchResponsePayload {
-  mode: SearchMode;
-  query: string;
-  reason: ReasonCategory | "";
-  result: DecisionResult | "";
-  baseline?: SearchBucket;
-  candidate?: SearchBucket;
-  baselineError?: string;
-  candidateError?: string;
-}
 
 function isSearchBucket(value: unknown): value is SearchBucket {
   if (!value || typeof value !== "object") return false;

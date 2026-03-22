@@ -1,6 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
 import { normalizeQuery } from '@/lib/search/normalize-query';
+import { parseCandidateQuery } from '@/lib/search/query-parser';
+import type {
+  SearchBucket,
+  SearchCard,
+  SearchRequestOptions,
+  SearchResponsePayload,
+} from '@/lib/search/types';
 import type { DecisionResult, ReasonCategory } from '@/lib/types';
 
 const supabase = createClient(
@@ -8,66 +15,44 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export type SearchMode = 'baseline' | 'candidate' | 'compare';
-
-export interface SearchCard {
-  id: string;
-  title: string;
-  case_number?: string | null;
-  department: string | null;
-  decision_date: string | null;
-  decision_result: string;
-  key_issue: string | null;
-  holding_summary?: string | null;
-  holding_points?: string | null;
-  url: string | null;
-  reason_category: string[];
-}
-
-export interface SearchBucket {
-  items: SearchCard[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
-
-export interface SearchResponsePayload {
-  mode: SearchMode;
-  query: string;
-  reason: ReasonCategory | '';
-  result: DecisionResult | '';
-  baseline?: SearchBucket;
-  candidate?: SearchBucket;
-  baselineError?: string;
-  candidateError?: string;
-}
-
-export interface SearchRequestOptions {
-  query: string;
-  reason?: ReasonCategory | '';
-  result?: DecisionResult | '';
-  page?: number;
-  pageSize?: number;
-  mode: SearchMode;
-}
-
 type CandidateMetaRow = Record<string, unknown>;
 
-function toStringArray(value: unknown): string[] {
-  return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
-}
+const COMPARE_BUCKET_SIZE = 5;
+const BASELINE_PAGE_SIZE = 20;
+const CANDIDATE_PAGE_SIZE = 5;
+
+const REASON_TO_QUERY: Record<string, string> = {
+  sexual_harassment: '성희롱',
+  workplace_bullying: '직장내괴롭힘',
+  violence: '폭행 폭언',
+  absence: '무단결근',
+  embezzlement: '횡령 배임',
+  incompetence: '업무능력 부족',
+  misconduct: '비위행위',
+  redundancy: '경영상 해고',
+  probation: '수습 본채용',
+  transfer: '전보 인사발령',
+  contract_expiry: '갱신기대권 계약만료',
+  no_dismissal: '해고부존재 사직',
+  union_activity: '부당노동행위',
+  worker_status: '근로자성',
+  discrimination: '차별시정',
+};
 
 function matchesReason(reasonCategory: string[] | null | undefined, reason: ReasonCategory | ''): boolean {
   if (!reason) return true;
   return (reasonCategory || []).includes(reason);
 }
 
-function toBaselineWhy(query: string, reason: ReasonCategory | '', result: DecisionResult | ''): string[] {
-  const why: string[] = [];
-  if (reason) why.push(`reason:${reason}`);
-  if (result) why.push(`result:${result}`);
-  if (query) why.push(`text:${query}`);
-  return why;
+function buildBaselineSelect(page: number, pageSize: number) {
+  return supabase
+    .from('nlrc_decisions')
+    .select(
+      'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category',
+      { count: 'exact' }
+    )
+    .range(page * pageSize, (page + 1) * pageSize - 1)
+    .order('decision_date', { ascending: false });
 }
 
 async function runBaselineSearch({
@@ -75,39 +60,27 @@ async function runBaselineSearch({
   reason = '',
   result = '',
   page = 0,
-  pageSize = 20,
+  pageSize = BASELINE_PAGE_SIZE,
 }: SearchRequestOptions): Promise<SearchBucket> {
-  const baseSelect = () =>
-    supabase
-      .from('nlrc_decisions')
-      .select('id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category', { count: 'exact' })
-      .range(page * pageSize, (page + 1) * pageSize - 1)
-      .order('decision_date', { ascending: false });
-
-  let q = baseSelect();
+  let q = buildBaselineSelect(page, pageSize);
   if (reason) q = q.contains('reason_category', [reason]);
   if (result) q = q.eq('decision_result', result);
   if (query) {
-    // 자연어 질의를 정규화하여 핵심 키워드만 추출 후 textSearch
     const normalized = normalizeQuery(query);
-    const searchTerms = normalized.keywords.length > 0
-      ? normalized.keywords.slice(0, 4).join(' & ')
-      : query.split(' ').join(' & ');
+    const searchTerms =
+      normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : query.split(' ').join(' & ');
     q = q.textSearch('search_vector', searchTerms);
   }
 
   let { data, count, error } = await q;
 
-  if ((error || (query && (count || 0) === 0))) {
-    let fallback = baseSelect();
+  if (error || (query && (count || 0) === 0)) {
+    let fallback = buildBaselineSelect(page, pageSize);
     if (reason) fallback = fallback.contains('reason_category', [reason]);
     if (result) fallback = fallback.eq('decision_result', result);
     if (query) {
-      fallback = fallback.or(
-        `title.ilike.%${query}%,key_issue.ilike.%${query}%,holding_points.ilike.%${query}%`
-      );
+      fallback = fallback.or(`title.ilike.%${query}%,key_issue.ilike.%${query}%,holding_points.ilike.%${query}%`);
     }
-
     const fallbackResp = await fallback;
     data = fallbackResp.data;
     count = fallbackResp.count;
@@ -128,7 +101,6 @@ async function runBaselineSearch({
     holding_points: row.holding_points || null,
     url: row.url,
     reason_category: row.reason_category || [],
-    why_surfaced: toBaselineWhy(query, reason, result),
   }));
 
   return {
@@ -170,50 +142,31 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
   });
 }
 
-async function runCandidateSearch({
-  query,
-  reason = '',
-  result = '',
-  page = 0,
-  pageSize = 5,
-}: SearchRequestOptions): Promise<SearchBucket> {
-  // query가 없어도 reason 필터가 있으면 검색 수행
-  if (!query.trim() && !reason && !result) {
-    return { items: [], total: 0, page, pageSize };
-  }
-
-  // reason → 검색 키워드 변환 (query가 비어있을 때 fallback)
-  const REASON_TO_QUERY: Record<string, string> = {
-    sexual_harassment: '성희롱',
-    workplace_bullying: '직장내괴롭힘',
-    violence: '폭행 폭언',
-    absence: '무단결근',
-    embezzlement: '횡령 배임',
-    incompetence: '업무능력 부족',
-    misconduct: '비위행위',
-    redundancy: '경영상 해고',
-    probation: '수습 본채용',
-    transfer: '전보 인사발령',
-    contract_expiry: '갱신기대권 계약만료',
-    no_dismissal: '해고부존재 사직',
-    union_activity: '부당노동행위',
-    worker_status: '근로자성',
-    discrimination: '차별시정',
-  };
-
+async function runCandidateRecall(query: string, reason: ReasonCategory | ''): Promise<CandidateMetaRow[]> {
   const effectiveQuery = query.trim() || (reason ? REASON_TO_QUERY[reason] || reason : '');
-  const tags = extractTags(effectiveQuery);
+  const parsed = await parseCandidateQuery(effectiveQuery);
+  const tags = extractTags(parsed.normalized_query || effectiveQuery);
   const retrieval = await searchCases(tags, effectiveQuery);
-  let items = await hydrateCandidateRows(retrieval.allCases);
+  return retrieval.allCases;
+}
 
-  items = items.filter((item) => {
+function runCandidatePrecision(
+  rows: SearchCard[],
+  {
+    result = '',
+    reason = '',
+    page = 0,
+    pageSize = CANDIDATE_PAGE_SIZE,
+  }: Pick<SearchRequestOptions, 'reason' | 'result' | 'page' | 'pageSize'>
+): SearchBucket {
+  const filtered = rows.filter((item) => {
     if (result && item.decision_result !== result) return false;
     if (!matchesReason(item.reason_category, reason)) return false;
     return true;
   });
 
-  const total = items.length;
-  const paged = items.slice(page * pageSize, (page + 1) * pageSize);
+  const total = filtered.length;
+  const paged = filtered.slice(page * pageSize, (page + 1) * pageSize);
 
   return {
     items: paged,
@@ -223,34 +176,75 @@ async function runCandidateSearch({
   };
 }
 
+async function runCandidateSearch({
+  query,
+  reason = '',
+  result = '',
+  page = 0,
+  pageSize = CANDIDATE_PAGE_SIZE,
+}: SearchRequestOptions): Promise<SearchBucket> {
+  if (!query.trim() && !reason && !result) {
+    return { items: [], total: 0, page, pageSize };
+  }
+
+  const recalled = await runCandidateRecall(query, reason);
+  const hydrated = await hydrateCandidateRows(recalled);
+  return runCandidatePrecision(hydrated, { reason, result, page, pageSize });
+}
+
+async function runCompareSearch(options: SearchRequestOptions): Promise<Pick<SearchResponsePayload, 'baseline' | 'candidate' | 'baselineError' | 'candidateError'>> {
+  const compareState: Pick<SearchResponsePayload, 'baseline' | 'candidate' | 'baselineError' | 'candidateError'> = {};
+
+  try {
+    compareState.baseline = await runBaselineSearch({ ...options, page: options.page ?? 0, pageSize: COMPARE_BUCKET_SIZE });
+  } catch (error) {
+    compareState.baseline = { items: [], total: 0, page: options.page ?? 0, pageSize: COMPARE_BUCKET_SIZE };
+    compareState.baselineError = error instanceof Error ? error.message : 'baseline search failed';
+  }
+
+  try {
+    compareState.candidate = await runCandidateSearch({ ...options, page: 0, pageSize: COMPARE_BUCKET_SIZE });
+  } catch (error) {
+    compareState.candidate = { items: [], total: 0, page: 0, pageSize: COMPARE_BUCKET_SIZE };
+    compareState.candidateError = error instanceof Error ? error.message : 'candidate search failed';
+  }
+
+  return compareState;
+}
+
 export async function runSearch(options: SearchRequestOptions): Promise<SearchResponsePayload> {
   const page = options.page ?? 0;
-  const pageSize = options.pageSize ?? (options.mode === 'baseline' ? 20 : 5);
 
   const payload: SearchResponsePayload = {
     mode: options.mode,
     query: options.query,
     reason: options.reason || '',
     result: options.result || '',
+    baseline: options.mode === 'candidate' ? undefined : { items: [], total: 0, page, pageSize: options.mode === 'compare' ? COMPARE_BUCKET_SIZE : BASELINE_PAGE_SIZE },
+    candidate: options.mode === 'baseline' ? undefined : { items: [], total: 0, page: 0, pageSize: CANDIDATE_PAGE_SIZE },
   };
 
-  if (options.mode === 'baseline' || options.mode === 'compare') {
+  if (options.mode === 'baseline') {
     try {
-      payload.baseline = await runBaselineSearch({ ...options, page, pageSize: options.mode === 'compare' ? 5 : pageSize });
+      payload.baseline = await runBaselineSearch({ ...options, page, pageSize: BASELINE_PAGE_SIZE });
     } catch (error) {
-      payload.baseline = { items: [], total: 0, page, pageSize: options.mode === 'compare' ? 5 : pageSize };
       payload.baselineError = error instanceof Error ? error.message : 'baseline search failed';
     }
+    return payload;
   }
 
-  if (options.mode === 'candidate' || options.mode === 'compare') {
+  if (options.mode === 'candidate') {
     try {
-      payload.candidate = await runCandidateSearch({ ...options, page: 0, pageSize: 5 });
+      payload.candidate = await runCandidateSearch({ ...options, page: 0, pageSize: CANDIDATE_PAGE_SIZE });
     } catch (error) {
-      payload.candidate = { items: [], total: 0, page: 0, pageSize: 5 };
       payload.candidateError = error instanceof Error ? error.message : 'candidate search failed';
     }
+    return payload;
   }
 
-  return payload;
+  const compareState = await runCompareSearch(options);
+  return {
+    ...payload,
+    ...compareState,
+  };
 }

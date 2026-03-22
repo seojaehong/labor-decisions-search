@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { DecisionResult, ReasonCategory } from '@/lib/types';
-import { runSearch, type SearchMode } from '@/lib/search/search-modes';
+import { runSearch } from '@/lib/search/search-modes';
+import type { SearchMode } from '@/lib/search/types';
 
 function asMode(value: string | null): SearchMode {
   if (value === 'candidate' || value === 'compare') return value;
