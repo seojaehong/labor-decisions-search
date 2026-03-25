@@ -50,11 +50,24 @@ export const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문�
 
 체크리스트: (사용자가 확인할 항목)
 
+### 형식 D: 유사 사례 비교 분석
+
+쟁점 요약: (핵심 쟁점 1~2줄)
+
+유사 사례 비교:
+- 근로자가 이긴 사건: (제공된 유사 사례 중 인용 사건의 공통 특징)
+- 사용자가 이긴 사건: (제공된 유사 사례 중 기각 사건의 공통 특징)
+- 핵심 차이: (이긴 사건과 진 사건을 가른 결정적 요인)
+
+실무 체크리스트:
+- (이 상황에서 해고를 유지하려면 갖춰야 할 것)
+- (부당해고로 판정받을 위험 요소)
+
 ## 형식 선택 기준
-- "해고가 정당한가" → 형식 A
+- "해고가 정당한가" → 형식 A + 형식 D 결합 (승패 비교 포함)
 - "판정례를 찾아줘" → 형식 B
 - "절차가 맞는지" → 형식 C
-- 어느 것도 명확하지 않으면 형식 A 기본
+- 어느 것도 명확하지 않으면 형식 A + D 기본
 
 ## 답변 톤 규칙
 - 법조문은 핵심 1개만 언급 (나열 금지)
@@ -86,6 +99,55 @@ const RETRIEVAL_INSTRUCTIONS: Record<RetrievalStrength, (count: number) => strin
     `\n\n✅ [검색 결과 ${count}건] 충분한 유사 판정례가 확보되었습니다. 구체적 사례를 인용하며 분석하세요.`,
 };
 
+function analyzeWinLossFactors(cases: Record<string, unknown>[]): string {
+  if (cases.length < 3) return '';
+
+  const granted = cases.filter(c => {
+    const r = String(c.decision_result || '');
+    return r === 'granted' || r === 'partial' || r === '전부인정' || r === '일부인정';
+  });
+  const dismissed = cases.filter(c => {
+    const r = String(c.decision_result || '');
+    return r === 'dismissed' || r === 'rejected' || r === '기각' || r === '각하';
+  });
+
+  if (granted.length === 0 && dismissed.length === 0) return '';
+
+  const factorKeywords: Record<string, string[]> = {
+    '서면통지': ['서면통지', '서면 통지'],
+    '소명기회': ['소명기회', '소명 기회'],
+    '인사위원회': ['인사위원회', '징계위원회'],
+    '양정 과다': ['양정이 과하', '양정 과다', '과도하'],
+    '절차 위반': ['절차 위반', '절차 하자', '절차상 하자'],
+    '취업규칙': ['취업규칙', '인사규정'],
+  };
+
+  const grantedFactors: string[] = [];
+  const dismissedFactors: string[] = [];
+
+  for (const [label, keywords] of Object.entries(factorKeywords)) {
+    const gCount = granted.filter(c =>
+      keywords.some(kw => String(c.holding_points || '').includes(kw))
+    ).length;
+    const dCount = dismissed.filter(c =>
+      keywords.some(kw => String(c.holding_points || '').includes(kw))
+    ).length;
+
+    if (gCount > 0) grantedFactors.push(`${label}(${gCount}건)`);
+    if (dCount > 0) dismissedFactors.push(`${label}(${dCount}건)`);
+  }
+
+  let analysis = `\n\n승패 요인 분석 (인용 ${granted.length}건 / 기각 ${dismissed.length}건):`;
+  if (grantedFactors.length > 0) {
+    analysis += `\n인용 사건 주요 요인: ${grantedFactors.join(', ')}`;
+  }
+  if (dismissedFactors.length > 0) {
+    analysis += `\n기각 사건 주요 요인: ${dismissedFactors.join(', ')}`;
+  }
+
+  return analysis;
+}
+
 export function buildUserContext(
   userInput: string,
   tags: string[],
@@ -98,8 +160,9 @@ export function buildUserContext(
 
   const strength = evaluateRetrievalStrength(cases.length);
   const instruction = RETRIEVAL_INSTRUCTIONS[strength](cases.length);
+  const winLossAnalysis = analyzeWinLossFactors(cases);
 
-  return `사용자 상황: ${userInput}\n\n추출 키워드: ${tags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}${instruction}`;
+  return `사용자 상황: ${userInput}\n\n추출 키워드: ${tags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}${winLossAnalysis}${instruction}`;
 }
 
 export function trimHistory(
