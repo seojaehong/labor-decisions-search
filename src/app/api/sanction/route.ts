@@ -89,10 +89,14 @@ function parseStructuredAiResponse(text: string): StructuredAiResponse | null {
 }
 
 function normalizeStructuredResult(result: string): string {
-  if (result.includes('일부')) return 'partial';
-  if (result.includes('인용')) return 'granted';
-  if (result.includes('기각') || result.includes('사용자')) return 'dismissed';
-  return result;
+  const map: Record<string, string> = {
+    '인용': 'granted',
+    '기각': 'dismissed',
+    '일부인정': 'partial',
+    '전부인정': 'granted',
+    '각하': 'rejected',
+  };
+  return map[result.trim()] || result;
 }
 
 function matchSimilarCase(title: string, pool: Array<Record<string, unknown>>) {
