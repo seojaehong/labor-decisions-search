@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
 import { ALL_TAGS } from '@/lib/tags';
 
 const supabase = createClient(
@@ -183,12 +184,6 @@ function extractEmploymentStages(text: string): string[] {
 const DB_CANDIDATE_LIMIT = 60;
 const CANDIDATE_LIMIT = 20;
 const RESULT_LIMIT = 5;
-
-function bucketDecisionResult(result: string): 'worker_win' | 'employer_win' | 'other' {
-  if (['granted', 'partial', 'overturned', '전부인정', '일부인정'].includes(result)) return 'worker_win';
-  if (['dismissed', 'rejected', 'upheld', '기각', '각하', '초심유지'].includes(result)) return 'employer_win';
-  return 'other';
-}
 
 function selectRepresentativeCases(candidates: Record<string, unknown>[], limit: number): Record<string, unknown>[] {
   if (candidates.length <= limit) return candidates;

@@ -11,17 +11,16 @@ const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
 
 function sanitizeAnalysis(text: string): string {
-  const bannedPatterns = [
-    /(승소|패소|인용|기각|정당).{0,12}(확률|가능성 점수)/i,
-    /(적중률|confidence|score)/i,
-    /[0-9]+(\.[0-9]+)?%\s*(확률|가능성|점수)/i,
-  ];
-
-  return text
-    .split('\n')
-    .filter((line) => !bannedPatterns.some((pattern) => pattern.test(line)))
-    .join('\n')
+  const cleaned = text
+    .replace(/([0-9]+(\.[0-9]+)?%\s*)(확률|가능성|점수)/gi, '$3')
+    .replace(/(승소|패소|인용|기각|정당).{0,12}(확률|가능성 점수)/gi, '$1 판단')
+    .replace(/\b(confidence|score)\b/gi, '')
+    .replace(/적중률/gi, '판단 근거')
+    .replace(/[ \t]{2,}/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
+
+  return cleaned || text.trim();
 }
 
 function validateMessages(messages: unknown): { valid: true; messages: { role: string; content: string }[] } | { valid: false; error: string } {

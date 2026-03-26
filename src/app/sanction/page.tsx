@@ -45,13 +45,13 @@ const RESULT_LABELS: Record<string, string> = {
 };
 
 const RESULT_COLORS: Record<string, string> = {
-  granted: 'bg-green-100 text-green-700',
-  dismissed: 'bg-red-100 text-red-700',
+  granted: 'bg-blue-100 text-blue-700',
+  dismissed: 'bg-amber-100 text-amber-800',
   rejected: 'bg-gray-100 text-gray-600',
-  upheld: 'bg-blue-100 text-blue-700',
+  upheld: 'bg-slate-100 text-slate-700',
   overturned: 'bg-purple-100 text-purple-700',
   settled: 'bg-orange-100 text-orange-700',
-  partial: 'bg-yellow-100 text-yellow-700',
+  partial: 'bg-sky-100 text-sky-700',
 };
 
 const QUICK_REPLIES = [
@@ -221,8 +221,8 @@ export default function SanctionPage() {
                       )}
 
                       <div className="grid gap-4 md:grid-cols-2">
-                        <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
-                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-green-900">
+                        <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4">
+                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-blue-900">
                             <GitCompareArrows size={15} />
                             근로자가 이긴 사건
                           </div>
@@ -233,17 +233,18 @@ export default function SanctionPage() {
                                 href={c.url || `/decisions/${c.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block rounded-xl border border-green-200 bg-white p-3 hover:bg-green-100/40"
+                                aria-label={`근로자가 이긴 판정례 열기: ${c.title}`}
+                                className="block rounded-xl border border-blue-200 bg-white p-3 hover:bg-blue-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                               >
-                                <div className="mb-1 text-xs font-semibold text-green-700">{c.title}</div>
+                                <div className="mb-1 text-xs font-semibold text-blue-700">{c.title}</div>
                                 <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
                               </a>
                             )) : <p className="text-xs text-gray-500">직접 비교 가능한 인용 사건이 아직 충분하지 않습니다.</p>}
                           </div>
                         </div>
 
-                        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
-                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-rose-900">
+                        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-amber-900">
                             <GitCompareArrows size={15} />
                             사용자가 이긴 사건
                           </div>
@@ -254,9 +255,10 @@ export default function SanctionPage() {
                                 href={c.url || `/decisions/${c.id}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block rounded-xl border border-rose-200 bg-white p-3 hover:bg-rose-100/40"
+                                aria-label={`사용자가 이긴 판정례 열기: ${c.title}`}
+                                className="block rounded-xl border border-amber-200 bg-white p-3 hover:bg-amber-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
                               >
-                                <div className="mb-1 text-xs font-semibold text-rose-700">{c.title}</div>
+                                <div className="mb-1 text-xs font-semibold text-amber-700">{c.title}</div>
                                 <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
                               </a>
                             )) : <p className="text-xs text-gray-500">직접 비교 가능한 기각 사건이 아직 충분하지 않습니다.</p>}
@@ -326,7 +328,8 @@ export default function SanctionPage() {
                           href={c.url || `/decisions/${c.id}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30"
+                          aria-label={`추가 참고 판정례 열기: ${c.title}`}
+                          className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                         >
                           <div className="mb-2 flex items-center justify-between gap-2">
                               <div className="text-xs font-medium text-gray-800 line-clamp-1">{c.title}</div>

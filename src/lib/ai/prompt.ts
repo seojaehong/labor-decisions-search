@@ -1,3 +1,5 @@
+import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
+
 export const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문입니다. 42,000건의 노동위원회 판정례 데이터베이스를 기반으로 답변합니다.
 
 ## 최우선 원칙: 근거 기반 답변
@@ -153,12 +155,6 @@ function analyzeWinLossFactors(cases: Record<string, unknown>[]): string {
   return analysis;
 }
 
-function normalizeBucket(result: string): 'worker_win' | 'employer_win' | 'other' {
-  if (['granted', 'partial', 'overturned', '전부인정', '일부인정'].includes(result)) return 'worker_win';
-  if (['dismissed', 'rejected', 'upheld', '기각', '각하', '초심유지'].includes(result)) return 'employer_win';
-  return 'other';
-}
-
 function buildIssueSummary(userInput: string, tags: string[]): string[] {
   const summary: string[] = [];
   if (userInput.trim()) summary.push(userInput.trim());
@@ -191,6 +187,34 @@ function buildChecklist(cases: Record<string, unknown>[]): string[] {
   return checklistMap.slice(0, 5).map((item) => item.helper);
 }
 
+function buildDecisionGuide(cases: Record<string, unknown>[]): string[] {
+  const guides: string[] = [];
+
+  if (countKeywordHits(cases, ['서면통지', '서면 통지']) > 0) {
+    guides.push('서면 통지 시점과 징계 사유 특정이 명확하면 유지 논리를 세우기 쉽습니다.');
+  }
+  if (countKeywordHits(cases, ['소명기회', '소명 기회', '변명의 기회', '의견 진술']) > 0) {
+    guides.push('소명기회를 실제로 부여한 기록이 없으면 절차 하자로 뒤집힐 위험이 큽니다.');
+  }
+  if (countKeywordHits(cases, ['인사위원회', '징계위원회', '심의위원회']) > 0) {
+    guides.push('위원회 개최, 구성, 의결 정족수 기록이 있으면 사용자 쪽 방어가 쉬워집니다.');
+  }
+  if (countKeywordHits(cases, ['양정', '과도하', '과중', '비례']) > 0) {
+    guides.push('비위 정도 대비 처분 수위를 낮추거나 단계화하면 과중 징계 리스크를 줄일 수 있습니다.');
+  }
+  if (countKeywordHits(cases, ['개선기회', '경고', '시정요구', 'PIP']) > 0) {
+    guides.push('저성과·태도 문제는 경고와 개선기간이 빠지면 사용자에게 불리해지기 쉽습니다.');
+  }
+
+  if (guides.length > 0) return guides.slice(0, 3);
+
+  return [
+    '사실관계와 절차 기록이 함께 남아 있어야 유지 논리를 세우기 쉽습니다.',
+    '징계 사유 특정, 소명기회, 통지 절차 중 하나라도 약하면 뒤집힐 위험이 커집니다.',
+    '처분 수위가 과해 보이면 감경 또는 단계적 조치를 먼저 검토하는 편이 안전합니다.',
+  ];
+}
+
 export function buildComparisonMeta(
   userInput: string,
   tags: string[],
@@ -204,7 +228,7 @@ export function buildComparisonMeta(
     url: String(c.url || ''),
     summary_short: String(c.summary_short || '').slice(0, 160),
     key_issue: String(c.key_issue || ''),
-    bucket: normalizeBucket(String(c.decision_result || '')),
+    bucket: bucketDecisionResult(String(c.decision_result || '')),
   }));
 
   const workerWinCases = normalizedCases.filter((c) => c.bucket === 'worker_win').slice(0, 2);
@@ -217,19 +241,13 @@ export function buildComparisonMeta(
   if (countKeywordHits(cases, ['양정', '과도하', '과중', '비례']) > 0) coreDifferences.push('비위 정도에 비해 처분 수위가 과하면 뒤집힐 위험이 커집니다.');
   if (countKeywordHits(cases, ['개선기회', '경고', '시정요구', 'PIP']) > 0) coreDifferences.push('개선기회를 줬는지가 저성과·통상해고 영역에서 중요합니다.');
 
-  const decisionGuide = [
-    '절차와 사실관계가 모두 갖춰지면 유지 논리를 세우기 쉽습니다.',
-    '서면통지·소명기회·위원회 절차 중 하나라도 약하면 뒤집힐 위험이 커집니다.',
-    '양정이 과해 보이거나 개선기회가 빠지면 사용자에게 불리하게 작용할 수 있습니다.',
-  ];
-
   return {
     issueSummary: buildIssueSummary(userInput, tags),
     workerWinCases,
     employerWinCases,
     coreDifferences: coreDifferences.slice(0, 4),
     checklist: buildChecklist(cases),
-    decisionGuide,
+    decisionGuide: buildDecisionGuide(cases),
   };
 }
 
