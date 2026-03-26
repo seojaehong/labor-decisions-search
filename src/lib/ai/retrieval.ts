@@ -432,6 +432,37 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     reasons.push(`text:${textHits}`);
   }
 
+  // 핵심 키워드 직접 매칭 보너스 — 동일 판례 반복 출현 방지
+  // query의 핵심 명사가 holding_points에 직접 포함되면 큰 보너스
+  const CORE_KEYWORDS: [RegExp, number][] = [
+    [/횡령|배임|공금|착복|유용/, 12],
+    [/성희롱|성추행|성적\s*언동/, 12],
+    [/폭언|폭행|욕설|폭력|가혹/, 12],
+    [/무단결근|결근|근무태만/, 10],
+    [/수습|시용|본채용/, 10],
+    [/저성과|업무능력\s*부족|업무\s*부적격/, 10],
+    [/괴롭힘|따돌림/, 10],
+    [/경영.*해고|정리해고|구조조정/, 10],
+    [/전보|배치.*전환|인사.*발령/, 8],
+    [/갱신.*기대|계약.*만료/, 8],
+  ];
+  for (const [pattern, bonus] of CORE_KEYWORDS) {
+    if (pattern.test(query) && pattern.test(String(candidate.holding_points || ''))) {
+      score += bonus;
+      reasons.push(`core_keyword:+${bonus}`);
+      break; // 첫 매칭만
+    }
+  }
+
+  // reason_category 일치 보너스
+  const candidateReasons = asStringArray(candidate.reason_category);
+  const queryReasons = extractReasonCategories(query);
+  const reasonHits = queryReasons.filter(r => candidateReasons.includes(r)).length;
+  if (reasonHits > 0) {
+    score += reasonHits * 8;
+    reasons.push(`reason_match:${reasonHits}`);
+  }
+
   if (profile.scenario === 'absence_procedure') {
     const hasProcedureEvidence = primary === 'procedure' || secondary.includes('procedure') || legalFocus.includes('procedural_due_process');
     const hasAbsenceEvidence = primary === 'absence_without_leave' || secondary.includes('absence_without_leave') || factMarkers.includes('unauthorized_absence');
