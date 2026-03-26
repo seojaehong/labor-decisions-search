@@ -6,7 +6,7 @@ import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
+const ANTHROPIC_MODEL = 'claude-opus-4-6-20260320';
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
@@ -99,22 +99,63 @@ function normalizeStructuredResult(result: string): string {
   return map[result.trim()] || result;
 }
 
-function matchSimilarCase(title: string, pool: Array<Record<string, unknown>>) {
-  return pool.find((candidate) => String(candidate.title || '') === title)
-    ?? pool.find((candidate) => String(candidate.title || '').includes(title) || title.includes(String(candidate.title || '')));
+function textOverlap(a: string, b: string): number {
+  if (!a || !b) return 0;
+  const wordsA = a.replace(/[○\s]+/g, ' ').trim().split(/\s+/).filter(w => w.length >= 2);
+  const wordsB = new Set(b.replace(/[○\s]+/g, ' ').trim().split(/\s+/).filter(w => w.length >= 2));
+  if (wordsA.length === 0) return 0;
+  const hits = wordsA.filter(w => wordsB.has(w)).length;
+  return hits / wordsA.length;
+}
+
+function matchSimilarCase(aiCase: StructuredAiCase, pool: Array<Record<string, unknown>>) {
+  // 1차: key_point 텍스트로 holding_points와 매칭 (가장 정확)
+  const keyPoint = aiCase.key_point || '';
+  const resultNorm = normalizeStructuredResult(aiCase.result);
+
+  let bestMatch: Record<string, unknown> | undefined;
+  let bestScore = 0;
+
+  for (const candidate of pool) {
+    const holding = String(candidate.holding_points || '');
+    const summary = String(candidate.summary_short || '');
+    const haystack = `${holding} ${summary}`;
+
+    // key_point의 핵심 단어가 holding_points에 포함되는지
+    const overlap = textOverlap(keyPoint, haystack);
+
+    // 승패 결과 일치 시 보너스
+    const resultMatch = String(candidate.decision_result || '') === resultNorm ? 0.15 : 0;
+    const score = overlap + resultMatch;
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = candidate;
+    }
+  }
+
+  // 최소 30% 이상 겹쳐야 매칭 인정
+  return bestScore >= 0.3 ? bestMatch : undefined;
 }
 
 function buildComparisonFromStructured(
   structured: StructuredAiResponse,
   pool: Array<Record<string, unknown>>,
+  dbComparison: ComparisonMeta,
 ): ComparisonMeta {
+  const usedIds = new Set<string>();
   const normalizedCases: ComparisonCase[] = structured.similar_cases.map((item, index) => {
-    const matched = matchSimilarCase(item.title, pool);
+    // 이미 사용된 DB 케이스 제외하고 매칭
+    const availablePool = pool.filter(c => !usedIds.has(String(c.id || '')));
+    const matched = matchSimilarCase(item, availablePool);
+
+    if (matched) usedIds.add(String(matched.id || ''));
+
     const decisionResult = matched ? String(matched.decision_result || normalizeStructuredResult(item.result)) : normalizeStructuredResult(item.result);
 
     return {
       id: matched ? String(matched.id || `ai_case_${index}`) : `ai_case_${index}`,
-      title: item.title,
+      title: matched ? String(matched.title || item.title) : item.title,
       decision_result: decisionResult,
       holding_points: item.key_point,
       url: matched ? String(matched.url || '') : '',
@@ -123,6 +164,18 @@ function buildComparisonFromStructured(
       bucket: bucketDecisionResult(decisionResult),
     };
   });
+
+  // 매칭된 real case가 하나도 없으면 DB comparison을 사용
+  const hasRealCases = normalizedCases.some(c => !c.id.startsWith('ai_case_'));
+  if (!hasRealCases) {
+    return {
+      ...dbComparison,
+      issueSummary: splitIssueSummary(structured.issue_summary),
+      coreDifferences: structured.core_differences.length > 0 ? structured.core_differences.slice(0, 4) : dbComparison.coreDifferences,
+      checklist: structured.checklist.length > 0 ? structured.checklist.slice(0, 5) : dbComparison.checklist,
+      decisionGuide: structured.decision_guide.length > 0 ? structured.decision_guide.slice(0, 4) : dbComparison.decisionGuide,
+    };
+  }
 
   return {
     issueSummary: splitIssueSummary(structured.issue_summary),
@@ -212,20 +265,9 @@ export async function POST(req: NextRequest) {
     const rawAnalysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
     const structured = parseStructuredAiResponse(rawAnalysis);
     const analysis = sanitizeAnalysis(structured?.plain_text || rawAnalysis);
-
-    // DB 판정례가 있으면 DB 기반 comparison 사용 (AI similar_cases는 DB 제목과 매칭 불가)
-    // structured에서는 coreDifferences, checklist, decisionGuide, issueSummary만 활용
-    const finalComparison = structured && retrieval.allCases.length > 0
-      ? {
-          ...comparison,
-          issueSummary: splitIssueSummary(structured.issue_summary),
-          coreDifferences: structured.core_differences.slice(0, 4),
-          checklist: structured.checklist.slice(0, 5),
-          decisionGuide: structured.decision_guide.slice(0, 4),
-        }
-      : structured
-        ? buildComparisonFromStructured(structured, retrieval.allCases)
-        : comparison;
+    const finalComparison = structured
+      ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
+      : comparison;
 
     return NextResponse.json({
       content: analysis,

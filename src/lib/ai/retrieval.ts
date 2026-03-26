@@ -549,45 +549,50 @@ function rankTaggedCandidates(query: string, taggedCases: Record<string, unknown
 export async function searchCases(tags: string[], query?: string): Promise<RetrievalResult> {
   let candidates: Record<string, unknown>[] = [];
 
-  // Stage 1A: 8축 태그 + reason_category 교차 검색 (정밀도 우선)
   const profile = query ? buildCandidateQueryProfile(query) : null;
   const primaryTypes = profile?.primaryPool || [];
   const reasons = query ? extractReasonCategories(query) : [];
 
+  const TAGGED_SELECT = 'id, title, decision_result, holding_points, summary_short, key_issue, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries, reason_category';
+
+  // Stage 1A-1: 8축 태그 + reason_category 동시 필터링 (정밀 매칭)
+  // 횡령→misconduct 매핑 시 misconduct 8,127건 중 횡령 관련만 가져오기 위함
   if (primaryTypes.length > 0 && reasons.length > 0) {
-    // 1A-1: primary + reason_category 교차 (가장 정밀)
-    const { data: crossCases } = await supabase
+    const { data: precisionCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, summary_short, key_issue, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries')
+      .select(TAGGED_SELECT)
       .in('issue_type_primary', primaryTypes)
       .overlaps('reason_category', reasons)
       .not('holding_points', 'is', null)
       .limit(DB_CANDIDATE_LIMIT);
 
-    if (crossCases && crossCases.length >= 3) {
-      candidates = query ? rankTaggedCandidates(query, crossCases) : crossCases;
+    if (precisionCases && precisionCases.length > 0) {
+      candidates = query ? rankTaggedCandidates(query, precisionCases) : precisionCases;
     }
   }
 
-  // 1A-2: 교차 부족하면 primary만으로 검색
+  // Stage 1A-2: reason_category 없거나 정밀 매칭 부족 시 기존 8축 태그만으로 검색
   if (candidates.length < 3 && primaryTypes.length > 0) {
+    const existingIds = new Set(candidates.map((c) => c.id));
     const { data: taggedCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, summary_short, key_issue, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries')
+      .select(TAGGED_SELECT)
       .in('issue_type_primary', primaryTypes)
       .not('holding_points', 'is', null)
       .limit(DB_CANDIDATE_LIMIT);
 
     if (taggedCases && taggedCases.length > 0) {
-      candidates = query ? rankTaggedCandidates(query, taggedCases) : taggedCases;
+      const newCases = taggedCases.filter((c) => !existingIds.has(c.id));
+      const allCases = [...candidates, ...newCases];
+      candidates = query ? rankTaggedCandidates(query, allCases) : allCases;
     }
   }
 
-  // Stage 1B: reason_category 단독 fallback
+  // Stage 1B: reason_category 기반 fallback (8축 태그 없는 레코드도 포함)
   if (candidates.length < 3 && reasons.length > 0) {
     const { data: reasonCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, summary_short, key_issue, tags, url')
+      .select('id, title, decision_result, holding_points, summary_short, key_issue, tags, url, reason_category')
       .overlaps('reason_category', reasons)
       .not('holding_points', 'is', null)
       .limit(CANDIDATE_LIMIT);
