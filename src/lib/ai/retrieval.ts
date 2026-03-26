@@ -1,3 +1,4 @@
+import 'server-only'
 import { createClient } from '@supabase/supabase-js';
 import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
 import { ALL_TAGS } from '@/lib/tags';
