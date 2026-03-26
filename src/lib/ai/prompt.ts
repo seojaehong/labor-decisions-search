@@ -284,17 +284,17 @@ export function trimHistory(
   messages: { role: string; content: string }[],
   userContext: string,
 ): { role: string; content: string }[] {
-  const trimmed = messages
+  const sliced = messages
     .slice(-MAX_HISTORY_MESSAGES)
     .map((m) => ({ role: m.role, content: m.content }));
 
-  const lastUserIndex = [...trimmed].reverse().findIndex((message) => message.role === 'user');
-  if (lastUserIndex !== -1) {
-    const normalizedIndex = trimmed.length - 1 - lastUserIndex;
-    trimmed[normalizedIndex] = { role: 'user', content: userContext };
-  } else {
-    trimmed.push({ role: 'user', content: userContext });
+  const lastUserIndex = sliced.findLastIndex((message) => message.role === 'user');
+  if (lastUserIndex === -1) {
+    return [{ role: 'user', content: userContext }];
   }
 
-  return trimmed;
+  return [
+    ...sliced.slice(0, lastUserIndex),
+    { role: 'user', content: userContext },
+  ];
 }
