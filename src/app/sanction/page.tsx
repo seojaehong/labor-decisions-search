@@ -119,10 +119,10 @@ export default function SanctionPage() {
         {
           id: makeMessageId(),
           role: 'assistant',
-          content: data.content || '분석 결과를 생성할 수 없습니다.',
-          tags: data.tags,
-          cases: data.cases,
-          comparison: data.comparison,
+          content: data?.content || '분석 결과를 생성할 수 없습니다.',
+          tags: data?.tags,
+          cases: data?.cases,
+          comparison: data?.comparison,
         },
       ]);
     } catch (error) {
