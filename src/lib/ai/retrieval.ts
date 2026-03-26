@@ -195,8 +195,6 @@ function selectRepresentativeCases(candidates: Record<string, unknown>[], limit:
 
   const workerWins = candidates.filter((c) => bucketDecisionResult(String(c.decision_result || '')) === 'worker_win');
   const employerWins = candidates.filter((c) => bucketDecisionResult(String(c.decision_result || '')) === 'employer_win');
-  const others = candidates.filter((c) => bucketDecisionResult(String(c.decision_result || '')) === 'other');
-
   const picked: Record<string, unknown>[] = [];
   const pushUnique = (candidate: Record<string, unknown>) => {
     if (picked.some((item) => item.id === candidate.id)) return;
@@ -206,7 +204,7 @@ function selectRepresentativeCases(candidates: Record<string, unknown>[], limit:
   workerWins.slice(0, 2).forEach(pushUnique);
   employerWins.slice(0, 2).forEach(pushUnique);
 
-  for (const candidate of [...candidates, ...others]) {
+  for (const candidate of candidates) {
     if (picked.length >= limit) break;
     pushUnique(candidate);
   }

@@ -113,36 +113,6 @@ export default function SanctionPage() {
 
   const displayMessages = messages;
 
-  function parseSections(content: string): Array<{ title: string; body: string[] }> {
-    const titles = [
-      '쟁점 요약:',
-      '유사 판정례:',
-      '승패를 가른 핵심 차이:',
-      '실무 체크리스트:',
-      '문안/의사결정 보조:',
-    ];
-
-    const sections: Array<{ title: string; body: string[] }> = [];
-    let current: { title: string; body: string[] } | null = null;
-
-    for (const rawLine of content.split('\n')) {
-      const line = rawLine.trim();
-      if (!line) continue;
-      if (titles.includes(line)) {
-        current = { title: line.replace(':', ''), body: [] };
-        sections.push(current);
-        continue;
-      }
-      if (!current) {
-        current = { title: '답변', body: [] };
-        sections.push(current);
-      }
-      current.body.push(line.replace(/^- /, ''));
-    }
-
-    return sections;
-  }
-
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       {/* Header */}
@@ -201,18 +171,9 @@ export default function SanctionPage() {
                     </div>
                   )}
 
-                  {msg.role === 'assistant' && msg.content && (
-                    <div className="space-y-3">
-                      {parseSections(msg.content).map((section) => (
-                        <div key={section.title} className="rounded-2xl border border-gray-200 bg-white p-4">
-                          <div className="mb-2 text-sm font-semibold text-gray-900">{section.title}</div>
-                          <div className="space-y-2 text-sm text-gray-700">
-                            {section.body.map((line, idx) => (
-                              <p key={`${section.title}-${idx}`}>{line}</p>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                  {msg.role === 'assistant' && msg.content && !msg.comparison && (
+                    <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm leading-relaxed text-gray-800 whitespace-pre-wrap">
+                      {msg.content}
                     </div>
                   )}
 
@@ -320,10 +281,19 @@ export default function SanctionPage() {
                   )}
 
                   {/* Assistant: Case Cards */}
-                  {msg.cases && msg.cases.length > 0 && (
+                  {msg.cases && msg.cases.length > 0 && (() => {
+                    const comparisonIds = new Set([
+                      ...(msg.comparison?.workerWinCases.map((c) => c.id) || []),
+                      ...(msg.comparison?.employerWinCases.map((c) => c.id) || []),
+                    ]);
+                    const extraCases = msg.cases.filter((c) => !comparisonIds.has(c.id));
+
+                    if (extraCases.length === 0) return null;
+
+                    return (
                     <div className="space-y-2">
-                      <span className="text-xs font-medium text-gray-500">상위 유사 판정례 5건</span>
-                      {msg.cases.map((c) => (
+                      <span className="text-xs font-medium text-gray-500">추가 참고 판정례</span>
+                      {extraCases.map((c) => (
                         <a
                           key={c.id}
                           href={c.url || `/decisions/${c.id}`}
@@ -343,7 +313,8 @@ export default function SanctionPage() {
                         </a>
                       ))}
                     </div>
-                  )}
+                    );
+                  })()}
                 </div>
               </div>
             ))}
