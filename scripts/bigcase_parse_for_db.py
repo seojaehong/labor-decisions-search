@@ -67,6 +67,8 @@ def main() -> None:
   result_counts: Counter[str] = Counter()
   case_number_counts: Counter[str] = Counter()
   unmapped_value_counts: Counter[str] = Counter()
+  seen_ids: set[str] = set()
+  removed_duplicates = 0
 
   OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
@@ -103,6 +105,12 @@ def main() -> None:
             'category': category,
           }
 
+          if transformed['id'] in seen_ids:
+            removed_duplicates += 1
+            case_number_counts[case_number] += 1
+            continue
+
+          seen_ids.add(transformed['id'])
           output_handle.write(json.dumps(transformed, ensure_ascii=False) + '\n')
 
           total += 1
@@ -129,6 +137,7 @@ def main() -> None:
     print('  <none>: 0')
   print(f'ENCODING_ERRORS {encoding_error_count}')
   print(f'DUPLICATE_CASE_NUMBERS {duplicate_case_numbers}')
+  print(f'REMOVED_DUPLICATES {removed_duplicates}')
   print(f'OUTPUT {OUTPUT_FILE}')
 
 
