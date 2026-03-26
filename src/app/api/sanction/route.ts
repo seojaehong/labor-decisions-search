@@ -6,7 +6,7 @@ import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_MODEL = 'claude-opus-4-6-20260320';
+const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
