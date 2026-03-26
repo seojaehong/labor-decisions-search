@@ -138,7 +138,42 @@ export default function SanctionPage() {
 
   const isEmpty = messages.length === 0;
 
-  const displayMessages = messages;
+  function renderComparisonCaseCard(c: CaseCard, tone: 'worker' | 'employer') {
+    const cardClass =
+      tone === 'worker'
+        ? 'block rounded-xl border border-blue-200 bg-white p-3 hover:bg-blue-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500'
+        : 'block rounded-xl border border-amber-200 bg-white p-3 hover:bg-amber-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500'
+    const titleClass = tone === 'worker' ? 'mb-1 text-xs font-semibold text-blue-700' : 'mb-1 text-xs font-semibold text-amber-700'
+    const href = c.url || (c.id && !c.id.startsWith('ai_case_') ? `/decisions/${c.id}` : '')
+
+    const content = (
+      <>
+        <div className={titleClass}>{c.title}</div>
+        <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
+      </>
+    )
+
+    if (!href) {
+      return (
+        <div key={c.id} className={cardClass}>
+          {content}
+        </div>
+      )
+    }
+
+    return (
+      <a
+        key={c.id}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${tone === 'worker' ? '근로자가 이긴' : '사용자가 이긴'} 판정례 열기: ${c.title}`}
+        className={cardClass}
+      >
+        {content}
+      </a>
+    )
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
@@ -177,7 +212,7 @@ export default function SanctionPage() {
 
           {/* Messages */}
           <div className="space-y-5">
-            {displayMessages.map((msg, i) => (
+            {messages.map((msg, i) => (
               <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
@@ -228,17 +263,7 @@ export default function SanctionPage() {
                           </div>
                           <div className="space-y-3">
                             {msg.comparison.workerWinCases.length > 0 ? msg.comparison.workerWinCases.map((c) => (
-                              <a
-                                key={c.id}
-                                href={c.url || `/decisions/${c.id}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`근로자가 이긴 판정례 열기: ${c.title}`}
-                                className="block rounded-xl border border-blue-200 bg-white p-3 hover:bg-blue-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                              >
-                                <div className="mb-1 text-xs font-semibold text-blue-700">{c.title}</div>
-                                <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
-                              </a>
+                              renderComparisonCaseCard(c, 'worker')
                             )) : <p className="text-xs text-gray-500">직접 비교 가능한 인용 사건이 아직 충분하지 않습니다.</p>}
                           </div>
                         </div>
@@ -250,17 +275,7 @@ export default function SanctionPage() {
                           </div>
                           <div className="space-y-3">
                             {msg.comparison.employerWinCases.length > 0 ? msg.comparison.employerWinCases.map((c) => (
-                              <a
-                                key={c.id}
-                                href={c.url || `/decisions/${c.id}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`사용자가 이긴 판정례 열기: ${c.title}`}
-                                className="block rounded-xl border border-amber-200 bg-white p-3 hover:bg-amber-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
-                              >
-                                <div className="mb-1 text-xs font-semibold text-amber-700">{c.title}</div>
-                                <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
-                              </a>
+                              renderComparisonCaseCard(c, 'employer')
                             )) : <p className="text-xs text-gray-500">직접 비교 가능한 기각 사건이 아직 충분하지 않습니다.</p>}
                           </div>
                         </div>

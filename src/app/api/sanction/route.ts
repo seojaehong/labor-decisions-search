@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
-import { buildComparisonMeta, buildUserContext, trimHistory } from '@/lib/ai/prompt';
+import { buildComparisonMeta, buildUserContext, splitIssueSummary, trimHistory, type ComparisonCase, type ComparisonMeta } from '@/lib/ai/prompt';
 import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
@@ -9,6 +10,21 @@ const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
+
+interface StructuredAiCase {
+  title: string
+  result: string
+  key_point: string
+}
+
+interface StructuredAiResponse {
+  issue_summary: string
+  similar_cases: StructuredAiCase[]
+  core_differences: string[]
+  checklist: string[]
+  decision_guide: string[]
+  plain_text: string
+}
 
 function sanitizeAnalysis(text: string): string {
   const cleaned = text
@@ -21,6 +37,97 @@ function sanitizeAnalysis(text: string): string {
     .trim();
 
   return cleaned || text.trim();
+}
+
+function extractJsonPayload(text: string): string {
+  const trimmed = text.trim();
+  if (trimmed.startsWith('{') && trimmed.endsWith('}')) return trimmed;
+
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenced?.[1]) return fenced[1].trim();
+
+  const firstBrace = trimmed.indexOf('{');
+  const lastBrace = trimmed.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+    return trimmed.slice(firstBrace, lastBrace + 1).trim();
+  }
+
+  return trimmed;
+}
+
+function parseStructuredAiResponse(text: string): StructuredAiResponse | null {
+  try {
+    const payload = JSON.parse(extractJsonPayload(text)) as Partial<StructuredAiResponse>;
+    if (
+      typeof payload.issue_summary !== 'string' ||
+      !Array.isArray(payload.similar_cases) ||
+      !Array.isArray(payload.core_differences) ||
+      !Array.isArray(payload.checklist) ||
+      !Array.isArray(payload.decision_guide) ||
+      typeof payload.plain_text !== 'string'
+    ) {
+      return null;
+    }
+
+    return {
+      issue_summary: payload.issue_summary.trim(),
+      similar_cases: payload.similar_cases
+        .filter((item): item is StructuredAiCase => !!item && typeof item.title === 'string' && typeof item.result === 'string' && typeof item.key_point === 'string')
+        .map((item) => ({
+          title: item.title.trim(),
+          result: item.result.trim(),
+          key_point: item.key_point.trim(),
+        })),
+      core_differences: payload.core_differences.filter((item): item is string => typeof item === 'string').map((item) => item.trim()).filter(Boolean),
+      checklist: payload.checklist.filter((item): item is string => typeof item === 'string').map((item) => item.trim()).filter(Boolean),
+      decision_guide: payload.decision_guide.filter((item): item is string => typeof item === 'string').map((item) => item.trim()).filter(Boolean),
+      plain_text: payload.plain_text.trim(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function normalizeStructuredResult(result: string): string {
+  if (result.includes('일부')) return 'partial';
+  if (result.includes('인용')) return 'granted';
+  if (result.includes('기각') || result.includes('사용자')) return 'dismissed';
+  return result;
+}
+
+function matchSimilarCase(title: string, pool: Array<Record<string, unknown>>) {
+  return pool.find((candidate) => String(candidate.title || '') === title)
+    ?? pool.find((candidate) => String(candidate.title || '').includes(title) || title.includes(String(candidate.title || '')));
+}
+
+function buildComparisonFromStructured(
+  structured: StructuredAiResponse,
+  pool: Array<Record<string, unknown>>,
+): ComparisonMeta {
+  const normalizedCases: ComparisonCase[] = structured.similar_cases.map((item, index) => {
+    const matched = matchSimilarCase(item.title, pool);
+    const decisionResult = matched ? String(matched.decision_result || normalizeStructuredResult(item.result)) : normalizeStructuredResult(item.result);
+
+    return {
+      id: matched ? String(matched.id || `ai_case_${index}`) : `ai_case_${index}`,
+      title: item.title,
+      decision_result: decisionResult,
+      holding_points: item.key_point,
+      url: matched ? String(matched.url || '') : '',
+      summary_short: matched ? String(matched.summary_short || '').slice(0, 160) : item.key_point,
+      key_issue: matched ? String(matched.key_issue || '') : '',
+      bucket: bucketDecisionResult(decisionResult),
+    };
+  });
+
+  return {
+    issueSummary: splitIssueSummary(structured.issue_summary),
+    workerWinCases: normalizedCases.filter((item) => item.bucket === 'worker_win').slice(0, 2),
+    employerWinCases: normalizedCases.filter((item) => item.bucket === 'employer_win').slice(0, 2),
+    coreDifferences: structured.core_differences.slice(0, 4),
+    checklist: structured.checklist.slice(0, 5),
+    decisionGuide: structured.decision_guide.slice(0, 4),
+  };
 }
 
 function validateMessages(messages: unknown): { valid: true; messages: { role: string; content: string }[] } | { valid: false; error: string } {
@@ -99,13 +206,17 @@ export async function POST(req: NextRequest) {
     if (!resp.ok) throw new Error(await resp.text());
     const data = await resp.json();
     const rawAnalysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
-    const analysis = sanitizeAnalysis(rawAnalysis);
+    const structured = parseStructuredAiResponse(rawAnalysis);
+    const analysis = sanitizeAnalysis(structured?.plain_text || rawAnalysis);
+    const finalComparison = structured
+      ? buildComparisonFromStructured(structured, retrieval.allCases)
+      : comparison;
 
     return NextResponse.json({
       content: analysis,
       tags: retrieval.tags,
       cases: retrieval.cases,
-      comparison,
+      comparison: finalComparison,
     });
   } catch (error) {
     const message = error instanceof Error && error.name === 'TimeoutError'

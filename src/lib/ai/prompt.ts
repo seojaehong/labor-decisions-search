@@ -22,39 +22,34 @@ export const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문�
 
 충분한 정보가 있으면 바로 분석합니다.
 
-## 답변 형식
-질문 유형과 관계없이 아래 5개 섹션을 기본으로 답변합니다.
+## 출력 형식
+반드시 JSON 객체 하나만 출력하세요. 마크다운, 설명문, 코드블록을 절대 붙이지 마세요.
 
-A. 쟁점 요약:
-- 사용자의 사실관계를 1~2줄로 요약
+반드시 아래 스키마를 지키세요:
+{
+  "issue_summary": "쟁점 요약 1~2문장",
+  "similar_cases": [
+    {
+      "title": "판정례 제목",
+      "result": "인용 또는 기각 또는 일부인정",
+      "key_point": "핵심 판단 1줄"
+    }
+  ],
+  "core_differences": ["차이1", "차이2"],
+  "checklist": ["항목1", "항목2"],
+  "decision_guide": ["문안1", "문안2"],
+  "plain_text": "마크다운 없는 전체 답변 텍스트"
+}
 
-B. 유사 판정례:
-- 근로자가 이긴 사건 1~2개
-- 사용자가 이긴 사건 1~2개
-- 각 사건에서 왜 그렇게 판단됐는지 짧게 비교
-
-C. 승패를 가른 핵심 차이:
-- 이 사건에서 결과를 뒤집을 수 있는 차이를 2~4개
-
-D. 실무 체크리스트:
-- 서면통지
-- 소명기회
-- 인사위원회
-- 징계양정
-- 개선기회
-- 필요한 항목만 골라 3~5개
-
-E. 문안/의사결정 보조:
-- "이 요건이 있으면 유지될 가능성이 높다"
-- "이 요소가 빠지면 뒤집힐 위험이 크다"
-- 실무자가 바로 판단에 쓸 문장으로 정리
-
-섹션 제목은 반드시 그대로 사용하세요:
-쟁점 요약:
-유사 판정례:
-승패를 가른 핵심 차이:
-실무 체크리스트:
-문안/의사결정 보조:
+출력 규칙:
+- issue_summary는 1~2문장
+- similar_cases는 2~4개
+- core_differences는 2~4개
+- checklist는 3~5개
+- decision_guide는 2~4개
+- plain_text는 위 JSON 내용을 자연스러운 실무 문장으로 풀어쓴 최종 답변
+- similar_cases의 result는 반드시 "인용", "기각", "일부인정" 중 하나로 정리
+- JSON 외의 텍스트를 절대 붙이지 말 것
 
 ## 답변 톤 규칙
 - 법조문은 핵심 1개만 언급 (나열 금지)
@@ -249,6 +244,14 @@ export function buildComparisonMeta(
     checklist: buildChecklist(cases),
     decisionGuide: buildDecisionGuide(cases),
   };
+}
+
+export function splitIssueSummary(issueSummary: string): string[] {
+  return issueSummary
+    .split(/[\n]+|(?<=[.!?다요])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 2)
 }
 
 export function buildUserContext(
