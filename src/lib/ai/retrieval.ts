@@ -7,10 +7,6 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY!
 );
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_URL = 'https://api.openai.com/v1/embeddings';
-const EMBEDDING_MODEL = 'text-embedding-3-small';
-
 // 42k 판정례 분류에서 검증된 키워드 패턴
 const KEYWORD_PATTERNS: [RegExp, string][] = [
   // 비위행위 (구체적→일반 순)
@@ -276,7 +272,7 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
         work_ability: 15,
         dismissal_validity: 7,
       },
-      preferredStages: stageHints.includes('regular') ? ['regular'] : ['regular'],
+      preferredStages: ['regular'],
       penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
       preferredFactMarkers: ['qualitative_evaluation', 'quantitative_evaluation', 'warning_given', 'improvement_opportunity_given', 'training_provided'],
       preferredLegalFocus: ['just_cause', 'social_norm_reasonableness'],
@@ -613,63 +609,4 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
     allCases: candidates,
     reranked,
   };
-}
-
-// --- hybrid-lite rerank ---
-
-async function getQueryEmbedding(text: string): Promise<number[]> {
-  const resp = await fetch(OPENAI_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({ model: EMBEDDING_MODEL, input: text }),
-  });
-
-  if (!resp.ok) throw new Error(`Embedding API ${resp.status}`);
-  const data = await resp.json();
-  return data.data[0].embedding;
-}
-
-function cosineSimilarity(a: number[], b: number[]): number {
-  let dot = 0, normA = 0, normB = 0;
-  for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i];
-    normA += a[i] * a[i];
-    normB += b[i] * b[i];
-  }
-  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
-}
-
-async function rerankByEmbedding(
-  query: string,
-  candidates: Record<string, unknown>[],
-): Promise<Record<string, unknown>[]> {
-  // 쿼리 임베딩 생성 (~100ms)
-  const queryEmbedding = await getQueryEmbedding(query);
-
-  // 후보 ID로 임베딩만 별도 조회 (메타데이터 select에서 제외했으므로)
-  const ids = candidates.map((c) => c.id as string);
-  const { data: embeddingRows } = await supabase
-    .from('nlrc_decisions')
-    .select('id, embedding')
-    .in('id', ids);
-
-  const embeddingMap = new Map<string, number[]>();
-  for (const row of embeddingRows || []) {
-    if (row.embedding) embeddingMap.set(row.id, row.embedding);
-  }
-
-  // 유사도 계산
-  const scored = candidates.map((c) => {
-    const embedding = embeddingMap.get(c.id as string);
-    const similarity = embedding ? cosineSimilarity(queryEmbedding, embedding) : -1;
-    return { ...c, _similarity: similarity };
-  });
-
-  // 유사도 내림차순 정렬
-  scored.sort((a, b) => (b._similarity as number) - (a._similarity as number));
-
-  return scored;
 }
