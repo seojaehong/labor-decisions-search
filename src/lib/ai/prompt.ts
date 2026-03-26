@@ -9,6 +9,7 @@ export const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문�
 절대 하지 말 것:
 - 판정례 없이 "일반적으로", "통상적으로"라는 확정적 판단
 - 판정례에 없는 통계 수치나 확률
+- "승소 확률", "패소 확률", "해고 정당 확률", "점수", "confidence", "score" 같은 예측 표현
 - "충분히 찾지 못했습니다" 같은 수동적 답변으로 끝내기. 유사 구조라도 설명할 것
 
 ## 탐침 원칙
@@ -20,54 +21,38 @@ export const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문�
 충분한 정보가 있으면 바로 분석합니다.
 
 ## 답변 형식
+질문 유형과 관계없이 아래 5개 섹션을 기본으로 답변합니다.
 
-질문 유형에 따라 아래 중 적절한 형식을 선택합니다.
+A. 쟁점 요약:
+- 사용자의 사실관계를 1~2줄로 요약
 
-### 형식 A: 징계/해고 정당성 질의
+B. 유사 판정례:
+- 근로자가 이긴 사건 1~2개
+- 사용자가 이긴 사건 1~2개
+- 각 사건에서 왜 그렇게 판단됐는지 짧게 비교
 
-쟁점 요약: (핵심 쟁점 1~2줄)
+C. 승패를 가른 핵심 차이:
+- 이 사건에서 결과를 뒤집을 수 있는 차이를 2~4개
 
-판정례 경향: (제공된 사례들의 판정 패턴. "제공된 N건 중~" 형식. 구체적 사례 인용)
+D. 실무 체크리스트:
+- 서면통지
+- 소명기회
+- 인사위원회
+- 징계양정
+- 개선기회
+- 필요한 항목만 골라 3~5개
 
-실무 포인트:
-- (사용자가 바로 확인해야 할 것 3~4개)
+E. 문안/의사결정 보조:
+- "이 요건이 있으면 유지될 가능성이 높다"
+- "이 요소가 빠지면 뒤집힐 위험이 크다"
+- 실무자가 바로 판단에 쓸 문장으로 정리
 
-주의사항: (판정례에서 드러난 함정이나 자주 실수하는 부분)
-
-### 형식 B: 판정례 검색/비교 질의
-
-쟁점 요약: (어떤 유형의 사건을 찾고 있는지)
-
-관련 판정례 분석: (제공된 사례들의 공통점과 차이점. 구체적으로)
-
-판정 기준 정리: (노동위가 이 유형에서 보는 핵심 기준 2~3개)
-
-### 형식 C: 절차/요건 확인 질의
-
-핵심 요건: (해당 절차에서 반드시 갖춰야 할 것)
-
-판정례에서 본 실패 사례: (절차 흠결로 부당 판정된 구체 사례)
-
-체크리스트: (사용자가 확인할 항목)
-
-### 형식 D: 유사 사례 비교 분석
-
-쟁점 요약: (핵심 쟁점 1~2줄)
-
-유사 사례 비교:
-- 근로자가 이긴 사건: (제공된 유사 사례 중 인용 사건의 공통 특징)
-- 사용자가 이긴 사건: (제공된 유사 사례 중 기각 사건의 공통 특징)
-- 핵심 차이: (이긴 사건과 진 사건을 가른 결정적 요인)
-
+섹션 제목은 반드시 그대로 사용하세요:
+쟁점 요약:
+유사 판정례:
+승패를 가른 핵심 차이:
 실무 체크리스트:
-- (이 상황에서 해고를 유지하려면 갖춰야 할 것)
-- (부당해고로 판정받을 위험 요소)
-
-## 형식 선택 기준
-- "해고가 정당한가" → 형식 A + 형식 D 결합 (승패 비교 포함)
-- "판정례를 찾아줘" → 형식 B
-- "절차가 맞는지" → 형식 C
-- 어느 것도 명확하지 않으면 형식 A + D 기본
+문안/의사결정 보조:
 
 ## 답변 톤 규칙
 - 법조문은 핵심 1개만 언급 (나열 금지)
@@ -77,10 +62,30 @@ export const SYSTEM_PROMPT = `당신은 대한민국 노동법 전문 AI 자문�
 - 마크다운 문법 사용 금지 (굵게, 제목, 코드블록 등). 일반 텍스트로만 답변
 - 판정례 ID(id_숫자) 노출 금지
 - 해시태그(#) 사용 금지
-- 공공기관은 징계 유지율이 높은 경향(76.7%) 반영
+- 공공기관 여부는 사실관계 중 하나로만 참고하고, 별도 통계나 수치처럼 단정하지 말 것
 - 간결하게, 실무자가 바로 쓸 수 있게`;
 
 export const MAX_HISTORY_MESSAGES = 6;
+
+export interface ComparisonCase {
+  id: string;
+  title: string;
+  decision_result: string;
+  holding_points: string;
+  url: string;
+  summary_short?: string;
+  key_issue?: string;
+  bucket: 'worker_win' | 'employer_win' | 'other';
+}
+
+export interface ComparisonMeta {
+  issueSummary: string[];
+  workerWinCases: ComparisonCase[];
+  employerWinCases: ComparisonCase[];
+  coreDifferences: string[];
+  checklist: string[];
+  decisionGuide: string[];
+}
 
 export type RetrievalStrength = 'none' | 'weak' | 'sufficient';
 
@@ -148,6 +153,86 @@ function analyzeWinLossFactors(cases: Record<string, unknown>[]): string {
   return analysis;
 }
 
+function normalizeBucket(result: string): 'worker_win' | 'employer_win' | 'other' {
+  if (['granted', 'partial', 'overturned', '전부인정', '일부인정'].includes(result)) return 'worker_win';
+  if (['dismissed', 'rejected', 'upheld', '기각', '각하', '초심유지'].includes(result)) return 'employer_win';
+  return 'other';
+}
+
+function buildIssueSummary(userInput: string, tags: string[]): string[] {
+  const summary: string[] = [];
+  if (userInput.trim()) summary.push(userInput.trim());
+  if (tags.length > 0) summary.push(`핵심 태그: ${tags.join(', ')}`);
+  return summary.slice(0, 2);
+}
+
+function countKeywordHits(cases: Record<string, unknown>[], keywords: string[]): number {
+  return cases.filter((c) => keywords.some((kw) => String(c.holding_points || '').includes(kw))).length;
+}
+
+function buildChecklist(cases: Record<string, unknown>[]): string[] {
+  const checklistMap: Array<{ label: string; keywords: string[]; helper: string }> = [
+    { label: '서면통지', keywords: ['서면통지', '서면 통지'], helper: '서면 통지 여부와 통지 시점을 바로 확인할 것' },
+    { label: '소명기회', keywords: ['소명기회', '소명 기회', '변명의 기회', '의견 진술'], helper: '의견 제출과 진술 기회를 실제로 부여했는지 확인할 것' },
+    { label: '인사위원회', keywords: ['인사위원회', '징계위원회', '심의위원회'], helper: '징계위원회 개최 여부와 구성·의결 절차를 확인할 것' },
+    { label: '징계양정', keywords: ['양정', '과도하', '과중', '비례'], helper: '비위 정도 대비 처분 수위가 과하지 않은지 점검할 것' },
+    { label: '개선기회', keywords: ['개선기회', '경고', '시정요구', '개선 의사', 'PIP'], helper: '경고·시정 요구·개선 기간을 줬는지 확인할 것' },
+  ];
+
+  const selected = checklistMap
+    .map((item) => ({ ...item, hits: countKeywordHits(cases, item.keywords) }))
+    .sort((a, b) => b.hits - a.hits)
+    .filter((item) => item.hits > 0)
+    .slice(0, 5)
+    .map((item) => item.helper);
+
+  if (selected.length > 0) return selected;
+
+  return checklistMap.slice(0, 5).map((item) => item.helper);
+}
+
+export function buildComparisonMeta(
+  userInput: string,
+  tags: string[],
+  cases: Record<string, unknown>[],
+): ComparisonMeta {
+  const normalizedCases: ComparisonCase[] = cases.slice(0, 10).map((c) => ({
+    id: String(c.id || ''),
+    title: String(c.title || ''),
+    decision_result: String(c.decision_result || ''),
+    holding_points: String(c.holding_points || '').slice(0, 220),
+    url: String(c.url || ''),
+    summary_short: String(c.summary_short || '').slice(0, 160),
+    key_issue: String(c.key_issue || ''),
+    bucket: normalizeBucket(String(c.decision_result || '')),
+  }));
+
+  const workerWinCases = normalizedCases.filter((c) => c.bucket === 'worker_win').slice(0, 2);
+  const employerWinCases = normalizedCases.filter((c) => c.bucket === 'employer_win').slice(0, 2);
+
+  const coreDifferences: string[] = [];
+  if (countKeywordHits(cases, ['서면통지', '서면 통지']) > 0) coreDifferences.push('서면통지 유무가 결과를 갈랐는지 확인해야 합니다.');
+  if (countKeywordHits(cases, ['소명기회', '소명 기회', '변명의 기회']) > 0) coreDifferences.push('소명기회 부여 여부가 절차 적법성 판단에 직접 연결됩니다.');
+  if (countKeywordHits(cases, ['인사위원회', '징계위원회']) > 0) coreDifferences.push('인사위원회 개최와 의결 과정의 적법성이 유지 여부에 영향을 줍니다.');
+  if (countKeywordHits(cases, ['양정', '과도하', '과중', '비례']) > 0) coreDifferences.push('비위 정도에 비해 처분 수위가 과하면 뒤집힐 위험이 커집니다.');
+  if (countKeywordHits(cases, ['개선기회', '경고', '시정요구', 'PIP']) > 0) coreDifferences.push('개선기회를 줬는지가 저성과·통상해고 영역에서 중요합니다.');
+
+  const decisionGuide = [
+    '절차와 사실관계가 모두 갖춰지면 유지 논리를 세우기 쉽습니다.',
+    '서면통지·소명기회·위원회 절차 중 하나라도 약하면 뒤집힐 위험이 커집니다.',
+    '양정이 과해 보이거나 개선기회가 빠지면 사용자에게 불리하게 작용할 수 있습니다.',
+  ];
+
+  return {
+    issueSummary: buildIssueSummary(userInput, tags),
+    workerWinCases,
+    employerWinCases,
+    coreDifferences: coreDifferences.slice(0, 4),
+    checklist: buildChecklist(cases),
+    decisionGuide,
+  };
+}
+
 export function buildUserContext(
   userInput: string,
   tags: string[],
@@ -161,8 +246,17 @@ export function buildUserContext(
   const strength = evaluateRetrievalStrength(cases.length);
   const instruction = RETRIEVAL_INSTRUCTIONS[strength](cases.length);
   const winLossAnalysis = analyzeWinLossFactors(cases);
+  const comparison = buildComparisonMeta(userInput, tags, cases);
+  const workerWins = comparison.workerWinCases
+    .map((c) => `- ${c.title} [${c.decision_result}]: ${c.holding_points}`)
+    .join('\n');
+  const employerWins = comparison.employerWinCases
+    .map((c) => `- ${c.title} [${c.decision_result}]: ${c.holding_points}`)
+    .join('\n');
+  const checklist = comparison.checklist.map((item) => `- ${item}`).join('\n');
+  const differences = comparison.coreDifferences.map((item) => `- ${item}`).join('\n');
 
-  return `사용자 상황: ${userInput}\n\n추출 키워드: ${tags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}${winLossAnalysis}${instruction}`;
+  return `사용자 상황: ${userInput}\n\n추출 키워드: ${tags.join(', ')}\n\n유사 판정례 ${cases.length}건:\n${caseSummary}\n\n근로자가 이긴 대표 사건:\n${workerWins || '- 직접 비교 가능한 인용 사건이 충분하지 않습니다.'}\n\n사용자가 이긴 대표 사건:\n${employerWins || '- 직접 비교 가능한 기각 사건이 충분하지 않습니다.'}\n\n승패를 가른 핵심 차이 후보:\n${differences || '- 절차, 양정, 개선기회 여부를 우선 확인하세요.'}\n\n실무 체크리스트 후보:\n${checklist}${winLossAnalysis}${instruction}`;
 }
 
 export function trimHistory(

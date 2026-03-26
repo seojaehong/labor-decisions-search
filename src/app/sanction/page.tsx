@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect, type FormEvent } from 'react';
-import { Send, Bot, User, Loader2, Scale, ExternalLink } from 'lucide-react';
+import { Send, Bot, User, Loader2, Scale, CheckCircle2, GitCompareArrows, ClipboardList } from 'lucide-react';
 import { PromptSuggestion } from '@/components/ui/prompt-suggestion';
-import { Badge } from '@/components/ui/badge';
 
 interface CaseCard {
   id: string;
@@ -12,6 +11,18 @@ interface CaseCard {
   holding_summary?: string;
   holding_points: string;
   url: string;
+  summary_short?: string;
+  key_issue?: string;
+  bucket?: 'worker_win' | 'employer_win' | 'other';
+}
+
+interface ComparisonMeta {
+  issueSummary: string[];
+  workerWinCases: CaseCard[];
+  employerWinCases: CaseCard[];
+  coreDifferences: string[];
+  checklist: string[];
+  decisionGuide: string[];
 }
 
 interface Message {
@@ -19,6 +30,7 @@ interface Message {
   content: string;
   tags?: string[];
   cases?: CaseCard[];
+  comparison?: ComparisonMeta | null;
 }
 
 const RESULT_LABELS: Record<string, string> = {
@@ -80,7 +92,7 @@ export default function SanctionPage() {
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.content, tags: data.tags, cases: data.cases },
+        { role: 'assistant', content: data.content, tags: data.tags, cases: data.cases, comparison: data.comparison },
       ]);
     } catch {
       setMessages((prev) => [
@@ -101,6 +113,36 @@ export default function SanctionPage() {
 
   const displayMessages = messages;
 
+  function parseSections(content: string): Array<{ title: string; body: string[] }> {
+    const titles = [
+      '쟁점 요약:',
+      '유사 판정례:',
+      '승패를 가른 핵심 차이:',
+      '실무 체크리스트:',
+      '문안/의사결정 보조:',
+    ];
+
+    const sections: Array<{ title: string; body: string[] }> = [];
+    let current: { title: string; body: string[] } | null = null;
+
+    for (const rawLine of content.split('\n')) {
+      const line = rawLine.trim();
+      if (!line) continue;
+      if (titles.includes(line)) {
+        current = { title: line.replace(':', ''), body: [] };
+        sections.push(current);
+        continue;
+      }
+      if (!current) {
+        current = { title: '답변', body: [] };
+        sections.push(current);
+      }
+      current.body.push(line.replace(/^- /, ''));
+    }
+
+    return sections;
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
       {/* Header */}
@@ -109,9 +151,9 @@ export default function SanctionPage() {
           <Scale size={14} className="text-blue-600" />
           <span className="text-xs font-medium text-blue-700">42,000건 노동위 판정례 기반</span>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">AI 징계양정 추천</h1>
+        <h1 className="text-2xl font-bold text-gray-900">AI 판정례 비교분석</h1>
         <p className="mt-1 text-sm text-gray-500">
-          상황을 설명하시면 유사 판정례를 분석하여 예상 징계수위와 절차를 안내합니다
+          상황을 설명하시면 유사 판정례를 비교해 승패를 가른 요소와 실무 체크리스트를 안내합니다
         </p>
       </div>
 
@@ -159,17 +201,128 @@ export default function SanctionPage() {
                     </div>
                   )}
 
-                  {/* Assistant: Content */}
-                  {msg.role === 'assistant' && (
-                    <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm leading-relaxed text-gray-800 whitespace-pre-wrap">
-                      {msg.content}
+                  {msg.role === 'assistant' && msg.content && (
+                    <div className="space-y-3">
+                      {parseSections(msg.content).map((section) => (
+                        <div key={section.title} className="rounded-2xl border border-gray-200 bg-white p-4">
+                          <div className="mb-2 text-sm font-semibold text-gray-900">{section.title}</div>
+                          <div className="space-y-2 text-sm text-gray-700">
+                            {section.body.map((line, idx) => (
+                              <p key={`${section.title}-${idx}`}>{line}</p>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {msg.comparison && (
+                    <div className="space-y-4">
+                      {msg.comparison.issueSummary.length > 0 && (
+                        <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4">
+                          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-blue-900">
+                            <Scale size={15} />
+                            쟁점 요약
+                          </div>
+                          <div className="space-y-1 text-sm text-blue-900">
+                            {msg.comparison.issueSummary.map((item, idx) => (
+                              <p key={`issue-${idx}`}>{item}</p>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
+                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-green-900">
+                            <GitCompareArrows size={15} />
+                            근로자가 이긴 사건
+                          </div>
+                          <div className="space-y-3">
+                            {msg.comparison.workerWinCases.length > 0 ? msg.comparison.workerWinCases.map((c) => (
+                              <a
+                                key={c.id}
+                                href={c.url || `/decisions/${c.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block rounded-xl border border-green-200 bg-white p-3 hover:bg-green-100/40"
+                              >
+                                <div className="mb-1 text-xs font-semibold text-green-700">{c.title}</div>
+                                <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
+                              </a>
+                            )) : <p className="text-xs text-gray-500">직접 비교 가능한 인용 사건이 아직 충분하지 않습니다.</p>}
+                          </div>
+                        </div>
+
+                        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
+                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-rose-900">
+                            <GitCompareArrows size={15} />
+                            사용자가 이긴 사건
+                          </div>
+                          <div className="space-y-3">
+                            {msg.comparison.employerWinCases.length > 0 ? msg.comparison.employerWinCases.map((c) => (
+                              <a
+                                key={c.id}
+                                href={c.url || `/decisions/${c.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block rounded-xl border border-rose-200 bg-white p-3 hover:bg-rose-100/40"
+                              >
+                                <div className="mb-1 text-xs font-semibold text-rose-700">{c.title}</div>
+                                <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
+                              </a>
+                            )) : <p className="text-xs text-gray-500">직접 비교 가능한 기각 사건이 아직 충분하지 않습니다.</p>}
+                          </div>
+                        </div>
+                      </div>
+
+                      {msg.comparison.coreDifferences.length > 0 && (
+                        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-amber-900">
+                            <CheckCircle2 size={15} />
+                            승패를 가른 핵심 차이
+                          </div>
+                          <ul className="space-y-2 text-sm text-amber-950">
+                            {msg.comparison.coreDifferences.map((item, idx) => (
+                              <li key={`diff-${idx}`}>- {item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {msg.comparison.checklist.length > 0 && (
+                        <div className="rounded-2xl border border-gray-200 bg-white p-4">
+                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
+                            <ClipboardList size={15} />
+                            실무 체크리스트
+                          </div>
+                          <div className="grid gap-2 md:grid-cols-2">
+                            {msg.comparison.checklist.map((item, idx) => (
+                              <div key={`check-${idx}`} className="rounded-xl bg-gray-50 px-3 py-2 text-sm text-gray-700">
+                                {item}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {msg.comparison.decisionGuide.length > 0 && (
+                        <div className="rounded-2xl border border-purple-200 bg-purple-50 p-4">
+                          <div className="mb-3 text-sm font-semibold text-purple-900">문안/의사결정 보조</div>
+                          <div className="space-y-2 text-sm text-purple-950">
+                            {msg.comparison.decisionGuide.map((item, idx) => (
+                              <p key={`guide-${idx}`}>{item}</p>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 
                   {/* Assistant: Case Cards */}
                   {msg.cases && msg.cases.length > 0 && (
                     <div className="space-y-2">
-                      <span className="text-xs font-medium text-gray-500">근거 판정례</span>
+                      <span className="text-xs font-medium text-gray-500">상위 유사 판정례 5건</span>
                       {msg.cases.map((c) => (
                         <a
                           key={c.id}
@@ -178,13 +331,14 @@ export default function SanctionPage() {
                           rel="noopener noreferrer"
                           className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30"
                         >
-                          <div className="mb-1 flex items-center justify-end">
+                          <div className="mb-2 flex items-center justify-between gap-2">
+                              <div className="text-xs font-medium text-gray-800 line-clamp-1">{c.title}</div>
                               <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${RESULT_COLORS[c.decision_result] || 'bg-gray-100 text-gray-600'}`}>
                                 {RESULT_LABELS[c.decision_result] || c.decision_result}
                               </span>
                           </div>
                           <p className="text-xs text-gray-600 line-clamp-2">
-                            {c.holding_points || c.holding_summary || c.title}
+                            {c.holding_points || c.summary_short || c.holding_summary || c.title}
                           </p>
                         </a>
                       ))}
@@ -200,7 +354,7 @@ export default function SanctionPage() {
                   <Loader2 size={14} className="animate-spin text-gray-500" />
                 </div>
                 <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-400">
-                  42,000건 판정례 분석 중...
+                  판정례 비교분석 중...
                 </div>
               </div>
             )}
@@ -210,7 +364,7 @@ export default function SanctionPage() {
         {/* Disclaimer */}
         <div className="border-t border-gray-100 px-4 py-1.5">
           <p className="text-center text-[10px] text-gray-400">
-            본 결과는 노동위 판정례 통계에 기반한 참고용이며, 최종 결정 전 반드시 노무사와 상담하세요.
+            본 결과는 유사 판정례 비교에 기반한 참고용입니다. 최종 결정 전 반드시 노무사와 상담하세요.
           </p>
         </div>
 

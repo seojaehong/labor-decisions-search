@@ -65,6 +65,9 @@ export interface CaseCard {
   holding_points: string;
   url: string;
   similarity?: number;
+  summary_short?: string;
+  key_issue?: string;
+  bucket?: 'worker_win' | 'employer_win' | 'other';
 }
 
 export interface RetrievalResult {
@@ -180,6 +183,36 @@ function extractEmploymentStages(text: string): string[] {
 const DB_CANDIDATE_LIMIT = 60;
 const CANDIDATE_LIMIT = 20;
 const RESULT_LIMIT = 5;
+
+function bucketDecisionResult(result: string): 'worker_win' | 'employer_win' | 'other' {
+  if (['granted', 'partial', 'overturned', '전부인정', '일부인정'].includes(result)) return 'worker_win';
+  if (['dismissed', 'rejected', 'upheld', '기각', '각하', '초심유지'].includes(result)) return 'employer_win';
+  return 'other';
+}
+
+function selectRepresentativeCases(candidates: Record<string, unknown>[], limit: number): Record<string, unknown>[] {
+  if (candidates.length <= limit) return candidates;
+
+  const workerWins = candidates.filter((c) => bucketDecisionResult(String(c.decision_result || '')) === 'worker_win');
+  const employerWins = candidates.filter((c) => bucketDecisionResult(String(c.decision_result || '')) === 'employer_win');
+  const others = candidates.filter((c) => bucketDecisionResult(String(c.decision_result || '')) === 'other');
+
+  const picked: Record<string, unknown>[] = [];
+  const pushUnique = (candidate: Record<string, unknown>) => {
+    if (picked.some((item) => item.id === candidate.id)) return;
+    picked.push(candidate);
+  };
+
+  workerWins.slice(0, 2).forEach(pushUnique);
+  employerWins.slice(0, 2).forEach(pushUnique);
+
+  for (const candidate of [...candidates, ...others]) {
+    if (picked.length >= limit) break;
+    pushUnique(candidate);
+  }
+
+  return picked.slice(0, limit);
+}
 
 function uniq(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))];
@@ -532,7 +565,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   if (primaryTypes.length > 0) {
     const { data: taggedCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, summary_short, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries')
+      .select('id, title, decision_result, holding_points, summary_short, key_issue, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries')
       .in('issue_type_primary', primaryTypes)
       .not('holding_points', 'is', null)
       .limit(DB_CANDIDATE_LIMIT);
@@ -548,7 +581,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
     if (reasons.length > 0) {
       const { data: reasonCases } = await supabase
         .from('nlrc_decisions')
-        .select('id, title, decision_result, holding_points, tags, url')
+        .select('id, title, decision_result, holding_points, summary_short, key_issue, tags, url')
         .overlaps('reason_category', reasons)
         .not('holding_points', 'is', null)
         .limit(CANDIDATE_LIMIT);
@@ -560,7 +593,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   if (candidates.length < 3) {
     const { data: tagCases } = await supabase
       .from('nlrc_decisions')
-      .select('id, title, decision_result, holding_points, tags, url')
+      .select('id, title, decision_result, holding_points, summary_short, key_issue, tags, url')
       .overlaps('tags', tags)
       .not('holding_points', 'is', null)
       .limit(CANDIDATE_LIMIT);
@@ -569,7 +602,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
 
   const reranked = false;
 
-  const results = candidates.slice(0, RESULT_LIMIT);
+  const results = selectRepresentativeCases(candidates, RESULT_LIMIT);
 
   return {
     tags,
@@ -580,6 +613,9 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
       holding_points: ((c.holding_points as string) || '').slice(0, 150),
       url: c.url as string,
       similarity: (c._score as number | undefined) ?? (c._similarity as number | undefined),
+      summary_short: ((c.summary_short as string) || '').slice(0, 180),
+      key_issue: (c.key_issue as string) || '',
+      bucket: bucketDecisionResult(c.decision_result as string),
     })),
     allCases: candidates,
     reranked,

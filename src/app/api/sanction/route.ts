@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
-import { buildUserContext, trimHistory } from '@/lib/ai/prompt';
+import { buildComparisonMeta, buildUserContext, trimHistory } from '@/lib/ai/prompt';
 import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
+
+function sanitizeAnalysis(text: string): string {
+  const bannedPatterns = [
+    /(승소|패소|인용|기각|정당).{0,12}(확률|가능성 점수)/i,
+    /(적중률|confidence|score)/i,
+    /[0-9]+(\.[0-9]+)?%\s*(확률|가능성|점수)/i,
+  ];
+
+  return text
+    .split('\n')
+    .filter((line) => !bannedPatterns.some((pattern) => pattern.test(line)))
+    .join('\n')
+    .trim();
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,6 +38,7 @@ export async function POST(req: NextRequest) {
 
     // Step 2: DB 검색
     const retrieval = await searchCases(tags, lastUserMsg.content);
+    const comparison = buildComparisonMeta(lastUserMsg.content, tags, retrieval.allCases);
 
     // Step 3: 프롬프트 조립 + 히스토리 트리밍
     const userContext = buildUserContext(lastUserMsg.content, tags, retrieval.allCases);
@@ -48,18 +63,21 @@ export async function POST(req: NextRequest) {
 
     if (!resp.ok) throw new Error(await resp.text());
     const data = await resp.json();
-    const analysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
+    const rawAnalysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
+    const analysis = sanitizeAnalysis(rawAnalysis);
 
     return NextResponse.json({
       content: analysis,
       tags: retrieval.tags,
       cases: retrieval.cases,
+      comparison,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       content: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.',
       tags: [],
       cases: [],
+      comparison: null,
     });
   }
 }
