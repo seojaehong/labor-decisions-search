@@ -212,9 +212,20 @@ export async function POST(req: NextRequest) {
     const rawAnalysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
     const structured = parseStructuredAiResponse(rawAnalysis);
     const analysis = sanitizeAnalysis(structured?.plain_text || rawAnalysis);
-    const finalComparison = structured
-      ? buildComparisonFromStructured(structured, retrieval.allCases)
-      : comparison;
+
+    // DB 판정례가 있으면 DB 기반 comparison 사용 (AI similar_cases는 DB 제목과 매칭 불가)
+    // structured에서는 coreDifferences, checklist, decisionGuide, issueSummary만 활용
+    const finalComparison = structured && retrieval.allCases.length > 0
+      ? {
+          ...comparison,
+          issueSummary: splitIssueSummary(structured.issue_summary),
+          coreDifferences: structured.core_differences.slice(0, 4),
+          checklist: structured.checklist.slice(0, 5),
+          decisionGuide: structured.decision_guide.slice(0, 4),
+        }
+      : structured
+        ? buildComparisonFromStructured(structured, retrieval.allCases)
+        : comparison;
 
     return NextResponse.json({
       content: analysis,
