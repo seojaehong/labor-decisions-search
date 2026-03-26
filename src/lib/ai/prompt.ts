@@ -267,8 +267,13 @@ export function trimHistory(
     .slice(-MAX_HISTORY_MESSAGES)
     .map((m) => ({ role: m.role, content: m.content }));
 
-  if (trimmed.length > 0) {
-    trimmed[trimmed.length - 1] = { role: 'user', content: userContext };
+  const lastUserIndex = [...trimmed].reverse().findIndex((message) => message.role === 'user');
+  if (lastUserIndex !== -1) {
+    const normalizedIndex = trimmed.length - 1 - lastUserIndex;
+    trimmed[normalizedIndex] = { role: 'user', content: userContext };
+  } else {
+    trimmed.push({ role: 'user', content: userContext });
   }
+
   return trimmed;
 }

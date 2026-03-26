@@ -67,20 +67,16 @@ export default function SanctionPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [lastError, setLastError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages]);
 
-  async function sendMessage(text: string) {
-    if (!text.trim() || loading) return;
-
-    const userMsg: Message = { role: 'user', content: text.trim() };
-    const updatedMessages = [...messages, userMsg];
-    setMessages(updatedMessages);
-    setInput('');
+  async function requestAnalysis(updatedMessages: Message[]) {
     setLoading(true);
+    setLastError(null);
 
     try {
       const res = await fetch('/api/sanction', {
@@ -89,19 +85,50 @@ export default function SanctionPage() {
         body: JSON.stringify({ messages: updatedMessages }),
       });
 
-      const data = await res.json();
+      const raw = await res.text();
+      let data: { content?: string; tags?: string[]; cases?: CaseCard[]; comparison?: ComparisonMeta | null } | null = null;
+
+      try {
+        data = raw ? JSON.parse(raw) : {};
+      } catch {
+        throw new Error(raw || '응답 형식을 해석할 수 없습니다.');
+      }
+
+      if (!res.ok) {
+        throw new Error(data?.content || `요청 처리에 실패했습니다. (${res.status})`);
+      }
+
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.content, tags: data.tags, cases: data.cases, comparison: data.comparison },
+        {
+          role: 'assistant',
+          content: data.content || '분석 결과를 생성할 수 없습니다.',
+          tags: data.tags,
+          cases: data.cases,
+          comparison: data.comparison,
+        },
       ]);
-    } catch {
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+      setLastError(message);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: '오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' },
+        { role: 'assistant', content: message },
       ]);
     } finally {
       setLoading(false);
     }
+  }
+
+  async function sendMessage(text: string) {
+    if (!text.trim() || loading) return;
+
+    const userMsg: Message = { role: 'user', content: text.trim() };
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
+    setInput('');
+
+    await requestAnalysis(updatedMessages);
   }
 
   function handleSubmit(e: FormEvent) {
@@ -355,6 +382,27 @@ export default function SanctionPage() {
             <Send size={16} />
           </button>
         </form>
+        {lastError && (
+          <div className="border-t border-gray-100 px-4 pb-4">
+            <p className="mb-2 text-xs text-red-500">{lastError}</p>
+            <button
+              type="button"
+              onClick={() => {
+                const lastAssistantIndex = [...messages].reverse().findIndex((message) => message.role === 'assistant');
+                if (lastAssistantIndex === -1) return;
+
+                const assistantIndex = messages.length - 1 - lastAssistantIndex;
+                const retryMessages = messages.slice(0, assistantIndex);
+                if (retryMessages.some((message) => message.role === 'user')) {
+                  void requestAnalysis(retryMessages);
+                }
+              }}
+              className="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50"
+            >
+              다시 시도
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
