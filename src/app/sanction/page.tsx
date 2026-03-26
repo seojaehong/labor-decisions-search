@@ -26,6 +26,7 @@ interface ComparisonMeta {
 }
 
 interface Message {
+  id: string;
   role: 'user' | 'assistant';
   content: string;
   tags?: string[];
@@ -68,11 +69,26 @@ export default function SanctionPage() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
+  const [copiedSection, setCopiedSection] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages]);
+
+  function makeMessageId() {
+    return crypto.randomUUID();
+  }
+
+  async function copySection(sectionId: string, lines: string[]) {
+    const text = lines.join('\n');
+    if (!text) return;
+    await navigator.clipboard.writeText(text);
+    setCopiedSection(sectionId);
+    window.setTimeout(() => {
+      setCopiedSection((current) => (current === sectionId ? null : current));
+    }, 1500);
+  }
 
   async function requestAnalysis(updatedMessages: Message[]) {
     setLoading(true);
@@ -101,6 +117,7 @@ export default function SanctionPage() {
       setMessages((prev) => [
         ...prev,
         {
+          id: makeMessageId(),
           role: 'assistant',
           content: data.content || '분석 결과를 생성할 수 없습니다.',
           tags: data.tags,
@@ -113,7 +130,7 @@ export default function SanctionPage() {
       setLastError(message);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: message },
+        { id: makeMessageId(), role: 'assistant', content: message },
       ]);
     } finally {
       setLoading(false);
@@ -123,7 +140,7 @@ export default function SanctionPage() {
   async function sendMessage(text: string) {
     if (!text.trim() || loading) return;
 
-    const userMsg: Message = { role: 'user', content: text.trim() };
+    const userMsg: Message = { id: makeMessageId(), role: 'user', content: text.trim() };
     const updatedMessages = [...messages, userMsg];
     setMessages(updatedMessages);
     setInput('');
@@ -212,8 +229,8 @@ export default function SanctionPage() {
 
           {/* Messages */}
           <div className="space-y-5">
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
+            {messages.map((msg) => (
+              <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
                     msg.role === 'user' ? 'bg-blue-100' : 'bg-gray-100'
@@ -283,9 +300,18 @@ export default function SanctionPage() {
 
                       {msg.comparison.coreDifferences.length > 0 && (
                         <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
-                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-amber-900">
-                            <CheckCircle2 size={15} />
-                            승패를 가른 핵심 차이
+                          <div className="mb-3 flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-amber-900">
+                              <CheckCircle2 size={15} />
+                              승패를 가른 핵심 차이
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => void copySection(`diff-${msg.id}`, msg.comparison?.coreDifferences || [])}
+                              className="rounded-md border border-amber-200 bg-white px-2 py-1 text-[11px] font-medium text-amber-900 transition-colors hover:bg-amber-100"
+                            >
+                              {copiedSection === `diff-${msg.id}` ? '복사됨' : '복사'}
+                            </button>
                           </div>
                           <ul className="space-y-2 text-sm text-amber-950">
                             {msg.comparison.coreDifferences.map((item, idx) => (
@@ -297,9 +323,18 @@ export default function SanctionPage() {
 
                       {msg.comparison.checklist.length > 0 && (
                         <div className="rounded-2xl border border-gray-200 bg-white p-4">
-                          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
-                            <ClipboardList size={15} />
-                            실무 체크리스트
+                          <div className="mb-3 flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-gray-900">
+                              <ClipboardList size={15} />
+                              실무 체크리스트
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => void copySection(`check-${msg.id}`, msg.comparison?.checklist || [])}
+                              className="rounded-md border border-gray-200 bg-white px-2 py-1 text-[11px] font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                            >
+                              {copiedSection === `check-${msg.id}` ? '복사됨' : '복사'}
+                            </button>
                           </div>
                           <div className="grid gap-2 md:grid-cols-2">
                             {msg.comparison.checklist.map((item, idx) => (
@@ -313,7 +348,16 @@ export default function SanctionPage() {
 
                       {msg.comparison.decisionGuide.length > 0 && (
                         <div className="rounded-2xl border border-purple-200 bg-purple-50 p-4">
-                          <div className="mb-3 text-sm font-semibold text-purple-900">문안/의사결정 보조</div>
+                          <div className="mb-3 flex items-center justify-between gap-2">
+                            <div className="text-sm font-semibold text-purple-900">문안/의사결정 보조</div>
+                            <button
+                              type="button"
+                              onClick={() => void copySection(`guide-${msg.id}`, msg.comparison?.decisionGuide || [])}
+                              className="rounded-md border border-purple-200 bg-white px-2 py-1 text-[11px] font-medium text-purple-900 transition-colors hover:bg-purple-100"
+                            >
+                              {copiedSection === `guide-${msg.id}` ? '복사됨' : '복사'}
+                            </button>
+                          </div>
                           <div className="space-y-2 text-sm text-purple-950">
                             {msg.comparison.decisionGuide.map((item, idx) => (
                               <p key={`guide-${idx}`}>{item}</p>
@@ -369,8 +413,31 @@ export default function SanctionPage() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
                   <Loader2 size={14} className="animate-spin text-gray-500" />
                 </div>
-                <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-400">
-                  판정례 비교분석 중...
+                <div className="flex-1 space-y-3">
+                  <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4 animate-pulse">
+                    <div className="mb-3 h-4 w-28 rounded bg-blue-200/60" />
+                    <div className="space-y-2">
+                      <div className="h-3 w-5/6 rounded bg-blue-200/60" />
+                      <div className="h-3 w-2/3 rounded bg-blue-200/60" />
+                    </div>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white p-4 animate-pulse">
+                      <div className="mb-3 h-4 w-24 rounded bg-gray-200" />
+                      <div className="space-y-2">
+                        <div className="h-3 w-full rounded bg-gray-200" />
+                        <div className="h-3 w-4/5 rounded bg-gray-200" />
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-gray-200 bg-white p-4 animate-pulse">
+                      <div className="mb-3 h-4 w-24 rounded bg-gray-200" />
+                      <div className="space-y-2">
+                        <div className="h-3 w-full rounded bg-gray-200" />
+                        <div className="h-3 w-3/4 rounded bg-gray-200" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-400">판정례 비교분석 중...</div>
                 </div>
               </div>
             )}
@@ -395,7 +462,7 @@ export default function SanctionPage() {
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="flex items-center justify-center rounded-xl bg-blue-600 px-4 text-white transition-colors hover:bg-blue-700 disabled:bg-gray-300"
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl bg-blue-600 px-4 text-white transition-colors hover:bg-blue-700 disabled:bg-gray-300"
           >
             <Send size={16} />
           </button>
