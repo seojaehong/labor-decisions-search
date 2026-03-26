@@ -8,6 +8,18 @@ from pathlib import Path
 
 INPUT_DIR = Path('evaluation/bigcase_bulk')
 OUTPUT_FILE = INPUT_DIR / 'court_decisions_ready.jsonl'
+RESULT_MAP = {
+  '원고승': 'worker_win',
+  '원고패': 'employer_win',
+  '원고일부승': 'partial',
+  '파기환송': 'remanded',
+  '파기자판': 'reversed_and_decided',
+  '각하': 'rejected',
+  '화해': 'settled',
+  '취하': 'withdrawn',
+  '항소기각': 'appeal_dismissed',
+  '상고기각': 'appeal_dismissed',
+}
 
 
 def normalize_case_number(case_number: str) -> str:
@@ -16,13 +28,9 @@ def normalize_case_number(case_number: str) -> str:
 
 def map_decision_result(result: str | None) -> str:
   normalized = (result or '').strip()
-  if normalized == '원고승':
-    return 'worker_win'
-  if normalized == '원고패':
-    return 'employer_win'
-  if normalized == '원고일부승':
-    return 'partial'
-  return 'unknown'
+  if not normalized:
+    return 'unknown'
+  return RESULT_MAP.get(normalized, 'unmapped')
 
 
 def clean_summary(summary: object) -> str:
@@ -58,6 +66,7 @@ def main() -> None:
   category_counts: Counter[str] = Counter()
   result_counts: Counter[str] = Counter()
   case_number_counts: Counter[str] = Counter()
+  unmapped_value_counts: Counter[str] = Counter()
 
   OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
@@ -76,6 +85,7 @@ def main() -> None:
           normalized_case_number = normalize_case_number(case_number)
           decision_result = map_decision_result(record.get('result'))
           category = str(record.get('category', '')).strip() or 'unknown'
+          raw_result = str(record.get('result', '') or '').strip()
 
           transformed = {
             'id': f'court_{normalized_case_number}',
@@ -99,6 +109,8 @@ def main() -> None:
           category_counts[category] += 1
           result_counts[decision_result] += 1
           case_number_counts[case_number] += 1
+          if decision_result == 'unmapped':
+            unmapped_value_counts[raw_result or '<empty>'] += 1
 
   duplicate_case_numbers = sum(1 for count in case_number_counts.values() if count > 1)
 
@@ -109,6 +121,12 @@ def main() -> None:
   print('DECISION_RESULT_COUNTS')
   for result, count in sorted(result_counts.items()):
     print(f'  {result}: {count}')
+  print('UNMAPPED_RESULT_COUNTS')
+  if unmapped_value_counts:
+    for result, count in sorted(unmapped_value_counts.items()):
+      print(f'  {result}: {count}')
+  else:
+    print('  <none>: 0')
   print(f'ENCODING_ERRORS {encoding_error_count}')
   print(f'DUPLICATE_CASE_NUMBERS {duplicate_case_numbers}')
   print(f'OUTPUT {OUTPUT_FILE}')
