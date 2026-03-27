@@ -95,44 +95,93 @@ export default function SanctionPage() {
     setLoading(true);
     setLastError(null);
 
+    const msgId = makeMessageId();
+
     try {
       const res = await fetch('/api/sanction', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({ messages: updatedMessages, stream: true }),
       });
 
-      const raw = await res.text();
-      let data: { content?: string; tags?: string[]; cases?: CaseCard[]; comparison?: ComparisonMeta | null } | null = null;
-
-      try {
-        data = raw ? JSON.parse(raw) : {};
-      } catch {
-        throw new Error(raw || '응답 형식을 해석할 수 없습니다.');
-      }
-
       if (!res.ok) {
-        throw new Error(data?.content || `요청 처리에 실패했습니다. (${res.status})`);
+        const raw = await res.text();
+        let parsed: { content?: string } = {};
+        try { parsed = JSON.parse(raw); } catch { /* ignore */ }
+        throw new Error(parsed?.content || `요청 처리에 실패했습니다. (${res.status})`);
       }
 
+      if (!res.body) throw new Error('스트리밍 응답을 받을 수 없습니다.');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let streamedContent = '';
+      let finalComparison: ComparisonMeta | null = null;
+      let metaReceived = false;
+
+      // 빈 어시스턴트 메시지 먼저 추가 (점진적 업데이트용)
       setMessages((prev) => [
         ...prev,
-        {
-          id: makeMessageId(),
-          role: 'assistant',
-          content: data?.content || '분석 결과를 생성할 수 없습니다.',
-          tags: data?.tags,
-          cases: data?.cases,
-          comparison: data?.comparison,
-        },
+        { id: msgId, role: 'assistant', content: '분석 중...' },
       ]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        for (const line of chunk.split('\n')) {
+          if (!line.startsWith('data: ')) continue;
+          try {
+            const event = JSON.parse(line.slice(6));
+
+            if (event.type === 'meta') {
+              metaReceived = true;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === msgId
+                    ? { ...m, content: '유사 판례를 찾았습니다. AI 분석 생성 중...', tags: event.tags, cases: event.cases, comparison: event.comparison }
+                    : m
+                )
+              );
+            } else if (event.type === 'delta') {
+              streamedContent += event.text;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === msgId ? { ...m, content: streamedContent } : m
+                )
+              );
+            } else if (event.type === 'done') {
+              finalComparison = event.comparison;
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === msgId
+                    ? { ...m, content: event.content || streamedContent, comparison: finalComparison }
+                    : m
+                )
+              );
+            } else if (event.type === 'error') {
+              throw new Error(event.content);
+            }
+          } catch (e) {
+            if (e instanceof Error && e.message !== 'error') throw e;
+          }
+        }
+      }
+
+      if (!metaReceived && !streamedContent) {
+        throw new Error('응답을 받지 못했습니다.');
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : '오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
       setLastError(message);
-      setMessages((prev) => [
-        ...prev,
-        { id: makeMessageId(), role: 'assistant', content: message },
-      ]);
+      setMessages((prev) => {
+        const existing = prev.find((m) => m.id === msgId);
+        if (existing) {
+          return prev.map((m) => (m.id === msgId ? { ...m, content: message } : m));
+        }
+        return [...prev, { id: msgId, role: 'assistant' as const, content: message }];
+      });
     } finally {
       setLoading(false);
     }
