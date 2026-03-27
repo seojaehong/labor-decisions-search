@@ -244,7 +244,82 @@ export async function POST(req: NextRequest) {
     const userContext = buildUserContext(lastUserMsg.content, tags, retrieval.cases as unknown as Record<string, unknown>[]);
     const trimmedMessages = trimHistory(messages, userContext);
 
-    // Step 4: Anthropic Haiku 호출 (blocking)
+    // Step 4: 스트리밍 여부 확인
+    const wantsStream = body?.stream === true;
+
+    if (wantsStream) {
+      // SSE 스트리밍: DB 결과 즉시 전송 + AI 텍스트 점진적 전송
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        async start(controller) {
+          // 즉시 DB 결과 전송
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'meta', tags: retrieval.tags, cases: retrieval.cases, comparison })}\n\n`));
+
+          try {
+            const resp = await fetch(ANTHROPIC_URL, {
+              method: 'POST',
+              signal: AbortSignal.timeout(25_000),
+              headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': ANTHROPIC_API_KEY,
+                'anthropic-version': '2023-06-01',
+              },
+              body: JSON.stringify({
+                model: ANTHROPIC_MODEL,
+                max_tokens: 4096,
+                system: SYSTEM_PROMPT,
+                messages: trimmedMessages,
+                temperature: 0.3,
+                stream: true,
+              }),
+            });
+
+            if (!resp.ok || !resp.body) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', content: '응답 생성에 실패했습니다.' })}\n\n`));
+              controller.close();
+              return;
+            }
+
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let fullText = '';
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              const chunk = decoder.decode(value, { stream: true });
+              for (const line of chunk.split('\n')) {
+                if (!line.startsWith('data: ') || line === 'data: [DONE]') continue;
+                try {
+                  const parsed = JSON.parse(line.slice(6));
+                  const delta = parsed.delta?.text;
+                  if (delta) {
+                    fullText += delta;
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'delta', text: delta })}\n\n`));
+                  }
+                } catch { /* skip malformed */ }
+              }
+            }
+
+            const structured = parseStructuredAiResponse(fullText);
+            const analysis = sanitizeAnalysis(structured?.plain_text || fullText);
+            const finalComparison = structured
+              ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
+              : comparison;
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done', content: analysis, comparison: finalComparison })}\n\n`));
+          } catch {
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', content: '응답 생성이 지연되고 있습니다.' })}\n\n`));
+          }
+          controller.close();
+        },
+      });
+
+      return new Response(stream, {
+        headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' },
+      });
+    }
+
+    // 기존 블로킹 모드 (하위 호환)
     const resp = await fetch(ANTHROPIC_URL, {
       method: 'POST',
       signal: AbortSignal.timeout(25_000),
