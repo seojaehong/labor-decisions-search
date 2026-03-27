@@ -153,8 +153,9 @@ function buildComparisonFromStructured(
 
     const decisionResult = matched ? String(matched.decision_result || normalizeStructuredResult(item.result)) : normalizeStructuredResult(item.result);
 
+    const caseId = matched ? String(matched.id || `ai_case_${index}`) : `ai_case_${index}`;
     return {
-      id: matched ? String(matched.id || `ai_case_${index}`) : `ai_case_${index}`,
+      id: caseId,
       title: matched ? String(matched.title || item.title) : item.title,
       decision_result: decisionResult,
       holding_points: item.key_point,
@@ -162,6 +163,7 @@ function buildComparisonFromStructured(
       summary_short: matched ? String(matched.summary_short || '').slice(0, 160) : item.key_point,
       key_issue: matched ? String(matched.key_issue || '') : '',
       bucket: bucketDecisionResult(decisionResult),
+      source: caseId.startsWith('bc_') ? 'court' as const : 'nlrc' as const,
     };
   });
 

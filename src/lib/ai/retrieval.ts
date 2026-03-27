@@ -66,6 +66,7 @@ export interface CaseCard {
   summary_short?: string;
   key_issue?: string;
   bucket?: 'worker_win' | 'employer_win' | 'other';
+  source?: 'nlrc' | 'court';
 }
 
 export interface RetrievalResult {
@@ -181,6 +182,12 @@ function extractEmploymentStages(text: string): string[] {
 const DB_CANDIDATE_LIMIT = 60;
 const CANDIDATE_LIMIT = 20;
 const RESULT_LIMIT = 5;
+
+function detectSource(id: string): 'nlrc' | 'court' {
+  return id.startsWith('bc_') ? 'court' : 'nlrc';
+}
+
+const NON_LABOR_CASE_TYPES = ['헌법', '특허', '신청'];
 
 function selectRepresentativeCases(candidates: Record<string, unknown>[], limit: number): Record<string, unknown>[] {
   if (candidates.length <= limit) return candidates;
@@ -641,8 +648,13 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
     candidates = tagCases || [];
   }
 
-  const reranked = false;
+  // 비노동 판례 제외 (헌법/특허 등)
+  candidates = candidates.filter((c) => {
+    const caseType = (c.case_type as string) || '';
+    return !NON_LABOR_CASE_TYPES.includes(caseType);
+  });
 
+  const reranked = false;
   const results = selectRepresentativeCases(candidates, RESULT_LIMIT);
 
   return {
@@ -657,6 +669,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
       summary_short: ((c.summary_short as string) || '').slice(0, 180),
       key_issue: (c.key_issue as string) || '',
       bucket: bucketDecisionResult(c.decision_result as string),
+      source: detectSource(c.id as string),
     })),
     allCases: candidates,
     reranked,

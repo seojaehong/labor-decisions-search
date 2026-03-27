@@ -14,6 +14,7 @@ interface CaseCard {
   summary_short?: string;
   key_issue?: string;
   bucket?: 'worker_win' | 'employer_win' | 'other';
+  source?: 'nlrc' | 'court';
 }
 
 interface ComparisonMeta {
@@ -163,9 +164,16 @@ export default function SanctionPage() {
     const titleClass = tone === 'worker' ? 'mb-1 text-xs font-semibold text-blue-700' : 'mb-1 text-xs font-semibold text-amber-700'
     const href = c.url || (c.id && !c.id.startsWith('ai_case_') ? `/decisions/${c.id}` : '')
 
+    const sourceBadge = c.source === 'court'
+      ? <span className="ml-1.5 rounded-full bg-purple-100 px-1.5 py-0.5 text-[9px] font-medium text-purple-700">법원</span>
+      : <span className="ml-1.5 rounded-full bg-gray-100 px-1.5 py-0.5 text-[9px] font-medium text-gray-600">노동위</span>
+
     const content = (
       <>
-        <div className={titleClass}>{c.title}</div>
+        <div className="flex items-center">
+          <div className={titleClass}>{c.title}</div>
+          {sourceBadge}
+        </div>
         <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
       </>
     )
@@ -391,8 +399,13 @@ export default function SanctionPage() {
                           className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                         >
                           <div className="mb-2 flex items-center justify-between gap-2">
-                              <div className="text-xs font-medium text-gray-800 line-clamp-1">{c.title}</div>
-                              <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${RESULT_COLORS[c.decision_result] || 'bg-gray-100 text-gray-600'}`}>
+                              <div className="flex items-center gap-1.5 text-xs font-medium text-gray-800 line-clamp-1">
+                                {c.title}
+                                {c.source === 'court'
+                                  ? <span className="shrink-0 rounded-full bg-purple-100 px-1.5 py-0.5 text-[9px] font-medium text-purple-700">법원</span>
+                                  : <span className="shrink-0 rounded-full bg-gray-100 px-1.5 py-0.5 text-[9px] font-medium text-gray-600">노동위</span>}
+                              </div>
+                              <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${RESULT_COLORS[c.decision_result] || 'bg-gray-100 text-gray-600'}`}>
                                 {RESULT_LABELS[c.decision_result] || c.decision_result}
                               </span>
                           </div>

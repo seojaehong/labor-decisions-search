@@ -73,6 +73,7 @@ export interface ComparisonCase {
   summary_short?: string;
   key_issue?: string;
   bucket: 'worker_win' | 'employer_win' | 'other';
+  source?: 'nlrc' | 'court';
 }
 
 export interface ComparisonMeta {
@@ -224,6 +225,7 @@ export function buildComparisonMeta(
     summary_short: String(c.summary_short || '').slice(0, 160),
     key_issue: String(c.key_issue || ''),
     bucket: bucketDecisionResult(String(c.decision_result || '')),
+    source: String(c.id || '').startsWith('bc_') ? 'court' as const : 'nlrc' as const,
   }));
 
   const workerWinCases = normalizedCases.filter((c) => c.bucket === 'worker_win').slice(0, 2);
@@ -259,20 +261,22 @@ export function buildUserContext(
   tags: string[],
   cases: Record<string, unknown>[],
 ): string {
+  const sourceLabel = (id: string) => String(id).startsWith('bc_') ? '[법원]' : '[노동위]';
   const caseSummary = cases
     .slice(0, 5)
-    .map((c) => `- ${c.title} [${c.decision_result}]: ${((c.holding_points as string) || '').slice(0, 200)}`)
+    .map((c) => `- ${sourceLabel(String(c.id))} ${c.title} [${c.decision_result}]: ${((c.holding_points as string) || '').slice(0, 200)}`)
     .join('\n');
 
   const strength = evaluateRetrievalStrength(cases.length);
   const instruction = RETRIEVAL_INSTRUCTIONS[strength](cases.length);
   const winLossAnalysis = analyzeWinLossFactors(cases);
   const comparison = buildComparisonMeta(userInput, tags, cases);
+  const srcTag = (s?: string) => s === 'court' ? '[법원]' : '[노동위]';
   const workerWins = comparison.workerWinCases
-    .map((c) => `- ${c.title} [${c.decision_result}]: ${c.holding_points}`)
+    .map((c) => `- ${srcTag(c.source)} ${c.title} [${c.decision_result}]: ${c.holding_points}`)
     .join('\n');
   const employerWins = comparison.employerWinCases
-    .map((c) => `- ${c.title} [${c.decision_result}]: ${c.holding_points}`)
+    .map((c) => `- ${srcTag(c.source)} ${c.title} [${c.decision_result}]: ${c.holding_points}`)
     .join('\n');
   const checklist = comparison.checklist.map((item) => `- ${item}`).join('\n');
   const differences = comparison.coreDifferences.map((item) => `- ${item}`).join('\n');
