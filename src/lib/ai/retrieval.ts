@@ -187,6 +187,10 @@ function detectSource(id: string): 'nlrc' | 'court' {
   return id.startsWith('bc_') ? 'court' : 'nlrc';
 }
 
+function isCourt(candidate: Record<string, unknown>): boolean {
+  return String(candidate.id || '').startsWith('bc_');
+}
+
 const NON_LABOR_CASE_TYPES = ['헌법', '특허', '신청'];
 
 function selectRepresentativeCases(candidates: Record<string, unknown>[], limit: number): Record<string, unknown>[] {
@@ -200,8 +204,18 @@ function selectRepresentativeCases(candidates: Record<string, unknown>[], limit:
     picked.push(candidate);
   };
 
-  workerWins.slice(0, 2).forEach(pushUnique);
-  employerWins.slice(0, 2).forEach(pushUnique);
+  // source 균형: 노동위 + 법원 혼합 (각 버킷에서 court 우선 1 + nlrc 1)
+  const workerCourt = workerWins.find((c) => isCourt(c));
+  const workerNlrc = workerWins.find((c) => !isCourt(c));
+  if (workerCourt) pushUnique(workerCourt);
+  if (workerNlrc) pushUnique(workerNlrc);
+  if (picked.length < 2) workerWins.slice(0, 2).forEach(pushUnique);
+
+  const employerCourt = employerWins.find((c) => isCourt(c));
+  const employerNlrc = employerWins.find((c) => !isCourt(c));
+  if (employerCourt) pushUnique(employerCourt);
+  if (employerNlrc) pushUnique(employerNlrc);
+  if (picked.length < 4) employerWins.slice(0, 2).forEach(pushUnique);
 
   for (const candidate of candidates) {
     if (picked.length >= limit) break;
