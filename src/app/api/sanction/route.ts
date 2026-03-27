@@ -238,10 +238,10 @@ export async function POST(req: NextRequest) {
 
     // Step 2: DB 검색
     const retrieval = await searchCases(tags, lastUserMsg.content);
-    const comparison = buildComparisonMeta(lastUserMsg.content, tags, retrieval.cases);
+    const comparison = buildComparisonMeta(lastUserMsg.content, tags, retrieval.cases as unknown as Record<string, unknown>[]);
 
     // Step 3: 프롬프트 조립 + 히스토리 트리밍
-    const userContext = buildUserContext(lastUserMsg.content, tags, retrieval.cases);
+    const userContext = buildUserContext(lastUserMsg.content, tags, retrieval.cases as unknown as Record<string, unknown>[]);
     const trimmedMessages = trimHistory(messages, userContext);
 
     // Step 4: Anthropic Haiku 호출 (blocking)
