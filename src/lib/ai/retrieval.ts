@@ -415,6 +415,14 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     reasons.push(`hint_penalty:${hintPenalties.join(',')}`);
   }
 
+  // 후보 판례의 exclude_for_queries가 사용자 쿼리와 매칭되면 큰 감점
+  const excludeQueries = asStringArray(candidate.exclude_for_queries);
+  const excludeHits = excludeQueries.filter((item) => query.toLowerCase().includes(item.toLowerCase()));
+  if (excludeHits.length > 0) {
+    score -= excludeHits.length * 15;
+    reasons.push(`exclude_query:${excludeHits.join(',')}`);
+  }
+
   if (profile.preferredStages.includes(stage)) {
     score += 7;
     reasons.push(`stage:${stage}`);
