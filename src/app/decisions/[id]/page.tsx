@@ -19,6 +19,12 @@ function getDisplayCaseNumber(caseNumber?: string | null) {
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
 }
 
+function getSourceStatusLabel(hasDetailedHoldingPoints: boolean, hasHoldingPoints: boolean) {
+  if (hasDetailedHoldingPoints) return "서비스 내 추출 원문 제공";
+  if (hasHoldingPoints) return "추출 원문 일부 제공";
+  return "공식 원문 링크 제공";
+}
+
 function renderHoldingBlocks(text: string) {
   return parseHoldingText(text).map((block, index) => (
     <p
@@ -56,7 +62,12 @@ export default async function DecisionPage({
 
   const displayCaseNumber = getDisplayCaseNumber(d.case_number);
   const holdingPointsText = typeof d.holding_points === "string" ? d.holding_points.trim() : "";
+  const holdingSummaryText = typeof d.holding_summary === "string" ? d.holding_summary.trim() : "";
+  const keyIssueText = typeof d.key_issue === "string" ? d.key_issue.trim() : "";
   const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
+  const hasHoldingPoints = holdingPointsText.length > 0;
+  const hasSummary = holdingSummaryText.length > 0;
+  const hasSourceSection = hasHoldingPoints || Boolean(d.url);
 
   return (
     <main className="min-h-screen bg-background">
@@ -85,77 +96,142 @@ export default async function DecisionPage({
           </Badge>
         </div>
 
+        <Card className="p-4 mb-6 bg-muted/30">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline">상세 페이지</Badge>
+                <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                이 페이지에서 판정요지와 절차 정보를 먼저 확인하고, 아래의 원문·출처 섹션에서 추출 본문 또는 공식 원문 링크로 이어서 검토할 수 있습니다.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="#decision-summary"
+                className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
+              >
+                요약 보기
+              </a>
+              {hasSourceSection ? (
+                <a
+                  href="#source-text"
+                  className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
+                >
+                  원문·출처 보기
+                </a>
+              ) : null}
+            </div>
+          </div>
+        </Card>
+
         {d.key_issue && (
-          <Card className="p-4 mb-6 bg-muted/50">
+          <Card id="decision-summary" className="p-4 mb-6 bg-muted/50 scroll-mt-24">
             <h3 className="font-semibold text-sm mb-1">핵심쟁점</h3>
             <p className="text-sm">{d.key_issue}</p>
           </Card>
         )}
 
-        {d.reason_detail && (
-          <Card className="p-4 mb-4">
-            <h3 className="font-semibold text-sm mb-1">해고 사유</h3>
-            <p className="text-sm">{d.reason_detail}</p>
-          </Card>
-        )}
-
-        <Card className="p-4 mb-4">
-          <h3 className="font-semibold text-sm mb-2">절차 확인</h3>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div>{d.procedure_committee ? "✅" : "❌"} 징계위원회</div>
-            <div>{d.procedure_defense ? "✅" : "❌"} 소명기회 부여</div>
-            <div>{d.procedure_written_notice ? "✅" : "❌"} 서면통지</div>
-            <div>{d.procedure_advance_notice ? "✅" : "❌"} 해고예고 30일</div>
-          </div>
-          {d.procedure_note && (
-            <p className="text-xs text-muted-foreground mt-2">{d.procedure_note}</p>
+        <section id={d.key_issue ? undefined : "decision-summary"} className="scroll-mt-24">
+          {d.reason_detail && (
+            <Card className="p-4 mb-4">
+              <h3 className="font-semibold text-sm mb-1">해고 사유</h3>
+              <p className="text-sm">{d.reason_detail}</p>
+            </Card>
           )}
-        </Card>
+
+          <Card className="p-4 mb-4">
+            <h3 className="font-semibold text-sm mb-2">절차 확인</h3>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>{d.procedure_committee ? "✅" : "❌"} 징계위원회</div>
+              <div>{d.procedure_defense ? "✅" : "❌"} 소명기회 부여</div>
+              <div>{d.procedure_written_notice ? "✅" : "❌"} 서면통지</div>
+              <div>{d.procedure_advance_notice ? "✅" : "❌"} 해고예고 30일</div>
+            </div>
+            {d.procedure_note && (
+              <p className="text-xs text-muted-foreground mt-2">{d.procedure_note}</p>
+            )}
+          </Card>
+
+          {hasSummary && (
+            <div className="mb-6">
+              <h3 className="font-semibold mb-2">판정요지</h3>
+              <div>{renderHoldingBlocks(holdingSummaryText)}</div>
+            </div>
+          )}
+        </section>
 
         <Separator className="my-6" />
 
-        {holdingPointsText && (
-          <div className="mb-6">
-            <h3 className="font-semibold mb-2">판정사항</h3>
-            {hasDetailedHoldingPoints ? (
+        <section id="source-text" className="scroll-mt-24">
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div>
+              <h2 className="font-semibold">원문·출처</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                서비스 내 정리본과 추출된 본문 범위를 먼저 확인한 뒤, 필요하면 공식 원문으로 이어서 검토하세요.
+              </p>
+            </div>
+            <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
+          </div>
+
+          {hasDetailedHoldingPoints ? (
+            <Card className="p-4 mb-4">
+              <h3 className="font-semibold text-sm mb-2">서비스 내 추출 원문</h3>
               <div>{renderHoldingBlocks(holdingPointsText)}</div>
-            ) : (
-              <Card className="p-4 bg-muted/40">
-                <p className="text-sm text-muted-foreground">상세 내용은 원문을 확인해주세요.</p>
-                {d.url && (
-                  <a
-                    href={d.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center mt-3 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
-                  >
-                    원문 보기 (법제처)
-                  </a>
-                )}
-              </Card>
-            )}
-          </div>
-        )}
+            </Card>
+          ) : (
+            <Card className="p-4 mb-4 bg-muted/40">
+              <h3 className="font-semibold text-sm mb-2">서비스 내 확인 가능한 내용</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                이 판정례는 상세한 추출 원문이 충분하지 않아, 아래 정리본과 공식 원문 링크를 함께 제공합니다.
+              </p>
+              <div className="space-y-3">
+                {hasHoldingPoints ? (
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-1">추출된 원문 일부</p>
+                    <div>{renderHoldingBlocks(holdingPointsText)}</div>
+                  </div>
+                ) : null}
+                {hasSummary ? (
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-1">판정요지 정리</p>
+                    <div>{renderHoldingBlocks(holdingSummaryText)}</div>
+                  </div>
+                ) : null}
+                {!hasHoldingPoints && !hasSummary && keyIssueText ? (
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-1">핵심 쟁점 메모</p>
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{keyIssueText}</p>
+                  </div>
+                ) : null}
+              </div>
+            </Card>
+          )}
 
-        {d.holding_summary && (
-          <div className="mb-6">
-            <h3 className="font-semibold mb-2">판정요지</h3>
-            <div>{renderHoldingBlocks(d.holding_summary)}</div>
-          </div>
-        )}
-
-        {d.url && (
-          <div className="mt-8 text-sm">
-            <a
-              href={d.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline"
-            >
-              원문 보기 (법제처)
-            </a>
-          </div>
-        )}
+          {d.url ? (
+            <Card className="p-4">
+              <h3 className="font-semibold text-sm mb-2">공식 원문 링크</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                서비스 내 정리본으로 충분하지 않다면 법제처 원문에서 전체 문맥과 표현을 직접 확인할 수 있습니다.
+              </p>
+              <a
+                href={d.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
+              >
+                법제처 원문 열기
+              </a>
+            </Card>
+          ) : (
+            <Card className="p-4 bg-muted/40">
+              <p className="text-sm text-muted-foreground">
+                현재 연결된 공식 원문 링크가 없습니다. 서비스 내 정리본을 기준으로 검토해주세요.
+              </p>
+            </Card>
+          )}
+        </section>
       </div>
     </main>
   );

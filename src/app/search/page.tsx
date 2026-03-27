@@ -15,6 +15,8 @@ import {
 import type { SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
 import Link from "next/link";
 const IS_DEV = process.env.NODE_ENV === "development";
+const SEARCH_CACHE_TTL_MS = 30_000;
+const responseCache = new Map<string, { payload: SearchResponsePayload; savedAt: number }>();
 
 function isSearchBucket(value: unknown): value is SearchBucket {
   if (!value || typeof value !== "object") return false;
@@ -119,6 +121,19 @@ function getModeDescription(mode: SearchMode): string {
   return "기본 검색과 AI 검색 결과를 나란히 비교합니다.";
 }
 
+function getResultCountLabel(mode: SearchMode, payload: SearchResponsePayload | null): string {
+  if (!payload) return "0건";
+
+  if (mode === "compare") {
+    const baselineTotal = payload.baseline?.total || 0;
+    const candidateTotal = payload.candidate?.total || 0;
+    return `기본 ${baselineTotal.toLocaleString()}건 · AI ${candidateTotal.toLocaleString()}건`;
+  }
+
+  const total = mode === "candidate" ? payload.candidate?.total || 0 : payload.baseline?.total || 0;
+  return `${total.toLocaleString()}건`;
+}
+
 function getDebugScenarioLabel(payload: SearchResponsePayload | null): string | null {
   return payload?.debug?.candidate?.scenario || null;
 }
@@ -189,17 +204,17 @@ function SearchBucketSection({
       </div>
       {error && (
         <Card className="p-3 mb-3 text-xs text-amber-700 border-amber-200 bg-amber-50">
-          {source} search warning: {error}
+          {source === "candidate" ? "AI 검색" : "기본 검색"} 경고: {error}
         </Card>
       )}
       <div className="space-y-3">
-        {(bucket?.items || []).map((item, index) => (
+        {(bucket?.items || []).map((item) => (
           <SearchResultCard key={`${source}-${item.id}`} item={item} />
         ))}
         {(!bucket || bucket.items.length === 0) && (
           <Card className="p-4 text-sm text-muted-foreground">
             {source === "candidate"
-              ? "candidate 결과가 없습니다. 현재는 질의 기반 retrieval 중심이라 q 없이 사유만 고르면 비어 있을 수 있습니다."
+              ? "AI 검색 결과가 없습니다. 현재는 질의 기반 검색 비중이 높아 검색어 없이 사유만 고르면 비어 있을 수 있습니다."
               : "결과가 없습니다."}
           </Card>
         )}
@@ -208,17 +223,31 @@ function SearchBucketSection({
   );
 }
 
-function SearchContent() {
-  const searchParams = useSearchParams();
+function SearchContentInner({
+  initialParamsString,
+  initialQuery,
+  initialReason,
+  initialResult,
+  initialMode,
+  initialPage,
+}: {
+  initialParamsString: string;
+  initialQuery: string;
+  initialReason: ReasonCategory | "";
+  initialResult: DecisionResult | "";
+  initialMode: SearchMode;
+  initialPage: number;
+}) {
   const router = useRouter();
 
-  const [queryInput, setQueryInput] = useState(searchParams.get("q") || "");
-  const [query, setQuery] = useState(searchParams.get("q") || "");
-  const [reason, setReason] = useState<ReasonCategory | "">((searchParams.get("reason") as ReasonCategory) || "");
-  const [result, setResult] = useState<DecisionResult | "">((searchParams.get("result") as DecisionResult) || "");
-  const [mode, setMode] = useState<SearchMode>((searchParams.get("mode") as SearchMode) || "baseline");
-  const [page, setPage] = useState(Number(searchParams.get("page") || "0"));
+  const [queryInput, setQueryInput] = useState(initialQuery);
+  const [query, setQuery] = useState(initialQuery);
+  const [reason, setReason] = useState<ReasonCategory | "">(initialReason);
+  const [result, setResult] = useState<DecisionResult | "">(initialResult);
+  const [mode, setMode] = useState<SearchMode>(initialMode);
+  const [page, setPage] = useState(initialPage);
   const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [payload, setPayload] = useState<SearchResponsePayload | null>(null);
 
   function syncUrl(next: {
@@ -228,7 +257,7 @@ function SearchContent() {
     mode?: SearchMode;
     page?: number;
   }) {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(initialParamsString);
     const q = next.q ?? query;
     const nextReason = next.reason ?? reason;
     const nextResult = next.result ?? result;
@@ -249,25 +278,9 @@ function SearchContent() {
   }
 
   useEffect(() => {
-    const urlQuery = searchParams.get("q") || "";
-    const urlReason = (searchParams.get("reason") as ReasonCategory) || "";
-    const urlResult = (searchParams.get("result") as DecisionResult) || "";
-    const urlMode = (searchParams.get("mode") as SearchMode) || "baseline";
-    const urlPage = Number(searchParams.get("page") || "0");
-
-    setQueryInput(urlQuery);
-    setQuery(urlQuery);
-    setReason(urlReason);
-    setResult(urlResult);
-    setMode(urlMode);
-    setPage(urlPage);
-  }, [searchParams]);
-
-  useEffect(() => {
     let aborted = false;
 
     async function fetchSearch() {
-      setLoading(true);
       const requestContext = {
         mode,
         query,
@@ -281,6 +294,18 @@ function SearchContent() {
       });
       if (reason) params.set("reason", reason);
       if (result) params.set("result", result);
+      const cacheKey = params.toString();
+      const cached = responseCache.get(cacheKey);
+      const isCacheFresh = cached && Date.now() - cached.savedAt < SEARCH_CACHE_TTL_MS;
+
+      if (isCacheFresh) {
+        setPayload(cached.payload);
+        setLoading(false);
+        setIsRefreshing(true);
+      } else {
+        setLoading(true);
+        setIsRefreshing(false);
+      }
 
       const resp = await fetch(`/api/search?${params.toString()}`, { cache: "no-store" });
       const data = await resp.json();
@@ -292,8 +317,10 @@ function SearchContent() {
 
       const normalized = normalizeSearchPayload(data, requestContext);
       if (!aborted) {
+        responseCache.set(cacheKey, { payload: normalized, savedAt: Date.now() });
         setPayload(normalized);
         setLoading(false);
+        setIsRefreshing(false);
       }
     }
 
@@ -309,6 +336,7 @@ function SearchContent() {
           )
         );
         setLoading(false);
+        setIsRefreshing(false);
       }
     });
     return () => {
@@ -331,7 +359,17 @@ function SearchContent() {
 
   const baselineBucket = payload?.baseline;
   const candidateBucket = payload?.candidate;
-  const total = mode === "candidate" ? candidateBucket?.total || 0 : baselineBucket?.total || 0;
+  const hasActiveFilters = Boolean(query || reason || result || page > 0 || mode !== "baseline");
+
+  function resetSearch() {
+    setQueryInput("");
+    setQuery("");
+    setReason("");
+    setResult("");
+    setMode("baseline");
+    setPage(0);
+    router.replace("/search");
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -365,6 +403,9 @@ function SearchContent() {
             className="flex-1"
           />
           <Button type="submit">검색</Button>
+          <Button type="button" variant="outline" onClick={resetSearch} disabled={!hasActiveFilters}>
+            초기화
+          </Button>
         </form>
 
         <div className="flex flex-wrap gap-4 mb-6">
@@ -410,9 +451,23 @@ function SearchContent() {
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground mb-4">
-          {loading ? "검색 중..." : `${total.toLocaleString()}건`}
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <p className="text-sm text-muted-foreground">
+            {loading
+              ? "검색 중..."
+              : isRefreshing
+                ? `${getResultCountLabel(mode, payload)} · 최신 결과 확인 중...`
+                : getResultCountLabel(mode, payload)}
+          </p>
+          {hasActiveFilters ? (
+            <p className="text-xs text-muted-foreground">
+              현재 조건: {query ? `검색어 \"${query}\"` : "검색어 없음"}
+              {reason ? ` · 사유 ${REASON_LABELS[reason]}` : ""}
+              {result ? ` · 결과 ${RESULT_LABELS[result]}` : ""}
+              {mode !== "baseline" ? ` · ${getModeLabel(mode)}` : ""}
+            </p>
+          ) : null}
+        </div>
 
         {IS_DEV ? (
           <div className="rounded-2xl border bg-muted/30 p-4 mb-6">
@@ -511,6 +566,27 @@ function SearchContent() {
         )}
       </div>
     </main>
+  );
+}
+
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  const initialReason = (searchParams.get("reason") as ReasonCategory) || "";
+  const initialResult = (searchParams.get("result") as DecisionResult) || "";
+  const initialMode = (searchParams.get("mode") as SearchMode) || "baseline";
+  const initialPage = Number(searchParams.get("page") || "0");
+
+  return (
+    <SearchContentInner
+      key={searchParams.toString()}
+      initialParamsString={searchParams.toString()}
+      initialQuery={initialQuery}
+      initialReason={initialReason}
+      initialResult={initialResult}
+      initialMode={initialMode}
+      initialPage={initialPage}
+    />
   );
 }
 
