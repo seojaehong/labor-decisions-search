@@ -59,7 +59,24 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-12 text-center text-sm text-muted-foreground">
+        <div className="mt-8 flex justify-center gap-4">
+          <Link href="/sanction">
+            <Card className="p-4 text-center hover:border-primary transition-colors cursor-pointer">
+              <div className="text-2xl mb-1">🤖</div>
+              <div className="font-medium text-sm">AI 비교분석</div>
+              <div className="text-xs text-muted-foreground mt-1">상황 입력 → 유사 판례 매칭</div>
+            </Card>
+          </Link>
+          <a href="https://노란봉투법.com" target="_blank" rel="noopener noreferrer">
+            <Card className="p-4 text-center hover:border-yellow-500 border-yellow-200 transition-colors cursor-pointer">
+              <div className="text-2xl mb-1">📨</div>
+              <div className="font-medium text-sm">노란봉투법 가이드</div>
+              <div className="text-xs text-muted-foreground mt-1">노동법 실무 정보</div>
+            </Card>
+          </a>
+        </div>
+
+        <div className="mt-8 text-center text-sm text-muted-foreground">
           <p>데이터 출처: 법제처 국가법령정보센터 노동위원회 결정문</p>
           <p className="mt-1">
             <Link href="/stats" className="underline hover:text-primary">통계 보기</Link>
