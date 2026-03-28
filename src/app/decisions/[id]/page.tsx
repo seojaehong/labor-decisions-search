@@ -22,7 +22,7 @@ function getDisplayCaseNumber(caseNumber?: string | null) {
 function getSourceStatusLabel(hasDetailedHoldingPoints: boolean, hasHoldingPoints: boolean) {
   if (hasDetailedHoldingPoints) return "서비스 내 추출 원문 제공";
   if (hasHoldingPoints) return "추출 원문 일부 제공";
-  return "공식 원문 링크 제공";
+  return "서비스 내 정리본 제공";
 }
 
 function renderHoldingBlocks(text: string) {
@@ -104,7 +104,7 @@ export default async function DecisionPage({
                 <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
               </div>
               <p className="text-sm text-muted-foreground">
-                이 페이지에서 판정요지와 절차 정보를 먼저 확인하고, 아래의 원문·출처 섹션에서 추출 본문 또는 공식 원문 링크로 이어서 검토할 수 있습니다.
+                이 페이지에서 판정요지와 절차 정보를 확인할 수 있습니다. 아래에서 추출 본문과 정리본을 검토하세요.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -169,7 +169,7 @@ export default async function DecisionPage({
             <div>
               <h2 className="font-semibold">원문·출처</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                서비스 내 정리본과 추출된 본문 범위를 먼저 확인한 뒤, 필요하면 공식 원문으로 이어서 검토하세요.
+                서비스 내 정리본과 추출된 본문 범위를 확인하세요.
               </p>
             </div>
             <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
@@ -184,7 +184,7 @@ export default async function DecisionPage({
             <Card className="p-4 mb-4 bg-muted/40">
               <h3 className="font-semibold text-sm mb-2">서비스 내 확인 가능한 내용</h3>
               <p className="text-sm text-muted-foreground mb-3">
-                이 판정례는 상세한 추출 원문이 충분하지 않아, 아래 정리본과 공식 원문 링크를 함께 제공합니다.
+                이 판정례는 상세한 추출 원문이 충분하지 않아, 아래 정리본을 제공합니다.
               </p>
               <div className="space-y-3">
                 {hasHoldingPoints ? (
@@ -209,28 +209,11 @@ export default async function DecisionPage({
             </Card>
           )}
 
-          {d.url ? (
-            <Card className="p-4">
-              <h3 className="font-semibold text-sm mb-2">공식 원문 링크</h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                서비스 내 정리본으로 충분하지 않다면 법제처 원문에서 전체 문맥과 표현을 직접 확인할 수 있습니다.
-              </p>
-              <a
-                href={d.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
-              >
-                법제처 원문 열기
-              </a>
-            </Card>
-          ) : (
-            <Card className="p-4 bg-muted/40">
-              <p className="text-sm text-muted-foreground">
-                현재 연결된 공식 원문 링크가 없습니다. 서비스 내 정리본을 기준으로 검토해주세요.
-              </p>
-            </Card>
-          )}
+          <Card className="p-4 bg-muted/40">
+            <p className="text-sm text-muted-foreground">
+              위 판정요지와 정리본이 이 판정례의 핵심 내용입니다. 추가 검토가 필요하면 AI 비교분석을 활용하세요.
+            </p>
+          </Card>
         </section>
       </div>
     </main>
