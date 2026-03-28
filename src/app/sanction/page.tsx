@@ -239,8 +239,6 @@ export default function SanctionPage() {
       <a
         key={c.id}
         href={href}
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label={`${tone === 'worker' ? '근로자가 이긴' : '사용자가 이긴'} 판정례 열기: ${c.title}`}
         className={cardClass}
       >
@@ -442,8 +440,6 @@ export default function SanctionPage() {
                         <a
                           key={c.id}
                           href={`/decisions/${c.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           aria-label={`추가 참고 판정례 열기: ${c.title}`}
                           className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                         >
