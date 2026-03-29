@@ -3,6 +3,7 @@ import { extractTags, searchCases } from '@/lib/ai/retrieval';
 import { normalizeQuery } from '@/lib/search/normalize-query';
 import { parseCandidateQuery } from '@/lib/search/query-parser';
 import type {
+  MolabInterpretation,
   SearchBucket,
   SearchCard,
   SearchDebugBucket,
@@ -207,8 +208,13 @@ function buildBigcaseSelect(limit: number) {
     .order('decision_date', { ascending: false, nullsFirst: false });
 }
 
-async function runLawgoSearch(query: string, limit = 8): Promise<SearchBucket> {
+async function runLawgoSearch(query: string, limit = 8, reason: string = ''): Promise<SearchBucket> {
   let q = buildLawgoSelect(limit);
+
+  if (reason && REASON_TO_LAWGO_KEYWORDS[reason]) {
+    q = q.overlaps('keywords_matched', REASON_TO_LAWGO_KEYWORDS[reason]);
+  }
+
   if (query) {
     const escaped = escapeIlike(query);
     q = q.or(
@@ -289,6 +295,41 @@ async function runBigcaseSearch(query: string, limit = 8): Promise<SearchBucket>
     page: 0,
     pageSize: limit,
   };
+}
+
+async function runMolabSearch(
+  query: string,
+  limit = 5,
+  reason: string = ''
+): Promise<MolabInterpretation[]> {
+  const escaped = escapeIlike(query);
+
+  // 1순위: reason_category → keywords_matched 매칭
+  if (reason && REASON_TO_LAWGO_KEYWORDS[reason]) {
+    const keywords = REASON_TO_LAWGO_KEYWORDS[reason];
+    const { data } = await supabase
+      .from('molab_interpretations')
+      .select('id, title, case_number, decision_date, inquiry_summary, answer_summary, keywords_matched')
+      .overlaps('keywords_matched', keywords)
+      .order('decision_date', { ascending: false, nullsFirst: false })
+      .limit(limit);
+
+    if (data && data.length > 0) return data as MolabInterpretation[];
+  }
+
+  // 2순위: 텍스트 검색
+  if (escaped) {
+    const { data } = await supabase
+      .from('molab_interpretations')
+      .select('id, title, case_number, decision_date, inquiry_summary, answer_summary, keywords_matched')
+      .or(`title.ilike.%${escaped}%,inquiry_summary.ilike.%${escaped}%,answer_summary.ilike.%${escaped}%`)
+      .order('decision_date', { ascending: false, nullsFirst: false })
+      .limit(limit);
+
+    return (data || []) as MolabInterpretation[];
+  }
+
+  return [];
 }
 
 async function runBaselineSearch({
@@ -581,6 +622,11 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
     } catch (error) {
       payload.baselineError = error instanceof Error ? error.message : 'baseline search failed';
     }
+    try {
+      payload.molab = await runMolabSearch(effectiveQuery, 5, options.reason || '');
+    } catch {
+      // 행정해석 검색 실패 시 무시 (핵심 기능 아님)
+    }
     return payload;
   }
 
@@ -599,6 +645,11 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
     } catch (error) {
       payload.candidateError = error instanceof Error ? error.message : 'candidate search failed';
     }
+    try {
+      payload.molab = await runMolabSearch(effectiveQuery, 5, options.reason || '');
+    } catch {
+      // 행정해석 검색 실패 시 무시
+    }
     return payload;
   }
 
@@ -613,9 +664,16 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
         candidate: compareCandidateDebug,
       }
     : undefined;
+  let molab: MolabInterpretation[] | undefined;
+  try {
+    molab = await runMolabSearch(effectiveQuery, 5, options.reason || '');
+  } catch {
+    // 행정해석 검색 실패 시 무시
+  }
   return {
     ...payload,
     ...compareState,
+    molab,
     debug,
   };
 }

@@ -12,7 +12,7 @@ import {
   type ReasonCategory,
   type DecisionResult,
 } from "@/lib/types";
-import type { SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
+import type { MolabInterpretation, SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
 import Link from "next/link";
 const IS_DEV = process.env.NODE_ENV === "development";
 const SEARCH_CACHE_TTL_MS = 30_000;
@@ -44,6 +44,7 @@ function normalizeSearchPayload(
         result: (maybePayload.result as DecisionResult | "") ?? fallback.result,
         baseline: isSearchBucket(maybePayload.baseline) ? maybePayload.baseline : undefined,
         candidate: isSearchBucket(maybePayload.candidate) ? maybePayload.candidate : undefined,
+        molab: Array.isArray(maybePayload.molab) ? maybePayload.molab as MolabInterpretation[] : undefined,
         baselineError: typeof maybePayload.baselineError === "string" ? maybePayload.baselineError : undefined,
         candidateError: typeof maybePayload.candidateError === "string" ? maybePayload.candidateError : undefined,
       };
@@ -545,6 +546,49 @@ function SearchContentInner({
             summary="사유 분류 기반 검색"
             error={payload?.baselineError}
           />
+        )}
+
+        {payload?.molab && payload.molab.length > 0 && (
+          <div className="mt-8 rounded-2xl border border-blue-200 bg-blue-50/50 p-4">
+            <h2 className="text-sm font-semibold text-blue-800 mb-3">
+              관련 행정해석 ({payload.molab.length}건)
+            </h2>
+            <div className="space-y-3">
+              {payload.molab.map((item) => (
+                <Card key={item.id} className="p-4 bg-white border-blue-100">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {item.case_number || ""} {item.decision_date ? `· ${item.decision_date}` : ""}
+                      </p>
+                      {item.inquiry_summary && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          <span className="font-medium text-blue-700">질의</span>{" "}
+                          {item.inquiry_summary.length > 150 ? `${item.inquiry_summary.slice(0, 150)}...` : item.inquiry_summary}
+                        </p>
+                      )}
+                      {item.answer_summary && (
+                        <p className="text-xs mt-1">
+                          <span className="font-medium text-blue-700">회시</span>{" "}
+                          {item.answer_summary.length > 200 ? `${item.answer_summary.slice(0, 200)}...` : item.answer_summary}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  {item.keywords_matched && item.keywords_matched.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {item.keywords_matched.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-[10px] bg-blue-50 text-blue-700 border-blue-200">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </div>
         )}
 
         {mode === "baseline" && baselineBucket && baselineBucket.total > baselineBucket.pageSize && (

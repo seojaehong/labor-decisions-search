@@ -25,6 +25,16 @@ export interface SearchBucket {
   pageSize: number;
 }
 
+export interface MolabInterpretation {
+  id: string;
+  title: string;
+  case_number: string | null;
+  decision_date: string | null;
+  inquiry_summary: string | null;
+  answer_summary: string | null;
+  keywords_matched: string[];
+}
+
 export interface SearchResponsePayload {
   mode: SearchMode;
   query: string;
@@ -32,6 +42,7 @@ export interface SearchResponsePayload {
   result: DecisionResult | '';
   baseline?: SearchBucket;
   candidate?: SearchBucket;
+  molab?: MolabInterpretation[];
   baselineError?: string;
   candidateError?: string;
   debug?: SearchDebugPayload;
