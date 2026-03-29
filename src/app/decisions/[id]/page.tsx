@@ -44,12 +44,172 @@ function renderHoldingBlocks(text: string) {
   ));
 }
 
+type LawgoSection = {
+  title?: string;
+  text?: string;
+  type?: string;
+  index?: number;
+};
+
+function renderLawgoSections(sections: LawgoSection[]) {
+  return sections.map((section, index) => (
+    <div key={`${section.type || "body"}-${section.index ?? index}`} className="mb-5 last:mb-0">
+      {section.title ? <h3 className="font-semibold text-sm mb-2">{section.title}</h3> : null}
+      <p className="text-sm leading-relaxed whitespace-pre-wrap">{section.text || ""}</p>
+    </div>
+  ));
+}
+
 export default async function DecisionPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
+  if (id.startsWith("prec_")) {
+    const apiId = id.replace(/^prec_/, "");
+    const [{ data: precedent }, { data: document }] = await Promise.all([
+      supabase
+        .from("lawgo_precedents")
+        .select("*")
+        .eq("id", id)
+        .single(),
+      supabase
+        .from("lawgo_precedent_documents")
+        .select("*")
+        .eq("precedent_id", id)
+        .order("collected_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+    ]);
+
+    if (!precedent) {
+      return <div className="p-8">판례를 찾을 수 없습니다.</div>;
+    }
+
+    const sections = Array.isArray(document?.body_sections) ? (document.body_sections as LawgoSection[]) : [];
+
+    return (
+      <main className="min-h-screen bg-background">
+        <div className="max-w-3xl mx-auto px-4 py-8">
+          <Link href="/search" className="text-sm text-muted-foreground hover:text-primary mb-4 inline-block">
+            &larr; 검색으로
+          </Link>
+
+          <h1 className="text-xl font-bold mb-2">{precedent.title || `법제처 판례 ${apiId}`}</h1>
+          <p className="text-sm text-muted-foreground mb-4">
+            {precedent.court || "-"} | {precedent.decision_date || "-"}
+            {precedent.reference_number ? ` | ${precedent.reference_number}` : ""}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            <Badge variant="outline">법제처 판례</Badge>
+            {precedent.case_type_name ? <Badge variant="secondary">{precedent.case_type_name}</Badge> : null}
+            {precedent.judgment_type ? <Badge variant="secondary">{precedent.judgment_type}</Badge> : null}
+          </div>
+
+          <Card className="p-4 mb-6 bg-muted/30">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">상세 페이지</Badge>
+                  <Badge variant="outline">서비스 내 원문 제공</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  법제처 공식 API 기준으로 판시사항, 판결요지, 참조법령, 판례내용을 내부에서 확인할 수 있습니다.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href="#decision-summary"
+                  className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
+                >
+                  요약 보기
+                </a>
+                <a
+                  href="#source-text"
+                  className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
+                >
+                  원문·출처 보기
+                </a>
+              </div>
+            </div>
+          </Card>
+
+          <section id="decision-summary" className="scroll-mt-24 space-y-4">
+            {precedent.issue_text ? (
+              <Card className="p-4 bg-muted/50">
+                <h3 className="font-semibold text-sm mb-2">판시사항</h3>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{precedent.issue_text}</p>
+              </Card>
+            ) : null}
+
+            {precedent.summary_text ? (
+              <Card className="p-4">
+                <h3 className="font-semibold text-sm mb-2">판결요지</h3>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{precedent.summary_text}</p>
+              </Card>
+            ) : null}
+
+            {precedent.reference_statutes ? (
+              <Card className="p-4">
+                <h3 className="font-semibold text-sm mb-2">참조조문</h3>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{precedent.reference_statutes}</p>
+              </Card>
+            ) : null}
+
+            {precedent.reference_cases ? (
+              <Card className="p-4">
+                <h3 className="font-semibold text-sm mb-2">참조판례</h3>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{precedent.reference_cases}</p>
+              </Card>
+            ) : null}
+          </section>
+
+          <Separator className="my-6" />
+
+          <section id="source-text" className="scroll-mt-24">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div>
+                <h2 className="font-semibold">원문·출처</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  법제처 판례 본문과 메타 정보를 내부에서 확인하세요.
+                </p>
+              </div>
+              <Badge variant="outline">서비스 내 원문 제공</Badge>
+            </div>
+
+            <Card className="p-4 mb-4">
+              <h3 className="font-semibold text-sm mb-3">서비스 내 추출 원문</h3>
+              {sections.length > 0 ? (
+                <div>{renderLawgoSections(sections)}</div>
+              ) : (
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{document?.body_text || "본문이 없습니다."}</p>
+              )}
+            </Card>
+
+            <Card className="p-4 bg-muted/40">
+              <p className="text-sm text-muted-foreground mb-3">
+                위 원문은 법제처 공식 판례 API를 기준으로 수집한 내용입니다.
+              </p>
+              {precedent.source_url ? (
+                <a
+                  href={precedent.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
+                >
+                  외부 원문 참고
+                </a>
+              ) : null}
+            </Card>
+          </section>
+        </div>
+      </main>
+    );
+  }
+
   const { data: d } = await supabase
     .from("nlrc_decisions")
     .select("*")
