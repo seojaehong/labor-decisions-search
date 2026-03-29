@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS lawgo_precedents (
   title TEXT NOT NULL,
   reference_number TEXT,
   decision_date TEXT,
+  estimated_year INTEGER,
   court TEXT,
   court_type_code TEXT,
   case_type_name TEXT,
@@ -121,6 +122,8 @@ CREATE TABLE IF NOT EXISTS lawgo_precedents (
   judgment_type TEXT,
   issue_text TEXT,
   summary_text TEXT,
+  keywords_matched TEXT[] NOT NULL DEFAULT '{}',
+  bigcase_case_id TEXT,
   reference_statutes TEXT,
   reference_cases TEXT,
   source_url TEXT,
@@ -133,6 +136,15 @@ CREATE INDEX IF NOT EXISTS idx_lawgo_precedents_court
 
 CREATE INDEX IF NOT EXISTS idx_lawgo_precedents_decision_date
   ON lawgo_precedents(decision_date);
+
+CREATE INDEX IF NOT EXISTS idx_lawgo_precedents_keywords_matched
+  ON lawgo_precedents USING gin(keywords_matched);
+
+CREATE INDEX IF NOT EXISTS idx_lawgo_precedents_estimated_year
+  ON lawgo_precedents(estimated_year);
+
+CREATE INDEX IF NOT EXISTS idx_lawgo_precedents_bigcase_case_id
+  ON lawgo_precedents(bigcase_case_id);
 
 ALTER TABLE lawgo_precedents ENABLE ROW LEVEL SECURITY;
 

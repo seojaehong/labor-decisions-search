@@ -1,0 +1,166 @@
+{
+  "input_count": 4982,
+  "tagged_count": 4982,
+  "keywords_nonempty_count": 4409,
+  "decision_date_zero_count_before": 1780,
+  "decision_date_fixed_count": 1780,
+  "duplicate_bigcase_mapping_count": 933,
+  "top_keywords": [
+    [
+      "산재",
+      1422
+    ],
+    [
+      "부당해고",
+      906
+    ],
+    [
+      "통상임금",
+      730
+    ],
+    [
+      "퇴직금",
+      728
+    ],
+    [
+      "노동조합",
+      635
+    ],
+    [
+      "취업규칙",
+      468
+    ],
+    [
+      "단체협약",
+      403
+    ],
+    [
+      "비위행위",
+      278
+    ],
+    [
+      "부당노동행위",
+      266
+    ],
+    [
+      "조합원",
+      253
+    ],
+    [
+      "전보/인사이동",
+      222
+    ],
+    [
+      "도급",
+      143
+    ],
+    [
+      "근로자성",
+      143
+    ],
+    [
+      "쟁의행위",
+      138
+    ],
+    [
+      "단체교섭",
+      114
+    ],
+    [
+      "노동위원회",
+      99
+    ],
+    [
+      "조합활동",
+      77
+    ],
+    [
+      "횡령/배임",
+      75
+    ],
+    [
+      "경영상해고",
+      73
+    ],
+    [
+      "기간제",
+      70
+    ],
+    [
+      "손해배상",
+      59
+    ],
+    [
+      "파업",
+      48
+    ],
+    [
+      "폭언/폭행",
+      40
+    ],
+    [
+      "연차휴가",
+      39
+    ],
+    [
+      "파견",
+      39
+    ],
+    [
+      "휴일근로",
+      38
+    ],
+    [
+      "연장근로",
+      36
+    ],
+    [
+      "수습",
+      33
+    ],
+    [
+      "성희롱",
+      32
+    ],
+    [
+      "최저임금",
+      27
+    ],
+    [
+      "갱신기대권",
+      24
+    ],
+    [
+      "휴게시간",
+      13
+    ],
+    [
+      "임금체불",
+      8
+    ],
+    [
+      "본채용거부",
+      4
+    ],
+    [
+      "직장내괴롭힘",
+      1
+    ]
+  ],
+  "input_paths": [
+    "C:\\dev\\labor-decisions-search\\evaluation\\lawgo\\db_ready\\20260329_162357\\lawgo_precedents_ready.jsonl",
+    "C:\\dev\\labor-decisions-search\\evaluation\\lawgo\\db_ready\\20260329_221246\\lawgo_precedents_ready.jsonl",
+    "C:\\dev\\labor-decisions-search\\evaluation\\lawgo\\db_ready\\20260329_222623\\lawgo_precedents_ready.jsonl"
+  ],
+  "bigcase_input": "C:\\dev\\labor-decisions-search\\evaluation\\bigcase_bulk\\court_decisions_ready.jsonl",
+  "tagged_path": "C:\\dev\\labor-decisions-search\\evaluation\\lawgo\\keyword_tagging\\20260329_232159\\lawgo_precedents_tagged.jsonl",
+  "updates_path": "C:\\dev\\labor-decisions-search\\evaluation\\lawgo\\keyword_tagging\\20260329_232159\\lawgo_precedents_updates.jsonl",
+  "duplicate_path": "C:\\dev\\labor-decisions-search\\evaluation\\lawgo\\keyword_tagging\\20260329_232159\\lawgo_bigcase_duplicates.jsonl",
+  "db_update": {
+    "attempted": true,
+    "success": false,
+    "error": "401 {\"message\":\"Invalid API key\",\"hint\":\"Double check your Supabase `anon` or `service_role` API key.\"}"
+  },
+  "batch_size": 100,
+  "parse_version": "lawgo-keyword-v1"
+}
