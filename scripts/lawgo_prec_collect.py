@@ -27,6 +27,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--type", choices=["JSON", "HTML", "XML"], default="JSON")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--timeout", type=int, default=60)
+    parser.add_argument("--delay", type=float, default=0.0)
+    parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument("--shard-count", type=int, default=1)
+    parser.add_argument("--output-dir", help="기존 run 디렉터리를 재사용")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -150,6 +154,12 @@ def load_ids(args: argparse.Namespace) -> list[str]:
     return deduped
 
 
+def shard_ids(values: list[str], shard_index: int, shard_count: int) -> list[str]:
+    if shard_count <= 1:
+        return values
+    return [value for idx, value in enumerate(values) if idx % shard_count == shard_index]
+
+
 def fetch_prec_json(oc_value: str, prec_id: str, output_type: str, timeout: int) -> str:
     response = requests.get(
         API_URL,
@@ -167,14 +177,19 @@ def fetch_prec_json(oc_value: str, prec_id: str, output_type: str, timeout: int)
 
 
 def normalize_json_payload(payload: dict[str, Any], prec_id: str) -> dict[str, Any]:
+    if payload.get("Law"):
+        raise ValueError(clean_text(str(payload.get("Law"))))
     data = payload.get("PrecService", {})
     body_text = clean_text(data.get("판례내용"))
+    title = clean_text(data.get("사건명"))
+    if not title and not body_text:
+        raise ValueError("판례 본문 또는 메타가 비어 있습니다")
     sections = split_sections(body_text)
     return {
         "source_provider": "lawgo",
         "source_kind": "case",
         "source_id": str(data.get("판례정보일련번호") or prec_id),
-        "title": clean_text(data.get("사건명")),
+        "title": title,
         "reference_number": clean_text(data.get("사건번호")),
         "decision_date": clean_text(str(data.get("선고일자") or "")),
         "decision_date_display": clean_text(data.get("선고")),
@@ -198,70 +213,87 @@ def main() -> None:
     load_env_file()
     args = parse_args()
     oc_value = require_oc(args.oc)
-    ids = load_ids(args)
+    ids = shard_ids(load_ids(args), args.shard_index, args.shard_count)
     if not ids:
         raise SystemExit("Error: provide --id or --id-file")
 
+    if args.shard_index < 0 or args.shard_index >= args.shard_count:
+        raise SystemExit("--shard-index must be in range 0..shard-count-1")
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_dir = OUTPUT_DIR / timestamp
+    run_dir = Path(args.output_dir) if args.output_dir else (OUTPUT_DIR / timestamp)
     run_dir.mkdir(parents=True, exist_ok=True)
+    results_path = run_dir / f"results_shard_{args.shard_index}.jsonl"
+    ready_path = run_dir / f"lawgo_cases_ready_shard_{args.shard_index}.jsonl"
 
     rows: list[dict[str, Any]] = []
-    for index, prec_id in enumerate(ids, start=1):
-        try:
-            raw_text = fetch_prec_json(oc_value, prec_id, args.type, args.timeout)
-            if args.type == "JSON":
-                payload = json.loads(raw_text)
-                row = normalize_json_payload(payload, prec_id)
-            else:
+    success_count = 0
+    error_count = 0
+    body_length_sum = 0
+    body_length_count = 0
+
+    with results_path.open("w", encoding="utf-8") as results_handle, (
+        ready_path.open("w", encoding="utf-8") if not args.dry_run else open(os.devnull, "w", encoding="utf-8")
+    ) as ready_handle:
+        for index, prec_id in enumerate(ids, start=1):
+            try:
+                raw_text = fetch_prec_json(oc_value, prec_id, args.type, args.timeout)
+                if args.type == "JSON":
+                    payload = json.loads(raw_text)
+                    row = normalize_json_payload(payload, prec_id)
+                else:
+                    row = {
+                        "source_provider": "lawgo",
+                        "source_kind": "case",
+                        "source_id": prec_id,
+                        "api_id": prec_id,
+                        "raw_text": raw_text,
+                    }
+                success_count += 1
+                if row.get("body_length"):
+                    body_length_sum += int(row["body_length"])
+                    body_length_count += 1
+            except Exception as exc:  # noqa: BLE001
                 row = {
                     "source_provider": "lawgo",
                     "source_kind": "case",
                     "source_id": prec_id,
                     "api_id": prec_id,
-                    "raw_text": raw_text,
+                    "error": str(exc)[:500],
                 }
+                error_count += 1
+
             rows.append(row)
-        except Exception as exc:  # noqa: BLE001
-            rows.append({
-                "source_provider": "lawgo",
-                "source_kind": "case",
-                "source_id": prec_id,
-                "api_id": prec_id,
-                "error": str(exc)[:500],
-            })
-        print(f"{index}/{len(ids)} done")
+            results_handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+            if not args.dry_run and not row.get("error"):
+                ready_handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+            if index % 100 == 0 or index == len(ids):
+                print(f"shard {args.shard_index}: {index}/{len(ids)} done")
+            if args.delay > 0:
+                import time
+                time.sleep(args.delay)
 
     report = {
         "count": len(rows),
-        "success": sum(1 for row in rows if not row.get("error")),
-        "errors": sum(1 for row in rows if row.get("error")),
+        "success": success_count,
+        "errors": error_count,
         "avg_body_length": round(
-            sum(row.get("body_length", 0) for row in rows if row.get("body_length"))
-            / max(1, sum(1 for row in rows if row.get("body_length"))),
+            body_length_sum / max(1, body_length_count),
             2,
         ),
+        "shard_index": args.shard_index,
+        "shard_count": args.shard_count,
+        "results_path": str(results_path),
+        "ready_path": str(ready_path),
     }
 
     report_path = run_dir / "report.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    jsonl_path = run_dir / "results.jsonl"
-    with jsonl_path.open("w", encoding="utf-8") as handle:
-        for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
-
-    if not args.dry_run:
-        normalized_path = run_dir / "lawgo_cases_ready.jsonl"
-        with normalized_path.open("w", encoding="utf-8") as handle:
-            for row in rows:
-                if row.get("error"):
-                    continue
-                handle.write(json.dumps(row, ensure_ascii=False) + "\n")
-
     print(json.dumps({
         "report_path": str(report_path),
-        "jsonl_path": str(jsonl_path),
+        "jsonl_path": str(results_path),
         "success": report["success"],
         "errors": report["errors"],
         "avg_body_length": report["avg_body_length"],

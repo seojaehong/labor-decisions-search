@@ -15,20 +15,21 @@ DEFAULT_PARSE_VERSION = "lawgo-prec-v1"
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Prepare law.go.kr precedent JSONL for DB upsert")
-    parser.add_argument("--input", required=True, help="lawgo_cases_ready.jsonl 또는 results.jsonl 경로")
+    parser.add_argument("--input", action="append", required=True, help="lawgo_cases_ready.jsonl 또는 results.jsonl 경로")
     parser.add_argument("--parse-version", default=DEFAULT_PARSE_VERSION)
     return parser.parse_args()
 
 
-def load_rows(path: Path) -> list[dict[str, Any]]:
+def load_rows(paths: list[Path]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        row = json.loads(line)
-        if row.get("error"):
-            continue
-        rows.append(row)
+    for path in paths:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if row.get("error"):
+                continue
+            rows.append(row)
     return rows
 
 
@@ -77,8 +78,8 @@ def normalize_document(row: dict[str, Any], parse_version: str) -> dict[str, Any
 
 def main() -> None:
     args = parse_args()
-    input_path = Path(args.input)
-    rows = load_rows(input_path)
+    input_paths = [Path(value) for value in args.input]
+    rows = load_rows(input_paths)
 
     precedents: list[dict[str, Any]] = []
     documents: list[dict[str, Any]] = []
@@ -107,7 +108,7 @@ def main() -> None:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     report = {
-        "input_path": str(input_path),
+        "input_paths": [str(path) for path in input_paths],
         "precedent_count": len(precedents),
         "document_count": len(documents),
         "precedents_path": str(precedents_path),

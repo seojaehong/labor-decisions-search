@@ -10,13 +10,14 @@ import requests
 
 
 REPO_DIR = Path(__file__).parent.parent
-BATCH_SIZE = 100
+DEFAULT_BATCH_SIZE = 50
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Upsert law.go.kr precedents/documents into Supabase")
     parser.add_argument("--precedents", required=True, help="lawgo_precedents_ready.jsonl 경로")
     parser.add_argument("--documents", required=True, help="lawgo_precedent_documents_ready.jsonl 경로")
+    parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -121,9 +122,9 @@ def main() -> None:
     check_table_exists("lawgo_precedents")
     check_table_exists("lawgo_precedent_documents")
 
-    for batch in batched(precedents_rows, BATCH_SIZE):
+    for batch in batched(precedents_rows, args.batch_size):
         post_batch("lawgo_precedents", batch, "api_id")
-    for batch in batched(documents_rows, BATCH_SIZE):
+    for batch in batched(documents_rows, args.batch_size):
         post_batch("lawgo_precedent_documents", batch, "precedent_id,parse_version")
 
     print(json.dumps({

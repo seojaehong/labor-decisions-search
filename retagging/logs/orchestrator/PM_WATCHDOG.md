@@ -1,13 +1,13 @@
 # PM_WATCHDOG
 
-- updated_at: 2026-03-21 19:29:27
+- updated_at: 2026-03-28 02:09:09
 - shared_status_seen: True
 - agents_to_pm_seen: True
 - merge_collisions_seen: True
 - collision_count: 0건
 - override: 233건
-- dashboard_reviewed_records: 40372
-- dashboard_merged_records: 12457
+- dashboard_reviewed_records: 42319
+- dashboard_merged_records: 53065
 - dashboard_override_count: 236
 - signal: PM Check Needed section present in SHARED_STATUS.md
 - signal: AGENTS_TO_PM contains blocked/waiting entries
