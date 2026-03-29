@@ -39,9 +39,7 @@ def load_env_file() -> None:
             if not line or line.strip().startswith("#") or "=" not in line:
                 continue
             name, value = line.split("=", 1)
-            name = name.strip()
-            if name not in os.environ:
-                os.environ[name] = value.strip()
+            os.environ[name.strip()] = value.strip()
 
 
 def require_oc(explicit: str | None) -> str:
