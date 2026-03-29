@@ -26,6 +26,10 @@ export function parseCandidateQueryRuleBased(rawQuery: string): ParsedCandidateQ
   const hasHarassment = includesAny(lowered, ['직장내괴롭힘', '괴롭힘']);
   const hasSeverity = includesAny(lowered, ['양정', '과하다', '과도', '너무 과', '수위', '과다']);
   const hasDismissal = includesAny(lowered, ['해고']);
+  const hasWage = includesAny(lowered, ['임금', '체불', '통상임금', '퇴직금', '수당', '최저임금']);
+  const hasContract = includesAny(lowered, ['계약만료', '갱신거절', '갱신기대권', '기간제', '계약직']);
+  const hasSafety = includesAny(lowered, ['산재', '산업재해', '안전보건', '중대재해', '업무상 재해']);
+  const hasUnion = includesAny(lowered, ['노동조합', '노조', '단체교섭', '쟁의행위', '부당노동행위', '파업']);
 
   if (hasAbsence && hasProcedure) {
     queryScenario = 'absence_procedure';
@@ -49,6 +53,22 @@ export function parseCandidateQueryRuleBased(rawQuery: string): ParsedCandidateQ
     queryScenario = 'severity_excessive';
     mustHaveMarkers.push('proportionality', 'appropriateness_of_discipline');
     penalizedMarkers.push('dismissed', 'settled', 'no_relief_interest');
+  } else if (hasWage) {
+    queryScenario = 'wage_dispute';
+    mustHaveMarkers.push('wage', 'allowance', 'ordinary_wage');
+    penalizedMarkers.push('work_rules_only', 'union_general_theory');
+  } else if (hasContract) {
+    queryScenario = 'contract_termination';
+    mustHaveMarkers.push('fixed_term', 'renewal_expectation', 'termination_notice');
+    penalizedMarkers.push('voluntary_resignation', 'retirement_only');
+  } else if (hasSafety) {
+    queryScenario = 'workplace_safety';
+    mustHaveMarkers.push('industrial_accident', 'work_relatedness', 'safety_obligation');
+    penalizedMarkers.push('traffic_only', 'general_criminal_case');
+  } else if (hasUnion) {
+    queryScenario = 'union_related';
+    mustHaveMarkers.push('union_activity', 'collective_bargaining', 'unfair_labor_practice');
+    penalizedMarkers.push('wage_only', 'individual_resignation');
   }
 
   const normalizedQuery = normalized.keywords.length > 0 ? normalized.keywords.join(' ') : rawQuery.trim();

@@ -158,8 +158,10 @@ function SearchResultCard({ item }: { item: SearchCard }) {
   const sourceBadge =
     item.source_provider === "lawgo" ? (
       <Badge variant="outline" className="text-[10px]">법제처 판례</Badge>
+    ) : item.source_provider === "bigcase" ? (
+      <Badge variant="outline" className="text-[10px]">법원 판례</Badge>
     ) : item.source_provider === "nlrc" ? (
-      <Badge variant="outline" className="text-[10px]">BigCase</Badge>
+      <Badge variant="outline" className="text-[10px]">노동위 판정례</Badge>
     ) : null;
 
   return (

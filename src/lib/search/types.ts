@@ -14,7 +14,8 @@ export interface SearchCard {
   holding_points?: string | null;
   url: string | null;
   reason_category: string[];
-  source_provider?: 'nlrc' | 'lawgo' | null;
+  source_provider?: 'nlrc' | 'bigcase' | 'lawgo' | null;
+  duplicate_group_id?: string | null;
 }
 
 export interface SearchBucket {
@@ -50,7 +51,11 @@ export type QueryScenario =
   | 'absence_procedure'
   | 'regular_work_ability'
   | 'retaliation'
-  | 'severity_excessive';
+  | 'severity_excessive'
+  | 'wage_dispute'
+  | 'contract_termination'
+  | 'workplace_safety'
+  | 'union_related';
 
 export interface ParsedCandidateQuery {
   raw_query: string;

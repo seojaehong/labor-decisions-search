@@ -43,6 +43,24 @@ const REASON_TO_QUERY: Record<string, string> = {
   discrimination: '차별시정',
 };
 
+const REASON_TO_LAWGO_KEYWORDS: Record<string, string[]> = {
+  absence: ['부당해고', '취업규칙', '해고부존재'],
+  workplace_bullying: ['직장내괴롭힘', '성희롱', '폭언/폭행'],
+  sexual_harassment: ['성희롱', '직장내괴롭힘'],
+  violence: ['폭언/폭행', '비위행위'],
+  embezzlement: ['횡령/배임', '비위행위'],
+  incompetence: ['부당해고', '전보/인사이동'],
+  misconduct: ['비위행위', '부당해고', '취업규칙'],
+  redundancy: ['경영상해고', '부당해고'],
+  probation: ['수습', '본채용거부', '부당해고'],
+  transfer: ['전보/인사이동', '취업규칙'],
+  contract_expiry: ['갱신기대권', '기간제', '부당해고'],
+  no_dismissal: ['해고부존재', '부당해고'],
+  union_activity: ['노동조합', '부당노동행위', '단체교섭', '단체협약', '조합활동', '쟁의행위'],
+  worker_status: ['근로자성', '파견', '도급'],
+  discrimination: ['남녀고용평등', '근로조건'],
+};
+
 function matchesReason(reasonCategory: string[] | null | undefined, reason: ReasonCategory | ''): boolean {
   if (!reason) return true;
   return (reasonCategory || []).includes(reason);
@@ -80,21 +98,51 @@ function computeFieldScore(field: string | null | undefined, tokens: string[], w
   return score;
 }
 
-function scoreSearchCard(item: SearchCard, tokens: string[]): number {
+function computeKeywordArrayScore(keywords: string[] | null | undefined, query: string): number {
+  if (!keywords || keywords.length === 0) return 0;
+  const tokens = tokenizeQuery(query).map((token) => token.toLowerCase());
+  const normalizedKeywords = keywords.map((keyword) => keyword.toLowerCase());
+  let score = 0;
+
+  for (const token of tokens) {
+    if (normalizedKeywords.some((keyword) => keyword.includes(token) || token.includes(keyword))) {
+      score += 4;
+    }
+  }
+
+  return score;
+}
+
+function deriveReasonKeywordHints(query: string): string[] {
+  const lowered = query.toLowerCase();
+  return Array.from(
+    new Set(
+      Object.entries(REASON_TO_LAWGO_KEYWORDS)
+        .filter(([reason, keywords]) => lowered.includes(reason) || keywords.some((keyword) => lowered.includes(keyword.toLowerCase())))
+        .flatMap(([, keywords]) => keywords)
+    )
+  );
+}
+
+function scoreSearchCard(item: SearchCard, tokens: string[], keywordHints: string[]): number {
+  const query = tokens.join(' ');
   return (
     computeFieldScore(item.title, tokens, 5) +
     computeFieldScore(item.holding_summary, tokens, 3) +
     computeFieldScore(item.key_issue, tokens, 3) +
-    computeFieldScore(item.holding_points, tokens, 2)
+    computeFieldScore(item.holding_points, tokens, 2) +
+    computeKeywordArrayScore(item.reason_category, query) +
+    computeKeywordArrayScore(item.reason_category, keywordHints.join(' '))
   );
 }
 
 function mergeAndRankSearchCards(items: SearchCard[], query: string, page: number, pageSize: number): SearchBucket {
   const tokens = tokenizeQuery(query);
+  const keywordHints = deriveReasonKeywordHints(query);
   const ranked = items
     .map((item) => ({
       item,
-      relevance: scoreSearchCard(item, tokens),
+      relevance: scoreSearchCard(item, tokens, keywordHints),
       dateValue: normalizeDateValue(item.decision_date),
     }))
     .sort((a, b) => {
@@ -105,9 +153,16 @@ function mergeAndRankSearchCards(items: SearchCard[], query: string, page: numbe
 
   const deduped: SearchCard[] = [];
   const seen = new Set<string>();
+  const seenDuplicateGroups = new Set<string>();
   for (const entry of ranked) {
     if (seen.has(entry.item.id)) continue;
+    if (entry.item.duplicate_group_id && seenDuplicateGroups.has(entry.item.duplicate_group_id)) {
+      continue;
+    }
     seen.add(entry.item.id);
+    if (entry.item.duplicate_group_id) {
+      seenDuplicateGroups.add(entry.item.duplicate_group_id);
+    }
     deduped.push(entry.item);
   }
 
@@ -134,7 +189,18 @@ function buildLawgoSelect(limit: number) {
   return supabase
     .from('lawgo_precedents')
     .select(
-      'id, api_id, title, reference_number, decision_date, court, judgment_type, issue_text, summary_text, reference_statutes, reference_cases, source_url',
+      'id, api_id, title, reference_number, decision_date, court, judgment_type, issue_text, summary_text, reference_statutes, reference_cases, source_url, keywords_matched, bigcase_case_id',
+      { count: 'exact' }
+    )
+    .limit(limit)
+    .order('decision_date', { ascending: false, nullsFirst: false });
+}
+
+function buildBigcaseSelect(limit: number) {
+  return supabase
+    .from('cases')
+    .select(
+      'id, title, case_number, court, decision_date, verdict_type, summary, holding_points, keywords_matched, url',
       { count: 'exact' }
     )
     .limit(limit)
@@ -166,13 +232,55 @@ async function runLawgoSearch(query: string, limit = 8): Promise<SearchBucket> {
     case_number: row.reference_number || '',
     department: row.court || null,
     decision_date: row.decision_date || null,
-    decision_result: row.judgment_type || '판례',
-    key_issue: row.issue_text || null,
-    holding_summary: row.summary_text || null,
-    holding_points: row.summary_text || null,
-    url: row.source_url || null,
-    reason_category: [],
-    source_provider: 'lawgo',
+      decision_result: row.judgment_type || '판례',
+      key_issue: row.issue_text || null,
+      holding_summary: row.summary_text || null,
+      holding_points: row.summary_text || null,
+      url: row.source_url || null,
+      reason_category: row.keywords_matched || [],
+      source_provider: 'lawgo',
+      duplicate_group_id: row.bigcase_case_id || null,
+    }));
+
+  return {
+    items,
+    total: count || 0,
+    page: 0,
+    pageSize: limit,
+  };
+}
+
+async function runBigcaseSearch(query: string, limit = 8): Promise<SearchBucket> {
+  let q = buildBigcaseSelect(limit);
+  if (query) {
+    const escaped = escapeIlike(query);
+    q = q.or(
+      [
+        `title.ilike.%${escaped}%`,
+        `summary.ilike.%${escaped}%`,
+        `holding_points.ilike.%${escaped}%`,
+        `case_number.ilike.%${escaped}%`,
+      ].join(',')
+    );
+  }
+
+  const { data, count, error } = await q;
+  if (error) throw error;
+
+  const items: SearchCard[] = (data || []).map((row) => ({
+    id: row.id,
+    title: row.title,
+    case_number: row.case_number || '',
+    department: row.court || null,
+    decision_date: row.decision_date || null,
+    decision_result: row.verdict_type || '판결',
+    key_issue: row.summary || null,
+    holding_summary: row.summary || null,
+    holding_points: row.holding_points || null,
+    url: row.url || null,
+    reason_category: row.keywords_matched || [],
+    source_provider: 'bigcase',
+    duplicate_group_id: row.id,
   }));
 
   return {
@@ -237,12 +345,13 @@ async function runBaselineSearch({
       source_provider: 'nlrc',
     }));
 
+    const bigcaseBucket = await runBigcaseSearch(query, COMBINED_QUERY_FETCH_SIZE);
     const lawgoBucket = await runLawgoSearch(query, COMBINED_QUERY_FETCH_SIZE);
-    const merged = mergeAndRankSearchCards([...nlrcItems, ...lawgoBucket.items], query, page, pageSize);
+    const merged = mergeAndRankSearchCards([...nlrcItems, ...bigcaseBucket.items, ...lawgoBucket.items], query, page, pageSize);
 
     return {
       ...merged,
-      total: Math.max(merged.total, (nlrcResp.count || 0) + (lawgoBucket.total || 0)),
+      total: Math.max(merged.total, (nlrcResp.count || 0) + (bigcaseBucket.total || 0) + (lawgoBucket.total || 0)),
     };
   }
 

@@ -1,0 +1,151 @@
+{
+  "cases_total": 3997,
+  "cases_summary_filled": 28,
+  "cases_verdict_filled": 0,
+  "cases_keywords_filled": 0,
+  "cases_top_keywords": [
+    [
+      "노동조합",
+      1372
+    ],
+    [
+      "단체협약",
+      1358
+    ],
+    [
+      "도급",
+      1005
+    ],
+    [
+      "노동위원회",
+      815
+    ],
+    [
+      "조합원",
+      783
+    ],
+    [
+      "중앙노동위원회",
+      668
+    ],
+    [
+      "손해배상",
+      561
+    ],
+    [
+      "부당노동행위",
+      559
+    ],
+    [
+      "노조",
+      495
+    ],
+    [
+      "단체교섭",
+      450
+    ],
+    [
+      "노동조합법",
+      418
+    ],
+    [
+      "사용자",
+      393
+    ],
+    [
+      "파견",
+      376
+    ],
+    [
+      "지방노동위원회",
+      348
+    ],
+    [
+      "파업",
+      339
+    ],
+    [
+      "쟁의행위",
+      274
+    ],
+    [
+      "조합활동",
+      257
+    ],
+    [
+      "결정",
+      209
+    ],
+    [
+      "노동쟁의",
+      160
+    ],
+    [
+      "노사관계",
+      149
+    ],
+    [
+      "쟁의조정",
+      123
+    ],
+    [
+      "근로조건",
+      102
+    ],
+    [
+      "사내하도급",
+      98
+    ],
+    [
+      "교섭대표",
+      96
+    ],
+    [
+      "하청",
+      70
+    ],
+    [
+      "직장폐쇄",
+      68
+    ],
+    [
+      "교섭창구",
+      68
+    ],
+    [
+      "업무방해",
+      60
+    ],
+    [
+      "원청",
+      52
+    ],
+    [
+      "특수고용",
+      49
+    ]
+  ],
+  "lawgo_total": 4982,
+  "lawgo_summary_filled": 101,
+  "lawgo_court_normalized": 115,
+  "decision_source_docs_total": 52293,
+  "summary_join_keys": 10716,
+  "summary_source": "decision_source_documents",
+  "cases_updates_path": "C:\\dev\\labor-decisions-search\\evaluation\\data_refinement\\20260330_004152\\cases_updates.jsonl",
+  "lawgo_updates_path": "C:\\dev\\labor-decisions-search\\evaluation\\data_refinement\\20260330_004152\\lawgo_updates.jsonl",
+  "db_update": {
+    "attempted": true,
+    "success": true,
+    "cases_updated": 28,
+    "lawgo_updated": 215
+  },
+  "reason_to_lawgo_keywords_size": 19,
+  "tag_rule_count": 36,
+  "mapped_keywords_count": 35,
+  "unmapped_tag_rules": [
+    "노동위원회",
+    "손해배상",
+    "조합원",
+    "휴게시간"
+  ]
+}
