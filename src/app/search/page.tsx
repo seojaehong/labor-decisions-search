@@ -155,12 +155,22 @@ function getDisplayCaseNumber(caseNumber?: string | null): string {
 }
 
 function SearchResultCard({ item }: { item: SearchCard }) {
+  const sourceBadge =
+    item.source_provider === "lawgo" ? (
+      <Badge variant="outline" className="text-[10px]">법제처 판례</Badge>
+    ) : item.source_provider === "nlrc" ? (
+      <Badge variant="outline" className="text-[10px]">BigCase</Badge>
+    ) : null;
+
   return (
     <Link key={item.id} href={`/decisions/${item.id}`}>
       <Card className="p-4 hover:border-primary transition-colors cursor-pointer mb-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
+              {sourceBadge}
+            </div>
             <p className="text-xs text-muted-foreground mt-1">
               {item.department || "-"} | {item.decision_date || "-"}
               {getDisplayCaseNumber(item.case_number) ? ` | ${getDisplayCaseNumber(item.case_number)}` : ""}

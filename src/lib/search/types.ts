@@ -14,6 +14,7 @@ export interface SearchCard {
   holding_points?: string | null;
   url: string | null;
   reason_category: string[];
+  source_provider?: 'nlrc' | 'lawgo' | null;
 }
 
 export interface SearchBucket {

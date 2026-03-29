@@ -10,7 +10,7 @@ import type {
   SearchRequestOptions,
   SearchResponsePayload,
 } from '@/lib/search/types';
-import type { DecisionResult, ReasonCategory } from '@/lib/types';
+import type { ReasonCategory } from '@/lib/types';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -23,6 +23,7 @@ const IS_DEV = process.env.NODE_ENV === 'development';
 const COMPARE_BUCKET_SIZE = 5;
 const BASELINE_PAGE_SIZE = 20;
 const CANDIDATE_PAGE_SIZE = 5;
+const COMBINED_QUERY_FETCH_SIZE = 80;
 
 const REASON_TO_QUERY: Record<string, string> = {
   sexual_harassment: '성희롱',
@@ -47,6 +48,77 @@ function matchesReason(reasonCategory: string[] | null | undefined, reason: Reas
   return (reasonCategory || []).includes(reason);
 }
 
+function escapeIlike(value: string): string {
+  return value.replace(/[%_,]/g, ' ').trim();
+}
+
+function tokenizeQuery(query: string): string[] {
+  const normalized = normalizeQuery(query);
+  const baseTokens = normalized.keywords.length > 0 ? normalized.keywords : query.split(/\s+/);
+  return Array.from(new Set(baseTokens.map((token) => token.trim()).filter((token) => token.length > 0)));
+}
+
+function normalizeDateValue(value: string | null | undefined): number {
+  if (!value) return 0;
+  const digits = String(value).replace(/\D/g, '');
+  if (!digits) return 0;
+  const numeric = Number(digits);
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
+function computeFieldScore(field: string | null | undefined, tokens: string[], weight: number): number {
+  const haystack = String(field || '').toLowerCase();
+  if (!haystack) return 0;
+  let score = 0;
+  for (const token of tokens) {
+    const needle = token.toLowerCase();
+    if (!needle) continue;
+    if (haystack.includes(needle)) {
+      score += weight;
+    }
+  }
+  return score;
+}
+
+function scoreSearchCard(item: SearchCard, tokens: string[]): number {
+  return (
+    computeFieldScore(item.title, tokens, 5) +
+    computeFieldScore(item.holding_summary, tokens, 3) +
+    computeFieldScore(item.key_issue, tokens, 3) +
+    computeFieldScore(item.holding_points, tokens, 2)
+  );
+}
+
+function mergeAndRankSearchCards(items: SearchCard[], query: string, page: number, pageSize: number): SearchBucket {
+  const tokens = tokenizeQuery(query);
+  const ranked = items
+    .map((item) => ({
+      item,
+      relevance: scoreSearchCard(item, tokens),
+      dateValue: normalizeDateValue(item.decision_date),
+    }))
+    .sort((a, b) => {
+      if (b.relevance !== a.relevance) return b.relevance - a.relevance;
+      if (b.dateValue !== a.dateValue) return b.dateValue - a.dateValue;
+      return a.item.id.localeCompare(b.item.id);
+    });
+
+  const deduped: SearchCard[] = [];
+  const seen = new Set<string>();
+  for (const entry of ranked) {
+    if (seen.has(entry.item.id)) continue;
+    seen.add(entry.item.id);
+    deduped.push(entry.item);
+  }
+
+  return {
+    items: deduped.slice(page * pageSize, (page + 1) * pageSize),
+    total: deduped.length,
+    page,
+    pageSize,
+  };
+}
+
 function buildBaselineSelect(page: number, pageSize: number) {
   return supabase
     .from('nlrc_decisions')
@@ -58,6 +130,59 @@ function buildBaselineSelect(page: number, pageSize: number) {
     .order('decision_date', { ascending: false });
 }
 
+function buildLawgoSelect(limit: number) {
+  return supabase
+    .from('lawgo_precedents')
+    .select(
+      'id, api_id, title, reference_number, decision_date, court, judgment_type, issue_text, summary_text, reference_statutes, reference_cases, source_url',
+      { count: 'exact' }
+    )
+    .limit(limit)
+    .order('decision_date', { ascending: false, nullsFirst: false });
+}
+
+async function runLawgoSearch(query: string, limit = 8): Promise<SearchBucket> {
+  let q = buildLawgoSelect(limit);
+  if (query) {
+    const escaped = escapeIlike(query);
+    q = q.or(
+      [
+        `title.ilike.%${escaped}%`,
+        `issue_text.ilike.%${escaped}%`,
+        `summary_text.ilike.%${escaped}%`,
+        `reference_statutes.ilike.%${escaped}%`,
+        `reference_cases.ilike.%${escaped}%`,
+        `reference_number.ilike.%${escaped}%`,
+      ].join(',')
+    );
+  }
+
+  const { data, count, error } = await q;
+  if (error) throw error;
+
+  const items: SearchCard[] = (data || []).map((row) => ({
+    id: row.id,
+    title: row.title,
+    case_number: row.reference_number || '',
+    department: row.court || null,
+    decision_date: row.decision_date || null,
+    decision_result: row.judgment_type || '판례',
+    key_issue: row.issue_text || null,
+    holding_summary: row.summary_text || null,
+    holding_points: row.summary_text || null,
+    url: row.source_url || null,
+    reason_category: [],
+    source_provider: 'lawgo',
+  }));
+
+  return {
+    items,
+    total: count || 0,
+    page: 0,
+    pageSize: limit,
+  };
+}
+
 async function runBaselineSearch({
   query,
   reason = '',
@@ -65,6 +190,62 @@ async function runBaselineSearch({
   page = 0,
   pageSize = BASELINE_PAGE_SIZE,
 }: SearchRequestOptions): Promise<SearchBucket> {
+  if (query && !reason && !result) {
+    const escaped = escapeIlike(query);
+    const normalized = normalizeQuery(query);
+    const searchTerms =
+      normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : query.split(' ').join(' & ');
+
+    let nlrcQuery = supabase
+      .from('nlrc_decisions')
+      .select(
+        'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category',
+        { count: 'exact' }
+      )
+      .limit(COMBINED_QUERY_FETCH_SIZE)
+      .order('decision_date', { ascending: false });
+
+    nlrcQuery = nlrcQuery.textSearch('search_vector', searchTerms);
+    let nlrcResp = await nlrcQuery;
+
+    if (nlrcResp.error || (nlrcResp.count || 0) === 0) {
+      nlrcResp = await supabase
+        .from('nlrc_decisions')
+        .select(
+          'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category',
+          { count: 'exact' }
+        )
+        .or(`title.ilike.%${escaped}%,key_issue.ilike.%${escaped}%,holding_points.ilike.%${escaped}%,holding_summary.ilike.%${escaped}%`)
+        .limit(COMBINED_QUERY_FETCH_SIZE)
+        .order('decision_date', { ascending: false });
+    }
+
+    if (nlrcResp.error) throw nlrcResp.error;
+
+    const nlrcItems: SearchCard[] = (nlrcResp.data || []).map((row) => ({
+      id: row.id,
+      title: row.title,
+      case_number: row.case_number || '',
+      department: row.department,
+      decision_date: row.decision_date,
+      decision_result: row.decision_result,
+      key_issue: row.key_issue,
+      holding_summary: row.holding_summary || null,
+      holding_points: row.holding_points || null,
+      url: row.url,
+      reason_category: row.reason_category || [],
+      source_provider: 'nlrc',
+    }));
+
+    const lawgoBucket = await runLawgoSearch(query, COMBINED_QUERY_FETCH_SIZE);
+    const merged = mergeAndRankSearchCards([...nlrcItems, ...lawgoBucket.items], query, page, pageSize);
+
+    return {
+      ...merged,
+      total: Math.max(merged.total, (nlrcResp.count || 0) + (lawgoBucket.total || 0)),
+    };
+  }
+
   let q = buildBaselineSelect(page, pageSize);
   if (reason) q = q.contains('reason_category', [reason]);
   if (result) q = q.eq('decision_result', result);
@@ -104,6 +285,7 @@ async function runBaselineSearch({
     holding_points: row.holding_points || null,
     url: row.url,
     reason_category: row.reason_category || [],
+    source_provider: 'nlrc',
   }));
 
   return {
