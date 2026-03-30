@@ -191,7 +191,7 @@ function isCourt(candidate: Record<string, unknown>): boolean {
   return String(candidate.id || '').startsWith('bc_');
 }
 
-const NON_LABOR_CASE_TYPES = ['헌법', '특허', '신청'];
+const NON_LABOR_CASE_TYPES = ['헌법', '특허', '신청', '형사'];
 
 function selectRepresentativeCases(candidates: Record<string, unknown>[], limit: number): Record<string, unknown>[] {
   if (candidates.length <= limit) return candidates;
