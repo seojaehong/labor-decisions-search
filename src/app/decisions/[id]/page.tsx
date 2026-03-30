@@ -251,9 +251,11 @@ export default async function DecisionPage({
               {REASON_LABELS[r as ReasonCategory] || r}
             </Badge>
           ))}
-          <Badge variant="secondary">
-            {SANCTION_LABELS[d.sanction_type as SanctionType] || d.sanction_type}
-          </Badge>
+          {!id.startsWith("bc_") && d.sanction_type && (
+            <Badge variant="secondary">
+              {SANCTION_LABELS[d.sanction_type as SanctionType] || d.sanction_type}
+            </Badge>
+          )}
         </div>
 
         <Card className="p-4 mb-6 bg-muted/30">
@@ -301,22 +303,24 @@ export default async function DecisionPage({
             </Card>
           )}
 
-          <Card className="p-4 mb-4">
-            <h3 className="font-semibold text-sm mb-2">절차 확인</h3>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              <div>{d.procedure_committee ? "✅" : "❌"} 징계위원회</div>
-              <div>{d.procedure_defense ? "✅" : "❌"} 소명기회 부여</div>
-              <div>{d.procedure_written_notice ? "✅" : "❌"} 서면통지</div>
-              <div>{d.procedure_advance_notice ? "✅" : "❌"} 해고예고 30일</div>
-            </div>
-            {d.procedure_note && (
-              <p className="text-xs text-muted-foreground mt-2">{d.procedure_note}</p>
-            )}
-          </Card>
+          {!id.startsWith("bc_") && (
+            <Card className="p-4 mb-4">
+              <h3 className="font-semibold text-sm mb-2">절차 확인</h3>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div>{d.procedure_committee ? "✅" : "❌"} 징계위원회</div>
+                <div>{d.procedure_defense ? "✅" : "❌"} 소명기회 부여</div>
+                <div>{d.procedure_written_notice ? "✅" : "❌"} 서면통지</div>
+                <div>{d.procedure_advance_notice ? "✅" : "❌"} 해고예고 30일</div>
+              </div>
+              {d.procedure_note && (
+                <p className="text-xs text-muted-foreground mt-2">{d.procedure_note}</p>
+              )}
+            </Card>
+          )}
 
           {hasSummary && (
             <div className="mb-6">
-              <h3 className="font-semibold mb-2">판정요지</h3>
+              <h3 className="font-semibold mb-2">{id.startsWith("bc_") ? "판결요지" : "판정요지"}</h3>
               <div>{renderHoldingBlocks(holdingSummaryText)}</div>
             </div>
           )}
