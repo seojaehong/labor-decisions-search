@@ -1,0 +1,24 @@
+{
+  "date": "2026-03-31",
+  "project_id": "mewqgevgdgghhatqtuos",
+  "status": {
+    "phase1_rpc_metadata_boost": "implemented_in_migration",
+    "phase2_hybrid_rpc": "implemented_in_migration_and_app_fallback",
+    "phase3_query_rewrite": "implemented_in_retrieval"
+  },
+  "artifacts": {
+    "retrieval": "C:\\dev\\labor-decisions-search\\src\\lib\\ai\\retrieval.ts",
+    "migration": "C:\\dev\\labor-decisions-search\\supabase\\migrations\\20260331_search_similar_cases_hybrid_rpc.sql"
+  },
+  "validation": {
+    "lint": "npm.cmd run lint -- src\\\\lib\\\\ai\\\\retrieval.ts",
+    "tsc": "npx.cmd tsc --noEmit",
+    "lint_passed": true,
+    "tsc_passed": true
+  },
+  "notes": [
+    "search_similar_cases 기존 함수 정의는 로컬에 없어 새 migration으로 helper + legacy + hybrid RPC를 재정의했다.",
+    "retrieval.ts는 query rewrite -> embedding -> hybrid RPC -> legacy RPC -> 기존 태그 fallback 순서로 동작하도록 확장했다.",
+    "이 세션에서는 Supabase SQL execute 경로가 없어 remote DB 배포와 24개 쿼리 최종 평가는 아직 수행하지 못했다."
+  ]
+}

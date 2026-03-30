@@ -3,6 +3,13 @@ import { createClient } from '@supabase/supabase-js';
 import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
 import { ALL_TAGS } from '@/lib/tags';
 
+const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
+const OPENAI_EMBEDDING_URL = 'https://api.openai.com/v1/embeddings';
+const OPENAI_EMBEDDING_MODEL = 'text-embedding-3-small';
+const QUERY_REWRITE_TIMEOUT_MS = 3000;
+const EMBEDDING_TIMEOUT_MS = 5000;
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -76,8 +83,37 @@ export interface RetrievalResult {
   reranked: boolean;
 }
 
+interface SearchRewriteResult {
+  expandedQuery: string;
+  suggestedCategory: string;
+  keywords: string[];
+}
+
+interface HybridSearchRow {
+  id: string;
+  title: string;
+  decision_result: string | null;
+  holding_summary: string | null;
+  summary_short: string | null;
+  key_issue: string | null;
+  url: string | null;
+  reason_category: string[] | null;
+  sanction_type: string | null;
+  decision_date: string | null;
+  relevance: number | null;
+}
+
 interface CandidateQueryProfile {
-  scenario: 'generic' | 'absence_procedure' | 'regular_work_ability' | 'retaliation' | 'severity_excessive';
+  scenario:
+    | 'generic'
+    | 'absence_procedure'
+    | 'regular_work_ability'
+    | 'retaliation'
+    | 'severity_excessive'
+    | 'wage_dispute'
+    | 'contract_termination'
+    | 'workplace_safety'
+    | 'union_related';
   primaryPool: string[];
   primaryBoosts: Record<string, number>;
   preferredStages: string[];
@@ -237,6 +273,252 @@ function asStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((v): v is string => typeof v === 'string') : [];
 }
 
+const rewriteCache = new Map<string, SearchRewriteResult>();
+const embeddingCache = new Map<string, number[]>();
+
+const QUERY_SCENARIO_TO_REASON_CATEGORY: Record<CandidateQueryProfile['scenario'], string> = {
+  generic: '',
+  absence_procedure: 'absence',
+  regular_work_ability: 'incompetence',
+  retaliation: 'workplace_bullying',
+  severity_excessive: 'disciplinary_severity',
+  wage_dispute: 'wage',
+  contract_termination: 'contract_expiry',
+  workplace_safety: 'industrial_accident',
+  union_related: 'union_activity',
+};
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error(`${label} timeout`)), timeoutMs);
+    promise
+      .then((value) => {
+        clearTimeout(timeout);
+        resolve(value);
+      })
+      .catch((error: unknown) => {
+        clearTimeout(timeout);
+        reject(error);
+      });
+  });
+}
+
+function normalizeSuggestedCategory(value: string | null | undefined): string {
+  const normalized = (value || '').trim();
+  if (!normalized) return '';
+
+  const allowed = new Set([
+    'absence',
+    'sexual_harassment',
+    'workplace_bullying',
+    'transfer',
+    'probation',
+    'contract_expiry',
+    'no_dismissal',
+    'worker_status',
+    'discrimination',
+    'redundancy',
+    'misconduct',
+    'violence',
+    'embezzlement',
+    'incompetence',
+    'dismissal',
+    'discipline',
+    'disciplinary_severity',
+    'wage',
+    'industrial_accident',
+    'union_activity',
+  ]);
+
+  return allowed.has(normalized) ? normalized : '';
+}
+
+function fallbackRewriteQuery(query: string): SearchRewriteResult {
+  const profile = buildCandidateQueryProfile(query);
+  const extractedReasons = extractReasonCategories(query);
+  return {
+    expandedQuery: query.trim(),
+    suggestedCategory: extractedReasons[0] || QUERY_SCENARIO_TO_REASON_CATEGORY[profile.scenario] || '',
+    keywords: query
+      .split(/\s+/)
+      .map((token) => token.trim())
+      .filter((token) => token.length >= 2)
+      .slice(0, 5),
+  };
+}
+
+async function rewriteQueryForSearch(query: string): Promise<SearchRewriteResult> {
+  const trimmed = query.trim();
+  if (!trimmed) return { expandedQuery: '', suggestedCategory: '', keywords: [] };
+
+  const cached = rewriteCache.get(trimmed);
+  if (cached) return cached;
+
+  const fallback = fallbackRewriteQuery(trimmed);
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    rewriteCache.set(trimmed, fallback);
+    return fallback;
+  }
+
+  try {
+    const response = await withTimeout(
+      fetch(ANTHROPIC_URL, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: ANTHROPIC_MODEL,
+          max_tokens: 220,
+          temperature: 0,
+          system:
+            '당신은 한국 노동위원회 판정례 검색 시스템의 쿼리 최적화 엔진입니다. 반드시 JSON만 반환하세요. 키는 expandedQuery, suggestedCategory, keywords만 사용하세요. expandedQuery는 50자 이내, suggestedCategory는 지정된 카테고리 또는 빈 문자열, keywords는 3~5개 문자열 배열입니다.',
+          messages: [
+            {
+              role: 'user',
+              content:
+                `입력 쿼리: ${trimmed}\n` +
+                '카테고리 후보: absence, sexual_harassment, workplace_bullying, transfer, probation, contract_expiry, no_dismissal, worker_status, discrimination, redundancy, misconduct, violence, embezzlement, incompetence, dismissal, discipline, disciplinary_severity\n' +
+                'JSON 예시: {"expandedQuery":"업무능력 부족 개선 기회 경고 시정 교육 후 해고","suggestedCategory":"incompetence","keywords":["개선 기회","경고","시정","업무능력 부족","해고"]}',
+            },
+          ],
+        }),
+      }),
+      QUERY_REWRITE_TIMEOUT_MS,
+      'query rewrite',
+    );
+
+    if (!response.ok) {
+      throw new Error(`rewrite failed: ${response.status}`);
+    }
+
+    const payload = (await response.json()) as {
+      content?: Array<{ type?: string; text?: string }>;
+    };
+    const text = payload.content?.find((part) => part.type === 'text')?.text?.trim() || '';
+    const parsed = JSON.parse(text) as Partial<SearchRewriteResult>;
+
+    const result: SearchRewriteResult = {
+      expandedQuery: (parsed.expandedQuery || fallback.expandedQuery).trim().slice(0, 50) || fallback.expandedQuery,
+      suggestedCategory: normalizeSuggestedCategory(parsed.suggestedCategory) || fallback.suggestedCategory,
+      keywords: Array.isArray(parsed.keywords)
+        ? parsed.keywords
+            .filter((item): item is string => typeof item === 'string')
+            .map((item) => item.trim())
+            .filter(Boolean)
+            .slice(0, 5)
+        : fallback.keywords,
+    };
+
+    rewriteCache.set(trimmed, result);
+    return result;
+  } catch {
+    rewriteCache.set(trimmed, fallback);
+    return fallback;
+  }
+}
+
+function toVectorLiteral(values: number[]): string {
+  return `[${values.map((value) => Number(value).toString()).join(',')}]`;
+}
+
+async function createQueryEmbedding(query: string): Promise<number[] | null> {
+  const trimmed = query.trim();
+  if (!trimmed) return null;
+
+  const cached = embeddingCache.get(trimmed);
+  if (cached) return cached;
+
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const response = await withTimeout(
+      fetch(OPENAI_EMBEDDING_URL, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: OPENAI_EMBEDDING_MODEL,
+          input: trimmed,
+        }),
+      }),
+      EMBEDDING_TIMEOUT_MS,
+      'embedding',
+    );
+
+    if (!response.ok) {
+      throw new Error(`embedding failed: ${response.status}`);
+    }
+
+    const payload = (await response.json()) as {
+      data?: Array<{ embedding?: number[] }>;
+    };
+    const embedding = payload.data?.[0]?.embedding;
+    if (!Array.isArray(embedding) || embedding.length === 0) return null;
+
+    embeddingCache.set(trimmed, embedding);
+    return embedding;
+  } catch {
+    return null;
+  }
+}
+
+function computeKeywordReRankBoost(candidate: Record<string, unknown>, keywords: string[]): number {
+  if (keywords.length === 0) return 0;
+
+  const haystack = [
+    String(candidate.title || ''),
+    String(candidate.holding_summary || ''),
+    String(candidate.holding_points || ''),
+    String(candidate.summary_short || ''),
+    String(candidate.key_issue || ''),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const hits = keywords.filter((keyword) => haystack.includes(keyword.toLowerCase())).length;
+  if (hits >= 4) return 0.1;
+  if (hits >= 2) return 0.05;
+  return 0;
+}
+
+async function searchCasesViaRpc(query: string, category: string, limit: number): Promise<Record<string, unknown>[]> {
+  const embedding = await createQueryEmbedding(query);
+
+  if (embedding) {
+    const { data, error } = await supabase.rpc('search_similar_cases_hybrid', {
+      query,
+      query_embedding: toVectorLiteral(embedding),
+      category,
+      limit,
+      trigram_weight: 0.4,
+      semantic_weight: 0.6,
+    });
+
+    if (!error && Array.isArray(data) && data.length > 0) {
+      return data as Record<string, unknown>[];
+    }
+  }
+
+  const { data, error } = await supabase.rpc('search_similar_cases', {
+    query,
+    category,
+    limit,
+  });
+
+  if (error || !Array.isArray(data)) {
+    return [];
+  }
+
+  return data as Record<string, unknown>[];
+}
+
 function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
   const lowered = query.toLowerCase();
   const primaryPool = extractPrimaryTypes(query);
@@ -266,6 +548,10 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
   const hasHarassment = includesAny(lowered, ['직장내괴롭힘', '괴롭힘']);
   const hasSeverity = includesAny(lowered, ['양정', '과하다', '과도', '너무 과', '수위', '과다']);
   const hasDismissal = includesAny(lowered, ['해고']);
+  const hasWage = includesAny(lowered, ['임금', '체불', '통상임금', '퇴직금', '수당', '최저임금']);
+  const hasContract = includesAny(lowered, ['계약만료', '갱신거절', '갱신기대권', '기간제', '계약직']);
+  const hasSafety = includesAny(lowered, ['산재', '산업재해', '안전보건', '중대재해', '업무상 재해']);
+  const hasUnion = includesAny(lowered, ['노동조합', '노조', '단체교섭', '쟁의행위', '부당노동행위', '파업']);
 
   if (hasAbsence && hasProcedure) {
     return {
@@ -342,6 +628,47 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       boostedDecisionResults: ['granted', 'partial', 'overturned'],
       excludedDecisionResults: ['dismissed', 'settled'],
       penalizedKeywords: ['구제이익', '채용내정', '상시근로자 수', '복직명령', '계약기간 만료'],
+    };
+  }
+
+  if (hasWage) {
+    return {
+      ...base,
+      scenario: 'wage_dispute',
+      preferredQueryHints: ['임금', '체불', '퇴직금', '통상임금', '수당', '최저임금'],
+      preferredLegalFocus: ['wage_payment', 'ordinary_wage'],
+      penalizedKeywords: ['노동조합 일반론', '직장 내 괴롭힘'],
+    };
+  }
+
+  if (hasContract) {
+    return {
+      ...base,
+      scenario: 'contract_termination',
+      preferredQueryHints: ['계약만료', '갱신거절', '갱신기대권', '기간제', '계약직'],
+      preferredLegalFocus: ['renewal_expectation', 'termination_notice'],
+      preferredStages: uniq([...stageHints, 'fixed_term']),
+      penalizedKeywords: ['권고사직', '자진퇴사'],
+    };
+  }
+
+  if (hasSafety) {
+    return {
+      ...base,
+      scenario: 'workplace_safety',
+      preferredQueryHints: ['산재', '산업재해', '업무상 재해', '안전보건'],
+      preferredLegalFocus: ['industrial_accident', 'work_relatedness', 'safety_obligation'],
+      penalizedKeywords: ['단순 교통사고', '형사처벌 일반론'],
+    };
+  }
+
+  if (hasUnion) {
+    return {
+      ...base,
+      scenario: 'union_related',
+      preferredQueryHints: ['노동조합', '노조', '단체교섭', '쟁의행위', '부당노동행위', '파업'],
+      preferredLegalFocus: ['union_activity', 'collective_bargaining', 'unfair_labor_practice'],
+      penalizedKeywords: ['임금체불', '개인 사직'],
     };
   }
 
@@ -572,6 +899,34 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     }
   }
 
+  if (profile.scenario === 'wage_dispute') {
+    if (includesAny(haystack, ['임금', '체불', '퇴직금', '통상임금', '수당', '최저임금'])) {
+      score += 6;
+      reasons.push('cross:wage_terms');
+    }
+  }
+
+  if (profile.scenario === 'contract_termination') {
+    if (includesAny(haystack, ['계약만료', '갱신거절', '갱신기대권', '기간제', '계약직'])) {
+      score += 6;
+      reasons.push('cross:contract_terms');
+    }
+  }
+
+  if (profile.scenario === 'workplace_safety') {
+    if (includesAny(haystack, ['산재', '산업재해', '업무상 재해', '안전보건'])) {
+      score += 6;
+      reasons.push('cross:safety_terms');
+    }
+  }
+
+  if (profile.scenario === 'union_related') {
+    if (includesAny(haystack, ['노동조합', '노조', '단체교섭', '쟁의행위', '부당노동행위', '파업'])) {
+      score += 6;
+      reasons.push('cross:union_terms');
+    }
+  }
+
   return { score, reasons };
 }
 
@@ -606,21 +961,96 @@ function rankTaggedCandidates(query: string, taggedCases: Record<string, unknown
 }
 
 export async function searchCases(tags: string[], query?: string): Promise<RetrievalResult> {
-  const reasons = query ? extractReasonCategories(query) : [];
-  // RPC category: 첫 번째 reason_category 사용 (RPC 내부에서 '/' 분리 + 한국어 매핑 처리)
-  const rpcCategory = reasons.length > 0 ? reasons[0] : '';
+  let candidates: Record<string, unknown>[] = [];
+  let reranked = false;
 
-  // search_similar_cases RPC: trigram 유사도 + 카테고리 필터 + 한국어 어미 제거 + 승패 균형
-  const { data: rpcResults, error } = await supabase
-    .rpc('search_similar_cases', {
-      query: query || tags.join(' '),
-      category: rpcCategory,
-      limit: RESULT_LIMIT,
-    });
+  const rewrite = query ? await rewriteQueryForSearch(query) : null;
+  const effectiveQuery = rewrite?.expandedQuery || query || tags.join(' ');
+  const reasons = effectiveQuery ? extractReasonCategories(effectiveQuery) : [];
+  const rpcCategory = rewrite?.suggestedCategory || (reasons.length > 0 ? reasons[0] : '');
 
-  let candidates: Record<string, unknown>[] = rpcResults || [];
+  if (effectiveQuery) {
+    const rpcRows = await searchCasesViaRpc(effectiveQuery, rpcCategory, RESULT_LIMIT * 4);
+    if (rpcRows.length > 0) {
+      const rpcCandidates = rpcRows.map((row) => {
+        const record = row as unknown as HybridSearchRow;
+        return {
+          id: record.id,
+          title: record.title,
+          decision_result: record.decision_result || '',
+          holding_points: record.holding_summary || record.summary_short || record.key_issue || '',
+          holding_summary: record.holding_summary || '',
+          summary_short: record.summary_short || '',
+          key_issue: record.key_issue || '',
+          url: record.url || '',
+          reason_category: record.reason_category || [],
+          sanction_type: record.sanction_type || '',
+          decision_date: record.decision_date || '',
+          relevance: Number(record.relevance || 0),
+          _score: Number(record.relevance || 0),
+        } satisfies Record<string, unknown>;
+      });
 
-  // RPC 결과 부족 시 태그 기반 fallback
+      const rerankedRpc: Record<string, unknown>[] = rankTaggedCandidates(effectiveQuery, rpcCandidates).map((candidate) => ({
+        ...candidate,
+        _score: Number(candidate._score || 0) + computeKeywordReRankBoost(candidate, rewrite?.keywords || []),
+      }));
+
+      rerankedRpc.sort((a, b) => {
+        const scoreDiff = Number(b._score || 0) - Number(a._score || 0);
+        if (scoreDiff !== 0) return scoreDiff;
+        return String(b.decision_date || '').localeCompare(String(a.decision_date || ''));
+      });
+
+      candidates = rerankedRpc;
+      reranked = true;
+    }
+  }
+
+  const profile = effectiveQuery ? buildCandidateQueryProfile(effectiveQuery) : null;
+  const primaryTypes = profile?.primaryPool || [];
+  const TAGGED_SELECT = 'id, title, decision_result, holding_points, summary_short, key_issue, retrieval_note, tags, url, employment_stage, issue_type_primary, issue_type_secondary, disposition_type, fact_markers, legal_focus, industry_context, exclusion_flags, include_for_queries, exclude_for_queries, reason_category';
+
+  if (candidates.length < 3 && primaryTypes.length > 0 && reasons.length > 0) {
+    const { data: precisionCases } = await supabase
+      .from('nlrc_decisions')
+      .select(TAGGED_SELECT)
+      .in('issue_type_primary', primaryTypes)
+      .overlaps('reason_category', reasons)
+      .not('holding_points', 'is', null)
+      .limit(DB_CANDIDATE_LIMIT);
+
+    if (precisionCases && precisionCases.length > 0) {
+      candidates = effectiveQuery ? rankTaggedCandidates(effectiveQuery, precisionCases) : precisionCases;
+    }
+  }
+
+  if (candidates.length < 3 && primaryTypes.length > 0) {
+    const existingIds = new Set(candidates.map((c) => c.id));
+    const { data: taggedCases } = await supabase
+      .from('nlrc_decisions')
+      .select(TAGGED_SELECT)
+      .in('issue_type_primary', primaryTypes)
+      .not('holding_points', 'is', null)
+      .limit(DB_CANDIDATE_LIMIT);
+
+    if (taggedCases && taggedCases.length > 0) {
+      const newCases = taggedCases.filter((c) => !existingIds.has(c.id));
+      const allCases = [...candidates, ...newCases];
+      candidates = effectiveQuery ? rankTaggedCandidates(effectiveQuery, allCases) : allCases;
+    }
+  }
+
+  if (candidates.length < 3 && reasons.length > 0) {
+    const { data: reasonCases } = await supabase
+      .from('nlrc_decisions')
+      .select('id, title, decision_result, holding_points, summary_short, key_issue, tags, url, reason_category')
+      .overlaps('reason_category', reasons)
+      .not('holding_points', 'is', null)
+      .limit(CANDIDATE_LIMIT);
+    candidates = reasonCases || [];
+  }
+
   if (candidates.length < 3) {
     const { data: tagCases } = await supabase
       .from('nlrc_decisions')
@@ -636,13 +1066,12 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
     }
   }
 
-  // 비노동 판례 제외 (헌법/특허 등)
   candidates = candidates.filter((c) => {
     const caseType = (c.case_type as string) || '';
     return !NON_LABOR_CASE_TYPES.includes(caseType);
   });
 
-  const results = candidates.slice(0, RESULT_LIMIT * 3); // RPC already balanced by bucket
+  const results = reranked ? candidates.slice(0, RESULT_LIMIT * 3) : selectRepresentativeCases(candidates, RESULT_LIMIT);
 
   return {
     tags,
@@ -651,14 +1080,14 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
       title: c.title as string,
       decision_result: c.decision_result as string,
       holding_points: ((c.holding_points as string) || (c.holding_summary as string) || '').slice(0, 150),
-      url: c.url as string || '',
-      similarity: c.relevance as number | undefined,
+      url: (c.url as string) || '',
+      similarity: (c._score as number | undefined) ?? (c.relevance as number | undefined),
       summary_short: ((c.summary_short as string) || (c.holding_summary as string) || '').slice(0, 180),
       key_issue: (c.key_issue as string) || '',
       bucket: bucketDecisionResult(c.decision_result as string),
       source: detectSource(c.id as string),
     })),
     allCases: candidates,
-    reranked: false,
+    reranked,
   };
 }
