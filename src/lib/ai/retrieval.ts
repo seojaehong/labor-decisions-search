@@ -152,7 +152,9 @@ const KEYWORD_TO_REASON: [RegExp, string][] = [
   [/부당노동행위|노조|지배.*개입/, 'union_activity'],
   [/근로자.*지위|근로자성/, 'worker_status'],
   [/차별.*시정|차별적.*처우/, 'discrimination'],
-  [/겸직|허위|위조|음주|기밀|유출|지시.*불이행|금품/, 'misconduct'],
+  [/겸직|허위|위조|음주|기밀|유출|지시.*불이행|금품|소명.*기회|절차.*위반/, 'misconduct'],
+  [/퇴직금|퇴직.*미지급|퇴직.*정산/, 'contract_expiry'],
+  [/임금.*체불|체불.*임금|임금.*미지급|체불/, 'worker_status'],
 ];
 
 function extractPrimaryTypes(text: string): string[] {
