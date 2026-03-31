@@ -96,6 +96,13 @@ interface HybridSearchRow {
   relevance: number | null;
 }
 
+interface QueryRewriteLike {
+  searchQuery: string;
+  category: string;
+  intent: string;
+  keywords: string[];
+}
+
 interface CandidateQueryProfile {
   scenario:
     | 'generic'
@@ -348,6 +355,69 @@ function computeKeywordReRankBoost(candidate: Record<string, unknown>, keywords:
   if (hits >= 4) return 0.1;
   if (hits >= 2) return 0.05;
   return 0;
+}
+
+function addUniqueTerms(base: string, extraTerms: string[]): string {
+  const existing = new Set(
+    base
+      .split(/\s+/)
+      .map((token) => token.trim())
+      .filter(Boolean),
+  );
+  const additions = extraTerms.filter((term) => term && !existing.has(term));
+  return [base, ...additions].filter(Boolean).join(' ').trim();
+}
+
+function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null): string {
+  if (!rewrite) return query;
+
+  const extraTerms = new Set<string>();
+  const lowered = query.toLowerCase();
+  const intent = rewrite.intent || 'generic';
+  const category = rewrite.category || '';
+
+  if (intent === 'retaliation_check') {
+    extraTerms.add('불이익');
+    extraTerms.add('보복');
+    extraTerms.add('신고');
+  }
+
+  if (category === 'workplace_bullying' && /(불인정|미인정|미해당|부인)/.test(lowered)) {
+    extraTerms.add('괴롭힘 불인정');
+    extraTerms.add('괴롭힘 미해당');
+  }
+
+  if (category === 'workplace_bullying' && /(갈등|불이익|보복|신고|요구|문제제기)/.test(lowered)) {
+    extraTerms.add('신고 후');
+    extraTerms.add('갈등');
+    extraTerms.add('불이익 취급');
+  }
+
+  if (category === 'contract_expiry' && /(사실상 해고|해고처럼|실질적 해고|갱신거절)/.test(lowered)) {
+    extraTerms.add('사실상 해고');
+    extraTerms.add('실질적 해고');
+    extraTerms.add('갱신거절');
+  }
+
+  if (intent === 'severity_check') {
+    extraTerms.add('양정과다');
+    extraTerms.add('과중');
+  }
+
+  if (category === 'violence' && intent === 'severity_check') {
+    extraTerms.add('징계 과도');
+    extraTerms.add('해고 과중');
+  }
+
+  if (category === 'incompetence' && /(개선|경고|시정|교육|기회|주고도|부여)/.test(lowered)) {
+    extraTerms.add('개선 기회');
+    extraTerms.add('경고');
+    extraTerms.add('시정');
+    extraTerms.add('교육');
+  }
+
+  if (extraTerms.size === 0) return query;
+  return addUniqueTerms(query, [...extraTerms]);
 }
 
 async function searchCasesViaRpc(query: string, category: string, limit: number): Promise<Record<string, unknown>[]> {
@@ -827,7 +897,7 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   let reranked = false;
 
   const rewrite = query ? await rewriteQuery(query) : null;
-  const effectiveQuery = rewrite?.searchQuery || query || tags.join(' ');
+  const effectiveQuery = buildIntentAwareQuery(rewrite?.searchQuery || query || tags.join(' '), rewrite);
   const reasons = effectiveQuery ? extractReasonCategories(effectiveQuery) : [];
   const rpcCategory = rewrite?.category || (reasons.length > 0 ? reasons[0] : '');
 
