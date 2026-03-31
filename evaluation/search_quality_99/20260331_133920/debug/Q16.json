@@ -1,0 +1,159 @@
+{
+  "query_id": "Q16",
+  "query": "계약기간 만료인데 사실상 해고처럼 다퉈진 사건",
+  "category": "contract_expiry",
+  "rewrite": {
+    "searchQuery": "계약기간 만료인데 사실상 해고처럼 다퉈진 사건",
+    "category": "",
+    "intent": "generic",
+    "keywords": [
+      "계약기간",
+      "만료인데",
+      "사실상",
+      "해고처럼",
+      "다퉈진"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_48731",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "신청인은 계약기간 만료에 의해 근로관계가 종료되었고 당사자간 갱신기대권이 인정될 일정한 요건이 없어 정상적인 근로관계 종료라고 판정한 사례",
+      "summary_short": "신청인은 계약기간 만료에 의해 근로관계가 종료되었고 당사자간 갱신기대권이 인정될 일정한 요건이 없어 정상적인 근로관계 종료라고 판정한 사례",
+      "key_issue": "당사자 간 체결한 근로계약서에 계약기간이 명시되어 있고 근로계약의 갱신과 관련하여 별도의 규정이 존재하지 않는 점 등을 종합해 볼 때 신청인의 근로계약 갱신기대권을 인정할 수 없으므로 이 사건 근로관계는 정상적인 계약기간 만료로 종료되었다.",
+      "reason_category": [
+        "contract_expiry",
+        "no_dismissal"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2022-08-29",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=48731&type=HTML",
+      "relevance": 0.559642,
+      "_trigram_score": 0.37,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.24,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.46799999999999997
+    },
+    {
+      "id": "id_38407",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "기간의 정함이 있는 근로계약을 체결하고 두 차례 계약기간을 갱신한 것이 인정되나, 사용자가 시공하는 토공 및 구조물 하도급공사의 준공 시기가 다가오면서 현장인력을 탄력적으로 운영할 필요가 있어 매월 인력을 축소해온 점, 근로자가 담당하고 있는 형틀목공 공정이 조만간 종료될 예정인 점, 사전에 근로자에게 인력축소의 필요성을 설명하고 협의한 점 등을 종합해 볼 때 계약기간 만료에 따라 근로관계를 종료한 것은 정당하고 갱신기대권이 인정된다고 보기 어렵다.계약기간 만료로 근로관계를 종료한 것은 정당하고, 노동조합 활동을 이유로 계약을 종료한 것으로 볼만한 사정이 없을 뿐만 아니라 근로자가 노동조합원임을 알 수 없는 점으로 볼 때 계약기만 만료에 의한 근로관계 종료가 부당노동행위에 해당한다고 볼 수 없다.",
+      "summary_short": "하도급 건설공사 준공시기가 임박하면서 현장인력을 탄력적으로 운영할 필요가 있음에 따라 기간제근로자에 대하여 계약기간 만료를 이유로 근로관계를 종료한 것은 정당하고 부당노동행위에도 해당하지 않는다고 판정한 사례",
+      "key_issue": "하도급 건설공사 준공시기가 임박하면서 현장인력을 탄력적으로 운영할 필요가 있음에 따라 기간제근로자에 대하여 계약기간 만료를 이유로 근로관계를 종료한 것은 정당하고 부당노동행위에도 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "contract_expiry",
+        "union_activity"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-07-12",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=38407&type=HTML",
+      "relevance": 0.558487,
+      "_trigram_score": 0.37,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.24,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.46799999999999997
+    },
+    {
+      "id": "id_13757",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "근로계약 갱신기대권이 인정되지 아니하므로 계약기간 만료에 따라 근로계약이 정당하게 종료되었다고 판정한 사례",
+      "summary_short": "근로계약 갱신기대권이 인정되지 아니하므로 계약기간 만료에 따라 근로계약이 정당하게 종료되었다고 판정한 사례",
+      "key_issue": "① 근로자가 2014. 11. 13.부터 같은 해 12. 31.까지 기간제 근로계약을 체결하여 근무한 이후 재계약을 체결하면서 계약기간을 2015. 1. 1.부터 같은 해 12. 31.까지로 정한 점, ② 근로계약서 제3항에 의하면 갱신에 관한 내용이 전혀 없을 뿐만",
+      "reason_category": [
+        "contract_expiry"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2016-02-26",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=13757&type=HTML",
+      "relevance": 0.561122,
+      "_trigram_score": 0.37,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.24,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.46799999999999997
+    },
+    {
+      "id": "id_44095",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 계약기간 만료에 따른 근로계약 종료는 정당하다고 판정한 사례",
+      "summary_short": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 계약기간 만료에 따른 근로계약 종료는 정당하다고 판정한 사례",
+      "key_issue": "① 취업규칙에 근로계약기간 갱신에 관한 규정이 없는 점, ② 근로계약서에는 일정한 요건이 충족되면 근로계약이 갱신된다는 취지의 규정이 없고, ‘계약기간 만료 이후 30일까지 별도의 계약이 체결되지 아니한 경우에는 1년간 자동 갱신된 것으로 본다’라고 명시되어 있으나,",
+      "reason_category": [
+        "contract_expiry"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2022-03-03",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=44095&type=HTML",
+      "relevance": 0.561003,
+      "_trigram_score": 0.37,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.12,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.348
+    },
+    {
+      "id": "id_38151",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 근로관계는 계약기간 만료로 당연히 종료되었다고 판정한 사례",
+      "summary_short": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 근로관계는 계약기간 만료로 당연히 종료되었다고 판정한 사례",
+      "key_issue": "① 근로계약서상 계약기간의 만료로 근로관계는 당연 종료됨을 원칙으로 한다고 규정되어 있는 점, ② 취업규칙 제49조는 ‘근로계약기간이 만료된 때’를 당연 퇴직 사유로 규정하고 있는 점, ③ 인사규정과 근로계약서에 근로계약의 갱신 의무, 요건, 절차 등 규정이 없는 점",
+      "reason_category": [
+        "contract_expiry"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-07-03",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=38151&type=HTML",
+      "relevance": 0.561547,
+      "_trigram_score": 0.37,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.12,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.348
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_48731",
+        "score": 0,
+        "reason": "결과가 계약기간 만료에 따른 근로관계 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+      },
+      {
+        "rank": 2,
+        "id": "id_38407",
+        "score": 1,
+        "reason": "계약기간 만료에 따른 근로관계 종료를 다루고 있으나, 사실상 해고의 맥락이 다소 다름."
+      },
+      {
+        "rank": 3,
+        "id": "id_13757",
+        "score": 0,
+        "reason": "계약기간 만료에 따른 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+      },
+      {
+        "rank": 4,
+        "id": "id_44095",
+        "score": 0,
+        "reason": "계약기간 만료에 따른 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+      },
+      {
+        "rank": 5,
+        "id": "id_38151",
+        "score": 0,
+        "reason": "계약기간 만료에 따른 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+      }
+    ],
+    "weighted_score": 1,
+    "precision_hits": 1
+  }
+}

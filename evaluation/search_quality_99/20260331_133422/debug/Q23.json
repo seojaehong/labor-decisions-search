@@ -1,0 +1,158 @@
+{
+  "query_id": "Q23",
+  "query": "괴롭힘은 인정되지 않지만 그 신고나 요구 때문에 갈등이 커진 사건",
+  "category": "workplace_bullying",
+  "rewrite": {
+    "searchQuery": "괴롭힘 인정되지 않음 신고 요구 갈등 사건",
+    "category": "",
+    "intent": "사건 분석",
+    "keywords": [
+      "괴롭힘",
+      "신고",
+      "요구",
+      "갈등",
+      "사건"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_413251",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "의칙상 요구되는 협의 절차를 거치지 않았다는 사정만으로 전보가 당연 무효가 된다고 보기는 어려움",
+      "summary_short": "협의 절차 미준수=취업규칙 요구 협의 절차 거치지 않았다는 사정만으로 전보 당연 무효 아님=TV 정당",
+      "key_issue": "전보의 업무상 필요성이 인정됨",
+      "reason_category": [
+        "transfer"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2026-01-06",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=413251&type=HTML",
+      "relevance": 0.303957,
+      "_trigram_score": 0.37412280701754386,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.24964912280701756
+    },
+    {
+      "id": "id_349339",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "괴롭힘 등에 대한 징계해고가 사유·양정·절차 모두 정당하다고 판정한 사례\n\n쟁점: 직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례\n판단: 직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례",
+      "summary_short": "직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 절차도 정당하다고 판정한 사례",
+      "key_issue": "직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2024-07-02",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=349339&type=HTML",
+      "relevance": 0.474234,
+      "_trigram_score": 0.41944444444444445,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.0,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.24777777777777782
+    },
+    {
+      "id": "id_411165",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "대기발령의 필요성이 인정되지 않는다고 판정한 사례\n\n쟁점: 대기발령의 필요성이 인정되지 않는다고 판정한 사례\n판단: 대기발령의 필요성이 인정되지 않는다고 판정한 사례",
+      "summary_short": "대기발령의 필요성이 인정되지 않는다고 판정한 사례",
+      "key_issue": "대기발령의 필요성이 인정되지 않는다고 판정한 사례",
+      "reason_category": [
+        "other"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2025-09-29",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=411165&type=HTML",
+      "relevance": 0.308717,
+      "_trigram_score": 0.49833333333333335,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.0,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.19933333333333336
+    },
+    {
+      "id": "id_7133",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "징계사유가 인정되지 않으므로 감봉이 부당하다고 판정한 사례\n\n쟁점: 2020. 12. 15. 발주서 분류작업 및 재고관리 지시 불이행이라는 징계사유가 인정되지 않아 감봉 3월은 부당하므로 징계양정의 적정성 및 징계절차의 적법성 여부에 대하여는 더 나아가 살펴볼 필요가 없다.\n판단: 2020. 12. 15. 발주서 분류작업 및 재고관리 지시 불이행이라는 징계사유가 인정되지 않아 감봉 3월은 부당하므로 징계양정의 적정성 및 징계절차의 적법성 여부에 대하여는 더 나아가 살펴볼 필요가 없다.",
+      "summary_short": "징계사유가 인정되지 않으므로 감봉이 부당하다고 판정한 사례",
+      "key_issue": "2020. 12. 15. 발주서 분류작업 및 재고관리 지시 불이행이라는 징계사유가 인정되지 않아 감봉 3월은 부당하므로 징계양정의 적정성 및 징계절차의 적법성 여부에 대하여는 더 나아가 살펴볼 필요가 없다.",
+      "reason_category": [
+        "misconduct"
+      ],
+      "sanction_type": "pay_cut",
+      "decision_date": "2021-05-25",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=7133&type=HTML",
+      "relevance": 0.311709,
+      "_trigram_score": 0.4946969696969697,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.0,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.19787878787878788
+    },
+    {
+      "id": "id_412827",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "근로자에 대한 해고가 인정되지 않는다고 판정한 사례\n\n쟁점: 근로자에 대한 해고가 인정되지 않는다고 판정한 사례\n판단: 근로자에 대한 해고가 인정되지 않는다고 판정한 사례",
+      "summary_short": "근로자에 대한 해고가 인정되지 않는다고 판정한 사례",
+      "key_issue": "근로자에 대한 해고가 인정되지 않는다고 판정한 사례",
+      "reason_category": [
+        "other"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2026-01-05",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=412827&type=HTML",
+      "relevance": 0.317024,
+      "_trigram_score": 0.4897058823529412,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.0,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.1958823529411765
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 0,
+        "id": "id_413251",
+        "score": 0,
+        "reason": "결과가 부당해고와 관련되어 있으나, 괴롭힘과 관련된 쟁점이 없음."
+      },
+      {
+        "rank": 0,
+        "id": "id_349339",
+        "score": 0,
+        "reason": "직장 내 괴롭힘이 인정된 사례로, 쿼리의 갈등이 커진 사건과는 무관함."
+      },
+      {
+        "rank": 0,
+        "id": "id_411165",
+        "score": 0,
+        "reason": "대기발령의 필요성에 대한 판정으로, 괴롭힘과 관련된 쟁점이 없음."
+      },
+      {
+        "rank": 0,
+        "id": "id_7133",
+        "score": 0,
+        "reason": "징계사유가 인정되지 않은 사례로, 괴롭힘과 관련된 쟁점이 없음."
+      },
+      {
+        "rank": 0,
+        "id": "id_412827",
+        "score": 0,
+        "reason": "해고가 인정되지 않은 사례로, 괴롭힘과 관련된 쟁점이 없음."
+      }
+    ],
+    "weighted_score": 0,
+    "precision_hits": 0
+  }
+}

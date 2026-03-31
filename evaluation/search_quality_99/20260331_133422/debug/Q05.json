@@ -1,0 +1,159 @@
+{
+  "query_id": "Q05",
+  "query": "직장내괴롭힘 신고 후 불이익이나 보복이 문제 된 사건",
+  "category": "workplace_bullying",
+  "rewrite": {
+    "searchQuery": "직장내괴롭힘 신고 후 불이익 보복 사건",
+    "category": "",
+    "intent": "사건 검색",
+    "keywords": [
+      "직장내 괴롭힘",
+      "신고",
+      "불이익",
+      "보복",
+      "사건"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_401053",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "부당해고 구제신청 사건. 구제신청이 인용(인정)되었다.",
+      "summary_short": "인정 생활상불이익 큼",
+      "key_issue": "인정 생활상불이익 큼",
+      "reason_category": [
+        "other"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2025-09-16",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=401053&type=HTML",
+      "relevance": 0.335889,
+      "_trigram_score": 0.4,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.15,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.36000000000000004
+    },
+    {
+      "id": "id_411071",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "주의 조치는 구제신청 대상에 해당하고, 징계규정을 적용하게 하고 있음에도 이를 따르지 않아 부당하다고 판정한 사례",
+      "summary_short": "주의 조치는 구제신청 대상에 해당하고, 징계규정을 적용하게 하고 있음에도 이를 따르지 않아 부당하다고 판정한 사례",
+      "key_issue": "가. 주의 조치의 구제신청 대상 여부주의 조치로 인한 승진상 불이익이 존재하여 구제신청 대상에 해당한다.",
+      "reason_category": [
+        "other"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2025-11-14",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=411071&type=HTML",
+      "relevance": 0.289672,
+      "_trigram_score": 0.3153481012658228,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.15,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.2761392405063291
+    },
+    {
+      "id": "id_42489",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "이 사건 전직은 인사규정 제8조제4항을 위반하여 부당전직에 해당하나, 불이익 취급의 부당노동행위는 해당하지 않는다고 판정한 사례",
+      "summary_short": "인사규정 위반=TV 부당이나 불이익 취급 부당노동행위는 불인정",
+      "key_issue": "초심유지(부당전직 인정, 부당노동행위 기각)",
+      "reason_category": [
+        "union_activity",
+        "transfer"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-12-19",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42489&type=HTML",
+      "relevance": 0.454372,
+      "_trigram_score": 0.3784090909090909,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.03,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.23136363636363638
+    },
+    {
+      "id": "id_42311",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "overturned",
+      "holding_summary": "이 사건 대기발령은 부당대기발령에 해당하나, 불이익 취급의 부당노동행위에 해당한다고 보기 어렵다고 판정한 사례",
+      "summary_short": "초심 일부취소(부당대기발령은 초심취소, 부당노동행위는 초심유지)",
+      "key_issue": "초심 일부취소(부당대기발령은 초심취소, 부당노동행위는 초심유지)",
+      "reason_category": [
+        "union_activity"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-12-11",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42311&type=HTML",
+      "relevance": 0.440314,
+      "_trigram_score": 0.33140243902439026,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.03,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.21256097560975612
+    },
+    {
+      "id": "id_349339",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "괴롭힘 등에 대한 징계해고가 사유·양정·절차 모두 정당하다고 판정한 사례\n\n쟁점: 직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례\n판단: 직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례",
+      "summary_short": "직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 절차도 정당하다고 판정한 사례",
+      "key_issue": "직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2024-07-02",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=349339&type=HTML",
+      "relevance": 0.429757,
+      "_trigram_score": 0.3142857142857143,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.0,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.20571428571428574
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_401053",
+        "score": 0,
+        "reason": "부당해고 구제신청 사건으로, 직장 내 괴롭힘 신고 후 불이익이나 보복과 관련된 내용이 없음."
+      },
+      {
+        "rank": 2,
+        "id": "id_411071",
+        "score": 0,
+        "reason": "부당해고 구제신청 사건으로, 직장 내 괴롭힘 신고 후 불이익이나 보복과 관련된 내용이 없음."
+      },
+      {
+        "rank": 3,
+        "id": "id_42489",
+        "score": 1,
+        "reason": "부당전직에 대한 판정이 있으나, 불이익 취급의 부당노동행위와 관련된 핵심 쟁점이 다르다."
+      },
+      {
+        "rank": 4,
+        "id": "id_42311",
+        "score": 1,
+        "reason": "부당대기발령에 대한 판정이 있으나, 불이익 취급의 부당노동행위와 관련된 핵심 쟁점이 다르다."
+      },
+      {
+        "rank": 5,
+        "id": "id_349339",
+        "score": 2,
+        "reason": "직장 내 괴롭힘에 대한 징계사유가 인정되었으며, 쟁점이 쿼리와 직접적으로 관련됨."
+      }
+    ],
+    "weighted_score": 4,
+    "precision_hits": 3
+  }
+}

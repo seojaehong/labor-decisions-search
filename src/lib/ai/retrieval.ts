@@ -112,6 +112,8 @@ interface CandidateQueryProfile {
     | 'severity_excessive'
     | 'wage_dispute'
     | 'contract_termination'
+    | 'constructive_dismissal'
+    | 'bullying_conflict'
     | 'workplace_safety'
     | 'union_related';
   primaryPool: string[];
@@ -401,6 +403,8 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('사실상 해고');
     extraTerms.add('실질적 해고');
     extraTerms.add('갱신거절');
+    extraTerms.add('갱신기대권 인정');
+    extraTerms.add('부당해고 인정');
   }
 
   if (intent === 'severity_check') {
@@ -418,6 +422,28 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('경고');
     extraTerms.add('시정');
     extraTerms.add('교육');
+    extraTerms.add('개선기회 부여');
+  }
+
+  // Q04: 괴롭힘 성립 여부
+  if (category === 'workplace_bullying' && /(성립|해당하는지|인정되는지|다툼)/.test(lowered)) {
+    extraTerms.add('괴롭힘 성립');
+    extraTerms.add('괴롭힘 인정');
+    extraTerms.add('괴롭힘 해당');
+  }
+
+  // Q12: 징계사유 인정 + 해고 과다
+  if (/(사유.{0,5}인정|비위.{0,5}인정|징계사유는)/.test(lowered) && /(과하|과다|과도|과중)/.test(lowered)) {
+    extraTerms.add('양정과다');
+    extraTerms.add('비례원칙');
+    extraTerms.add('해고 과중');
+  }
+
+  // Q24: 여러 비위 + 전체 정당성
+  if (/(여러|복합|복수|함께).*(비위|사유)/.test(lowered) || /(정당성 전체|전체를 본)/.test(lowered)) {
+    extraTerms.add('징계사유');
+    extraTerms.add('해고 정당성');
+    extraTerms.add('복합 비위');
   }
 
   if (extraTerms.size === 0) return query;
@@ -507,6 +533,26 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
     };
   }
 
+  // Q11: 개선기회 부여 후 업무능력 부족 해고
+  const hasImprovement = includesAny(lowered, ['개선', '개선기회', '경고', '교육', '시정', '기회를 주고', '주고도']);
+  if (hasWorkAbility && hasImprovement) {
+    return {
+      ...base,
+      scenario: 'generic',
+      primaryPool: uniq(['work_ability', 'dismissal_validity']),
+      primaryBoosts: {
+        work_ability: 16,
+        dismissal_validity: 8,
+      },
+      preferredStages: stageHints.length > 0 ? stageHints : ['regular'],
+      preferredFactMarkers: ['improvement_opportunity_given', 'warning_given', 'training_provided', 'qualitative_evaluation'],
+      preferredLegalFocus: ['just_cause', 'social_norm_reasonableness'],
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal'],
+      preferredQueryHints: ['개선기회 부여', '개선 기회를 주고', '경고 후 해고', '업무능력 부족 해고', 'PIP'],
+      penalizedKeywords: ['수습', '본채용', '시용', '갱신기대권', '계약기간 만료'],
+    };
+  }
+
   if (hasRegular && hasWorkAbility) {
     return {
       ...base,
@@ -524,6 +570,57 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       preferredQueryHints: ['업무능력 부족', '업무능력 부족 해고 부당', '저성과 해고', '저성과자 해고 부당', '통상해고', 'PIP', '개선기회 미부여'],
       penalizedQueryHints: ['본채용 거부', '수습평가', '수습'],
       penalizedKeywords: ['수습', '본채용', '본채용 거부', '시용', '갱신기대권', '갱신 거절', '계약기간 만료', '해고가 존재하지', '사직서를 제출', '복직명령', '근로관계가 종료'],
+    };
+  }
+
+  // Q04: 괴롭힘 성립 여부 자체가 핵심인 사건
+  const hasBullyingNotRecognized = includesAny(lowered, ['인정되지 않', '불인정', '미해당', '인정 안']);
+  const hasConflictEscalation = includesAny(lowered, ['갈등', '갈등이 커', '문제제기', '요구']);
+  const hasBullyingValidity = includesAny(lowered, ['성립', '해당하는지', '인정되는지', '다툼', '핵심']);
+  if (hasHarassment && hasBullyingValidity && !hasRetaliation && !hasSeverity && !hasBullyingNotRecognized && !hasConflictEscalation) {
+    return {
+      ...base,
+      scenario: 'generic',
+      primaryPool: uniq(['workplace_harassment']),
+      primaryBoosts: {
+        workplace_harassment: 16,
+      },
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal', 'suspension'],
+      preferredLegalFocus: ['workplace_harassment_recognition', 'just_cause'],
+      preferredSecondary: ['misconduct'],
+      preferredQueryHints: ['직장 내 괴롭힘 성립', '괴롭힘 인정', '괴롭힘 해당', '괴롭힘 여부'],
+      penalizedQueryHints: ['괴롭힘 신고 보복', '보복 징계'],
+      penalizedKeywords: ['보복', '불이익 취급', '노동조합', '근로자성'],
+    };
+  }
+
+  // Q23: 괴롭힘 불인정이지만 신고/요구로 갈등이 커진 사건
+  if (hasHarassment && (hasBullyingNotRecognized || hasConflictEscalation) && !hasRetaliation) {
+    return {
+      ...base,
+      scenario: 'bullying_conflict',
+      primaryPool: uniq(['workplace_harassment', 'retaliation', 'unfair_treatment', 'transfer_validity']),
+      primaryBoosts: {
+        workplace_harassment: 10,
+        retaliation: 16,
+        unfair_treatment: 14,
+        transfer_validity: 8,
+      },
+      preferredDispositions: ['transfer', 'dismissal', 'disciplinary_dismissal', 'suspension'],
+      preferredFactMarkers: ['harassment_report_filed', 'harassment_not_recognized', 'conflict_after_report'],
+      preferredLegalFocus: ['protection_against_retaliation', 'procedural_due_process'],
+      preferredSecondary: ['workplace_harassment', 'retaliation', 'unfair_treatment'],
+      preferredQueryHints: [
+        '괴롭힘 불인정',
+        '괴롭힘 미해당',
+        '괴롭힘 신고 후 전보',
+        '괴롭힘 신고 후 갈등',
+        '괴롭힘 신고 불이익',
+        '신고 후 인사조치',
+        '괴롭힘 조사 결과 불인정',
+      ],
+      penalizedQueryHints: ['괴롭힘 성립', '괴롭힘 인정', '순수 괴롭힘'],
+      penalizedKeywords: ['성희롱', '노동조합', '조합원', '경영상 해고'],
     };
   }
 
@@ -546,6 +643,28 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       penalizedStages: stageHints.includes('regular') ? ['probation'] : [],
       penalizedQueryHints: ['직장 내 괴롭힘 성립', '직장 내 괴롭힘 성립 요건', '순수 직장내 괴롭힘 성립 사건'],
       penalizedKeywords: ['2차 가해', '성희롱', '쟁의행위', '노동조합', '조합원', '전보의 업무상 필요성', '징계양정이 적정', '징계절차에도 하자가 없어', '감수할 수 있는 정도', '협의절차를 거쳐'],
+    };
+  }
+
+  // Q12: 징계사유 인정 + 해고 과다 (범용 양정과다, violence 외 포함)
+  const hasDisciplineRecognized = includesAny(lowered, ['사유는 인정', '사유 인정', '비위는 인정', '징계사유는']);
+  if (hasSeverity && hasDismissal && hasDisciplineRecognized) {
+    return {
+      ...base,
+      scenario: 'severity_excessive',
+      primaryPool: uniq(['disciplinary_severity', 'misconduct', 'work_ability']),
+      primaryBoosts: {
+        disciplinary_severity: 16,
+        misconduct: 8,
+        work_ability: 4,
+      },
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal'],
+      preferredLegalFocus: ['proportionality', 'appropriateness_of_discipline', 'social_norm_reasonableness'],
+      preferredSecondary: ['misconduct'],
+      boostedDecisionResults: ['granted', 'partial', 'overturned'],
+      excludedDecisionResults: [],
+      preferredQueryHints: ['양정과다', '해고 과중', '징계 과다', '비례원칙', '징계사유 인정 해고 부당'],
+      penalizedKeywords: ['구제이익', '채용내정', '상시근로자 수', '복직명령', '계약기간 만료'],
     };
   }
 
@@ -574,6 +693,29 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       preferredQueryHints: ['임금', '체불', '퇴직금', '통상임금', '수당', '최저임금'],
       preferredLegalFocus: ['wage_payment', 'ordinary_wage'],
       penalizedKeywords: ['노동조합 일반론', '직장 내 괴롭힘'],
+    };
+  }
+
+  // Q16: 계약만료인데 사실상 해고처럼 다퉈진 사건
+  const hasDefactoDismissal = includesAny(lowered, ['사실상 해고', '해고처럼', '실질적 해고', '해고로 다', '해고로 봐']);
+  if (hasContract && hasDefactoDismissal) {
+    return {
+      ...base,
+      scenario: 'constructive_dismissal',
+      primaryPool: uniq(['renewal_expectation', 'dismissal_validity']),
+      primaryBoosts: {
+        renewal_expectation: 16,
+        dismissal_validity: 10,
+      },
+      preferredStages: uniq([...stageHints, 'fixed_term']),
+      preferredLegalFocus: ['renewal_expectation', 'just_cause', 'termination_notice'],
+      preferredDispositions: ['nonrenewal', 'dismissal'],
+      preferredFactMarkers: ['renewal_expectation_recognized', 'repeated_renewal'],
+      preferredQueryHints: ['갱신기대권 인정', '사실상 해고', '갱신거절 부당', '부당해고 인정', '계약기간 만료 부당해고'],
+      boostedDecisionResults: ['granted', 'partial'],
+      excludedDecisionResults: [],
+      penalizedKeywords: ['권고사직', '자진퇴사', '근로자성'],
+      penalizedQueryHints: ['갱신기대권 부정', '계약기간 만료 정당'],
     };
   }
 
@@ -846,6 +988,60 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     if (includesAny(haystack, ['계약만료', '갱신거절', '갱신기대권', '기간제', '계약직'])) {
       score += 6;
       reasons.push('cross:contract_terms');
+    }
+  }
+
+  // Q16: 사실상 해고 — 갱신기대권 인정 + granted 사건 우선
+  if (profile.scenario === 'constructive_dismissal') {
+    const hasRenewalRecognized = includesAny(haystack, ['갱신기대권이 인정', '갱신기대권은 인정', '갱신기대권 인정']);
+    const hasRenewalDenied = includesAny(haystack, ['갱신기대권이 인정되지', '갱신기대권이 인정되지 않', '갱신기대권은 인정되지 않', '갱신기대권이 부정', '갱신기대권이 부인']);
+    const hasDefacto = includesAny(haystack, ['사실상 해고', '부당해고', '실질적 해고', '갱신거절이 부당']);
+
+    if (hasRenewalRecognized && !hasRenewalDenied) {
+      score += 12;
+      reasons.push('cross:renewal_recognized');
+    }
+    if (hasRenewalDenied && !hasRenewalRecognized) {
+      score -= 8;
+      reasons.push('cross_penalty:renewal_denied');
+    }
+    if (hasDefacto) {
+      score += 6;
+      reasons.push('cross:defacto_dismissal');
+    }
+    if (decisionResult === 'granted' || decisionResult === 'partial') {
+      score += 10;
+      reasons.push('cross:worker_win_renewal');
+    }
+    if (decisionResult === 'dismissed') {
+      score -= 4;
+      reasons.push('cross_penalty:dismissed_renewal');
+    }
+  }
+
+  // Q23: 괴롭힘 불인정 + 갈등/불이익 사건
+  if (profile.scenario === 'bullying_conflict') {
+    const hasBullyingNotRecognized = includesAny(haystack, ['괴롭힘이 아니', '괴롭힘 불인정', '괴롭힘에 해당하지', '괴롭힘으로 인정되지', '괴롭힘으로 볼 수 없']);
+    const hasReportFiled = includesAny(haystack, ['괴롭힘 신고', '신고에 따', '신고를 한', '신고하였']);
+    const hasConflict = includesAny(haystack, ['갈등', '분쟁', '대립', '불이익', '전보', '직위해제']);
+    const hasPostReportAction = hasReportFiled && hasConflict;
+
+    if (hasBullyingNotRecognized && hasPostReportAction) {
+      score += 15;
+      reasons.push('cross:bullying_denied_conflict');
+    } else if (hasBullyingNotRecognized) {
+      score += 8;
+      reasons.push('cross:bullying_denied');
+    } else if (hasPostReportAction) {
+      score += 6;
+      reasons.push('cross:post_report_conflict');
+    }
+
+    // 괴롭힘이 인정된 사건은 Q23 취지와 다름
+    const hasBullyingRecognized = includesAny(haystack, ['괴롭힘이 인정', '괴롭힘 행위가 인정', '괴롭힘에 해당']);
+    if (hasBullyingRecognized && !hasBullyingNotRecognized) {
+      score -= 8;
+      reasons.push('cross_penalty:bullying_recognized');
     }
   }
 

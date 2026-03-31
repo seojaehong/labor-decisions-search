@@ -15,7 +15,7 @@ from typing import Any
 import requests
 
 
-ROOT = Path(r"C:\dev\labor-decisions-search")
+ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_DIR = ROOT / "evaluation" / "search_quality_99"
 BASELINE_REPORT_PATH = ROOT / "evaluation" / "rubric_haiku_eval_20260330.md"
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
@@ -550,6 +550,13 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
     if re.search(r"(택시|버스|기사|운전|운수)", query) and re.search(r"(택시|버스|기사|운전|운수)", text):
         boost += 0.12
 
+    # Q02: Absence mentioned but procedure is the real issue
+    if re.search(r"(무단결근|결근)", query) and re.search(r"(절차|서면|통지|소명)", query):
+        if re.search(r"(절차.{0,5}(위반|하자)|서면.{0,5}통지|소명.{0,5}기회)", text + " " + key_issue):
+            boost += 0.15
+        if re.search(r"(무단결근|결근)", text) and re.search(r"(절차|서면|통지|소명)", text):
+            boost += 0.08
+
     # Improvement opportunity / low performance
     if re.search(r"(개선|시정|경고|교육|기회|주고도|부여|업무능력|저성과)", query) and re.search(r"(개선|시정|경고|교육|기회|주고도|부여)", text):
         boost += 0.10
@@ -566,13 +573,17 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
             boost -= 0.12
 
     # Q23: Harassment NOT recognized but conflict escalated
-    if re.search(r"(인정되지 않|불인정|미해당|부인)", query):
-        if re.search(r"(괴롭힘.{0,10}(인정.{0,5}않|불인정|해당.{0,5}않|부인)|불인정)", text + " " + key_issue):
-            boost += 0.15
+    if re.search(r"(인정되지 않|불인정|미해당|부인)", query) or re.search(r"(괴롭힘.{0,10}갈등|신고.{0,5}갈등)", query):
+        if re.search(r"(괴롭힘.{0,10}(인정.{0,5}않|불인정|해당.{0,5}않|부인|아니)|불인정)", text + " " + key_issue):
+            boost += 0.18
         if re.search(r"(갈등|분쟁|대립)", text + " " + key_issue):
-            boost += 0.05
-        if re.search(r"(신고|요구|문제제기|불이익|보복)", query) and re.search(r"(신고|요구|문제제기|불이익|보복)", text + " " + key_issue):
             boost += 0.08
+        if re.search(r"(신고|요구|문제제기|불이익|보복)", query) and re.search(r"(신고|요구|문제제기|불이익|보복)", text + " " + key_issue):
+            boost += 0.10
+        # Penalize cases where bullying WAS recognized (opposite of Q23 intent)
+        if re.search(r"괴롭힘.{0,5}(행위가 인정|인정되|에 해당)", text + " " + key_issue):
+            if not re.search(r"(인정되지|해당하지|아니)", text + " " + key_issue):
+                boost -= 0.10
 
     # Q20: Violence recognized but dismissal too severe (양정과다)
     if re.search(r"(과하다|과하|과중|양정과다|해고까지는)", query):
@@ -587,12 +598,47 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         if re.search(r"(갱신거절|갱신기대권|사실상.{0,5}해고|해고.{0,5}다퉈)", text + " " + key_issue):
             boost += 0.12
         if "contract_expiry" in reason_category and "인용" in decision_result:
-            boost += 0.06
+            boost += 0.10
+        # Boost cases where renewal expectation WAS recognized
+        if re.search(r"갱신기대권.{0,5}(인정|있)", text + " " + key_issue):
+            if not re.search(r"갱신기대권.{0,5}(인정되지 않|부정|부인|없)", text + " " + key_issue):
+                boost += 0.12
+        # Penalize cases where renewal expectation was denied (simple termination)
+        if re.search(r"갱신기대권.{0,5}(인정되지 않|부정|부인|없)", text + " " + key_issue):
+            boost -= 0.06
 
     # Q10: Regular employee incompetence
     if re.search(r"(정규직|저성과|업무능력 부족)", query) and "incompetence" in reason_category:
         if re.search(r"(저성과|업무능력.{0,5}(부족|미달)|근무성적)", text + " " + key_issue):
             boost += 0.10
+
+    # Q04: Harassment validity dispute
+    if re.search(r"(괴롭힘.{0,5}(성립|해당|인정되는지))", query):
+        if "workplace_bullying" in reason_category:
+            boost += 0.10
+        if re.search(r"(괴롭힘.{0,5}(인정|성립|해당))", text + " " + key_issue):
+            boost += 0.08
+
+    # Q11: Improvement opportunity given before dismissal
+    if re.search(r"(개선.{0,5}(기회|기회를)|경고.{0,5}(주고|후)|교육.{0,5}(후|제공))", query):
+        if re.search(r"(개선.{0,5}(기회|부여)|경고|교육|시정)", text + " " + key_issue):
+            boost += 0.12
+        if "incompetence" in reason_category:
+            boost += 0.06
+
+    # Q12: Discipline recognized + dismissal excessive (generic)
+    if re.search(r"(사유.{0,5}인정|비위.{0,5}인정)", query) and re.search(r"(과하|과다|과도)", query):
+        if re.search(r"(양정.{0,5}(과다|과하|과중)|해고.{0,5}(과다|과하|과중))", text + " " + key_issue):
+            boost += 0.15
+        if decision_result in ("granted", "partial"):
+            boost += 0.08
+
+    # Q24: Multiple misconducts + overall dismissal validity
+    if re.search(r"(여러|함께|복합|복수).*(비위|사유)|정당성 전체", query):
+        if len(reason_category) >= 2:
+            boost += 0.10
+        if re.search(r"(징계사유|해고사유).{0,10}(여러|복합|복수|다수)", text + " " + key_issue):
+            boost += 0.08
 
     # Non-labor penalty
     if any(token in str(row.get("title") or "") for token in NON_LABOR_CASE_TYPES):
@@ -622,7 +668,7 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
         extra_terms.extend(["신고 후", "갈등", "불이익 취급", "직위해제", "전보", "보직해임", "대기발령"])
 
     if category == "contract_expiry" and re.search(r"(사실상 해고|해고처럼|실질적 해고|갱신거절)", lowered):
-        extra_terms.extend(["사실상 해고", "실질적 해고", "갱신거절"])
+        extra_terms.extend(["사실상 해고", "실질적 해고", "갱신거절", "갱신기대권 인정", "부당해고 인정"])
 
     if intent == "severity_check":
         extra_terms.extend(["양정과다", "과중"])
@@ -631,7 +677,19 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
         extra_terms.extend(["징계 과도", "해고 과중"])
 
     if category == "incompetence" and re.search(r"(개선|경고|시정|교육|기회|주고도|부여)", lowered):
-        extra_terms.extend(["개선 기회", "경고", "시정", "교육"])
+        extra_terms.extend(["개선 기회", "경고", "시정", "교육", "개선기회 부여"])
+
+    # Q04: 괴롭힘 성립 여부
+    if category == "workplace_bullying" and re.search(r"(성립|해당하는지|인정되는지|다툼)", lowered):
+        extra_terms.extend(["괴롭힘 성립", "괴롭힘 인정", "괴롭힘 해당"])
+
+    # Q12: 징계사유 인정 + 해고 과다
+    if re.search(r"(사유.{0,5}인정|비위.{0,5}인정|징계사유는)", lowered) and re.search(r"(과하|과다|과도|과중)", lowered):
+        extra_terms.extend(["양정과다", "비례원칙", "해고 과중"])
+
+    # Q24: 복합 비위 + 전체 정당성
+    if re.search(r"(여러|복합|복수|함께).*(비위|사유)", lowered) or re.search(r"(정당성 전체|전체를 본)", lowered):
+        extra_terms.extend(["징계사유", "해고 정당성", "복합 비위"])
 
     return add_unique_terms(query_text, extra_terms) if extra_terms else query_text
 

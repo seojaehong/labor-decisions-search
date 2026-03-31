@@ -1,0 +1,164 @@
+{
+  "query_id": "Q05",
+  "query": "직장내괴롭힘 신고 후 불이익이나 보복이 문제 된 사건",
+  "category": "workplace_bullying",
+  "rewrite": {
+    "searchQuery": "직장내괴롭힘 신고 후 불이익이나 보복이 문제 된 사건",
+    "category": "workplace_bullying",
+    "intent": "retaliation_check",
+    "keywords": [
+      "직장내괴롭힘",
+      "신고",
+      "불이익이나",
+      "보복이",
+      "문제"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_347063",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "부당직위해제 구제신청에 대한 구제이익이 있으나, 직위해제 사유가 존재하고 직위해제 기간이 불합리하다고 볼 수 없으며 달리 위법하다고 볼만한 사정이 없어 정당하다고 판정한 사례",
+      "summary_short": "직위해제 후 동일 사유로 해임이 이루어졌으나, 직위해제 기간의 임금감액 등 불이익으로 구제이익이 인정되며, 괴롭힘 신고에 따른 감사 결과 징계 사유가 발생하여 직위해제 기간도 불합리하지 않아 정당하다고 판정한 사례",
+      "key_issue": "가. 구제이익이 있는지 여부직위해제처분 후에 직위해제 사유와 동일한 이유로 해임의 후행처분이 이루어졌으나, 직위해제 기간에는 연봉월액이 감액되고 이동, 승진, 포상, 인력개발 등의 인사조치 대상에서 제외되며 승진 등을 위한 경력 기간에서도 제외되는 등의 불이익이 있으므로 구제이익이 있다.",
+      "reason_category": [
+        "workplace_bullying"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2024-04-15",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=347063&type=HTML",
+      "relevance": 0.492572,
+      "_trigram_score": 0.32846385542168677,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.37,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.5813855421686747
+    },
+    {
+      "id": "id_409599",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "직위해제는 업무상 필요성이 인정되지 않아 부당하나, 직위해제가 부당노동행위로까지 이어진다고는 볼 수 없다고 판정한 사례",
+      "summary_short": "직위해제는 업무상 필요성이 인정되지 않아 부당하나, 직위해제가 부당노동행위로까지 이어진다고는 볼 수 없다고 판정한 사례",
+      "key_issue": "가. 직위해제의 정당성 여부근로자에 대한 직장 내 괴롭힘 신고 후 이미 1차 직위해제 한 사실이 있음에도 재차 직위해제를 하여야 할 특별한 사정은 확인되지 않으므로 직위해제의 업무상 필요성이 인정되지 않는다.",
+      "reason_category": [
+        "worker_status",
+        "union_activity",
+        "workplace_bullying"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2024-11-13",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=409599&type=HTML",
+      "relevance": 0.505544,
+      "_trigram_score": 0.3177927927927928,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.37,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.5771171171171171
+    },
+    {
+      "id": "id_400879",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "이 사건 직위해제는 단순히 잠정적인 조치를 넘어 사실상 인사상의 불이익을 주는 전보이며, 업무상 필요성이 존재하지 않으므로 부당하다고 본 사례",
+      "summary_short": "직위해제가 괴롭힘 등 사유가 아닌 조직개편 일환으로 보이나 업무상 필요성 미인정으로 부당하다고 판정한 사례",
+      "key_issue": "이 사건 직위해제는 단순히 잠정적인 조치로서의 보직의 해제를 넘어서 사실상 인사상의 불이익을 주는 전보나 다름없다",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "absence",
+        "incompetence",
+        "no_dismissal"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2025-09-25",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=400879&type=HTML",
+      "relevance": 0.52284,
+      "_trigram_score": 0.30625,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.37,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.5725
+    },
+    {
+      "id": "id_408721",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "overturned",
+      "holding_summary": "보직해임은 구제이익이 있고, 업무상의 필요성이 없거나 있다고 하더라도 생활상의 불이익이 근로자가 통상 감수하여야 할 정도를 현저히 벗어나서 부당한 인사명령에 해당한다고 판정한 사례",
+      "summary_short": "보직해임은 구제이익이 있고, 업무상의 필요성이 없거나 있다고 하더라도 생활상의 불이익이 근로자가 통상 감수하여야 할 정도를 현저히 벗어나서 부당한 인사명령에 해당한다고 판정한 사례",
+      "key_issue": "보직해임은 구제이익이 있고, 업무상의 필요성이 없거나 있다고 하더라도 생활상의 불이익이 근로자가 통상 감수하여야 할 정도를 현저히 벗어나서 부당한 인사명령에 해당한다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "workplace_bullying"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2024-09-02",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=408721&type=HTML",
+      "relevance": 0.504289,
+      "_trigram_score": 0.2358481262327416,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.37,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.5443392504930966
+    },
+    {
+      "id": "id_10861",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "overturned",
+      "holding_summary": "정년으로 인하여 원직복직은 불가하더라도 직위해제 및 대기발령으로 인하여 임금상당액이 삭감되는 불이익이 있어 구제이익은 존재하나, 직위해제 및 대기발령은 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+      "summary_short": "정년으로 인하여 원직복직은 불가하더라도 직위해제 및 대기발령으로 인하여 임금상당액이 삭감되는 불이익이 있어 구제이익은 존재하나, 직위해제 및 대기발령은 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+      "key_issue": "정년으로 인하여 원직복직은 불가하더라도 직위해제 및 대기발령으로 인하여 임금상당액이 삭감되는 불이익이 있어 구제이익은 존재하나, 직위해제 및 대기발령은 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2021-10-22",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=10861&type=HTML",
+      "relevance": 0.506031,
+      "_trigram_score": 0.23257772020725387,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.37,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.5430310880829016
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_347063",
+        "score": 0,
+        "reason": "사건이 직장 내 괴롭힘 신고와 관련이 없고, 부당해고 구제신청에 대한 판결로 쿼리와 무관함."
+      },
+      {
+        "rank": 2,
+        "id": "id_409599",
+        "score": 0,
+        "reason": "직위해제에 대한 판결로, 직장 내 괴롭힘 신고 후 불이익이나 보복과 관련이 없음."
+      },
+      {
+        "rank": 3,
+        "id": "id_400879",
+        "score": 1,
+        "reason": "직위해제의 부당성을 다루고 있으나, 직장 내 괴롭힘 신고와의 직접적인 연관성이 부족함."
+      },
+      {
+        "rank": 4,
+        "id": "id_408721",
+        "score": 2,
+        "reason": "보직해임과 관련된 판결로, 직장 내 괴롭힘 신고 후 불이익 문제를 직접적으로 다루고 있음."
+      },
+      {
+        "rank": 5,
+        "id": "id_10861",
+        "score": 1,
+        "reason": "직위해제 및 대기발령에 대한 판결로, 관련성은 있으나 핵심 쟁점이 다르다."
+      }
+    ],
+    "weighted_score": 4,
+    "precision_hits": 3
+  }
+}

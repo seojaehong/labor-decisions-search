@@ -1,0 +1,164 @@
+{
+  "query_id": "Q20",
+  "query": "폭행은 있었지만 해고까지는 과하다고 본 사건",
+  "category": "violence",
+  "rewrite": {
+    "searchQuery": "폭행 해고 과하다고 본 사건",
+    "category": "",
+    "intent": "사건 분석",
+    "keywords": [
+      "폭행",
+      "해고",
+      "과하다고 본 사건",
+      "노동위원회 판정"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_31195",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "폭행사건으로 인한 해고는 징계양정이 과하여 부당하나, 부당노동행위에는 해당하지 않는다고 판정한 사례",
+      "summary_short": "폭행사건으로 인한 해고는 징계양정이 과하여 부당하나, 부당노동행위에는 해당하지 않는다고 판정한 사례",
+      "key_issue": "가. 해고의 정당성 여부폭행사건이 사업장 및 근무시간 외에 발생되었고, 근로자가 반성하고 있으며, 근로자의 징계 이력이 없는 점 등을 종합하여 볼 때, 해고는 인사권을 남용한 것으로 판단된다.",
+      "reason_category": [
+        "union_activity",
+        "violence"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2018-08-22",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=31195&type=HTML",
+      "relevance": 0.686236,
+      "_trigram_score": 0.6047619047619047,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.12,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.4919047619047619
+    },
+    {
+      "id": "id_32051",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "성폭력의 징계사유가 인정되고, 절차, 양정에서 모두 정당하다고 판정한 사례\n\n쟁점: 근로자가 성폭행 혐의로 형사상 기소된 사실, 피해자와 3천만원을 주고 합의한 사실에 비추어 볼 때, 근로자에게 성추행·성폭행의 징계사유가 인정된다.\n판단: 근로자가 성폭행 혐의로 형사상 기소된 사실, 피해자와 3천만원을 주고 합의한 사실에 비추어 볼 때, 근로자에게 성추행·성폭행의 징계사유가 인정된다.근로자는 해고통지서를 받지 못하였다고 주장하나, 함께 해고통지서를 교부받았다는 동료근로자의 진술, 해고통지서를 받았음을 추정케 하는 문자메시지 수발신 내용 등을 살펴볼 때, 절차상 하자가 있다고 볼 수 없다. 또한, 피해자가 입은 피해의 정도와 사회적 비난의 여지, 직장질서 회복의 필요성 등을 고려하면, 성폭행 등을 징계사유로 한 징계해고는 정당하다.",
+      "summary_short": "성폭력의 징계사유가 인정되고, 절차, 양정에서 모두 정당하다고 판정한 사례",
+      "key_issue": "근로자가 성폭행 혐의로 형사상 기소된 사실, 피해자와 3천만원을 주고 합의한 사실에 비추어 볼 때, 근로자에게 성추행·성폭행의 징계사유가 인정된다.",
+      "reason_category": [
+        "sexual_harassment",
+        "violence",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2018-10-05",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=32051&type=HTML",
+      "relevance": 0.500351,
+      "_trigram_score": 0.5904761904761905,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.08,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.4461904761904762
+    },
+    {
+      "id": "id_42491",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "가. 해고의 정당성 여부근로자가 관리자 및 승객에게 폭언과 폭행을 한 사실이 있고, 고객에 대한 서비스를 중시하는 시내버스 운전업무에 종사하는 근로자가 승객 및 관리자에게 수차례 폭언과 폭행을 한 행위는 사회적 비난 가능성이 크다고 보여지며, 인사위원회에 참석하여 소명한 사실이 있는 점 등을 종합하여 볼 때, 해고는 정당한 것으로 판단된다.나. 부당노동행위 여부사용자가 징계사유로 삼은 것은 복무의 기본원칙 및 직장 내 질서유지 위반 등이고, 노동조합 활동을 이유로 불이익 처분을 했다고 볼 만한 객관적인 증거가 없으며, 기타 부당노동행위 의사가 확인되지 않은 점 등을 종합하여 볼 때, 사용자가 불이익 취급의 부당노동행위를 행하였다고 보기 어렵다.",
+      "summary_short": "관리자 및 승객에게 폭언 및 폭행을 한 사실 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해고가 불이익 취급의 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "key_issue": "관리자 및 승객에게 폭언 및 폭행을 한 사실 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해고가 불이익 취급의 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "union_activity",
+        "violence",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-12-19",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42491&type=HTML",
+      "relevance": 0.527359,
+      "_trigram_score": 0.5,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.08,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.41000000000000003
+    },
+    {
+      "id": "id_33061",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+      "summary_short": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+      "key_issue": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "union_activity",
+        "violence",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2018-11-23",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=33061&type=HTML",
+      "relevance": 0.502465,
+      "_trigram_score": 0.5,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.08,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.41000000000000003
+    },
+    {
+      "id": "id_42047",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "사용자의 해고통보서에 따른 해고가 존재하고 해고사유 중 무단결근외 나머지 사유는 징계사유에 포함되지 않아 양정이 과하여 부당하다고 판정한 사례",
+      "summary_short": "사용자의 해고통보서에 따른 해고가 존재하고 해고사유 중 무단결근외 나머지 사유는 징계사유에 포함되지 않아 양정이 과하여 부당하다고 판정한 사례",
+      "key_issue": "근로자는 무단결근 후 ① 조건부 사직의사를 표시했으나 이를 철회하여 자진사직 하였다고 볼 수 없는 점, ② 이후 해고사유와 시기를 명시한 해고통지서를 서면으로 통보하여 해고가 존재하는 점, ③ 1일의 무단결근은 인사규정 상 경고 또는 견책의 사유에 해당하는 점, ④",
+      "reason_category": [
+        "no_dismissal",
+        "absence"
+      ],
+      "sanction_type": "warning",
+      "decision_date": "2019-12-02",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42047&type=HTML",
+      "relevance": 0.45929,
+      "_trigram_score": 0.3833333333333333,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.2,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.35333333333333333
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_31195",
+        "score": 2,
+        "reason": "폭행 사건으로 인한 해고가 과하다고 판단한 사례로, 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+      },
+      {
+        "rank": 2,
+        "id": "id_32051",
+        "score": 0,
+        "reason": "성폭력 사건에 대한 판정으로, 쿼리와 무관함."
+      },
+      {
+        "rank": 3,
+        "id": "id_42491",
+        "score": 0,
+        "reason": "폭언과 폭행 사건에 대한 판정으로, 쿼리와 무관함."
+      },
+      {
+        "rank": 4,
+        "id": "id_33061",
+        "score": 0,
+        "reason": "직속상사 폭행 사건에 대한 판정으로, 쿼리와 무관함."
+      },
+      {
+        "rank": 5,
+        "id": "id_42047",
+        "score": 1,
+        "reason": "해고 사유가 과하다고 판정했으나, 폭행 사건과는 관련이 없음."
+      }
+    ],
+    "weighted_score": 3,
+    "precision_hits": 2
+  }
+}

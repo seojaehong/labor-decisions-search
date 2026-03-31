@@ -1,0 +1,3958 @@
+[
+  {
+    "query_id": "Q01",
+    "query": "반복 무단결근으로 해고된 사건",
+    "category": "absence",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 4,
+    "upgraded_top5": [
+      {
+        "id": "id_41569",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "사용자의 업무지시가 부당하다는 이유로 출근명령에 따르지 않아 규정에 따라 징계해고 한 것은 정당하다고 판정한 사례",
+        "summary_short": null,
+        "key_issue": "사용자의 업무지시 내용이 부당하더라도 무단결근으로 이를 다툴 수는 없다.",
+        "reason_category": [
+          "absence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-11-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=41569&type=HTML",
+        "relevance": 0.512195,
+        "_trigram_score": 0.4975806451612903,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.27903225806451615
+      },
+      {
+        "id": "id_42061",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "7일 이상 무단결근한 사실이 인정되므로 해고사유가 존재하고, 징계절차에 특별한 하자도 드러나지 않으므로 해당 해고는 정당한 것으로 판단된다.",
+        "summary_short": "7일 이상 무단결근한 근로자에게 행한 징계해고 처분은 해고사유가 존재하고, 징계절차에도 하자가 없어 정당하다고 판정한 사례",
+        "key_issue": "7일 이상 무단결근한 근로자에게 행한 징계해고 처분은 해고사유가 존재하고, 징계절차에도 하자가 없어 정당하다고 판정한 사례",
+        "reason_category": [
+          "no_dismissal",
+          "absence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-12-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42061&type=HTML",
+        "relevance": 0.531733,
+        "_trigram_score": 0.3225806451612903,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.20903225806451614
+      },
+      {
+        "id": "id_3741",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "무단결근에 따른 해고, 배차지시 불이행에 따른 승무정지 등의 각 징계처분과 예비기사로의 인사발령은 정당하나 불이익 취급의 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "summary_short": "무단결근해고+승무정지+예비기사인사발령=모두정당이나 부당노동행위아님",
+        "key_issue": "무단결근에 따른 해고, 배차지시 불이행에 따른 승무정지 등의 각 징계처분과 예비기사로의 인사발령은 정당하나 불이익 취급의 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "union_activity",
+          "absence",
+          "transfer"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2020-12-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=3741&type=HTML",
+        "relevance": 0.513121,
+        "_trigram_score": 0.29411764705882354,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.19764705882352943
+      },
+      {
+        "id": "id_401123",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "이 사건 근로자는 해고 존재에 관해 입증하지 못함",
+        "summary_short": "이 사건 해고가 존재하는지",
+        "key_issue": "이 사건 해고가 존재하는지",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-07-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=401123&type=HTML",
+        "relevance": 0.381166,
+        "_trigram_score": 0.3333333333333333,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.13333333333333333
+      },
+      {
+        "id": "id_413107",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계사유가 인정되고 절차도 적법하나, 징계양정이 과도하여 해고가 부당하다고 판정한 사례\n\n쟁점: 징계사유가 인정되고 절차도 적법하나, 징계양정이 과도하여 해고가 부당하다고 판정한 사례\n판단: 징계사유가 인정되고 절차도 적법하나, 징계양정이 과도하여 해고가 부당하다고 판정한 사례",
+        "summary_short": "징계사유가 인정되고 절차도 적법하나, 징계양정이 과도하여 해고가 부당하다고 판정한 사례",
+        "key_issue": "징계사유가 인정되고 절차도 적법하나, 징계양정이 과도하여 해고가 부당하다고 판정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-12-24",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=413107&type=HTML",
+        "relevance": 0.35739,
+        "_trigram_score": 0.3225806451612903,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.12903225806451613
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "반복 무단결근으로 해고된 사건",
+      "category": "absence",
+      "intent": "validity_check",
+      "keywords": [
+        "반복",
+        "무단결근으로",
+        "해고된",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_42061",
+          "score": 2,
+          "reason": "해고 사유로서의 무단결근을 명확히 다루고 있으며, 해고의 정당성을 판단한 사례."
+        },
+        {
+          "rank": 2,
+          "id": "id_3741",
+          "score": 1,
+          "reason": "무단결근에 따른 해고를 다루고 있으나, 배차지시 불이행과 관련된 추가적인 맥락이 있어 핵심 쟁점과는 다소 차이가 있음."
+        },
+        {
+          "rank": 3,
+          "id": "id_41569",
+          "score": 0,
+          "reason": "업무지시 불이행에 대한 해고 사례로, 무단결근과는 관련이 없음."
+        },
+        {
+          "rank": 4,
+          "id": "id_401123",
+          "score": 0,
+          "reason": "해고 존재에 대한 입증 문제를 다루고 있어 무단결근과는 무관함."
+        },
+        {
+          "rank": 5,
+          "id": "id_413107",
+          "score": 1,
+          "reason": "징계사유가 인정되지만, 징계양정에 대한 판단이 주된 내용으로 무단결근의 핵심 쟁점과는 다소 차이가 있음."
+        }
+      ],
+      "weighted_score": 4,
+      "precision_hits": 3
+    }
+  },
+  {
+    "query_id": "Q02",
+    "query": "무단결근이 언급되지만 실제 핵심은 절차 위반인 사건",
+    "category": "absence",
+    "baseline_weighted_score": 6,
+    "baseline_precision_hits": 2,
+    "upgraded_top5": [
+      {
+        "id": "id_399921",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "징계사유가 존재하고, 양정이 적정하며, 절차에도 하자가 없어 징계해고가 정당하다고 판정한 사례",
+        "summary_short": "징계사유가 존재하고, 양정이 적정하며, 절차에도 하자가 없어 징계해고가 정당하다고 판정한 사례",
+        "key_issue": "가. 징계사유가 존재하는지근로자가 근태규정을 위반하여 무단결근 23일, 지각 56회, 무단조퇴 139회를 한 징계사유1과 근태규정 위반 사실을 은폐하기 위해 대중교통 이용 내역 조작, 출입기록 조작을 한 징계사유2가 모두 징계사유로 인정됨나. 징계양정이",
+        "reason_category": [
+          "worker_status",
+          "no_dismissal",
+          "absence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-10-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=399921&type=HTML",
+        "relevance": 0.668846,
+        "_trigram_score": 0.5642857142857143,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.3057142857142857
+      },
+      {
+        "id": "id_39125",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "징계사유가 정당하고, 양정이 과하다고 볼 수 없으며, 절차상의 하자도 존재하지 않아 해고는 정당하다고 판정한 사례",
+        "summary_short": "징계사유가 정당하고, 양정이 과하다고 볼 수 없으며, 절차상의 하자도 존재하지 않아 해고는 정당하다고 판정한 사례",
+        "key_issue": "가. 근로자가 26일간 장기 무단결근한 사실이 인정되며, 두 차례의 승차거부로 인해 30일간 자격정지 처분을 받고, 세 차례 민원이 발생하였으며, 2017. 2.부터 2019. 2.까지 15건의 교통사고를 야기한 비위행위는 모두 단체협약 등을 위반한 것이므로 사용자가",
+        "reason_category": [
+          "absence",
+          "misconduct",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-08-09",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=39125&type=HTML",
+        "relevance": 0.626321,
+        "_trigram_score": 0.5642857142857143,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.3057142857142857
+      },
+      {
+        "id": "id_24677",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "사용자의 승인 없이 휴가를 사용한 것은 무단결근에 해당하며, 11일간 무단결근을 이유로 징계 해고한 것은 정당하다고 판정한 사례",
+        "summary_short": "사용자 승인 없이 11일간 무단결근한 것을 이유로 한 징계해고가 정당하다고 판정한 사례",
+        "key_issue": "이 사건 근로자가 이 사건 사용자에게 휴가 사용을 청구하지 않고 이 사건 사용자의 승인 없이 휴가를 사용한 것은 무단결근에 해당하며, 이를 징계사유로 삼은 점은 정당하다.",
+        "reason_category": [
+          "absence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-09-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=24677&type=HTML",
+        "relevance": 0.511469,
+        "_trigram_score": 0.37896174863387977,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.2815846994535519
+      },
+      {
+        "id": "id_9907",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근로자가 행한 대부분의 비위행위가 징계사유에 해당하고 징계양정이 적정하며 징계절차도 적법하다고 판정한 사례",
+        "summary_short": "근로자가 행한 대부분의 비위행위가 징계사유에 해당하고 징계양정이 적정하며 징계절차도 적법하다고 판정한 사례",
+        "key_issue": "징계 결과 통보서에서 기재된 ①보호구(안전모) 미착용 2회 적발(안전에 관한 규칙 및 지시 불이행 등), ②제기동 현대아파트 상가 앞 대형폐기물 수거 태만(업무 전념 의무 위반 등), ③부주의로 인한 작업차량 대물사고(빨래방 사고) 발생(차량사고 예방을 위한 조심 및",
+        "reason_category": [
+          "workplace_bullying",
+          "absence",
+          "embezzlement",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-09-10",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=9907&type=HTML",
+        "relevance": 0.457086,
+        "_trigram_score": 0.4476190476190476,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.259047619047619
+      },
+      {
+        "id": "id_42059",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계 사유에 비해 해고는 그 양정이 과하여 부당하다고 판정한 사례\n\n쟁점: 가. 징계 사유가 존재하는지지각 11회 및 조기 퇴근 36회는 징계 사유로 인정되나, 업무지시 3회 이상 위반, 무단결근 5일은 징계 사유로 인정하기 어렵다.\n판단: 가. 징계 사유가 존재하는지지각 11회 및 조기 퇴근 36회는 징계 사유로 인정되나, 업무지시 3회 이상 위반, 무단결근 5일은 징계 사유로 인정하기 어렵다.나. 징계 양정이 적정한지① 근로자가 담당한 차량 순회정비 업무는 사무실이 아닌 고객의 차량이 있는 위치에 근로자가 출동하여 정비하는 업무로 출·퇴근에 있어 엄격한 시간이 적용되기보다는 현장 사정에 따라 어느 정도의 융통성이 발휘되어 왔던 점, ② 회사의 정해진 출근 시간인 08:30 이전에도 고객의 요청으로 정비 업무가 수행된 경우 퇴근 시간이 어느 정도 조정되어 조기 퇴근이 가능했었던 점, ③ 근로자는 징계해고 이전까지 근태 문제로 인하여 어떠한 경고나 징계 등을 받은 전력이 없는 점 등을 종합하여 볼 때, 해고는 징계 사유에 비해 양정이 과다하다고 판단되므로 이는 사용자에게 맡겨진 재량권을 남용한 것으로 부당하다.",
+        "summary_short": null,
+        "key_issue": "가. 징계 사유가 존재하는지지각 11회 및 조기 퇴근 36회는 징계 사유로 인정되나, 업무지시 3회 이상 위반, 무단결근 5일은 징계 사유로 인정하기 어렵다.",
+        "reason_category": [
+          "absence"
+        ],
+        "sanction_type": "warning",
+        "decision_date": "2019-12-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42059&type=HTML",
+        "relevance": 0.511147,
+        "_trigram_score": 0.4476190476190476,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.259047619047619
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "무단결근 절차 위반 사건",
+      "category": "",
+      "intent": "사건 분석",
+      "keywords": [
+        "무단결근",
+        "절차 위반",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_399921",
+          "score": 0,
+          "reason": "결과가 징계 사유와 절차의 적법성을 다루고 있으나, 무단결근과 절차 위반의 핵심 쟁점이 아닌 부당해고에 대한 판정이다."
+        },
+        {
+          "rank": 2,
+          "id": "id_39125",
+          "score": 0,
+          "reason": "징계 사유와 절차의 적법성을 다루고 있으나, 무단결근과 절차 위반의 핵심 쟁점이 아닌 부당해고에 대한 판정이다."
+        },
+        {
+          "rank": 3,
+          "id": "id_24677",
+          "score": 1,
+          "reason": "무단결근에 대한 언급이 있으나, 절차 위반에 대한 핵심 쟁점이 다루어지지 않고 있다."
+        },
+        {
+          "rank": 4,
+          "id": "id_9907",
+          "score": 0,
+          "reason": "징계 사유와 절차의 적법성을 다루고 있으나, 무단결근과 절차 위반의 핵심 쟁점이 아닌 부당해고에 대한 판정이다."
+        },
+        {
+          "rank": 5,
+          "id": "id_42059",
+          "score": 1,
+          "reason": "징계 사유에 대한 논의가 있으나, 무단결근과 절차 위반의 핵심 쟁점이 아닌 부당해고에 대한 판정이다."
+        }
+      ],
+      "weighted_score": 2,
+      "precision_hits": 2
+    }
+  },
+  {
+    "query_id": "Q03",
+    "query": "택시나 버스 기사 무단결근 징계해고",
+    "category": "absence",
+    "baseline_weighted_score": 5,
+    "baseline_precision_hits": 1,
+    "upgraded_top5": [
+      {
+        "id": "id_61053",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "노선버스 운행 중 흡연 및 무단결근 등의 징계사유가 인정되고 징계양정이 과도하다고 볼 수 없으며 징계절차도 적법하므로 정직 2월의 징계가 정당하다고 판정한 사례",
+        "summary_short": "노선버스 운행 중 흡연 및 무단결근 등의 징계사유가 인정되고 징계양정이 과도하다고 볼 수 없으며 징계절차도 적법하므로 정직 2월의 징계가 정당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부① 근로자가 버스 운전 업무 중 차량에서 내려 정류장 부근에서 흡연한 사실이 CCTV 영상을 통해 2회 확인되는 점, ② 근로자가 징계위원회에서 운행 중 흡연 사실이 위 2회 이외에도 몇 회 더 있다는 취지로 진술한 점, ③ 근로자가",
+        "reason_category": [
+          "absence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2023-11-24",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=61053&type=HTML",
+        "relevance": 0.650535,
+        "_trigram_score": 0.4341176470588235,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4236470588235294
+      },
+      {
+        "id": "id_23381",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "장기간 승무거부 및 무단결근을 이유로 근로자를 해고한 것은 정당하고, 불이익취급의 부당노동행위도 성립하지 않는다고 판정한 사례",
+        "summary_short": "차량배차 명령 불복으로 장기간 승무거부·무단결근한 시내버스 기사에 대한 징계해고는 정당하다고 판정한 사례",
+        "key_issue": "근로자가 차량배차 명령이 부당하다면서 장기간 승무를 거부하고 무단결근을 한 것을 이유로 사용자가 징계해고한 것은 해고사유가 인정될 뿐만 아니라, 시내버스 운송업의 공공성 및 특수성을 감안할 때 징계양정이 지나치지 않으며, 징계위원회 구성에도 하자가 없는 것으로 인정되므로 정당하다.",
+        "reason_category": [
+          "union_activity",
+          "absence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-07-19",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=23381&type=HTML",
+        "relevance": 0.578696,
+        "_trigram_score": 0.5916883116883116,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.1,
+        "_effective_relevance": 0.41667532467532464
+      },
+      {
+        "id": "id_15389",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "지각&#8228;결근에 따른 버스 운행 결행, 동료에게 욕설, 폭행 등으로 징계해고한 것은 정당하고, 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "summary_short": "지각·결근에 따른 버스 운행 결행, 동료에게 욕설, 폭행 등으로 징계해고한 것은 정당하고, 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "key_issue": "지각&#8228;결근에 따른 버스 운행 결행, 허위보고를 통한 승무교대, 동료에 대한 모욕, 폭행 및 업무방해 등의 비위행위는 징계사유에 해당하고, 이러한 비위행위의 정도, 비위행위의 반복성, 징계전력, 사후 반성 태도가 불량한 점 등을 종합해 볼 때 근로자의 비위행위에 대하여 징계해고한 것은 정당한 징계이고, 부당노동행위에도 해당하지 아니하다.",
+        "reason_category": [
+          "violence",
+          "absence",
+          "misconduct",
+          "union_activity"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2016-05-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=15389&type=HTML",
+        "relevance": 0.6922,
+        "_trigram_score": 0.4102702702702703,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4141081081081081
+      },
+      {
+        "id": "id_8695",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "가. 징계해고의 정당성 여부□ 징계사유의 존재 여부근로자(버스 운전기사)가 교통사고(사망사고)를 일으켜 회사에 손해를 발생시킨 사실을 징계사유로 삼은 것은 정당하나, 기소되기 전 ‘형사 기소’를 징계사유로 삼은 것은 부당하다.□ 징계양정의 적정성 여부교통사고 당시 블랙박스 영상에 의하면 근로자는 운행 시 전방을 주시하고, 좌회전 시 좌·우측을 살피며 운행하였지만 횡단보도에 대기 중인 인파와 진행하는 차량 등으로 인해 무단횡단을 하고 있던 피해자를 발견하기 어려운 상황이었으므로 근로자에게 사회통념상 근로관계를 계속할 수 없을 정도로 책임이 있다고 보기 어렵다.나. 징계해고의 부당노동행위 해당 여부징계해고는 근로자의 교통사고 발생에 따른 것으로 비록 징계양정이 과다하여 그 정당성은 인정되지 않지만, 사용자가 부당노동행위 의사를 가지고 근로자를 징계해고하였다고 인정하기 어려우므로 불이익 취급의 부당노동행위로 볼 수 없다.",
+        "summary_short": "근로자(시내버스 운전기사)가 교통사고(무단횡단 사망사고)를 일으켰으나 근로자에게 근로관계를 계속할 수 없을 정도의 책임이 있다고 볼 수 없어 양정이 과도하여 징계해고는 부당하고, 징계해고는 교통사고 발생에 따른 것으로 사용자가 부당노동행위 의사를 가지고 징계를 하였다고 인정하기 어렵다고 판정한 사례",
+        "key_issue": "근로자(시내버스 운전기사)가 교통사고(무단횡단 사망사고)를 일으켰으나 근로자에게 근로관계를 계속할 수 없을 정도의 책임이 있다고 볼 수 없어 양정이 과도하여 징계해고는 부당하고, 징계해고는 교통사고 발생에 따른 것으로 사용자가 부당노동행위 의사를 가지고 징계를",
+        "reason_category": [
+          "worker_status",
+          "union_activity",
+          "no_dismissal",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-07-23",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=8695&type=HTML",
+        "relevance": 0.539744,
+        "_trigram_score": 0.48027027027027025,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.36210810810810806
+      },
+      {
+        "id": "id_14765",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "partial",
+        "holding_summary": "집단적으로 결근계를 제출함으로써 시내버스 운행을 중단시킨 근로자들에게 정직 30일의 징계는 그 사유와 양정이 정당하나 감봉총액이 1임금 지급기의 10분의 1을 초과한 감봉은 근로기준법과 단체협약을 위반해 부당하다고 판정한 사례",
+        "summary_short": "집단적으로 결근계를 제출함으로써 시내버스 운행을 중단시킨 근로자들에게 정직 30일의 징계는 그 사유와 양정이 정당하나 감봉총액이 1임금 지급기의 10분의 1을 초과한 감봉은 근로기준법과 단체협약을 위반해 부당하다고 판정한 사례",
+        "key_issue": "집단적으로 결근계를 제출함으로써 시내버스 운행을 중단시킨 근로자들에게 정직 30일의 징계는 그 사유와 양정이 정당하나 감봉총액이 1임금 지급기의 10분의 1을 초과한 감봉은 근로기준법과 단체협약을 위반해 부당하다고 판정한 사례",
+        "reason_category": [
+          "absence"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2016-04-12",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=14765&type=HTML",
+        "relevance": 0.662127,
+        "_trigram_score": 0.36411764705882355,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.3456470588235294
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "택시나 버스 기사 무단결근 징계해고",
+      "category": "",
+      "intent": "판정례 검색",
+      "keywords": [
+        "택시",
+        "버스",
+        "기사",
+        "무단결근",
+        "징계해고"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_23381",
+          "score": 2,
+          "reason": "정당한 해고 사유로 무단결근을 명시하고 있어 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+        },
+        {
+          "rank": 2,
+          "id": "id_15389",
+          "score": 2,
+          "reason": "지각 및 결근으로 인한 징계해고의 정당성을 다루고 있어 쿼리와 관련성이 높음."
+        },
+        {
+          "rank": 3,
+          "id": "id_61053",
+          "score": 1,
+          "reason": "무단결근을 포함한 징계 사유를 다루지만, 구체적인 해고 사례와는 다소 차이가 있음."
+        },
+        {
+          "rank": 4,
+          "id": "id_14765",
+          "score": 1,
+          "reason": "집단 결근에 대한 징계를 다루고 있으나, 쿼리의 특정 상황과는 다소 차이가 있음."
+        },
+        {
+          "rank": 5,
+          "id": "id_8695",
+          "score": 0,
+          "reason": "교통사고와 관련된 징계 사유로, 무단결근과는 무관한 사건임."
+        }
+      ],
+      "weighted_score": 6,
+      "precision_hits": 4
+    }
+  },
+  {
+    "query_id": "Q04",
+    "query": "직장내괴롭힘이 실제로 성립하는지 다툼이 핵심인 사건",
+    "category": "workplace_bullying",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 4,
+    "upgraded_top5": [
+      {
+        "id": "id_345077",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "이 사건 징계사유 중 직장 내 괴롭힘 부분만 징계사유에 해당하나, 이 사건 근로자의 행위는 직장내 괴롭힘의 정도가 매우 높은 행위에 해당하여 징계양정은 적정하며, 절차상 하자도 발견되지 않는다고 판정한 사례",
+        "summary_short": "징계사유 중 괴롭힘(폭력·모욕·명예훼손)만 인정되고, 비난 정도가 매우 높아 정직 2월의 양정이 적정하며, 괴롭힘 신고처리 절차 미이행이 징계절차 하자가 아니라고 판정한 사례",
+        "key_issue": "이 사건 징계사유 중 직장 내 괴롭힘 부분만 징계사유에 해당하나, 이 사건 근로자의 행위는 직장내 괴롭힘의 정도가 매우 높은 행위에 해당하여 징계양정은 적정하며, 절차상 하자도 발견되지 않는다고 판정한 사례",
+        "reason_category": [
+          "worker_status",
+          "workplace_bullying",
+          "violence",
+          "absence"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2024-01-29",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=345077&type=HTML",
+        "relevance": 0.473957,
+        "_trigram_score": 0.5274509803921569,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.34098039215686277
+      },
+      {
+        "id": "id_61175",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "직장 내 괴롭힘 조사에 따른 징계사유가 모두 인정되지 않아 징계가 부당하다고 판정한 사례\n\n쟁점: 이 사건 근로자에 대한 징계사유인 직장 내 괴롭힘과 관련하여 조사위원회 위원 구성에 공정성과 신뢰성에 문제가 있고, 조사위원회의 의결정족수에 관한 규정상 직장 내 괴롭힘이 성립하였다고 보기도 어려우며, 조사 과정에서 참고인 등을 조사하지 않는 등 조사 내용도 신빙성이\n판단: 이 사건 근로자에 대한 징계사유인 직장 내 괴롭힘과 관련하여 조사위원회 위원 구성에 공정성과 신뢰성에 문제가 있고, 조사위원회의 의결정족수에 관한 규정상 직장 내 괴롭힘이 성립하였다고 보기도 어려우며, 조사 과정에서 참고인 등을 조사하지 않는 등 조사 내용도 신빙성이 떨어지는 등 징계사유들이 객관적으로 확인되는 부분들이 없어 징계사유가 존재하지 않는다고 판단된다. 따라서 징계양정의 적정성 및 징계절차의 적법성에 관하여 더 나아가 살펴볼 필요가 없다.",
+        "summary_short": "직장 내 괴롭힘 조사에 따른 징계사유가 모두 인정되지 않아 징계가 부당하다고 판정한 사례",
+        "key_issue": "이 사건 근로자에 대한 징계사유인 직장 내 괴롭힘과 관련하여 조사위원회 위원 구성에 공정성과 신뢰성에 문제가 있고, 조사위원회의 의결정족수에 관한 규정상 직장 내 괴롭힘이 성립하였다고 보기도 어려우며, 조사 과정에서 참고인 등을 조사하지 않는 등 조사 내용도 신빙성이",
+        "reason_category": [
+          "workplace_bullying",
+          "misconduct",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-11-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=61175&type=HTML",
+        "relevance": 0.507518,
+        "_trigram_score": 0.6156862745098038,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.32627450980392153
+      },
+      {
+        "id": "id_412405",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "유언비어 유포 지시, 불합리한 차량 배정 지시 등은 징계사유가 인정되고 강등조치가 정당하다고 판정한 사례",
+        "summary_short": "유언비어 유포 지시, 불합리한 차량 배정 지시 등은 징계사유가 인정되고 강등조치가 정당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부① 유언비어 유포 지시 ② 불합리한 업무차량 배정 지시 등은 징계사유로 인정※ 다만, 신입사원 교육 불참 지시는 징계사유 불인정나. 징계양정의 적정성 여부① 직장내 괴롭힘 행위와 2차 가해를 유발할 수 있는 행위를 한 점 ② 회사 자산을 부당",
+        "reason_category": [
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "demotion",
+        "decision_date": "2025-07-24",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=412405&type=HTML",
+        "relevance": 0.481478,
+        "_trigram_score": 0.5576576576576576,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.3030630630630631
+      },
+      {
+        "id": "id_9627",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근로자의 행위가 징계사유로 인정되고, 정직 3개월의 징계는 사용자의 재량권을 벗어난 과도한 징계로 보이지 않으며, 징계절차상 하자도 없으므로 징계처분이 정당하다고 판정한 사례",
+        "summary_short": "근로자의 행위가 징계사유로 인정되고, 정직 3개월의 징계는 사용자의 재량권을 벗어난 과도한 징계로 보이지 않으며, 징계절차상 하자도 없으므로 징계처분이 정당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부동료 직원들에 대한 폭언 및 괴롭힘, 불친절한 응대로 인한 민원 발생 등은 징계사유에 해당됨나. 징계양정의 적정성 여부동료 직원들에 대한 폭언 및 모욕적인 언사, 직장내 괴롭힘, 근로자의 귀책사유로 인한 민원 발생 등에 대한 정직 3개월의 징계처분은 적정함다.",
+        "reason_category": [
+          "workplace_bullying",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2021-08-31",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=9627&type=HTML",
+        "relevance": 0.480335,
+        "_trigram_score": 0.5274509803921569,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.2909803921568628
+      },
+      {
+        "id": "id_255",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "직장내 괴롭힘 상담에서 신고되었다는 것만으로 구체적인 사실관계 조사나 객관적인 입증자료 없이 감봉 3개월 및 정직 1개월의 징계처분을 한 것은 징계사유가 인정되지 않아 부당하다고 판정한 사례",
+        "summary_short": "직장내 괴롭힘 상담에서 신고되었다는 것만으로 구체적인 사실관계 조사나 객관적인 입증자료 없이 감봉 3개월 및 정직 1개월의 징계처분을 한 것은 징계사유가 인정되지 않아 부당하다고 판정한 사례",
+        "key_issue": "직장내 괴롭힘 상담에서 신고되었다는 것만으로 구체적인 사실관계 조사나 객관적인 입증자료 없이 감봉 3개월 및 정직 1개월의 징계처분을 한 것은 징계사유가 인정되지 않아 부당하다고 판정한 사례",
+        "reason_category": [
+          "sexual_harassment",
+          "workplace_bullying",
+          "violence",
+          "transfer",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2020-01-06",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=255&type=HTML",
+        "relevance": 0.499245,
+        "_trigram_score": 0.5274509803921569,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.2909803921568628
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "직장내 괴롭힘 성립 여부 다툼 사건",
+      "category": "",
+      "intent": "판정례 검색",
+      "keywords": [
+        "직장내 괴롭힘",
+        "성립 여부",
+        "다툼",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_345077",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 2,
+          "id": "id_61175",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 3,
+          "id": "id_412405",
+          "score": 0,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 4,
+          "id": "id_9627",
+          "score": 0,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 5,
+          "id": "id_255",
+          "score": 0,
+          "reason": "fallback heuristic"
+        }
+      ],
+      "weighted_score": 4,
+      "precision_hits": 2
+    }
+  },
+  {
+    "query_id": "Q05",
+    "query": "직장내괴롭힘 신고 후 불이익이나 보복이 문제 된 사건",
+    "category": "workplace_bullying",
+    "baseline_weighted_score": 4,
+    "baseline_precision_hits": 1,
+    "upgraded_top5": [
+      {
+        "id": "id_347063",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "부당직위해제 구제신청에 대한 구제이익이 있으나, 직위해제 사유가 존재하고 직위해제 기간이 불합리하다고 볼 수 없으며 달리 위법하다고 볼만한 사정이 없어 정당하다고 판정한 사례",
+        "summary_short": "직위해제 후 동일 사유로 해임이 이루어졌으나, 직위해제 기간의 임금감액 등 불이익으로 구제이익이 인정되며, 괴롭힘 신고에 따른 감사 결과 징계 사유가 발생하여 직위해제 기간도 불합리하지 않아 정당하다고 판정한 사례",
+        "key_issue": "가. 구제이익이 있는지 여부직위해제처분 후에 직위해제 사유와 동일한 이유로 해임의 후행처분이 이루어졌으나, 직위해제 기간에는 연봉월액이 감액되고 이동, 승진, 포상, 인력개발 등의 인사조치 대상에서 제외되며 승진 등을 위한 경력 기간에서도 제외되는 등의 불이익이 있으므로 구제이익이 있다.",
+        "reason_category": [
+          "workplace_bullying"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2024-04-15",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=347063&type=HTML",
+        "relevance": 0.492572,
+        "_trigram_score": 0.32846385542168677,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.37,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.5813855421686747
+      },
+      {
+        "id": "id_409599",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "직위해제는 업무상 필요성이 인정되지 않아 부당하나, 직위해제가 부당노동행위로까지 이어진다고는 볼 수 없다고 판정한 사례",
+        "summary_short": "직위해제는 업무상 필요성이 인정되지 않아 부당하나, 직위해제가 부당노동행위로까지 이어진다고는 볼 수 없다고 판정한 사례",
+        "key_issue": "가. 직위해제의 정당성 여부근로자에 대한 직장 내 괴롭힘 신고 후 이미 1차 직위해제 한 사실이 있음에도 재차 직위해제를 하여야 할 특별한 사정은 확인되지 않으므로 직위해제의 업무상 필요성이 인정되지 않는다.",
+        "reason_category": [
+          "worker_status",
+          "union_activity",
+          "workplace_bullying"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2024-11-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=409599&type=HTML",
+        "relevance": 0.505544,
+        "_trigram_score": 0.3177927927927928,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.37,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.5771171171171171
+      },
+      {
+        "id": "id_400879",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "이 사건 직위해제는 단순히 잠정적인 조치를 넘어 사실상 인사상의 불이익을 주는 전보이며, 업무상 필요성이 존재하지 않으므로 부당하다고 본 사례",
+        "summary_short": "직위해제가 괴롭힘 등 사유가 아닌 조직개편 일환으로 보이나 업무상 필요성 미인정으로 부당하다고 판정한 사례",
+        "key_issue": "이 사건 직위해제는 단순히 잠정적인 조치로서의 보직의 해제를 넘어서 사실상 인사상의 불이익을 주는 전보나 다름없다",
+        "reason_category": [
+          "transfer",
+          "workplace_bullying",
+          "absence",
+          "incompetence",
+          "no_dismissal"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2025-09-25",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=400879&type=HTML",
+        "relevance": 0.52284,
+        "_trigram_score": 0.30625,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.37,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.5725
+      },
+      {
+        "id": "id_408721",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "보직해임은 구제이익이 있고, 업무상의 필요성이 없거나 있다고 하더라도 생활상의 불이익이 근로자가 통상 감수하여야 할 정도를 현저히 벗어나서 부당한 인사명령에 해당한다고 판정한 사례",
+        "summary_short": "보직해임은 구제이익이 있고, 업무상의 필요성이 없거나 있다고 하더라도 생활상의 불이익이 근로자가 통상 감수하여야 할 정도를 현저히 벗어나서 부당한 인사명령에 해당한다고 판정한 사례",
+        "key_issue": "보직해임은 구제이익이 있고, 업무상의 필요성이 없거나 있다고 하더라도 생활상의 불이익이 근로자가 통상 감수하여야 할 정도를 현저히 벗어나서 부당한 인사명령에 해당한다고 판정한 사례",
+        "reason_category": [
+          "worker_status",
+          "workplace_bullying"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-09-02",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=408721&type=HTML",
+        "relevance": 0.504289,
+        "_trigram_score": 0.2358481262327416,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.37,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.5443392504930966
+      },
+      {
+        "id": "id_10861",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "정년으로 인하여 원직복직은 불가하더라도 직위해제 및 대기발령으로 인하여 임금상당액이 삭감되는 불이익이 있어 구제이익은 존재하나, 직위해제 및 대기발령은 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+        "summary_short": "정년으로 인하여 원직복직은 불가하더라도 직위해제 및 대기발령으로 인하여 임금상당액이 삭감되는 불이익이 있어 구제이익은 존재하나, 직위해제 및 대기발령은 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+        "key_issue": "정년으로 인하여 원직복직은 불가하더라도 직위해제 및 대기발령으로 인하여 임금상당액이 삭감되는 불이익이 있어 구제이익은 존재하나, 직위해제 및 대기발령은 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+        "reason_category": [
+          "workplace_bullying"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2021-10-22",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=10861&type=HTML",
+        "relevance": 0.506031,
+        "_trigram_score": 0.23257772020725387,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.37,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.5430310880829016
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "직장내괴롭힘 신고 후 불이익이나 보복이 문제 된 사건",
+      "category": "workplace_bullying",
+      "intent": "retaliation_check",
+      "keywords": [
+        "직장내괴롭힘",
+        "신고",
+        "불이익이나",
+        "보복이",
+        "문제"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_347063",
+          "score": 0,
+          "reason": "사건이 직장 내 괴롭힘 신고와 관련이 없고, 부당해고 구제신청에 대한 판결로 쿼리와 무관함."
+        },
+        {
+          "rank": 2,
+          "id": "id_409599",
+          "score": 0,
+          "reason": "직위해제에 대한 판결로, 직장 내 괴롭힘 신고 후 불이익이나 보복과 관련이 없음."
+        },
+        {
+          "rank": 3,
+          "id": "id_400879",
+          "score": 1,
+          "reason": "직위해제의 부당성을 다루고 있으나, 직장 내 괴롭힘 신고와의 직접적인 연관성이 부족함."
+        },
+        {
+          "rank": 4,
+          "id": "id_408721",
+          "score": 2,
+          "reason": "보직해임과 관련된 판결로, 직장 내 괴롭힘 신고 후 불이익 문제를 직접적으로 다루고 있음."
+        },
+        {
+          "rank": 5,
+          "id": "id_10861",
+          "score": 1,
+          "reason": "직위해제 및 대기발령에 대한 판결로, 관련성은 있으나 핵심 쟁점이 다르다."
+        }
+      ],
+      "weighted_score": 4,
+      "precision_hits": 3
+    }
+  },
+  {
+    "query_id": "Q06",
+    "query": "괴롭힘은 인정되는데 징계 수위가 과한지 보는 사건",
+    "category": "workplace_bullying",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 4,
+    "upgraded_top5": [
+      {
+        "id": "id_40049",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "근로자에 대한 해고 처분은 징계 사유에 비하여 징계 양정이 과하여 부당하다고 판정한 사례\n\n쟁점: 가. 징계 사유가 존재하는지 여부사용자는 근로자의 징계 사유로 ① 지시명령 위반(견책 처분에 대한 시말서 작성 거부), ② 직장 내 괴롭힘(직원들에게 폭언과 협박 발언), ③ 근무태만(불성실한 태도로 어르신에게 신체적&#8228;정서적 불편 야기), ④ 기관명예 실추(요양원에 대한 민원 제기)이다.\n판단: 가. 징계 사유가 존재하는지 여부사용자는 근로자의 징계 사유로 ① 지시명령 위반(견책 처분에 대한 시말서 작성 거부), ② 직장 내 괴롭힘(직원들에게 폭언과 협박 발언), ③ 근무태만(불성실한 태도로 어르신에게 신체적&#8228;정서적 불편 야기), ④ 기관명예 실추(요양원에 대한 민원 제기)이다. 위 징계 사유 중 ① 지시명령 위반(견책 처분에 대한 시말서 작성 거부), ③ 근무태만(불성실한 태도로 어르신에게 신체적&#8228;정서적 불편 야기)은 당사가가 제출한 자료 등으로 비위행위가 확인되나, 나머지는 사용자가 입증하지 못하고 있거나 징계 사유로 삼을 수 없다고 판단된다.나. 징계 양정이 적정한지 여부징계 사유로 인정되는 지시명령 위반(견책 처분에 대한 시말서 작성 거부)은 이 사건 요양원 운영규정에 징계 양정이 정직으로 규정되어 있고, 근무태만(불성실한 태도로 어르신에게 신체적&#8228;정서적 불편 야기)은 어르신들의 안전을 위한 의도에서 비롯된 점도 다소 인정되는 점 등을",
+        "summary_short": "괴롭힘 등 징계사유 일부만 인정되고 해고는 양정과다로 부당하다고 판정한 사례",
+        "key_issue": "가. 징계 사유가 존재하는지 여부사용자는 근로자의 징계 사유로 ① 지시명령 위반(견책 처분에 대한 시말서 작성 거부), ② 직장 내 괴롭힘(직원들에게 폭언과 협박 발언), ③ 근무태만(불성실한 태도로 어르신에게 신체적&#8228;정서적 불편 야기), ④ 기관명예 실추(요양원에 대한 민원 제기)이다.",
+        "reason_category": [
+          "workplace_bullying",
+          "violence",
+          "absence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2019-09-16",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=40049&type=HTML",
+        "relevance": 0.49179,
+        "_trigram_score": 0.6433333333333333,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.38733333333333336
+      },
+      {
+        "id": "id_45985",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "일부 징계사유가 인정되나 징계양정이 과하여 부당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 정당성 여부직장 내 괴롭힘 행위 중 일부가 징계사유로 인정되나 업무상 지시 불이행은 징계사유로 볼 수 없다.\n판단: 가. 징계사유의 정당성 여부직장 내 괴롭힘 행위 중 일부가 징계사유로 인정되나 업무상 지시 불이행은 징계사유로 볼 수 없다.나. 징계양정의 적정성 여부징계이력이 없고, 징계사유에 비해 징계양정이 과하다.",
+        "summary_short": "직장 내 괴롭힘 일부 인정되나 업무지시 불이행은 불인정, 징계양정이 과하여 부당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 정당성 여부직장 내 괴롭힘 행위 중 일부가 징계사유로 인정되나 업무상 지시 불이행은 징계사유로 볼 수 없다.",
+        "reason_category": [
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2022-05-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=45985&type=HTML",
+        "relevance": 0.504667,
+        "_trigram_score": 0.5988888888888889,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3695555555555556
+      },
+      {
+        "id": "id_404227",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "직장 내 괴롭힘이 인정되는 근로자에 대한 감봉 1월의 징계처분은 그 양정이 적정하고 절차상 하자가 없다고 판정한 사례",
+        "summary_short": "직장 내 괴롭힘이 인정되는 근로자에 대한 감봉 1월이 양정 적정하다고 판정한 사례",
+        "key_issue": "근로자가 행한 구체적인 비위행위의 내용과 실질, 감봉 1월의 징계처분으로 달성하려는 직장 내 괴롭힘 근절을 위한 징계의 목적, 징계양정 기준 등 제반 요소를 종합하여 보건대, 사용자의 징계재량권 행사에 있어 사회통념상 현저하게 타당성을 잃어 재량권의 범위를 벗어난",
+        "reason_category": [
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2024-12-11",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=404227&type=HTML",
+        "relevance": 0.506421,
+        "_trigram_score": 0.5909523809523809,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.36638095238095236
+      },
+      {
+        "id": "id_401853",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "직장 내 괴롭힘 혐의 중 일부만 징계사유로 인정되고, 징계양정이 과하여 부당정직으로 판정한 사례",
+        "summary_short": "직장 내 괴롭힘(폭언·욕설) 일부 인정되었으나 정직 2개월은 양정 과다로 부당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부직장 내 우월한 지위가 인정될 뿐만 아니라 폭언의 행위로 정신적 고통을 주어 및 근무환경을 악화시킨 것으로 보이므로 징계사유인 직장 내 괴롭힘 혐의 중 '폭언, 욕설’에 대하여는 징계사유로 충분히 인정된다.",
+        "reason_category": [
+          "workplace_bullying",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2025-08-07",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=401853&type=HTML",
+        "relevance": 0.486267,
+        "_trigram_score": 0.5761971830985916,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3604788732394366
+      },
+      {
+        "id": "id_42769",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계사유에 비해 징계양정이 과하여 해고는 부당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부근로자의 2018. 11. 13. 시설 이용자에 대한 폭언 및 지속적인 괴롭힘 행위, 2019. 6. 13. 목욕 이용자에 대한 폭언 및 민원유발 행위는 징계사유로 삼을 수 있고, 그 외의 나머지 사유는 사실관계의 확인 및 입증자료가 부족하므로 징계사유로 삼을 수 없다.\n판단: 가. 징계사유의 존재 여부근로자의 2018. 11. 13. 시설 이용자에 대한 폭언 및 지속적인 괴롭힘 행위, 2019. 6. 13. 목욕 이용자에 대한 폭언 및 민원유발 행위는 징계사유로 삼을 수 있고, 그 외의 나머지 사유는 사실관계의 확인 및 입증자료가 부족하므로 징계사유로 삼을 수 없다.나. 징계양정의 적정성 여부사용자가 징계사유로 삼은 비위행위 중 일부 징계사유만 인정되므로 비위의 정도에 비해 해고는 그 양정이 과하여 부당하다.",
+        "summary_short": "징계사유에 비해 징계양정이 과하여 해고는 부당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부근로자의 2018. 11. 13. 시설 이용자에 대한 폭언 및 지속적인 괴롭힘 행위, 2019. 6. 13. 목욕 이용자에 대한 폭언 및 민원유발 행위는 징계사유로 삼을 수 있고, 그 외의 나머지 사유는 사실관계의 확인 및 입증자료가 부족하므로 징계사유로 삼을 수 없다.",
+        "reason_category": [
+          "workplace_bullying",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-12-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42769&type=HTML",
+        "relevance": 0.48394,
+        "_trigram_score": 0.549622641509434,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3498490566037736
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "괴롭힘 인정 징계 수위 과한 사건",
+      "category": "",
+      "intent": "판정례 검색",
+      "keywords": [
+        "괴롭힘",
+        "징계",
+        "수위",
+        "과한",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_40049",
+          "score": 2,
+          "reason": "이 사건은 징계 사유와 징계 양정의 적정성을 모두 다루고 있어 쿼리의 핵심 법적 쟁점을 정확히 반영하고 있다."
+        },
+        {
+          "rank": 2,
+          "id": "id_45985",
+          "score": 2,
+          "reason": "직장 내 괴롭힘이 징계 사유로 인정되면서도 징계 양정이 과하다는 점을 명확히 다루고 있어 쿼리와의 관련성이 높다."
+        },
+        {
+          "rank": 3,
+          "id": "id_404227",
+          "score": 1,
+          "reason": "직장 내 괴롭힘이 인정되지만, 징계 양정이 적정하다고 판정하여 쿼리의 핵심 쟁점과는 다소 거리가 있다."
+        },
+        {
+          "rank": 4,
+          "id": "id_401853",
+          "score": 2,
+          "reason": "직장 내 괴롭힘 혐의 중 일부만 인정되면서 징계 양정이 과하다는 점을 다루고 있어 쿼리와의 관련성이 높다."
+        },
+        {
+          "rank": 5,
+          "id": "id_42769",
+          "score": 2,
+          "reason": "징계 사유와 징계 양정의 적정성을 모두 다루고 있어 쿼리의 핵심 법적 쟁점을 잘 반영하고 있다."
+        }
+      ],
+      "weighted_score": 9,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q07",
+    "query": "수습기간 중 본채용 거부가 정당한지",
+    "category": "probation",
+    "baseline_weighted_score": 10,
+    "baseline_precision_hits": 5,
+    "upgraded_top5": [
+      {
+        "id": "id_37457",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "수습기간에 대한 평가결과 본채용 거부에 해당하는 점수를 받은 근로자의 본채용을 거부하고 근로관계를 종료한 것은 정당하다고 판정한 사례",
+        "summary_short": "평가점수 미달로 본채용 거부가 유지된 사건",
+        "key_issue": "가. ① 인사복무규정에 따르면 수습기간 중 채용이 부적당하다고 인정되면 채용발령을 취소할 수 있음,",
+        "reason_category": [
+          "probation"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-06-05",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=37457&type=HTML",
+        "relevance": 0.601578,
+        "_trigram_score": 0.9214285714285714,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.49857142857142855
+      },
+      {
+        "id": "id_29523",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "시용기간 중 근무태도, 업무능력 등을 평가하여 본채용을 거부한 것은 합리적인 이유가 될 수 있어 부당하다고 보기 어렵다고 판정한 사례",
+        "summary_short": "수습기간 중 근무평가에 따라 본채용을 거부한 것이 정당하다고 판정한 사례",
+        "key_issue": "① 근로계약 시 수습기간을 3개월로 정하였고, 수습기간 중 부적격하다고 판단되는 경우 본채용을 거부할 수 있다고 명시되어 있음,",
+        "reason_category": [
+          "worker_status",
+          "probation",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-05-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=29523&type=HTML",
+        "relevance": 0.606845,
+        "_trigram_score": 0.8096045197740113,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.45384180790960454
+      },
+      {
+        "id": "id_30207",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근무성적 평가 점수 미달 등의 사유로 시용근로자의 본채용을 거부한 것은 정당하다고 판정한 사례",
+        "summary_short": "수습근로자가 본채용 기준 60점에 현저히 미달하는 36점을 받아 본채용 거부가 정당하다고 판정한 사례",
+        "key_issue": "가. 본채용 거부에 합리적 이유가 있는지 여부① 당사자가 체결한 근로계약서에 3개월의 시용기간을 두고, 시용기간 만료 전 본채용 여부를 결정한다는 내용을 명시하고 있는 점, ② 본채용 거부 사유 중 ‘수습기간 중 교육 및 근무성적이 적합하지 않음’에 대하여는",
+        "reason_category": [
+          "probation",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-07-04",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=30207&type=HTML",
+        "relevance": 0.621006,
+        "_trigram_score": 0.7766666666666666,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.44066666666666665
+      },
+      {
+        "id": "id_60647",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "시용근로계약에 해당하고, 본채용 거부에 합리적 이유가 존재하며 절차상 하자도 없으므로 본채용 거부가 정당하다고 판정한 사례",
+        "summary_short": "시용근로계약에 해당하고, 본채용 거부에 합리적 이유가 존재하며 절차상 하자도 없으므로 본채용 거부가 정당하다고 판정한 사례",
+        "key_issue": "가. 시용근로관계에 해당하는지 여부① 근로계약서에 “수습기간 만료 시 또는 만료 전에 본채용 거부”가 명시되어 있는 점, ② 취업규칙에 “본채용에 앞서 시용기간을 둘 수 있다.",
+        "reason_category": [
+          "probation"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-11-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=60647&type=HTML",
+        "relevance": 0.612862,
+        "_trigram_score": 0.6488505747126436,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3895402298850575
+      },
+      {
+        "id": "id_54423",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근로자는 시용근로자에 해당하고, 본채용 거부에 합리적 이유가 존재하며 절차상 하자도 없으므로 본채용 거부가 정당하다고 판정한 사례",
+        "summary_short": "근로자는 시용근로자에 해당하고, 본채용 거부에 합리적 이유가 존재하며 절차상 하자도 없으므로 본채용 거부가 정당하다고 판정한 사례",
+        "key_issue": "가. 시용근로자 여부① 근로계약서에 “수습기간 종료 후 본채용 거부”가 명시되어 있는 점, ② 인사규정에 “수습기간 중 면직시키거나 수습기간 종료 후 본채용을 거절할 수 있다.",
+        "reason_category": [
+          "worker_status",
+          "probation",
+          "workplace_bullying"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-04-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=54423&type=HTML",
+        "relevance": 0.610762,
+        "_trigram_score": 0.6441176470588235,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3876470588235294
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "수습기간 중 본채용 거부가 정당한지",
+      "category": "probation",
+      "intent": "procedure_check",
+      "keywords": [
+        "수습기간",
+        "본채용",
+        "거부가",
+        "정당한지"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_37457",
+          "score": 2,
+          "reason": "정확히 수습기간 중 본채용 거부의 정당성을 다루고 있음."
+        },
+        {
+          "rank": 2,
+          "id": "id_29523",
+          "score": 2,
+          "reason": "수습기간 중 본채용 거부의 합리적 이유를 설명하고 있어 핵심 쟁점을 다룸."
+        },
+        {
+          "rank": 3,
+          "id": "id_30207",
+          "score": 2,
+          "reason": "근무성적 평가를 근거로 본채용 거부의 정당성을 다루고 있어 관련성이 높음."
+        },
+        {
+          "rank": 4,
+          "id": "id_60647",
+          "score": 2,
+          "reason": "본채용 거부의 합리적 이유와 절차적 정당성을 명확히 설명하고 있어 쿼리와 관련 있음."
+        },
+        {
+          "rank": 5,
+          "id": "id_54423",
+          "score": 2,
+          "reason": "본채용 거부의 정당성을 다루고 있으며, 수습근로자의 상황을 잘 설명하고 있음."
+        }
+      ],
+      "weighted_score": 10,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q08",
+    "query": "수습기간 중 업무능력 부족으로 해고하거나 본채용 거부한 사건",
+    "category": "probation",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_40355",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "사용자가 시용근로관계에 있는 근로자의 본채용을 근태불량, 회사 재산의 사용, 업무능력 부족 등을 이유로 거부한 것은 정당하다고 판정한 사례",
+        "summary_short": "합의로 수습기간이 연장되었고, 근태불량·무료주차권 부정사용·업무실적 저조로 본채용 거부가 정당하다고",
+        "key_issue": "가. ① 근로계약서에 수습기간 중 업무적격성 여부에 따라 본채용이 거부될 수 있는 것으로 보아 근로자의 수습기간은 시용기간에 해당함, ② 근로자의 병가 사용으로 사용자는 수습기간 연장을 제의하였고, 근로자는 이에 동의하였음. 위와 같은 사정들을 종합하면, 당사자",
+        "reason_category": [
+          "worker_status",
+          "probation",
+          "absence",
+          "incompetence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-09-25",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=40355&type=HTML",
+        "relevance": 0.760921,
+        "_trigram_score": 0.6637931034482758,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.1,
+        "_effective_relevance": 0.5455172413793103
+      },
+      {
+        "id": "id_29523",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "시용기간 중 근무태도, 업무능력 등을 평가하여 본채용을 거부한 것은 합리적인 이유가 될 수 있어 부당하다고 보기 어렵다고 판정한 사례",
+        "summary_short": "수습기간 중 근무평가에 따라 본채용을 거부한 것이 정당하다고 판정한 사례",
+        "key_issue": "① 근로계약 시 수습기간을 3개월로 정하였고, 수습기간 중 부적격하다고 판단되는 경우 본채용을 거부할 수 있다고 명시되어 있음,",
+        "reason_category": [
+          "worker_status",
+          "probation",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-05-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=29523&type=HTML",
+        "relevance": 0.623465,
+        "_trigram_score": 0.75,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.43000000000000005
+      },
+      {
+        "id": "id_409615",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "시용 근로자에 대한 본채용 거부 사유 및 절차가 모두 정당하다고 판정한 사례\n\n쟁점: 가. 해고(본채용 거부) 사유의 정당성 여부① 인사규정 제14조에 6개월 수습기간을 두고 업무적격성을 평가할 수 있도록 규정되어 있는 점, ② 근로자는 실무 수습을 받아야 하고 평가결과에 따라 면직될 수 있다는 수습기간 동의서에 자필로 서명한 점, ③ '교육평가’는\n판단: 가. 해고(본채용 거부) 사유의 정당성 여부① 인사규정 제14조에 6개월 수습기간을 두고 업무적격성을 평가할 수 있도록 규정되어 있는 점, ② 근로자는 실무 수습을 받아야 하고 평가결과에 따라 면직될 수 있다는 수습기간 동의서에 자필로 서명한 점, ③ '교육평가’는 평균 60점 이상을 획득한 반면, '근무자세 평가’에서는 평가자 3명으로부터 각각 51점, 30점, 30점을 받은 점, ④ 근로자를 상대로 2024. 6.부터 8.까지 3개월 동안 총 3건의 민원이 접수된 점, ⑤ 사용자의 수습평가 결과에 객관성과 타당성이 부족하다고 뒷받침할만한 자료나 기타 증거는 없는 점 등을 종합하면 해고(본채용 거부)사유는 정당함나. 해고(본채용 거부) 절차의 정당성 여부사용자가 근로자에게 면직시기와 사유를 기재한 면직처분 통지서를 서면으로 교부하여 특별히 절차상 하자는 없음",
+        "summary_short": "가. 해고(본채용 거부) 사유의 정당성 여부① 인사규정 제14조에 6개월 수습기간을 두고 업무적격성을 평가할 수 있도록 규정되어 있는 점, ② 근로자는 실무 수습을 받아야 하고 평가결과에 따라 면직될 수 있다는 수습기간 동의서에 자필로 서명한 점, ③ '교육평가’는 평",
+        "key_issue": "가. 해고(본채용 거부) 사유의 정당성 여부① 인사규정 제14조에 6개월 수습기간을 두고 업무적격성을 평가할 수 있도록 규정되어 있는 점, ② 근로자는 실무 수습을 받아야 하고 평가결과에 따라 면직될 수 있다는 수습기간 동의서에 자필로 서명한 점, ③ '교육평가’는",
+        "reason_category": [
+          "worker_status",
+          "probation"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-11-15",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=409615&type=HTML",
+        "relevance": 0.633003,
+        "_trigram_score": 0.49787234042553186,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4291489361702127
+      },
+      {
+        "id": "id_32113",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "시용근로자에 대하여 업무지시 불이행, 업무수행 태만 등을 이유로 행한 근로계약 해지는 정당하다고 판정한 사례",
+        "summary_short": "시용근로자에 대하여 업무지시 불이행, 업무수행 태만 등을 이유로 행한 근로계약 해지는 정당하다고 판정한 사례",
+        "key_issue": "가. 시용근로자에 해당하는지 여부취업규칙과 근로계약서에 수습기간이 명시되어 있고, 수습기간 중 업무능력 부족 등을 이유로 채용 취소 또는 계약 해지를 할 수 있음을 명시하고 있는 점에 비추어 볼 때 시용근로자에 해당한다.",
+        "reason_category": [
+          "worker_status",
+          "probation",
+          "incompetence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-10-10",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=32113&type=HTML",
+        "relevance": 0.624745,
+        "_trigram_score": 0.49787234042553186,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4291489361702127
+      },
+      {
+        "id": "id_741",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "시용기간 중 업무부적격 등을 이유로 본채용을 거부한 것은 사용자에게 유보한 해약권의 행사로서 정당하다고 판정한 사례",
+        "summary_short": "시용기간 중 업무부적격을 이유로 본채용을 거부한 것이 정당하다고 판정한 사례",
+        "key_issue": "가. 시용근로계약인지 여부근로계약서와 취업규칙에서 3개월간 수습기간을 두고 있고, 수습기간 중 업무능력이 현저히 부족하거나 근무태도 등이 불량하여 직원의 자격에 미달하여 채용이 부적합하다고 인정되는 직원에 대해서는 해고할 수 있다고 규정하고 있어 시용근로자에 해당한다.",
+        "reason_category": [
+          "worker_status",
+          "probation",
+          "incompetence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2020-01-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=741&type=HTML",
+        "relevance": 0.622495,
+        "_trigram_score": 0.7364864864864865,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.42459459459459464
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "수습기간 중 업무능력 부족으로 해고 또는 본채용 거부 사건",
+      "category": "",
+      "intent": "사건 판례 검색",
+      "keywords": [
+        "수습기간",
+        "업무능력 부족",
+        "해고",
+        "본채용 거부",
+        "판례"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_40355",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 2,
+          "id": "id_29523",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 3,
+          "id": "id_409615",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 4,
+          "id": "id_32113",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 5,
+          "id": "id_741",
+          "score": 2,
+          "reason": "fallback heuristic"
+        }
+      ],
+      "weighted_score": 10,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q09",
+    "query": "수습인데 서면통지나 절차 문제가 있는 사건",
+    "category": "probation",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_1701",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "징계사유가 존재하고, 징계양정이 적정하며, 징계절차에도 하자가 없어 징계 처분이 정당하다고 판정한 사례",
+        "summary_short": "징계사유가 존재하고, 징계양정이 적정하며, 징계절차에도 하자가 없어 징계 처분이 정당하다는 사건",
+        "key_issue": "가. 징계사유가 존재하는지사용자가 징계사유로 삼은 ‘① 영업소 배차 명령 거부’, ‘② 고의 지연운행을 통한 운행 결행’, ‘③ 동료와의 심한 마찰’ 등 3가지 비위행위 중 ‘①’과 ‘③’은 징계사유로 인정된다.",
+        "reason_category": [
+          "probation",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2020-04-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=1701&type=HTML",
+        "relevance": 0.576163,
+        "_trigram_score": 0.35947368421052633,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.22378947368421054
+      },
+      {
+        "id": "id_10257",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계사유 중 일부가 인정되고 징계절차에 하자는 없으나, 인정되는 징계사유만으로는 정직 3개월의 징계는 양정이 과하다고 판정한 사례",
+        "summary_short": "징계사유 중 일부가 인정되고 징계절차에 하자는 없으나, 인정되는 징계사유만으로는 정직 3개월의 징계는 양정이 과하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부① 사용자가 2020. 2. 19. 근로자의 교통사고는 징계사유가 아니라고 인정하고 있는 점, ② 창원시가 근로자에 대한 민원을 이유로 근로자에게 경고처분를 하였는데, 이는 근로자의 소명이 어느 정도 받아들여져 창원시가 과징금이나 과태료의",
+        "reason_category": [
+          "worker_status",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2021-09-27",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=10257&type=HTML",
+        "relevance": 0.586425,
+        "_trigram_score": 0.38390243902439025,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.2035609756097561
+      },
+      {
+        "id": "id_37719",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "교통사고를 발생시킨 것은 징계사유에 해당하나, 징계양정이 과하고 단체협약상의 징계절차를 위반하여 부당하다고 판정한 사례",
+        "summary_short": "교통사고를 발생시킨 것은 징계사유에 해당하나, 징계양정이 과하고 단체협약상의 징계절차를 위반하여 부당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부① 근로자가 유발한 교통사고는 이 사건 회사의 단체협약 및 취업규칙상 징계사유에 해당하는 점, ② 근로자 또한 징계사유임을 인정하고 있는 점 등을 볼 때, 징계사유는 존재한다.",
+        "reason_category": [
+          "worker_status",
+          "misconduct"
+        ],
+        "sanction_type": "warning",
+        "decision_date": "2019-06-17",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=37719&type=HTML",
+        "relevance": 0.58896,
+        "_trigram_score": 0.38390243902439025,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.2035609756097561
+      },
+      {
+        "id": "id_37509",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계사유 중 1) 근무태만, 2) 휴무일 차량 운행 및 유류카드 사용은 징계사유가 인정되나, 근로자와 이해관계에 있는 자가 징계위원회 위원으로 참석하여 의결한 것은 징계 절차에 하자가 있고, 근로관계를 종료하여야 할 정도로 비위행위가 중하다고 볼 수 없어 양정도 과하여 징계 해고는 부당하고, 불이익 취급의 부당노동행위에는 해당하지 않는다.",
+        "summary_short": "잦은 결근과 휴무일에 영업차량을 운행하고 유류카드를 사용한 것은 징계사유가 인정되나, 해고는 그 양정이 과하고 징계절차에서도 하자가 있어 부당하고 불이익 취급의 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "key_issue": "잦은 결근과 휴무일에 영업차량을 운행하고 유류카드를 사용한 것은 징계사유가 인정되나, 해고는 그 양정이 과하고 징계절차에서도 하자가 있어 부당하고 불이익 취급의 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "union_activity",
+          "absence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-06-07",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=37509&type=HTML",
+        "relevance": 0.579899,
+        "_trigram_score": 0.3505263157894737,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.1902105263157895
+      },
+      {
+        "id": "id_29137",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "운전원이 시용기간 중 본인 과실에 의해 야기한 교통사고는 운전원의 자질과 적성에 부적합한 것으로 본채용 거절의 합리적 이유가 있다고 판정한 사례",
+        "summary_short": "운전원이 시용기간 중 본인 과실에 의해 야기한 교통사고는 운전원의 자질과 적성에 부적합한 것으로 본채용 거절의 합리적 이유가 있다고 판정한 사례",
+        "key_issue": "가. 본채용 거절에 합리적인 이유가 존재하는지 여부시용기간 중 승객이 없는 상태에서 발생한 차량 간 접촉 사고는 승객의 안전에 위협을 가하거나 불편을 주는 업무 부적격 행위가 아니라고 주장하나, ① 근로계약서에 교통사고를 야기할 때에 계약 해약 등의 조치를 따르도록",
+        "reason_category": [
+          "worker_status",
+          "no_dismissal",
+          "probation",
+          "violence",
+          "incompetence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-05-10",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=29137&type=HTML",
+        "relevance": 0.450881,
+        "_trigram_score": 0.21359223300970873,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.1654368932038835
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "수습인데 서면통지나 절차 문제가 있는 사건",
+      "category": "probation",
+      "intent": "procedure_check",
+      "keywords": [
+        "수습인데",
+        "서면통지나",
+        "절차",
+        "문제가",
+        "있는"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 0,
+          "id": "id_1701",
+          "score": 0,
+          "reason": "사건이 수습 근로자와 관련이 없고, 징계 절차에 대한 문제를 다루지 않음."
+        },
+        {
+          "rank": 1,
+          "id": "id_10257",
+          "score": 1,
+          "reason": "징계 절차에 대한 하자는 없으나, 수습 근로자와 관련된 쟁점이 아님."
+        },
+        {
+          "rank": 2,
+          "id": "id_37719",
+          "score": 2,
+          "reason": "징계 절차 위반이 명시되어 있으며, 수습 근로자와 관련된 쟁점을 다룸."
+        },
+        {
+          "rank": 2,
+          "id": "id_37509",
+          "score": 2,
+          "reason": "징계 절차에 하자가 있으며, 수습 근로자와 관련된 쟁점을 다룸."
+        },
+        {
+          "rank": 0,
+          "id": "id_29137",
+          "score": 0,
+          "reason": "사건이 수습 근로자와 관련이 없고, 징계 절차에 대한 문제를 다루지 않음."
+        }
+      ],
+      "weighted_score": 5,
+      "precision_hits": 3
+    }
+  },
+  {
+    "query_id": "Q10",
+    "query": "정규직 저성과나 업무능력 부족으로 해고된 사건",
+    "category": "incompetence",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_349563",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "해고사유가 정당하다고 보기 어려워 부당해고로 판정한 사례\n\n쟁점: 가. 경력 사항 허위 기재에 대하여근로자는 이 사건 회사에서 2015. 12. 15.부터 2016. 3. 10.까지 (86일) 근무하고 퇴사하였음에도 이 사건 회사에 재입사하기 위해 제출한 지원이력서에 실제 근무이력과 다른 2013. 7.부터 2016. 3.까지 총 2년 9개월로 기재한 사실은 인정된다.\n판단: 가. 경력 사항 허위 기재에 대하여근로자는 이 사건 회사에서 2015. 12. 15.부터 2016. 3. 10.까지 (86일) 근무하고 퇴사하였음에도 이 사건 회사에 재입사하기 위해 제출한 지원이력서에 실제 근무이력과 다른 2013. 7.부터 2016. 3.까지 총 2년 9개월로 기재한 사실은 인정된다. 그러나 사용자는 자체적으로 근로자의 과거 근무이력을 충분히 확인할 수 있었다는 점, 사용자의 대표이사가 근로자의 재입사 과정에서 근로자에게 적극적으로 재입사를 제안ㆍ권유한 점, 근로자가 정규직으로 근무할 예정이던 이전 회사를 그만두고 계약직근로자로 이 사건 회사에 채용된 점 등에 비추어 보면 근로자가 과거 근무이력을 사실과 달리 기재한 사유만으로 고용계약의 신뢰관계를 중대하게 위반하였다고 볼 수 없어 징계사유로 인정되지 않음나. 업무능력 부족 또는 미흡에 대하여사용자는 근로자가 담당 업무능력이 부족하다거나 미흡하다고 볼 만한 객관적인 자료를 제출하지 않은 점, 사용자는 소속 직원들의",
+        "summary_short": "경력허위기재와 업무능력 부족 모두 징계사유로 인정되지 않아 해고가 부당하다고",
+        "key_issue": "가. 경력 사항 허위 기재에 대하여근로자는 이 사건 회사에서 2015. 12. 15.부터 2016. 3. 10.까지 (86일) 근무하고 퇴사하였음에도 이 사건 회사에 재입사하기 위해 제출한 지원이력서에 실제 근무이력과 다른 2013. 7.부터 2016. 3.까지 총 2년 9개월로 기재한 사실은 인정된다.",
+        "reason_category": [
+          "incompetence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-02-07",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=349563&type=HTML",
+        "relevance": 0.504313,
+        "_trigram_score": 0.5280597014925373,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.44122388059701495
+      },
+      {
+        "id": "id_3219",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "업무상 필요성이 없어 부당전직으로 판정한 사례\n\n쟁점: ① 근로자의 승진품의서에 ‘근로자가 업무수행능력에 있어서도 충분히 과장급 업무를 수행하고 있다.\n판단: ① 근로자의 승진품의서에 ‘근로자가 업무수행능력에 있어서도 충분히 과장급 업무를 수행하고 있다.’라고 기재되어 있는 점, ② ‘조직개편에 따른 정원 축소’가 전직의 직접적인 사유로 보이지 않는 점, ③ 제출된 자료만으로는 근로자가 경영지원실에서의 업무를 수행할 역량이 부족하다고 단정하기 어려운 점, ④ 근로자가 우리 위원회 부당전직 판정으로 경영지원실로 복직된 이후 업무를 수행할 기회를 충분히 제공하지도 않은 상태에서 업무 내용 등이 현저히 다른 조리팀으로 전직을 시행한 점 등을 종합하여 볼 때 전직의 업무상 필요성이 없음.",
+        "summary_short": "업무상 필요성이 없는 전직은 부당전직에 해당한다고",
+        "key_issue": "① 근로자의 승진품의서에 ‘근로자가 업무수행능력에 있어서도 충분히 과장급 업무를 수행하고 있다.",
+        "reason_category": [
+          "transfer",
+          "incompetence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2020-10-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=3219&type=HTML",
+        "relevance": 0.487211,
+        "_trigram_score": 0.35,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.31999999999999995
+      },
+      {
+        "id": "id_35533",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "가. 업무상 필요성의 존재 여부① 다면평가에 일부 감정적·주관적 평가 요소가 있다고 하여 다면평가 결과를 부인하기는 어렵고, 근로자는 다면평가에서 2년 연속 전국 평균 이하의 점수를 받았으며, ② 근로자에 대한 제보내용(반말·인격모독)은 진술의 구체성과 다른 자료 등을 종합하면 사실에 부합한다고 보이고, ③ 유통판매업의 특성상 사용자가 근로자들의 고객응대·근무태도·다면평가 등을 인사명령에 반영하는 것은 상당한 재량권으로 인정되어야 하는 점, ④ 저성과자들을 포함한 다수의 근로자를 대상으로 한 정기 인사발령이었음이 확인되는 점 등을 종합적으로 고려할 때 업무상 필요성이 존재함.나. 생활상 불이익의 정도① 정상적인 업무공간과 상당한 업무내용을 부여하였고, ② 직책 상실 시 당연히 지급되지 않는 직책 수당 미지급은 불이익한 조치로 볼 수 없으며, ③ 정신적 스트레스 등은 다소 주관적이거나 통상 감내할 수 있는 범위 내로 보여 업무상 필요성에 비해 생활상 불이익이 크다고 볼 수 없음.다. 신의칙상 요구되는 협의절차 준수 여부성실한 협의절차를 거치지 아니하였다는 사정만으로 인사명령이 권리남용에 해당되어 당연히 무효가 된다고 볼 수 없음.",
+        "summary_short": "보직해임+전보 업무상 필요성 있고 협의 하자=무효화수준 아님=정당",
+        "key_issue": "보직해임 및 전보에 업무상 필요성이 있고, 생활상 불이익은 통상 감내할 수 있는 범위 내로 볼 수 있으며, 신의칙상 협의여부는 인사명령을 무효화시킬 정도에 이르지 않아 정당하다고 판정한 사례",
+        "reason_category": [
+          "transfer"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-03-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=35533&type=HTML",
+        "relevance": 0.490884,
+        "_trigram_score": 0.35,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.24
+      },
+      {
+        "id": "id_829",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "업무상 필요성이 인정되지 않고 근로자에게 생활상 불이익이 발생하여 부당전직으로 판정한 사례",
+        "summary_short": "업무상 필요성이 인정되지 않고 근로자에게 생활상 불이익이 발생하여 부당전직으로 판정한 사례",
+        "key_issue": "가. 업무상 필요성 여부사용자는 근로자의 업무능력 및 계속근로의사, 회사의 인력현황을 고려하여 전직발령을 하였다고 주장하나, ① 근로자의 승진 경력 등이 확인되는 반면, 인사평가자료는 제출되지 않은 점, ② 경영악화를 주장하면서도 해당 근로자에게만 사직을 권고한",
+        "reason_category": [
+          "worker_status",
+          "transfer",
+          "redundancy"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2020-02-04",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=829&type=HTML",
+        "relevance": 0.360682,
+        "_trigram_score": 0.42,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.168
+      },
+      {
+        "id": "id_412049",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "업무상 필요성이 인정되고 근로자와 협의절차를 거쳤으나 생활상 불이익이 감내할 수 있는 수준을 벗어나 부당하다고 판정한 사례",
+        "summary_short": "저성과자 재교육 TV=업무상 필요성 인정이나 기한 없음+종전 업무와 무관한 교육만=생활상 불이익=TV 부당",
+        "key_issue": "가. 업무상 필요성 여부인사평가 결과 업무 저성과자에 대해 재교육을 실기하기 위한 전보로 업무상 필요성이 인정됨나. 생활상 불이익 여부정해진 기한도 없이 종전 업무와 직접적 관련이 없는 교육만을 받으며 근로를 지속하는 등 정신적ㆍ사회적 불이익이 감내할 수 있는 수준을 벗어난 것으로 판단됨다.",
+        "reason_category": [
+          "transfer"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-12-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=412049&type=HTML",
+        "relevance": 0.400621,
+        "_trigram_score": 0.35,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.13999999999999999
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "정규직 저성과나 업무능력 부족으로 해고된 사건",
+      "category": "incompetence",
+      "intent": "validity_check",
+      "keywords": [
+        "정규직",
+        "저성과나",
+        "업무능력",
+        "부족으로",
+        "해고된"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 0,
+          "id": "id_349563",
+          "score": 0,
+          "reason": "해고 사유가 정당하지 않다고 판정했으나, 저성과나 업무능력 부족과 관련된 쟁점이 없음."
+        },
+        {
+          "rank": 1,
+          "id": "id_3219",
+          "score": 1,
+          "reason": "업무수행능력에 대한 언급이 있으나, 저성과 해고와는 다른 맥락의 부당전직 사례."
+        },
+        {
+          "rank": 2,
+          "id": "id_35533",
+          "score": 2,
+          "reason": "저성과와 업무능력 부족에 대한 구체적인 평가와 판정이 포함되어 있어 핵심 쟁점을 잘 다룸."
+        },
+        {
+          "rank": 0,
+          "id": "id_829",
+          "score": 0,
+          "reason": "부당전직 판정 사례로, 저성과 해고와 관련된 쟁점이 없음."
+        },
+        {
+          "rank": 1,
+          "id": "id_412049",
+          "score": 1,
+          "reason": "업무상 필요성과 협의절차에 대한 언급이 있으나, 저성과 해고와는 다른 맥락의 사례."
+        }
+      ],
+      "weighted_score": 4,
+      "precision_hits": 3
+    }
+  },
+  {
+    "query_id": "Q11",
+    "query": "개선기회나 경고를 주고도 업무능력 부족으로 해고한 사건",
+    "category": "incompetence",
+    "baseline_weighted_score": 4,
+    "baseline_precision_hits": 1,
+    "upgraded_top5": [
+      {
+        "id": "id_347793",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계사유가 존재하고 양정이 적정하며 절차에도 하자가 없어 경고처분은 정당하다고 판정한 사례",
+        "summary_short": "징계사유가 존재하고 양정이 적정하며 절차에도 하자가 없어 경고처분은 정당하다고 판정한 사례",
+        "key_issue": "징계사유가 존재하고 양정이 적정하며 절차에도 하자가 없어 경고처분은 정당하다고 판정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "warning",
+        "decision_date": "2024-01-22",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=347793&type=HTML",
+        "relevance": 0.503555,
+        "_trigram_score": 0.49897435897435893,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.34958974358974354
+      },
+      {
+        "id": "id_405269",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "이 사건 사용자가 이 사건 징계를 하며 이 사건 근로자에게 소명 기회를 부여하지 않은 절차상 하자가 존재하고 징계사유의 존재 또한 불분명하므로 이 사건 징계는 부당하다.",
+        "summary_short": "이 사건 근로자에 대한 징계의 절차가 적법하지 않고, 징계의 사유 또한 불분명하여 부당징계로 인정한 사례",
+        "key_issue": "이 사건 근로자에 대한 징계의 절차가 적법하지 않고, 징계의 사유 또한 불분명하여 부당징계로 인정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-04-14",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=405269&type=HTML",
+        "relevance": 0.544111,
+        "_trigram_score": 0.4588888888888889,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.33355555555555555
+      },
+      {
+        "id": "id_9891",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "지각 6회, 근무지 이탈 2회의 징계사유가 인정되고 소명의 기회 부여 등 징계절차를 준수하였으나, 징계사유에 비해 양정이 과하여 부당한 징계로 판단된다",
+        "summary_short": "징계사유가 인정되고 절차도 적법하나 징계양정이 과하여 부당한 징계라고 판정한 사례",
+        "key_issue": "징계사유가 인정되고 절차도 적법하나 징계양정이 과하여 부당한 징계라고 판정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-09-09",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=9891&type=HTML",
+        "relevance": 0.554901,
+        "_trigram_score": 0.4588888888888889,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.28355555555555556
+      },
+      {
+        "id": "id_20699",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "근로자에게 진술할 기회와 소명자료를 제출할 기회를 부여하도록 한 사용자의 징계 규정을 따르지 않은 해고 처분은 절차적 하자로 인하여 부당하다.",
+        "summary_short": "징계절차의 하자로 인한 해고처분은 부당하다고 판정한 사례",
+        "key_issue": "징계절차의 하자로 인한 해고처분은 부당하다고 판정한 사례",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-02-24",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=20699&type=HTML",
+        "relevance": 0.553239,
+        "_trigram_score": 0.428974358974359,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.27158974358974364
+      },
+      {
+        "id": "id_400537",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "징계사유, 징계양정, 징계절차에 하자가 없어 기각 판정한 사건\n\n쟁점: 징계사유, 양정, 절차에 문제가 없어 기각 판정한 사건\n판단: 징계사유, 양정, 절차에 문제가 없어 기각 판정한 사건",
+        "summary_short": "징계사유, 양정, 절차에 문제가 없어 기각 판정한 사건",
+        "key_issue": "징계사유, 양정, 절차에 문제가 없어 기각 판정한 사건",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-10-29",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=400537&type=HTML",
+        "relevance": 0.53274,
+        "_trigram_score": 0.4588888888888889,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.23355555555555557
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "개선기회 경고 업무능력 부족 해고 사건",
+      "category": "",
+      "intent": "판정례 검색",
+      "keywords": [
+        "개선기회",
+        "경고",
+        "업무능력 부족",
+        "해고",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_347793",
+          "score": 0,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 2,
+          "id": "id_405269",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 3,
+          "id": "id_9891",
+          "score": 0,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 4,
+          "id": "id_20699",
+          "score": 0,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 5,
+          "id": "id_400537",
+          "score": 2,
+          "reason": "fallback heuristic"
+        }
+      ],
+      "weighted_score": 4,
+      "precision_hits": 2
+    }
+  },
+  {
+    "query_id": "Q12",
+    "query": "징계사유는 인정되지만 해고가 너무 과하다고 본 사건",
+    "category": "",
+    "baseline_weighted_score": 6,
+    "baseline_precision_hits": 2,
+    "upgraded_top5": [
+      {
+        "id": "id_344255",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계사유가 일부 인정되나 양정이 과하여 부당하다는 사례\n\n쟁점: 가. 징계사유의 존재 여부비위행위 중 일부는 징계사유로 인정되나, 그 외 징계사유는 객관적으로 입증되었다고 보기 어려워 징계사유로 삼기 어렵다.\n판단: 가. 징계사유의 존재 여부비위행위 중 일부는 징계사유로 인정되나, 그 외 징계사유는 객관적으로 입증되었다고 보기 어려워 징계사유로 삼기 어렵다.나. 징계양정의 적정성 여부징계사유 중 일부만 인정되고, 근로자의 징계, 표창이력 등을 종합하면 근로관계를 종료할 정도로 중대한 비위행위라고 보기 어려우므로 양정이 과하여 부당하다.다. 징계절차의 적법성 여부근로자가 출석하여 소명하였고, 해고사유와 해고시기를 서면으로 통지하였으므로 절차상 하자는 존재하지 않는다.",
+        "summary_short": "징계사유가 일부 인정되나 양정이 과하여 부당하다는 사례",
+        "key_issue": "가. 징계사유의 존재 여부비위행위 중 일부는 징계사유로 인정되나, 그 외 징계사유는 객관적으로 입증되었다고 보기 어려워 징계사유로 삼기 어렵다.",
+        "reason_category": [
+          "no_dismissal",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-01-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=344255&type=HTML",
+        "relevance": 0.637317,
+        "_trigram_score": 0.8156914893617021,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.5762765957446809
+      },
+      {
+        "id": "id_9947",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "인정되는 징계사유에 비해 징계양정이 부적정하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부근로자에게 일부의 징계사유가 존재할 뿐, 대부분의 징계사유는 인정되지 않는다.\n판단: 가. 징계사유의 존재 여부근로자에게 일부의 징계사유가 존재할 뿐, 대부분의 징계사유는 인정되지 않는다.나. 징계양정의 적정성 여부징계사유 중 대부분은 존재하지 않고, 일부만 징계사유로 인정할 수 있으므로 인정되는 징계사유에 비해 징계양정이 과하여 부당하다.",
+        "summary_short": "인정되는 징계사유에 비해 징계양정이 부적정하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부근로자에게 일부의 징계사유가 존재할 뿐, 대부분의 징계사유는 인정되지 않는다.",
+        "reason_category": [
+          "misconduct",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-09-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=9947&type=HTML",
+        "relevance": 0.629744,
+        "_trigram_score": 0.7024999999999999,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.531
+      },
+      {
+        "id": "id_46941",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "일부 징계사유가 인정되나 인정되는 징계사유에 비해 해고는 양정이 과하여 부당하다고 판정한 사례",
+        "summary_short": "일부 징계사유가 인정되나 인정되는 징계사유에 비해 해고는 양정이 과하여 부당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부사용자가 징계사유로 삼은 3건의 징계사유 중 2건의 징계사유는 관련 증거자료 등을 통해 인정되나 나머지는 구체적인 증거를 확인할 수 없어 이를 징계사유로 인정하기 어렵다.",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2022-06-16",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=46941&type=HTML",
+        "relevance": 0.624503,
+        "_trigram_score": 0.6972826086956521,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.5289130434782608
+      },
+      {
+        "id": "id_344117",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계사유가 일부 존재하나 양정이 과하여 부당해고라고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부지시 불이행에 따른 손실 초래 행위, 외부 이해당사자에게 중요 문서를 유출하는 행위 등은 징계사유로 인정되나 사내협력사 단가 합의 관련 중대한 사실 허위보고는 허위 사실 자체가 인정될 수 없으므로 징계사유로 볼 수 없다고 판단된다.\n판단: 가. 징계사유의 존재 여부지시 불이행에 따른 손실 초래 행위, 외부 이해당사자에게 중요 문서를 유출하는 행위 등은 징계사유로 인정되나 사내협력사 단가 합의 관련 중대한 사실 허위보고는 허위 사실 자체가 인정될 수 없으므로 징계사유로 볼 수 없다고 판단된다.나. 징계양정의 적정성 여부징계사유 중 일부만 인정되는 징계사유만으로 '해고’까지 행하여진 이 사건 징계는 양정이 과다하여 징계권자에게 맡겨진 재량권을 일탈ㆍ남용한 것으로 판단된다.다. 징계절차의 적법성 여부이 사건 회사의 내부규정에 따라 이 사건 근로자는 사전 출석통지를 받고 징계위원회에 출석하여 소명하는 등 이 사건 징계의 절차상 위법은 확인되지 않는다.",
+        "summary_short": "징계사유가 일부 존재하나 양정이 과하여 부당해고라고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부지시 불이행에 따른 손실 초래 행위, 외부 이해당사자에게 중요 문서를 유출하는 행위 등은 징계사유로 인정되나 사내협력사 단가 합의 관련 중대한 사실 허위보고는 허위 사실 자체가 인정될 수 없으므로 징계사유로 볼 수 없다고 판단된다.",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-10-24",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=344117&type=HTML",
+        "relevance": 0.61521,
+        "_trigram_score": 0.6855769230769231,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.5242307692307693
+      },
+      {
+        "id": "id_25275",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계시효 도과 등으로 근로자에 대한 8가지의 징계사유 중 ‘금융거래 임의조회 및 제공’만이 징계사유로 인정되므로 징계해고(면직)는 그 사유에 비해 양정이 과하여 부당하다.",
+        "summary_short": "인정되는 징계사유에 비해 징계양정이 과하여 부당해고라고 판정한 사례",
+        "key_issue": "인정되는 징계사유에 비해 징계양정이 과하여 부당해고라고 판정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-10-30",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=25275&type=HTML",
+        "relevance": 0.612753,
+        "_trigram_score": 0.6699074074074074,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.517962962962963
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "징계사유 인정, 해고 과하 사건",
+      "category": "",
+      "intent": "사건 판례 검색",
+      "keywords": [
+        "징계사유",
+        "해고",
+        "과하",
+        "판례"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_344255",
+          "score": 2,
+          "reason": "핵심 쟁점인 징계사유의 인정 여부와 해고의 과도성에 대해 명확히 다루고 있음."
+        },
+        {
+          "rank": 2,
+          "id": "id_9947",
+          "score": 2,
+          "reason": "징계사유의 일부 인정과 징계양정의 부적정성을 잘 설명하고 있어 쿼리와의 관련성이 높음."
+        },
+        {
+          "rank": 3,
+          "id": "id_46941",
+          "score": 2,
+          "reason": "징계사유의 일부 인정과 해고의 과도성을 명확히 다루고 있어 쿼리와 관련성이 높음."
+        },
+        {
+          "rank": 4,
+          "id": "id_344117",
+          "score": 2,
+          "reason": "징계사유의 일부 인정과 해고의 과도성에 대한 판단을 잘 설명하고 있어 쿼리와의 관련성이 높음."
+        },
+        {
+          "rank": 5,
+          "id": "id_25275",
+          "score": 2,
+          "reason": "징계사유의 일부 인정과 해고의 과도성에 대한 판단을 잘 설명하고 있어 쿼리와의 관련성이 높음."
+        }
+      ],
+      "weighted_score": 10,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q13",
+    "query": "정직 처분 양정이 적정한지 본 사건",
+    "category": "",
+    "baseline_weighted_score": 6,
+    "baseline_precision_hits": 2,
+    "upgraded_top5": [
+      {
+        "id": "id_59737",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "partial",
+        "holding_summary": "가. 정직이 정당한지 여부1) (징계사유의 존재 여부) 징계사유1 내지 3 모두 취업규칙 제94조(징계대상)에 해당됨2) (징계양정의 적정성) 징계사유1 내지 3이 중대한 징계사유로는 보이지 않고 사용자가 최근 5년간 욕설이 포함된 폭행을 한 자에 대해 정직 1개월 처분을 한 점 등을 종합적으로 고려하면 양정이 과함3) (징계절차의 정당성) 양 당사자 간 다툼이 없고, 특별한 하자가 보이지 않으므로 정당함나. 전보가 정당한지 여부1) (업무상 필요성) 현장소장 자리를 비워둘 수 없었고 다른 근로자들이 근로자의 복귀를 반대하는 등 업무상 필요성은 인정됨2) (생활상 불이익) 직위가 유지되고 임금의 감소도 없어 출？퇴근에 따른 불이익은 근로자가 감내해야 할 수준임3) (성실한 협의 여부) 다소 미흡하나, 무효에 이를 정도는 아님",
+        "summary_short": "정직의 징계사유는 모두 인정되고 절차에 하자가 없으나 징계양정이 과도하여 부당하고, 전보는 업무상 필요성이 인정되고 생활상 불이익이 근로자가 감수해야 할 범위 내로 보이며 성실한 협의 미흡은 무효에 이를 정도는 아니므로 정당하다고 판정한 사례",
+        "key_issue": "정직의 징계사유는 모두 인정되고 절차에 하자가 없으나 징계양정이 과도하여 부당하고, 전보는 업무상 필요성이 인정되고 생활상 불이익이 근로자가 감수해야 할 범위 내로 보이며 성실한 협의 미흡은 무효에 이를 정도는 아니므로 정당하다고 판정한 사례",
+        "reason_category": [
+          "transfer",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2023-10-04",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=59737&type=HTML",
+        "relevance": 0.517047,
+        "_trigram_score": 0.5722222222222222,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.1,
+        "_effective_relevance": 0.5288888888888889
+      },
+      {
+        "id": "id_56399",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "partial",
+        "holding_summary": "가. 보직해임의 정당성 여부보직해임의 업무상 필요성이 인정되고 보직해임으로 인한 근로자의 생활상 불이익이 근로자가 통상 감내할 수 있는 한도를 과도하게 초과하였다 보기 어려우므로 보직해임은 정당하다.나. 징계의 정당성 여부1) 징계사유의 존재 여부① 통합공장 운영 실패로 인한 회사 경영상 손실 발생, ② 협업 관련 직원들로부터 고충 사항 발생의 비위 행위는 징계사유로 보기 어려우나, ③ 불량제품 생산으로 인한 회사 경영상 손실 발생은 정당한 징계사유로 인정된다.2) 징계양정의 적정성 여부인정되는 징계사유만으로 정직 3개월의 타당성을 인정하기가 충분하지 않고, 동일사유로 징계한 다른 직원은 감봉 3개월의 처분을 받은 사실과 비교할 때 정직 3개월의 징계양정은 형평의 원칙에 어긋나 징계재량권을 일탈？남용하였다고 판단된다.3) 징계절차의 적법성 여부인사위원회를 개최하고 근로자에게 소명기회를 부여하는 등 징계 절차에 하자는 확인되지 않는다.",
+        "summary_short": "보직해임은 업무상 필요에 의한 사용자의 불가피한 경영권 행사로 판단되어 정당하고, 징계는 일부 징계사유가 인정되고 징계절차가 적법하나 징계양정이 적정하지 않으므로 부당한 징계에 해당한다고 판정한 사례",
+        "key_issue": "보직해임은 업무상 필요에 의한 사용자의 불가피한 경영권 행사로 판단되어 정당하고, 징계는 일부 징계사유가 인정되고 징계절차가 적법하나 징계양정이 적정하지 않으므로 부당한 징계에 해당한다고 판정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2023-06-12",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=56399&type=HTML",
+        "relevance": 0.512299,
+        "_trigram_score": 0.5722222222222222,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.1,
+        "_effective_relevance": 0.5288888888888889
+      },
+      {
+        "id": "id_345767",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "징계사유가 인정되고, 징계양정이 적정하며, 정직 처분이 정당하고, 재택근무도 정당하다고 판정한 사례",
+        "summary_short": "성희롱·괴롭힘·윤리강령 위반의 징계사유가 인정되고 무관용 원칙 하에서 정직의 양정이 적정하며, 재택근무 명령은 이중징계가 아니라 비위행위 재발방지를 위한 정당한 조치라고 판정한 사례",
+        "key_issue": "징계사유가 인정되고, 징계양정이 징계권자에게 맡겨진 징계재량권을 남용하였다고 볼 수 없으며, 징계처분이 절차상 부당하다고 볼 수 없으므로 정직 처분이 정당하고, 비위행위로 인해 업무상 장애를 예방하기 위한 업무상 필요성이 인정되고 생활상 불이익이 통상 감수하여야 할",
+        "reason_category": [
+          "sexual_harassment",
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2024-03-11",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=345767&type=HTML",
+        "relevance": 0.524906,
+        "_trigram_score": 0.5311567164179104,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.46246268656716416
+      },
+      {
+        "id": "id_402529",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "직장 내 괴롭힘 및 직장 내 성희롱 관련 징계사유 중 일부가 인정되고 징계절차도 적법하나 징계 양정이 과하여 부당하다고 판정한 사례",
+        "summary_short": "직장 내 괴롭힘 징계사유는 인정되나 성희롱 사유 불인정, 정직 6월 양정이 과도하여 부당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 정당성 여부직원들이 있는 자리에서 큰 소리로 사생활 관련 언사를 하여 직장 내 괴롭힘 행위는 정당한 징계사유로 인정되나 직장 내 성희롱 행위는 성적인 의미를 내포한 발언이 있었다고 단정하기 어려워 정당한 징계사유로 인정하기 어려움나. 징계양정의 적정성",
+        "reason_category": [
+          "worker_status",
+          "sexual_harassment",
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2025-06-17",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=402529&type=HTML",
+        "relevance": 0.514223,
+        "_trigram_score": 0.4878521126760563,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.44514084507042256
+      },
+      {
+        "id": "id_60789",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "가. 정직 3월의 정당성 여부① 다수 신고인들의 진술이 일관되고, 관련 녹음파일이 존재하므로 직장 내 괴롭힘 행위가 인정되고 이는 취업규칙상 징계사유에 해당하는 점, ② 비록 징계사유가 인정된다고 할지라도 비위행위의 정도와 다른 징계사례와의 형평을 고려할 때 해임 바로 전 단계인 정직 3월은 양정이 과다한 점, ③ 사용자는 징계위원회를 개최하여 근로자에게 소명의 기회를 부여하였으므로 징계절차는 적법한 점 등을 종합하면 정직 3월의 징계는 정당함나. 정직 3월의 부당노동행위 해당 여부징계사유가 인정되는 가운데 근로자의 주장 외에 정직 처분이 사용자의 부당노동행위 의사로 이루어졌다고 볼 만한 특별한 사정이 확인되지 않으므로 불이익 취급 및 지배·개입의 부당노동행위에 해당한다고 보기 어려움",
+        "summary_short": "직장 내 괴롭힘의 징계사유가 인정되고 징계절차는 적법하나, 비위행위의 정도에 비해 정직 3월의 징계양정이 과하여 부당함. 반면 징계사유가 인정되는 가운데 정직 처분이 사용자의 부당노동행위 의사에 의하여 이루어졌다고 볼 만한 특별한 사정이 확인되지 않으므로 불이익 취급 및 지배·개입의 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "key_issue": "직장 내 괴롭힘의 징계사유가 인정되고 징계절차는 적법하나, 비위행위의 정도에 비해 정직 3월의 징계양정이 과하여 부당함. 반면 징계사유가 인정되는 가운데 정직 처분이 사용자의 부당노동행위 의사에 의하여 이루어졌다고 볼 만한 특별한 사정이 확인되지 않으므로 불이익 취급",
+        "reason_category": [
+          "worker_status",
+          "union_activity",
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2023-11-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=60789&type=HTML",
+        "relevance": 0.523048,
+        "_trigram_score": 0.48472222222222217,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4438888888888889
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "정직 처분 양정 적정성",
+      "category": "",
+      "intent": "정직 처분의 적정성 검토",
+      "keywords": [
+        "정직",
+        "처분",
+        "양정",
+        "적정성",
+        "판정례"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_59737",
+          "score": 2,
+          "reason": "정직 처분의 양정 적정성에 대한 핵심 쟁점을 다루고 있으며, 징계사유와 양정의 적정성을 종합적으로 분석하고 있다."
+        },
+        {
+          "rank": 2,
+          "id": "id_56399",
+          "score": 2,
+          "reason": "징계의 정당성과 양정의 적정성을 다루고 있으며, 정직 처분의 타당성을 평가하는 데 필요한 요소들을 포함하고 있다."
+        },
+        {
+          "rank": 3,
+          "id": "id_345767",
+          "score": 2,
+          "reason": "징계사유와 양정의 적정성을 명확히 다루고 있으며, 정직 처분이 정당하다고 판정한 사례로 쿼리와 직접적으로 관련이 있다."
+        },
+        {
+          "rank": 4,
+          "id": "id_402529",
+          "score": 1,
+          "reason": "징계 양정이 과하다고 판정하였으나, 정직 처분에 대한 구체적인 논의가 부족하여 핵심 쟁점과는 다소 거리가 있다."
+        },
+        {
+          "rank": 5,
+          "id": "id_60789",
+          "score": 1,
+          "reason": "정직 처분의 정당성을 다루고 있으나, 부당노동행위와 관련된 내용이 포함되어 있어 쿼리의 핵심 쟁점과는 다소 다른 맥락이다."
+        }
+      ],
+      "weighted_score": 8,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q14",
+    "query": "감봉 처분이 과한지 본 사건",
+    "category": "",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_11191",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "사용자의 감봉 처분은 근로기준법 제95조의 제재 규정의 제한을 위반하였으므로 징계처분의 정당성(사유, 양정, 절차) 등을 살펴보지 않더라도 부당한 감봉 처분이다.",
+        "summary_short": "사용자의 감봉 처분은 근로기준법 제95조 “취업규칙에서 근로자에 대하여 감급(減給)의 제재를 정할 경우에 그 감액은 1회의 금액이 평균임금 1일분의 2분의 1을, 총액이 1임금지급기의 임금 총액의 10분의 1을 초과하지 못한다.”라는 규정을 위반하였으므로 위법한 감봉 ",
+        "key_issue": "사용자의 감봉 처분은 근로기준법 제95조 “취업규칙에서 근로자에 대하여 감급(減給)의 제재를 정할 경우에 그 감액은 1회의 금액이 평균임금 1일분의 2분의 1을, 총액이 1임금지급기의 임금 총액의 10분의 1을 초과하지 못한다.",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2021-11-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=11191&type=HTML",
+        "relevance": 0.492748,
+        "_trigram_score": 0.6166666666666667,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.15,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4466666666666667
+      },
+      {
+        "id": "id_34883",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "근로자에 대한 징계사유의 정당성이 인정되지 않아 감봉징계는 부당하다고 판정한 사례\n\n쟁점: 사용자가 근로자의 감봉처분 사유로 삼은 ‘축구동아리 밴드에서 직원들을 모욕한 행위’가 징계사유로 인정되지 아니하므로 정당한 인사권의 행사라고 볼 수 없다.\n판단: 사용자가 근로자의 감봉처분 사유로 삼은 ‘축구동아리 밴드에서 직원들을 모욕한 행위’가 징계사유로 인정되지 아니하므로 정당한 인사권의 행사라고 볼 수 없다. 따라서 감봉처분의 양정 및 절차는 더 판단할 필요 없이 감봉처분은 부당하다.",
+        "summary_short": "근로자에 대한 징계사유의 정당성이 인정되지 않아 감봉징계는 부당하다고 판정한 사례",
+        "key_issue": "사용자가 근로자의 감봉처분 사유로 삼은 ‘축구동아리 밴드에서 직원들을 모욕한 행위’가 징계사유로 인정되지 아니하므로 정당한 인사권의 행사라고 볼 수 없다.",
+        "reason_category": [
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2019-02-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=34883&type=HTML",
+        "relevance": 0.489353,
+        "_trigram_score": 0.44166666666666665,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.15,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.37666666666666665
+      },
+      {
+        "id": "id_4183",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "1. 부당감봉은 사유는 인정되나 양정이 과하여 부당하다.2. 불이익취급 및 지배개입의 부당노동행위에는 해당하지 아니한다.",
+        "summary_short": "1. 부당감봉 인정2. 부당노동행위 기각",
+        "key_issue": "1. 부당감봉 인정2. 부당노동행위 기각",
+        "reason_category": [
+          "union_activity"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2021-01-28",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=4183&type=HTML",
+        "relevance": 0.460404,
+        "_trigram_score": 0.4452702702702703,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.15,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.3281081081081081
+      },
+      {
+        "id": "id_401637",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "감봉의 징계사유가 인정되고 징계양정이 과도하지 않으며, 징계절차에도 하자가 없어 징계가 정당하다고 판정한 사례",
+        "summary_short": "감봉의 징계사유가 인정되고 징계양정이 과도하지 않으며, 징계절차에도 하자가 없어 징계가 정당하다고 판정한 사례",
+        "key_issue": "감봉의 징계사유가 인정되고 징계양정이 과도하지 않으며, 징계절차에도 하자가 없어 징계가 정당하다고 판정한 사례",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2025-08-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=401637&type=HTML",
+        "relevance": 0.500205,
+        "_trigram_score": 0.44166666666666665,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.15,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.32666666666666666
+      },
+      {
+        "id": "id_403525",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "직무태만 및 지시 불이행 등의 사유로 인한 감봉 6개월의 징계가 정당하다고 판정한 사례\n\n쟁점: 직무태만 및 지시 불이행 등의 사유로 인한 감봉 6개월의 징계가 정당하다고 판정한 사례\n판단: 직무태만 및 지시 불이행 등의 사유로 인한 감봉 6개월의 징계가 정당하다고 판정한 사례",
+        "summary_short": "직무태만 및 지시 불이행 등의 사유로 인한 감봉 6개월의 징계가 정당하다고 판정한 사례",
+        "key_issue": "직무태만 및 지시 불이행 등의 사유로 인한 감봉 6개월의 징계가 정당하다고 판정한 사례",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2025-06-11",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=403525&type=HTML",
+        "relevance": 0.477958,
+        "_trigram_score": 0.44166666666666665,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.15,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.32666666666666666
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "감봉 처분이 과한지 본 사건",
+      "category": "",
+      "intent": "감봉 처분의 적정성 판단",
+      "keywords": [
+        "감봉",
+        "처분",
+        "과한지",
+        "판정례"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 2,
+          "id": "id_11191",
+          "score": 2,
+          "reason": "감봉 처분의 정당성을 다루며, 부당한 감봉 처분으로 판정한 사례로 쿼리와 직접적으로 관련이 있다."
+        },
+        {
+          "rank": 1,
+          "id": "id_34883",
+          "score": 2,
+          "reason": "감봉징계의 부당성을 다루고 있으며, 쿼리의 핵심 쟁점과 관련이 있다."
+        },
+        {
+          "rank": 1,
+          "id": "id_4183",
+          "score": 2,
+          "reason": "부당감봉의 양정이 과하다는 점을 다루고 있어 쿼리와 관련이 있다."
+        },
+        {
+          "rank": 0,
+          "id": "id_401637",
+          "score": 0,
+          "reason": "감봉의 징계가 정당하다고 판정하여 쿼리와 무관하다."
+        },
+        {
+          "rank": 0,
+          "id": "id_403525",
+          "score": 0,
+          "reason": "감봉이 정당하다고 판정하여 쿼리와 무관하다."
+        }
+      ],
+      "weighted_score": 6,
+      "precision_hits": 3
+    }
+  },
+  {
+    "query_id": "Q15",
+    "query": "기간제 근로자의 갱신기대권이 인정되는지",
+    "category": "contract_expiry",
+    "baseline_weighted_score": 10,
+    "baseline_precision_hits": 5,
+    "upgraded_top5": [
+      {
+        "id": "id_27577",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "기간제근로자에 대한 갱신기대권이 인정되지 않아 근로계약기간 만료로 근로관계가 종료되었다고 판정한 사례",
+        "summary_short": "기간제근로자에 대한 갱신기대권이 인정되지 않아 근로계약기간 만료로 근로관계가 종료되었다고 판정한 사례",
+        "key_issue": "가. 갱신기대권 인정 여부① 근로계약서에 계약기간이 명시되어 있는 점, ② 유기 근로계약이 자동 갱신된다거나, 일정 요건 충족시 근로계약이 갱신된다는 취지의 규정이 없고, 취업규칙에 ‘근로계약이 만료되어 계약 갱신이 되지 아니하였을 때’를 당연 퇴직사유로 규정하고",
+        "reason_category": [
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-03-05",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=27577&type=HTML",
+        "relevance": 0.736202,
+        "_trigram_score": 0.7766666666666666,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.44066666666666665
+      },
+      {
+        "id": "id_39093",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "근로자의 근로계약 갱신기대권이 인정됨에도 합리적인 이유 없이 계약 만료한 것은 부당하다고 판정한 사례",
+        "summary_short": "근로자의 근로계약 갱신기대권이 인정됨에도 합리적인 이유 없이 계약 만료한 것은 부당하다고 판정한 사례",
+        "key_issue": "가. 근로계약의 갱신기대권 인정 여부기간제직원에 대한 기간연장에 대한 관련 규정이 존재하고, 근무기간 동안 매년 계약갱신이 반복적으로 이뤄져 왔음을 토대로 볼 때 근로자의 근로계약 갱신기대권은 인정된다.",
+        "reason_category": [
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-08-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=39093&type=HTML",
+        "relevance": 0.750768,
+        "_trigram_score": 0.7233333333333334,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4193333333333334
+      },
+      {
+        "id": "id_48449",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "근로자에게 근로계약의 갱신기대권이 인정되고 갱신 거절의 합리적 이유가 없어 근로계약 종료는 부당하다고 판정한 사례",
+        "summary_short": "근로자에게 근로계약의 갱신기대권이 인정되고 갱신 거절의 합리적 이유가 없어 근로계약 종료는 부당하다고 판정한 사례",
+        "key_issue": "가. 근로계약의 갱신기대권이 인정되는지 여부기간제 근로자인 근로자의 근로계약기간이 만료는 되었으나 그간 기간의 정함이 없는 근로자로 전환되는 등 근로계약 갱신에 관한 관행이 존재하므로 근로자에게 갱신기대권이 인정된다.",
+        "reason_category": [
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2022-08-17",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=48449&type=HTML",
+        "relevance": 0.71824,
+        "_trigram_score": 0.6914634146341463,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4065853658536585
+      },
+      {
+        "id": "id_5175",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "인정근로계약 갱신기대권이 인정되고, 갱신 거절의 합리적 이유가 없어 근로관계 종료가 부당하다고 판정한 사례",
+        "summary_short": "인정근로계약 갱신기대권이 인정되고, 갱신 거절의 합리적 이유가 없어 근로관계 종료가 부당하다고 판정한 사례",
+        "key_issue": "가. 근로계약 갱신기대권이 인정되는지 여부사용자는 근로자가 기간제 근로계약을 체결하였고 사내에 계약갱신 규정이나 관행이 존재하지 않아 근로자에게 갱신기대권이 없다고 주장하나, 원청인 부천시와의 용역계약서 및 과업지시서에 포괄적인 고용승계 내지 고용안정을 도모하기 위한",
+        "reason_category": [
+          "contract_expiry",
+          "workplace_bullying",
+          "violence",
+          "misconduct",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-03-10",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=5175&type=HTML",
+        "relevance": 0.71963,
+        "_trigram_score": 0.6833333333333333,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4033333333333334
+      },
+      {
+        "id": "id_11995",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "기간제근로자에게 근로계약의 갱신기대권은 인정되나, 사용자의 갱신거절에 합리적 이유가 있으므로 계약기간 만료에 따른 근로계약 종료는 정당하다고 판정한 사례",
+        "summary_short": "기간제근로자에게 근로계약의 갱신기대권은 인정되나, 사용자의 갱신거절에 합리적 이유가 있으므로 계약기간 만료에 따른 근로계약 종료는 정당하다고 판정한 사례",
+        "key_issue": "가. 근로계약의 갱신기대권 인정 여부① 근로자와 사용자는 계약기간이 3개월인 근로계약을 체결하고 3개월 단위로 2년간 총 7차례 계약을 갱신함, ② 사용자는 근로자 외의 다수 현장 근로자들과도 근로계약을 갱신해오고 있음,",
+        "reason_category": [
+          "contract_expiry",
+          "absence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-12-06",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=11995&type=HTML",
+        "relevance": 0.732919,
+        "_trigram_score": 0.6576923076923077,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3930769230769231
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "기간제 근로자 갱신기대권 인정 여부",
+      "category": "",
+      "intent": "판정례 검색",
+      "keywords": [
+        "기간제 근로자",
+        "갱신기대권",
+        "인정",
+        "근로기준법"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 0,
+          "id": "id_27577",
+          "score": 0,
+          "reason": "결과가 기간제 근로자의 갱신기대권이 인정되지 않는 사례로, 쿼리와 무관함."
+        },
+        {
+          "rank": 1,
+          "id": "id_39093",
+          "score": 2,
+          "reason": "근로계약 갱신기대권이 인정된 사례로, 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+        },
+        {
+          "rank": 1,
+          "id": "id_48449",
+          "score": 2,
+          "reason": "근로계약 갱신기대권이 인정되고 갱신 거절의 합리적 이유가 없는 사례로, 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+        },
+        {
+          "rank": 1,
+          "id": "id_5175",
+          "score": 2,
+          "reason": "갱신기대권이 인정되고 갱신 거절의 합리적 이유가 없는 사례로, 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+        },
+        {
+          "rank": 0,
+          "id": "id_11995",
+          "score": 1,
+          "reason": "갱신기대권이 인정되나 합리적 이유가 있어 계약 종료가 정당하다고 판정한 사례로, 관련은 있으나 핵심 쟁점이 다름."
+        }
+      ],
+      "weighted_score": 7,
+      "precision_hits": 4
+    }
+  },
+  {
+    "query_id": "Q16",
+    "query": "계약기간 만료인데 사실상 해고처럼 다퉈진 사건",
+    "category": "contract_expiry",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_48731",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "신청인은 계약기간 만료에 의해 근로관계가 종료되었고 당사자간 갱신기대권이 인정될 일정한 요건이 없어 정상적인 근로관계 종료라고 판정한 사례",
+        "summary_short": "신청인은 계약기간 만료에 의해 근로관계가 종료되었고 당사자간 갱신기대권이 인정될 일정한 요건이 없어 정상적인 근로관계 종료라고 판정한 사례",
+        "key_issue": "당사자 간 체결한 근로계약서에 계약기간이 명시되어 있고 근로계약의 갱신과 관련하여 별도의 규정이 존재하지 않는 점 등을 종합해 볼 때 신청인의 근로계약 갱신기대권을 인정할 수 없으므로 이 사건 근로관계는 정상적인 계약기간 만료로 종료되었다.",
+        "reason_category": [
+          "contract_expiry",
+          "no_dismissal"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2022-08-29",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=48731&type=HTML",
+        "relevance": 0.559642,
+        "_trigram_score": 0.37,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.24,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.46799999999999997
+      },
+      {
+        "id": "id_38407",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "기간의 정함이 있는 근로계약을 체결하고 두 차례 계약기간을 갱신한 것이 인정되나, 사용자가 시공하는 토공 및 구조물 하도급공사의 준공 시기가 다가오면서 현장인력을 탄력적으로 운영할 필요가 있어 매월 인력을 축소해온 점, 근로자가 담당하고 있는 형틀목공 공정이 조만간 종료될 예정인 점, 사전에 근로자에게 인력축소의 필요성을 설명하고 협의한 점 등을 종합해 볼 때 계약기간 만료에 따라 근로관계를 종료한 것은 정당하고 갱신기대권이 인정된다고 보기 어렵다.계약기간 만료로 근로관계를 종료한 것은 정당하고, 노동조합 활동을 이유로 계약을 종료한 것으로 볼만한 사정이 없을 뿐만 아니라 근로자가 노동조합원임을 알 수 없는 점으로 볼 때 계약기만 만료에 의한 근로관계 종료가 부당노동행위에 해당한다고 볼 수 없다.",
+        "summary_short": "하도급 건설공사 준공시기가 임박하면서 현장인력을 탄력적으로 운영할 필요가 있음에 따라 기간제근로자에 대하여 계약기간 만료를 이유로 근로관계를 종료한 것은 정당하고 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "key_issue": "하도급 건설공사 준공시기가 임박하면서 현장인력을 탄력적으로 운영할 필요가 있음에 따라 기간제근로자에 대하여 계약기간 만료를 이유로 근로관계를 종료한 것은 정당하고 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "contract_expiry",
+          "union_activity"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-07-12",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=38407&type=HTML",
+        "relevance": 0.558487,
+        "_trigram_score": 0.37,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.24,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.46799999999999997
+      },
+      {
+        "id": "id_13757",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근로계약 갱신기대권이 인정되지 아니하므로 계약기간 만료에 따라 근로계약이 정당하게 종료되었다고 판정한 사례",
+        "summary_short": "근로계약 갱신기대권이 인정되지 아니하므로 계약기간 만료에 따라 근로계약이 정당하게 종료되었다고 판정한 사례",
+        "key_issue": "① 근로자가 2014. 11. 13.부터 같은 해 12. 31.까지 기간제 근로계약을 체결하여 근무한 이후 재계약을 체결하면서 계약기간을 2015. 1. 1.부터 같은 해 12. 31.까지로 정한 점, ② 근로계약서 제3항에 의하면 갱신에 관한 내용이 전혀 없을 뿐만",
+        "reason_category": [
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2016-02-26",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=13757&type=HTML",
+        "relevance": 0.561122,
+        "_trigram_score": 0.37,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.24,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.46799999999999997
+      },
+      {
+        "id": "id_44095",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 계약기간 만료에 따른 근로계약 종료는 정당하다고 판정한 사례",
+        "summary_short": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 계약기간 만료에 따른 근로계약 종료는 정당하다고 판정한 사례",
+        "key_issue": "① 취업규칙에 근로계약기간 갱신에 관한 규정이 없는 점, ② 근로계약서에는 일정한 요건이 충족되면 근로계약이 갱신된다는 취지의 규정이 없고, ‘계약기간 만료 이후 30일까지 별도의 계약이 체결되지 아니한 경우에는 1년간 자동 갱신된 것으로 본다’라고 명시되어 있으나,",
+        "reason_category": [
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2022-03-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=44095&type=HTML",
+        "relevance": 0.561003,
+        "_trigram_score": 0.37,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.348
+      },
+      {
+        "id": "id_38151",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 근로관계는 계약기간 만료로 당연히 종료되었다고 판정한 사례",
+        "summary_short": "근로자에게 근로계약에 대한 갱신기대권이 존재한다고 볼 수 없어 근로관계는 계약기간 만료로 당연히 종료되었다고 판정한 사례",
+        "key_issue": "① 근로계약서상 계약기간의 만료로 근로관계는 당연 종료됨을 원칙으로 한다고 규정되어 있는 점, ② 취업규칙 제49조는 ‘근로계약기간이 만료된 때’를 당연 퇴직 사유로 규정하고 있는 점, ③ 인사규정과 근로계약서에 근로계약의 갱신 의무, 요건, 절차 등 규정이 없는 점",
+        "reason_category": [
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-07-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=38151&type=HTML",
+        "relevance": 0.561547,
+        "_trigram_score": 0.37,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.348
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "계약기간 만료인데 사실상 해고처럼 다퉈진 사건",
+      "category": "",
+      "intent": "generic",
+      "keywords": [
+        "계약기간",
+        "만료인데",
+        "사실상",
+        "해고처럼",
+        "다퉈진"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_48731",
+          "score": 0,
+          "reason": "결과가 계약기간 만료에 따른 근로관계 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+        },
+        {
+          "rank": 2,
+          "id": "id_38407",
+          "score": 1,
+          "reason": "계약기간 만료에 따른 근로관계 종료를 다루고 있으나, 사실상 해고의 맥락이 다소 다름."
+        },
+        {
+          "rank": 3,
+          "id": "id_13757",
+          "score": 0,
+          "reason": "계약기간 만료에 따른 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+        },
+        {
+          "rank": 4,
+          "id": "id_44095",
+          "score": 0,
+          "reason": "계약기간 만료에 따른 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+        },
+        {
+          "rank": 5,
+          "id": "id_38151",
+          "score": 0,
+          "reason": "계약기간 만료에 따른 종료를 다루고 있으나, 사실상 해고와 관련된 쟁점이 없음."
+        }
+      ],
+      "weighted_score": 1,
+      "precision_hits": 1
+    }
+  },
+  {
+    "query_id": "Q17",
+    "query": "전보나 인사발령이 정당한지 다툰 사건",
+    "category": "transfer",
+    "baseline_weighted_score": 10,
+    "baseline_precision_hits": 5,
+    "upgraded_top5": [
+      {
+        "id": "id_4465",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "partial",
+        "holding_summary": "전보는 업무상 필요성에 비해 생활상 불이익이 크다고 볼 수 없어 정당하며, 정직 10일의 징계처분은 징계사유가 일부 인정되나 양정이 과하므로 부당하다고 판정한 사례",
+        "summary_short": "직장질서 유지 목적 전보=업무상 필요성=TV 정당",
+        "key_issue": "가. 전보의 정당성 여부전보가 직장질서 유지 등의 차원에서 행한 것으로 업무상 필요성이 인정되는 반면, 업무상 필요성과 비교하여 전보로 인한 생활상 불이익이 사회통념상 통상 감수하여야 할 정도를 벗어난 것으로 보이지 않으며, 사전 협의를 거친 바는 없으나 관련 협의 절차를 규정하고 있는 바도 없으므로 인사발령을 무효라고 보기는 어렵다.",
+        "reason_category": [
+          "transfer",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2021-02-09",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=4465&type=HTML",
+        "relevance": 0.553942,
+        "_trigram_score": 0.6357142857142857,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.08,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4642857142857143
+      },
+      {
+        "id": "id_347335",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "partial",
+        "holding_summary": "전보는 생활상 불이익보다 업무상 필요성이 인정되어 정당하나 정직은 징계사유에 비해 양정이 과도하여 정당하지 않다고 판정한 사례",
+        "summary_short": "전보는 정당하나 정직은 양정 과다하여 부당하다고 판정한 사례",
+        "key_issue": "가. 전보의 정당성 여부① 근로자의 비위가 해당 업무를 배제해야 할 업무상 필요성이 인정되며, ② 업무배제에 따른 직책수당 미지급과 결재권한 회수는 당연한 조치라는 점 등을 감안하면 사용자의 업무상 필요성보다",
+        "reason_category": [
+          "worker_status",
+          "transfer",
+          "absence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2024-05-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=347335&type=HTML",
+        "relevance": 0.546915,
+        "_trigram_score": 0.5349999999999999,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.08,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.424
+      },
+      {
+        "id": "id_7863",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "partial",
+        "holding_summary": "전보의 정당성은 인정되나, 정직은 징계사유는 모두 인정되지만 인정되는 비위의 정도에 비하여 양정이 과하여 부당하다고 판정한 사례",
+        "summary_short": "전보의 정당성은 인정되나, 정직은 징계사유는 모두 인정되지만 인정되는 비위의 정도에 비하여 양정이 과하여 부당하다고 판정한 사례",
+        "key_issue": "가. 전보의 정당성 여부전보의 업무상 필요성이 인정되고, 전보로 인하여 근로자가 입게 되는 생활상 불이익은 통상 감내할 수 있는 범위이며, 전보 시 근로자의 동의를 받아야 한다는 별도의 규정이 존재한다고 보기 어려우므로 설령 동의를 받지 않았다",
+        "reason_category": [
+          "sexual_harassment",
+          "transfer",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2021-06-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=7863&type=HTML",
+        "relevance": 0.539381,
+        "_trigram_score": 0.4607142857142857,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.08,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3942857142857143
+      },
+      {
+        "id": "id_23153",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "전보 및 파견명령의 업무상 필요성이 인정되어 사용자의 권리남용에 해당하지 않는다고 판정한 사례",
+        "summary_short": "조직 통폐합에 따른 전보와 한시적 파견발령은 업무상 필요성이 인정되어 정당하다.",
+        "key_issue": "가. 전보의 정당성① 조직을 통폐합하게 되어 근로자를 안산사업장으로 인사발령한 점, ② 당진사업장에는 관리직 정원이 정해져 있어 근로자를 당진사업장 관리직으로 보직변경 할 수 없다는 사용자의 주장이 타당성 있어 보이는 점, ③ 재경팀원 간 동일 장소에서 근무할",
+        "reason_category": [
+          "transfer",
+          "redundancy"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-07-06",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=23153&type=HTML",
+        "relevance": 0.540929,
+        "_trigram_score": 0.612295081967213,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.37491803278688524
+      },
+      {
+        "id": "id_54847",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "매년 시행하는 정기 인사발령에 따라 근로자에게 행한 전보는 정당하다고 판정한 사례\n\n쟁점: ○ 전보의 정당성 여부매년 시행하는 정기 인사발령에 따라 근로자에게 행한 전보 처분은 업무상 필요성이 인정되고, 생활상 불이익이 근로자가 통상 감수하여야 할 정도를 현저하게 벗어난 것이라 볼 수 없고, 인사상 재량권 범위 내에서 행해진 정당한 처분이다.\n판단: ○ 전보의 정당성 여부매년 시행하는 정기 인사발령에 따라 근로자에게 행한 전보 처분은 업무상 필요성이 인정되고, 생활상 불이익이 근로자가 통상 감수하여야 할 정도를 현저하게 벗어난 것이라 볼 수 없고, 인사상 재량권 범위 내에서 행해진 정당한 처분이다.",
+        "summary_short": null,
+        "key_issue": "○ 전보의 정당성 여부매년 시행하는 정기 인사발령에 따라 근로자에게 행한 전보 처분은 업무상 필요성이 인정되고, 생활상 불이익이 근로자가 통상 감수하여야 할 정도를 현저하게 벗어난 것이라 볼 수 없고, 인사상 재량권 범위 내에서 행해진 정당한 처분이다.",
+        "reason_category": [
+          "transfer"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-04-17",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=54847&type=HTML",
+        "relevance": 0.559874,
+        "_trigram_score": 0.6,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.37
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "전보 인사발령 정당성 다툼 사건",
+      "category": "",
+      "intent": "전보 및 인사발령의 정당성 검토",
+      "keywords": [
+        "전보",
+        "인사발령",
+        "정당성",
+        "다툼",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_4465",
+          "score": 1,
+          "reason": "전보의 정당성에 대한 논의가 있으나, 부당해고와 관련된 다른 쟁점이 포함되어 있어 핵심 쟁점이 다소 다름."
+        },
+        {
+          "rank": 2,
+          "id": "id_347335",
+          "score": 1,
+          "reason": "전보의 정당성에 대한 언급이 있으나, 부당해고와 관련된 다른 쟁점이 포함되어 있어 핵심 쟁점이 다소 다름."
+        },
+        {
+          "rank": 3,
+          "id": "id_7863",
+          "score": 1,
+          "reason": "전보의 정당성에 대한 논의가 있으나, 부당해고와 관련된 다른 쟁점이 포함되어 있어 핵심 쟁점이 다소 다름."
+        },
+        {
+          "rank": 4,
+          "id": "id_23153",
+          "score": 1,
+          "reason": "전보의 정당성에 대한 언급이 있으나, 파견명령과 관련된 다른 쟁점이 포함되어 있어 핵심 쟁점이 다소 다름."
+        },
+        {
+          "rank": 5,
+          "id": "id_54847",
+          "score": 2,
+          "reason": "전보의 정당성 여부에 대한 명확한 판결이 포함되어 있어 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+        }
+      ],
+      "weighted_score": 6,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q18",
+    "query": "대기발령이나 배치전환이 징계인지 인사권 행사인지 다툼",
+    "category": "transfer",
+    "baseline_weighted_score": 10,
+    "baseline_precision_hits": 5,
+    "upgraded_top5": [
+      {
+        "id": "id_411461",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "partial",
+        "holding_summary": "대기발령은 업무상 필요성이 인정되지 않아 부당하고, 전보는 사용자의 정당한 인사권 범위 내에 있으므로 정당하다고 판정한 사례",
+        "summary_short": "징계 후 복직자 대기발령=업무상필요성없음+통상임금70%+이중대기발령=부당+전직 정당=부분인용",
+        "key_issue": "가. 대기발령의 정당성 여부징계 후 복직한 근로자에게 '징계 사유에 따른 보직 해임 및 전환 배치 검토'를 이유로 대기발령을 명한 것은 업무상 필요성을 인정하기 어렵고, 사용자는 대기발령 기간 중 근로자에게 통상임금의 70% 수준만을 지급하여 경제적 불이익을",
+        "reason_category": [
+          "transfer"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-12-03",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=411461&type=HTML",
+        "relevance": 0.464158,
+        "_trigram_score": 0.37612244897959185,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.23044897959183674
+      },
+      {
+        "id": "id_21715",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "가. 대기발령의 정당성 여부대기발령의 업무상 필요성이 있다고 인정되며, 이에 수반되는 생활상 불이익도 지나치게 크다고 보기는 어렵고, 또한, 대기발령이 단체협약 규정에 따른 근로자와의 사전합의가 요구되는 배치전환에 해당된다고 볼 수 없으므로, 이 사건 대기발령은 이 사건 사용자의 인사재량권 범위 내에서 이루어진 것으로 정당한 이유가 있다.나. 부당노동행위에 해당하는지 여부대기발령이 정당한 인사권 행사로 인정되고, 이 사건 근로자 및 신청인 노동조합도 달리 입증자료를 제시하지 못하고 있으므로 부당노동행위에 해당한다고 볼 수 없다.",
+        "summary_short": "대기발령은 업무상 필요성이 인정되어 정당하고, 부당노동행위도 인정되지 않는다.",
+        "key_issue": "대기발령의 업무상 필요성이 인정되고, 생활상 불이익도 없으므로 인사권을 남용한 처분으로 볼 수 없으며, 대기발령은 정당한 인사권 행사로 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "worker_status",
+          "transfer",
+          "union_activity"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-04-17",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=21715&type=HTML",
+        "relevance": 0.478506,
+        "_trigram_score": 0.3755555555555556,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.23022222222222227
+      },
+      {
+        "id": "id_25519",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "대기발령은 구제신청의 이익이 없고, 전환배치는 정당한 인사권의 행사로 본 사례\n\n쟁점: 가. 대기발령의 구제이익이 있는지근로자의 비위행위를 조사하기 위한 잠정적 조치로 구제신청을 하여 다투던 중 사용자가 대기발령 사유와 같은 사유로 징계처분을 하였으므로 구제신청의 이익이 없다.\n판단: 가. 대기발령의 구제이익이 있는지근로자의 비위행위를 조사하기 위한 잠정적 조치로 구제신청을 하여 다투던 중 사용자가 대기발령 사유와 같은 사유로 징계처분을 하였으므로 구제신청의 이익이 없다.나. 전환배치의 구제이익이 있는지대기발령과 별도 전환배치의 인사발령을 하였고, 징계처분 종료 후 당초에 근무하였던 비어락하우스에 복직하기로 정해지지 않았으므로 구제신청의 이익이 있다.다. 전환배치의 정당성 여부근로자가 비위행위 조사와 직접 관련이 있고, 비위행위 일부가 확인되어 조사하는 동안 비어락하우스내 담당업무에서 잠정적으로 배제하여야 할 만한 이유가 인정되는 점, 연장근로수당을 지급받지 못하는 불이익이 존재한다고 하나, 연장근로수당은 연장근로를 함으로써 발생하였던 근로의 대가이고, 출퇴근에 소요되는 시간, 급여체계, 근로시간, 휴일 등 근로조건의 변동이 없는 점, 신의칙상 협의절차를 거치지 않았다는 이유만으로 권리남용에 해당한다고 볼 수 없는 점 등을 종합하여 보면, 정당한 인사권의 행사라 ",
+        "summary_short": "대기발령은 동일사유 징계처분으로 구제이익소멸 각하. 전환배치는 비위조사 임시조치로 협의없어도 정당.",
+        "key_issue": "가. 대기발령의 구제이익이 있는지근로자의 비위행위를 조사하기 위한 잠정적 조치로 구제신청을 하여 다투던 중 사용자가 대기발령 사유와 같은 사유로 징계처분을 하였으므로 구제신청의 이익이 없다.",
+        "reason_category": [
+          "transfer",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-11-09",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=25519&type=HTML",
+        "relevance": 0.479584,
+        "_trigram_score": 0.3557142857142857,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.2222857142857143
+      },
+      {
+        "id": "id_35531",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "가. 대기발령은 그 기간이 종료하더라도 임금의 감액을 원상회복할 구제이익이 존재하나, 비위행위의 조사 및 근무태도 불량에 따른 인사를 위한 잠정조치이므로 인사권의 재량범위를 일탈한 것으로 볼 수 없어 대기발령은 정당하다.나. 직무수행과정에서 비위가 확인되고, 업무능력 및 태도에 문제가 있었던 것으로 판단되므로 업무상 필요성이 인정되고, 출퇴근 시간 및 급여에 큰 차이가 없어 생활상 불이익 또한 수인한도 내에 있으므로 전보발령은 정당하다.다. 무단결근이 취업규칙 상 당연퇴직 사유나, 정년 등 근로관계의 자동종료 사유가 아니므로, 근로기준법 제27조의 제한을 받는 해고이다.라. 7일 이상 무단결근을 하였고, 출근 독촉 및 소명 기회 부여에 응하지 않았으므로 해고의 사유는 정당하고, 이와 같은 해고의 사유와 시기를 내용증명을 통해 송달하였으므로 절차도 적법하여 해고는 정당하다.",
+        "summary_short": "대기발령·전보·해고 모두 정당",
+        "key_issue": "임금의 감액을 수반하는 대기발령의 구제이익은 인정되나 비위 사실 조사 및 근무태도 불량 등에 따른 대기발령은 정당하고, 업무상 필요성이 인정되고 생활상 불이익이 수인한도 내에 있어 전보도 정당하며, 무단결근을 이유로 한 당연퇴직 처분은 근로기준법의 제한을 받는",
+        "reason_category": [
+          "transfer",
+          "absence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-03-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=35531&type=HTML",
+        "relevance": 0.467091,
+        "_trigram_score": 0.33666666666666667,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.21466666666666667
+      },
+      {
+        "id": "id_407415",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "대기발령의 업무상 필요성이 있고, 생활상 불이익이 있다고 보기 어려우며 신의칙상 협의도 하였다고 보여지므로 대기발령이 정당하다고 판정한 사례",
+        "summary_short": "대기발령 사유 명시 않아도 무효 아님=TV 정당",
+        "key_issue": "가. 업무상 필요성 여부대기발령 시 그 사유를 명시하지 않았다는 사정만으로 대기발령이 무효가 될 수 없는 점, 업무상 통폐합으로 근로자에게 부여할 보직이 없어 일시적인 조치로 대기발령을 한 것인 점, 실제 보직을 부여하기 위하여 사용자가 노력해 온 점 등을 고려할 때 업무상 필요성이 인정된다",
+        "reason_category": [
+          "transfer",
+          "redundancy"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-01-10",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=407415&type=HTML",
+        "relevance": 0.4628,
+        "_trigram_score": 0.32727272727272727,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.21090909090909093
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "대기발령이나 배치전환이 징계인지 인사권 행사인지 다툼",
+      "category": "transfer",
+      "intent": "validity_check",
+      "keywords": [
+        "대기발령이나",
+        "배치전환이",
+        "징계인지",
+        "인사권",
+        "행사인지"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_411461",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 2,
+          "id": "id_21715",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 3,
+          "id": "id_25519",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 4,
+          "id": "id_35531",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 5,
+          "id": "id_407415",
+          "score": 0,
+          "reason": "fallback heuristic"
+        }
+      ],
+      "weighted_score": 8,
+      "precision_hits": 4
+    }
+  },
+  {
+    "query_id": "Q19",
+    "query": "폭행이나 욕설 같은 비위 사실 자체가 인정되는지가 핵심",
+    "category": "violence",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 4,
+    "upgraded_top5": [
+      {
+        "id": "id_15389",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "지각&#8228;결근에 따른 버스 운행 결행, 동료에게 욕설, 폭행 등으로 징계해고한 것은 정당하고, 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "summary_short": "지각·결근에 따른 버스 운행 결행, 동료에게 욕설, 폭행 등으로 징계해고한 것은 정당하고, 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "key_issue": "지각&#8228;결근에 따른 버스 운행 결행, 허위보고를 통한 승무교대, 동료에 대한 모욕, 폭행 및 업무방해 등의 비위행위는 징계사유에 해당하고, 이러한 비위행위의 정도, 비위행위의 반복성, 징계전력, 사후 반성 태도가 불량한 점 등을 종합해 볼 때 근로자의 비위행위에 대하여 징계해고한 것은 정당한 징계이고, 부당노동행위에도 해당하지 아니하다.",
+        "reason_category": [
+          "violence",
+          "absence",
+          "misconduct",
+          "union_activity"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2016-05-13",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=15389&type=HTML",
+        "relevance": 0.580169,
+        "_trigram_score": 0.36666666666666664,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.27666666666666667
+      },
+      {
+        "id": "id_16691",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "근로자의 징계사유는 인정되나 징계양정이 과하여 부당징계로 판정한 사례\n\n쟁점: 동료직원에게 욕설한 행위는 징계사유로 인정되나, ① 욕설행위가 근무 도중에 발생한 사실이 아닌 점, ② 근로자가 동료직원에게 하차장(도착 홈)에서 모욕, 협박, 업무방해를 했다는 혐의에 대해서 경찰에서는 ‘불기소’ 의견으로 송치하였고, 사용자 또한 욕설행위가 있었던\n판단: 동료직원에게 욕설한 행위는 징계사유로 인정되나, ① 욕설행위가 근무 도중에 발생한 사실이 아닌 점, ② 근로자가 동료직원에게 하차장(도착 홈)에서 모욕, 협박, 업무방해를 했다는 혐의에 대해서 경찰에서는 ‘불기소’ 의견으로 송치하였고, 사용자 또한 욕설행위가 있었던 날 터미널 하차장에서 고객으로부터 민원제기가 없었다고 진술하고 있어 사용자의 대외 이미지가 실추되었다고 보기 어려운 점, ③ 사용자는 근로자가 업무를 방해하였다고 주장만 할 뿐, 이러한 사실을 입증할 만한 객관적인 자료를 제시하지 못하고 있는 점, ④ 근로자가 2009년도에 동일한 사유로 징계처분을 받은 사실은 있으나 이미 상당기간이 지난 처분으로 가중 처벌을 할 사안은 아닌 것으로 판단되는 점, ⑤ 동일한 사유로 징계처분 된 신청외 근로자와의 징계적용 형평성에 문제가 있는 것으로 보이는 점 등을 종합하여 볼 때, 징계처분이 그 비위행위에 비해 양정이 과한 것으로 사용자에게 주어진 재량권을 일탈·남용한 것으로 판단된다.",
+        "summary_short": "동료에 대한 욕설의 징계사유는 인정되나, 근무 외 시간 발생·경미한 피해·형평성 문제 등을 종합하면 해고의 양정이 과하여 부당하다고 판정한 사례",
+        "key_issue": "동료직원에게 욕설한 행위는 징계사유로 인정되나, ① 욕설행위가 근무 도중에 발생한 사실이 아닌 점, ② 근로자가 동료직원에게 하차장(도착 홈)에서 모욕, 협박, 업무방해를 했다는 혐의에 대해서 경찰에서는 ‘불기소’ 의견으로 송치하였고, 사용자 또한 욕설행위가 있었던",
+        "reason_category": [
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2016-07-18",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=16691&type=HTML",
+        "relevance": 0.560051,
+        "_trigram_score": 0.3568181818181818,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.2727272727272727
+      },
+      {
+        "id": "id_24667",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "무단결근 및 교통사고 등을 이유로 한 해고는 정당하나, 운행시간표 변경을 통한 임의결행을 이유로 해고한 것은 징계양정이 과하다고 판정한 사례",
+        "summary_short": "무단결근·교통사고·폭언 등 복합 비위로 해고 정당, 운행시간표 임의변경 사유만으로는 양정 과다하여 부당해고라고 판정한 사례",
+        "key_issue": "승무정지는 징계예정자에 대한 대기발령 성격의 인사명령이고, 같은 사유로 징계해고를 다투고 있어 그 구제이익은 인정되지 않는다.",
+        "reason_category": [
+          "probation",
+          "no_dismissal",
+          "violence",
+          "absence",
+          "misconduct",
+          "union_activity"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-09-21",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=24667&type=HTML",
+        "relevance": 0.427252,
+        "_trigram_score": 0.30833333333333335,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.25333333333333335
+      },
+      {
+        "id": "id_20943",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "음주 후 동료 근로자에 대한 폭언·폭행의 징계사유 및 징계절차가 정당하고 1개월 정직처분은 양정도 적정하여 정당한 징계라고 판정한 사례",
+        "summary_short": "음주 후 폭언·폭행에 대한 1개월 정직처분은 과거 징계 이력 및 비위행위 정도에 비추어 양정이 적정하여 정당하다고 판정한 사례",
+        "key_issue": "사업장 내에서 음주·폭행 등의 비위행위는 취업규칙에 해고사유로 규정된 점, 근로자가 이전에도 음주·폭행으로 징계(해고) 처분을 받았고 그 후에도 수차례 사용자 및 노동조합으로부터 훈계·주의를 받아 온 점, 다른 근로자에게도 폭언 등의 비위행위로 동일한 징계가 처분된",
+        "reason_category": [
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "suspension",
+        "decision_date": "2017-03-10",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=20943&type=HTML",
+        "relevance": 0.542479,
+        "_trigram_score": 0.30833333333333335,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.20333333333333337
+      },
+      {
+        "id": "id_1889",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계사유가 존재하고, 양정이 적정하며, 절차에 하자가 없어 해고는 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부운행 계통의 위반, 버스의 사적 사용, 안전벨트 미착용 등은 징계 사유로 인정된다.\n판단: 가. 징계사유의 존재 여부운행 계통의 위반, 버스의 사적 사용, 안전벨트 미착용 등은 징계 사유로 인정된다.나. 징계양정의 적정성 여부안전운행을 책임져야 하는 운전원이라는 직무의 특성상 버스노선 이탈, 상습적인 안전벨트 미착용은 그 비위의 정도가 중하고, 비위의 정도와 과거 징계이력 등을 고려할 때 근로관계를 유지할 수 없을 정도로 당사자 간 신뢰가 손상된 것으로 판단되므로 해고는 양정이 과하다고 볼 수 없다.다. 징계절차의 적법성 여부사용자는 근로자에게 인사위원회 개최 사실을 알리고 소명의 기회를 부여하였으며 해고사유와 해고일을 기재하여 서면으로 통보하는 등 적법한 징계절차를 거친 것으로 판단된다.",
+        "summary_short": "징계사유가 존재하고, 양정이 적정하며, 절차에 하자가 없어 해고는 정당하다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부운행 계통의 위반, 버스의 사적 사용, 안전벨트 미착용 등은 징계 사유로 인정된다.",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2020-05-07",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=1889&type=HTML",
+        "relevance": 0.29842,
+        "_trigram_score": 0.36666666666666664,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.19666666666666666
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "폭행이나 욕설 같은 비위 사실 자체가 인정되는지가 핵심",
+      "category": "violence",
+      "intent": "validity_check",
+      "keywords": [
+        "폭행이나",
+        "욕설",
+        "같은",
+        "비위",
+        "사실"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_15389",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 2,
+          "id": "id_16691",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 3,
+          "id": "id_24667",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 4,
+          "id": "id_20943",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 5,
+          "id": "id_1889",
+          "score": 2,
+          "reason": "fallback heuristic"
+        }
+      ],
+      "weighted_score": 10,
+      "precision_hits": 5
+    }
+  },
+  {
+    "query_id": "Q20",
+    "query": "폭행은 있었지만 해고까지는 과하다고 본 사건",
+    "category": "violence",
+    "baseline_weighted_score": 6,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_31195",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "폭행사건으로 인한 해고는 징계양정이 과하여 부당하나, 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "summary_short": "폭행사건으로 인한 해고는 징계양정이 과하여 부당하나, 부당노동행위에는 해당하지 않는다고 판정한 사례",
+        "key_issue": "가. 해고의 정당성 여부폭행사건이 사업장 및 근무시간 외에 발생되었고, 근로자가 반성하고 있으며, 근로자의 징계 이력이 없는 점 등을 종합하여 볼 때, 해고는 인사권을 남용한 것으로 판단된다.",
+        "reason_category": [
+          "union_activity",
+          "violence"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-08-22",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=31195&type=HTML",
+        "relevance": 0.686236,
+        "_trigram_score": 0.6047619047619047,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.12,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4919047619047619
+      },
+      {
+        "id": "id_32051",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "성폭력의 징계사유가 인정되고, 절차, 양정에서 모두 정당하다고 판정한 사례\n\n쟁점: 근로자가 성폭행 혐의로 형사상 기소된 사실, 피해자와 3천만원을 주고 합의한 사실에 비추어 볼 때, 근로자에게 성추행·성폭행의 징계사유가 인정된다.\n판단: 근로자가 성폭행 혐의로 형사상 기소된 사실, 피해자와 3천만원을 주고 합의한 사실에 비추어 볼 때, 근로자에게 성추행·성폭행의 징계사유가 인정된다.근로자는 해고통지서를 받지 못하였다고 주장하나, 함께 해고통지서를 교부받았다는 동료근로자의 진술, 해고통지서를 받았음을 추정케 하는 문자메시지 수발신 내용 등을 살펴볼 때, 절차상 하자가 있다고 볼 수 없다. 또한, 피해자가 입은 피해의 정도와 사회적 비난의 여지, 직장질서 회복의 필요성 등을 고려하면, 성폭행 등을 징계사유로 한 징계해고는 정당하다.",
+        "summary_short": "성폭력의 징계사유가 인정되고, 절차, 양정에서 모두 정당하다고 판정한 사례",
+        "key_issue": "근로자가 성폭행 혐의로 형사상 기소된 사실, 피해자와 3천만원을 주고 합의한 사실에 비추어 볼 때, 근로자에게 성추행·성폭행의 징계사유가 인정된다.",
+        "reason_category": [
+          "sexual_harassment",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-10-05",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=32051&type=HTML",
+        "relevance": 0.500351,
+        "_trigram_score": 0.5904761904761905,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.08,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4461904761904762
+      },
+      {
+        "id": "id_42491",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "가. 해고의 정당성 여부근로자가 관리자 및 승객에게 폭언과 폭행을 한 사실이 있고, 고객에 대한 서비스를 중시하는 시내버스 운전업무에 종사하는 근로자가 승객 및 관리자에게 수차례 폭언과 폭행을 한 행위는 사회적 비난 가능성이 크다고 보여지며, 인사위원회에 참석하여 소명한 사실이 있는 점 등을 종합하여 볼 때, 해고는 정당한 것으로 판단된다.나. 부당노동행위 여부사용자가 징계사유로 삼은 것은 복무의 기본원칙 및 직장 내 질서유지 위반 등이고, 노동조합 활동을 이유로 불이익 처분을 했다고 볼 만한 객관적인 증거가 없으며, 기타 부당노동행위 의사가 확인되지 않은 점 등을 종합하여 볼 때, 사용자가 불이익 취급의 부당노동행위를 행하였다고 보기 어렵다.",
+        "summary_short": "관리자 및 승객에게 폭언 및 폭행을 한 사실 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해고가 불이익 취급의 부당노동행위에 해당하지 않는다고 판정한 사례",
+        "key_issue": "관리자 및 승객에게 폭언 및 폭행을 한 사실 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해고가 불이익 취급의 부당노동행위에 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "union_activity",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2019-12-19",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42491&type=HTML",
+        "relevance": 0.527359,
+        "_trigram_score": 0.5,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.08,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.41000000000000003
+      },
+      {
+        "id": "id_33061",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "summary_short": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "key_issue": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "union_activity",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-11-23",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=33061&type=HTML",
+        "relevance": 0.502465,
+        "_trigram_score": 0.5,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.08,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.41000000000000003
+      },
+      {
+        "id": "id_42047",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "사용자의 해고통보서에 따른 해고가 존재하고 해고사유 중 무단결근외 나머지 사유는 징계사유에 포함되지 않아 양정이 과하여 부당하다고 판정한 사례",
+        "summary_short": "사용자의 해고통보서에 따른 해고가 존재하고 해고사유 중 무단결근외 나머지 사유는 징계사유에 포함되지 않아 양정이 과하여 부당하다고 판정한 사례",
+        "key_issue": "근로자는 무단결근 후 ① 조건부 사직의사를 표시했으나 이를 철회하여 자진사직 하였다고 볼 수 없는 점, ② 이후 해고사유와 시기를 명시한 해고통지서를 서면으로 통보하여 해고가 존재하는 점, ③ 1일의 무단결근은 인사규정 상 경고 또는 견책의 사유에 해당하는 점, ④",
+        "reason_category": [
+          "no_dismissal",
+          "absence"
+        ],
+        "sanction_type": "warning",
+        "decision_date": "2019-12-02",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42047&type=HTML",
+        "relevance": 0.45929,
+        "_trigram_score": 0.3833333333333333,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.2,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.35333333333333333
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "폭행 해고 과하다고 본 사건",
+      "category": "",
+      "intent": "사건 분석",
+      "keywords": [
+        "폭행",
+        "해고",
+        "과하다고 본 사건",
+        "노동위원회 판정"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_31195",
+          "score": 2,
+          "reason": "폭행 사건으로 인한 해고가 과하다고 판단한 사례로, 쿼리의 핵심 법적 쟁점을 정확히 다룸."
+        },
+        {
+          "rank": 2,
+          "id": "id_32051",
+          "score": 0,
+          "reason": "성폭력 사건에 대한 판정으로, 쿼리와 무관함."
+        },
+        {
+          "rank": 3,
+          "id": "id_42491",
+          "score": 0,
+          "reason": "폭언과 폭행 사건에 대한 판정으로, 쿼리와 무관함."
+        },
+        {
+          "rank": 4,
+          "id": "id_33061",
+          "score": 0,
+          "reason": "직속상사 폭행 사건에 대한 판정으로, 쿼리와 무관함."
+        },
+        {
+          "rank": 5,
+          "id": "id_42047",
+          "score": 1,
+          "reason": "해고 사유가 과하다고 판정했으나, 폭행 사건과는 관련이 없음."
+        }
+      ],
+      "weighted_score": 3,
+      "precision_hits": 2
+    }
+  },
+  {
+    "query_id": "Q21",
+    "query": "욕설이나 직장질서 문란이 반복되어 징계해고된 사건",
+    "category": "violence",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_42291",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "업무위탁 관계에 있는 생활가전 기사에게 지속적으로 욕설, 인격모독성 발언을 하며 영업실적을 압박한 행위에 대한 해고 처분은 정당하다고 판정한 사례",
+        "summary_short": null,
+        "key_issue": "가. 징계사유의 정당성업무 위탁관계에 있는 개인 사업자들에게 영업실적을 압박하며 욕설과 인격모독성 발언을 한 사실이 확인되고, 이는 직장질서를 문란케 하는 행위로서 취업규칙 및 윤리강령을 위반한 징계사유에 해당함나. 징계양정의 적정성지방 영업사무소 책임자인 소장",
+        "reason_category": [
+          "violence"
+        ],
+        "sanction_type": "demotion",
+        "decision_date": "2019-12-11",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=42291&type=HTML",
+        "relevance": 0.590475,
+        "_trigram_score": 0.6261363636363636,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.38045454545454543
+      },
+      {
+        "id": "id_403809",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "가. 징계사유의 존재 여부근로자가 업무시간 중 동료직원과 쌍방 폭언？욕설？어깨충돌 행위, 승마회원 앞에서 무전기 투척행위, 마필을 무단으로 입실시키고 마필을 퇴실하라는 정당한 업무상 명령 불이행하는 행위 등은 인사관리규정에 따른 징계사유에 해당한다.나. 징계양정의 적정성 여부근로자는 공공시설에 종사하는 자로서 성실하고 공정하게 처리하여야 함에도 이러한 비위사실이 언론에 보도되어 사용자의 위신과 명예를 손상시키고 직장질서를 문란하게 하여 비위의 정도가 중하고, 마필 퇴실 지시 불응 행위는 고의가 있는 경우에 해당하며 개전의 정이 없었던 점 등을 고려하면, 해고처분이 사회통념상 현저하게 타당성을 잃어 징계재량권을 남용하였거나 일탈한 것이라고 보기 어렵다.다. 징계절차의 적법성 여부근로자에게 소명의 기회를 부여하는 등 관련 규정을 준수하여 징계절차상 하자가 존재하지 않는다.",
+        "summary_short": "업무시간 중 동료직원과의 폭언, 승마회원 앞에서 무전기 투척 행위, 마필 퇴실의 업무상 명령 불이행 등의 징계사유가 인정되고, 이러한 비위행위가 언론에 보도되고 직장질서를 문란하게 하여 비위의 정도가 중하다는 점을 고려하여 해고처분이 정당하다고 판정한 사례",
+        "key_issue": "업무시간 중 동료직원과의 폭언, 승마회원 앞에서 무전기 투척 행위, 마필 퇴실의 업무상 명령 불이행 등의 징계사유가 인정되고, 이러한 비위행위가 언론에 보도되고 직장질서를 문란하게 하여 비위의 정도가 중하다는 점을 고려하여 해고처분이 정당하다고 판정한 사례",
+        "reason_category": [
+          "worker_status",
+          "no_dismissal",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-04-08",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=403809&type=HTML",
+        "relevance": 0.658685,
+        "_trigram_score": 0.5958333333333332,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3683333333333333
+      },
+      {
+        "id": "id_20071",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "팀원에게 욕설 등 부적절한 언행을 이유로 한 팀장 보직해제와 그 언행으로 인한 조직질서 문란 및 사용자의 명예실추를 이유로 한 감봉 6개월 처분은 정당하다고 판정한 사례",
+        "summary_short": "팀원에 대한 욕설 등으로 인한 팀장 보직해제는 정당한 인사발령이고 감봉 6개월도 정당하다고 판정한 사례",
+        "key_issue": "가. 팀장 보직해제가 징계인지 여부 및 정당성 여부회사 규정에서 보직해제를 징계의 종류로 규정하고 있지 아니한 점, 직급·승진체계를 두고 있지 않아 팀장 보직해제가 하위 직급에 임명하는 강등 처분으로 보이지 않는 점, 직책수당 미지급 외 다른 불이익이 없는 점 등을",
+        "reason_category": [
+          "violence",
+          "transfer"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2017-01-18",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=20071&type=HTML",
+        "relevance": 0.586368,
+        "_trigram_score": 0.5386363636363636,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.34545454545454546
+      },
+      {
+        "id": "id_409397",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "인사위원회 구성에 중대한 하자가 있어 위법하며, 징계양정이 과다하여 부당해고에 해당한다고 판정한 사례",
+        "summary_short": "폭언·욕설 등 징계사유가 인정되나 해고는 징계양정 과다이고, 인사위원회 구성에 중대한 하자가 있어 부당하다고 판정한 사례",
+        "key_issue": "인사위원회 구성에 중대한 하자가 있어 위법하며, 징계사유에 비해 징계양정 판단 시 가장 중한 '해고’로 징계처분한 것은 징계재량권을 일탈한 것으로써 부당해고에 해당한다고 판정한 사례",
+        "reason_category": [
+          "worker_status",
+          "violence",
+          "incompetence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-11-29",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=409397&type=HTML",
+        "relevance": 0.52329,
+        "_trigram_score": 0.45113636363636367,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.2604545454545455
+      },
+      {
+        "id": "id_409395",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "징계사유가 인정되고 징계양정이 과하다고 볼 수 없으며 징계절차가 적법하여 징계가 부당하다고 할 수 없다고 판정한 사례",
+        "summary_short": "징계사유가 인정되고 징계양정이 과하다고 볼 수 없으며 징계절차가 적법하여 징계가 부당하다고 할 수 없다고 판정한 사례",
+        "key_issue": "가. 징계사유의 존재 여부근로자가 업무시간 중 동료직원과 쌍방 폭언？욕설？어깨충돌 행위, 승마회원 앞에서 무전기 투척행위, 마필을 무단으로 입실시키고 상급자가 마필을 퇴실시키라고 지시하였음에도 이를 이행하지 않은 행위는 공무직근로자 및 1년 이상 기간제근로자 인사관리 규정에 따른 징계사유에 해당한다.",
+        "reason_category": [
+          "worker_status",
+          "no_dismissal",
+          "violence",
+          "misconduct",
+          "contract_expiry"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-11-28",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=409395&type=HTML",
+        "relevance": 0.518623,
+        "_trigram_score": 0.45113636363636367,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.2604545454545455
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "욕설 직장질서 문란 징계해고 사건",
+      "category": "",
+      "intent": "사례 검색",
+      "keywords": [
+        "욕설",
+        "직장질서",
+        "문란",
+        "징계해고",
+        "반복"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_403809",
+          "score": 2,
+          "reason": "이 사건은 욕설과 직장질서 문란이 반복된 경우에 대한 징계해고의 정당성을 다루고 있어 쿼리의 핵심 법적 쟁점을 정확히 반영하고 있다."
+        },
+        {
+          "rank": 2,
+          "id": "id_20071",
+          "score": 1,
+          "reason": "팀장 보직해제와 감봉 처분이 언급되지만, 징계해고와의 직접적인 연관성이 부족하여 핵심 쟁점과는 다소 차이가 있다."
+        },
+        {
+          "rank": 3,
+          "id": "id_42291",
+          "score": 1,
+          "reason": "욕설과 인격모독성 발언에 대한 해고 처분이 정당하다고 판정하였으나, 직장질서 문란과의 직접적인 연관성이 부족하다."
+        },
+        {
+          "rank": 4,
+          "id": "id_409395",
+          "score": 1,
+          "reason": "징계사유가 인정되지만, 구체적인 욕설이나 직장질서 문란에 대한 언급이 부족하여 쿼리의 핵심 쟁점과는 다소 차이가 있다."
+        },
+        {
+          "rank": 5,
+          "id": "id_409397",
+          "score": 0,
+          "reason": "인사위원회 구성의 하자와 징계양정에 대한 판정이 주된 내용으로, 쿼리와는 무관한 사항이다."
+        }
+      ],
+      "weighted_score": 5,
+      "precision_hits": 4
+    }
+  },
+  {
+    "query_id": "Q22",
+    "query": "근로자성이 실제 핵심 쟁점인 사건",
+    "category": "worker_status",
+    "baseline_weighted_score": 0,
+    "baseline_precision_hits": 0,
+    "upgraded_top5": [
+      {
+        "id": "bc_43d780c5",
+        "title": "서울고등법원 2023. 7. 12. 선고 2022나2047453 판결 해고무효확인등",
+        "decision_result": "dismissed",
+        "holding_summary": "# 근로자성 부정 및 해고의 정당성 인정 사건\n## 결과 요약\n- 원고의 항소와 이 법원에서 확장한 청구를 모두 기각하고, 항소비용과 청구 확장으로 인한 소송비용은 원고가 부담함.\n## 사실관계\n- 원고는 피고 회사의 의사결정 및 경영에 참여하며, 피고 운영에 대한 결재권의 80% 정도를 행사하고, 피고의 대표이사가 원고를 사장으로 임명하고 모든 결재를 전결하도록 하였음.\n- 원고의 비위행위는 피고의 사실상 100% 주주이자 대표이사인 C과 임직원들 사이의 갈등과 반목을 유발·조장하였음.\n- 피고는 원고의 비위행위를 이유로 징계해고를 하였고, 원고는 이에 대해 해고무효확인 및 임금지급을 청구함.\n## 핵심 쟁점, 법리 및 법원의 판단\n### 근로기준법상 근로자성 여부\n- 원고가 피고의 의사결정 및 경영에 참여하고, 결재권의 상당 부분을 행사하는 등 **임원으로서의 지위**를 가졌음.\n- 법원은 원고가 근로기준법상 근로자에 해당하지 않는다고 판단하였음.\n### 해고의 정당성 여부 (설령 근로자성을 인정하더라도)\n- 이 사건 해고를 의결한 인사위원회가 피고의 징계관리규정에 따라 **정당하게 구성**되었음.\n- 원고의 비위행위는 피고의 취업규칙 및 징계관리 규정에서 정한 **징계해고 사유에 해당**함.\n- 원고의 직위, 비위행위의 내용과 결과 등에 비추어 볼 때, 원고에게 책임 있는 사유로 인해 **사회통념상 고용관계를 계속할 수 없을 정도**에 이르렀음.\n- 이 사건 해고가 현저하게 타당성을 잃어 피고의 징계재량권 남용에 해당한다고 볼 수 없음.\n- 법원은 설령 원고가 근로기준법상 근로자에 해당한다고 가정하더라도, 이 사건 해고는 정당하다고 판단하여 원고의 해고무효확인 및 임금지급 청구를 받아들일 수 없다고 판단함.\n#### 관련 판례 및 법령\n- 민사소송법 제420조 본문\n## 참고사실\n- 원고는 이 사건 해고에 앞서 개최된 인사위원회에 출석하여 '원고가 하는 일은 분명히 임원이다, 사실은 피고 운영에 대한 결재권의 80% 정도를 원고가 행사하였다, C이 원고를 사장으로 임명하고 나서 원고에게 모든 결 전결하라고 하면서 자신은 자금 부분만 보겠다고 하였다'는 취지로 진술하였음.\n## 검토\n- 본 판결은 근로기준법상 근로자성 판단에 있어 **실질적인 업무 내용과 권한, 의사결정 참여 여부**가 중요하게 고려됨을 보여줌.\n- 또한, 설령 근로자성이 인정되더라도 **징계 절차의 적법성, 징계 사유의 타당성, 징계 양정의 적정성**이 종합적으로 판단되어 해고의 정당성이 인정될 수 있음을 확인함.\n- 특히, 임원급 직위에서 발생한 비위행위는 회사 운영에 미치는 영향이 크므로, 사회통념상 고용관계 지속이 어려운 중대한 사유로 인정될 가능성이 높음.",
+        "summary_short": "근로자성 부정 및 해고의 정당성 인정 사건",
+        "key_issue": "근로자성 부정 및 해고의 정당성 인정 사건",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-07-12",
+        "url": "https://bigcase.ai/cases/%EC%84%9C%EC%9A%B8%EA%B3%A0%EB%93%B1%EB%B2%95%EC%9B%90/2022%EB%82%982047453",
+        "_trigram_score": 0.7115853658536586,
+        "_semantic_score": 0.2823530855022948,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.5040459976428404
+      },
+      {
+        "id": "id_346883",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "rejected",
+        "holding_summary": "부당해고 구제신청 사건. 근로자성 인정 여부가 다투어진 사안에서 구제신청이 각하되었다.\n\n쟁점: 헤어디자이너들의 근로자성이 부정되어 상시근로자수가 5인 미만으로 판정한 사례\n판단: 헤어디자이너들의 근로자성이 부정되어 상시근로자수가 5인 미만으로 판정한 사례",
+        "summary_short": "헤어디자이너들의 근로자성이 부정되어 상시근로자수가 5인 미만으로 판정한 사례",
+        "key_issue": "헤어디자이너들의 근로자성이 부정되어 상시근로자수가 5인 미만으로 판정한 사례",
+        "reason_category": [
+          "worker_status"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-04-02",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=346883&type=HTML",
+        "_trigram_score": 0.5416666666666666,
+        "_semantic_score": 0.2591018173811786,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.5021277570953738
+      },
+      {
+        "id": "id_57465",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "partial",
+        "holding_summary": "가. 이 사건 근로자1의 근로자성 여부: 근로자성 인정나. 근로자들에게 징계사유가 존재하는지 여부 ① 박○영A 및 오○임의 근무성적평정에 있어서 계산상 오류가 있었던 점, ② 근무성적평정서와 경력 가·감정 평정표에 평정자 또는 확인자의 서명 또는 날인이 누락된 점, ③ 성과계획서 작성 누락이 인정되는 점 등에 따라 징계사유가 인정 징계사유 불인정 징계사유 불인정다. 근로자1, 2의 ‘근무성적평정 업무 소홀에 대한 징계’의 양정이 적정한지징계사유가 인정되고 가장 낮은 수위의 징계사유인 견책은 징계재량의 범위를 일탈한다고 보기 어려움라. 이 사건 근로자1 및 이 사건 근로자2의 ‘근무성적평정 업무 소홀’에 대한 징계절차의 적법성 여부: 적법마. 근로자1에게 근로계약의 갱신기대권이 인정되는지 여부: 인정바. 근로자1에 대한 갱신거절에 합리적 이유가 있는지 여부: 불인정",
+        "summary_short": "이 사건 근로자1의 근로자성이 인정되고, 근로자1, 2의 근무성적평정 업무 소홀에 대한 징계사유가 존재하고 징계절차도 적법하여 견책처분은 정당하나, 그 외 근로자들의 징계사유는 인정되지 않아 징계는 부당하고, 근로자",
+        "key_issue": "이 사건 근로자1의 근로자성이 인정되고, 근로자1, 2의 근무성적평정 업무 소홀에 대한 징계사유가 존재하고 징계절차도 적법하여 견책처분은 정당하나, 그 외 근로자들의 징계사유는 인정되지 않아 징계는 부당하고, 근로자1에게 근로계약의 갱신기대권이 인정되며 갱신거절에",
+        "reason_category": [
+          "contract_expiry",
+          "worker_status",
+          "misconduct"
+        ],
+        "sanction_type": "warning",
+        "decision_date": "2023-07-20",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=57465&type=HTML",
+        "_trigram_score": 0.3972222222222222,
+        "_semantic_score": 0.33683165487304983,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4909878818127188
+      },
+      {
+        "id": "id_347743",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "신청인은 근로기준법상 근로자로 볼 수 없고, (근로자성이 인정된다 하더라도) 정년 연장의 기대권이 형성되어 있지 않아 계약기간 만료 통보는 정당하다고 판정한 사례",
+        "summary_short": "신청인은 근로기준법상 근로자로 볼 수 없고, (근로자성이 인정된다 하더라도) 정년 연장의 기대권이 형성되어 있지 않아 계약기간 만료 통보는 정당하다고 판정한 사례",
+        "key_issue": "가. 근로자성 여부신청인은 시설의 대표로서 시설업무 전반을 총괄하고 법인으로부터 시설의 운영, 인사, 회계 등 전반에 걸친 권한을 위임받아 처리하여 온 것일 뿐 그 업무집행에 관하여 이 사건 법인의 구체적인 지휘ㆍ감독을 받은 근로자로 볼 수 없다.",
+        "reason_category": [
+          "contract_expiry",
+          "worker_status"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-05-28",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=347743&type=HTML",
+        "_trigram_score": 0.36018518518518516,
+        "_semantic_score": 0.3257545218883635,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.4695267872070922
+      },
+      {
+        "id": "id_58627",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "overturned",
+        "holding_summary": "시용근로자에 해당하고, 본채용 거부의 정당성이 인정되지 않아 정규직 전환 거절은 부당하다고 판정한 사례",
+        "summary_short": "시용근로자에 해당하고, 본채용 거부의 정당성이 인정되지 않아 정규직 전환 거절은 부당하다고 판정한 사례",
+        "key_issue": "근로자가 시용근로자에 해당하고 사용자의 고용관계 종료 통보가 본채용 거부에 해당한다는 것에 대해서는 당사자 간 다툼이 없으므로 쟁점인 본채용 거부의 정당성 여부에 대해 살펴보면, ① 근무평가가 공정하게 이루어졌는지에 대한 구체적인 입증이 부족한 점, ② 면접",
+        "reason_category": [
+          "worker_status",
+          "probation"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2023-08-28",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=58627&type=HTML",
+        "_trigram_score": 0.44166666666666665,
+        "_semantic_score": 0.3495962768169011,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.46642443275680734
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "근로자성이 실제 핵심 쟁점인 사건",
+      "category": "",
+      "intent": "검색",
+      "keywords": [
+        "근로자성",
+        "핵심 쟁점",
+        "사건",
+        "판정례"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "bc_43d780c5",
+          "score": 2,
+          "reason": "사건의 핵심 쟁점인 근로자성 여부를 명확히 다루고 있으며, 해고의 정당성에 대한 판단도 포함되어 있어 쿼리와 직접적으로 관련이 있다."
+        },
+        {
+          "rank": 2,
+          "id": "id_346883",
+          "score": 2,
+          "reason": "근로자성 인정 여부가 쟁점으로 다루어지고 있으며, 부당해고 구제신청 사건으로 쿼리와 관련성이 높다."
+        },
+        {
+          "rank": 3,
+          "id": "id_57465",
+          "score": 1,
+          "reason": "근로자성 여부가 다루어지지만, 다른 쟁점들이 포함되어 있어 핵심 쟁점과의 관련성이 다소 떨어진다."
+        },
+        {
+          "rank": 4,
+          "id": "id_347743",
+          "score": 1,
+          "reason": "근로자성 여부가 언급되지만, 정년 연장 기대권과 관련된 판단이 주를 이루어 쿼리의 핵심 쟁점과는 다소 거리가 있다."
+        },
+        {
+          "rank": 5,
+          "id": "id_58627",
+          "score": 0,
+          "reason": "사건의 주제가 시용근로자와 정규직 전환 거부에 관한 것으로, 근로자성과는 직접적인 관련이 없다."
+        }
+      ],
+      "weighted_score": 6,
+      "precision_hits": 4
+    }
+  },
+  {
+    "query_id": "Q23",
+    "query": "괴롭힘은 인정되지 않지만 그 신고나 요구 때문에 갈등이 커진 사건",
+    "category": "workplace_bullying",
+    "baseline_weighted_score": 8,
+    "baseline_precision_hits": 3,
+    "upgraded_top5": [
+      {
+        "id": "id_413251",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "의칙상 요구되는 협의 절차를 거치지 않았다는 사정만으로 전보가 당연 무효가 된다고 보기는 어려움",
+        "summary_short": "협의 절차 미준수=취업규칙 요구 협의 절차 거치지 않았다는 사정만으로 전보 당연 무효 아님=TV 정당",
+        "key_issue": "전보의 업무상 필요성이 인정됨",
+        "reason_category": [
+          "transfer"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2026-01-06",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=413251&type=HTML",
+        "relevance": 0.303957,
+        "_trigram_score": 0.37412280701754386,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.1,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.24964912280701756
+      },
+      {
+        "id": "id_349339",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "괴롭힘 등에 대한 징계해고가 사유·양정·절차 모두 정당하다고 판정한 사례\n\n쟁점: 직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례\n판단: 직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례",
+        "summary_short": "직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 절차도 정당하다고 판정한 사례",
+        "key_issue": "직장 내 괴롭힘 등에 대한 징계사유가 인정되고, 징계양정과 징계절차도 정당하다고 판정한 사례",
+        "reason_category": [
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-07-02",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=349339&type=HTML",
+        "relevance": 0.474234,
+        "_trigram_score": 0.41944444444444445,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.24777777777777782
+      },
+      {
+        "id": "id_411165",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "대기발령의 필요성이 인정되지 않는다고 판정한 사례\n\n쟁점: 대기발령의 필요성이 인정되지 않는다고 판정한 사례\n판단: 대기발령의 필요성이 인정되지 않는다고 판정한 사례",
+        "summary_short": "대기발령의 필요성이 인정되지 않는다고 판정한 사례",
+        "key_issue": "대기발령의 필요성이 인정되지 않는다고 판정한 사례",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2025-09-29",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=411165&type=HTML",
+        "relevance": 0.308717,
+        "_trigram_score": 0.49833333333333335,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.19933333333333336
+      },
+      {
+        "id": "id_7133",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계사유가 인정되지 않으므로 감봉이 부당하다고 판정한 사례\n\n쟁점: 2020. 12. 15. 발주서 분류작업 및 재고관리 지시 불이행이라는 징계사유가 인정되지 않아 감봉 3월은 부당하므로 징계양정의 적정성 및 징계절차의 적법성 여부에 대하여는 더 나아가 살펴볼 필요가 없다.\n판단: 2020. 12. 15. 발주서 분류작업 및 재고관리 지시 불이행이라는 징계사유가 인정되지 않아 감봉 3월은 부당하므로 징계양정의 적정성 및 징계절차의 적법성 여부에 대하여는 더 나아가 살펴볼 필요가 없다.",
+        "summary_short": "징계사유가 인정되지 않으므로 감봉이 부당하다고 판정한 사례",
+        "key_issue": "2020. 12. 15. 발주서 분류작업 및 재고관리 지시 불이행이라는 징계사유가 인정되지 않아 감봉 3월은 부당하므로 징계양정의 적정성 및 징계절차의 적법성 여부에 대하여는 더 나아가 살펴볼 필요가 없다.",
+        "reason_category": [
+          "misconduct"
+        ],
+        "sanction_type": "pay_cut",
+        "decision_date": "2021-05-25",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=7133&type=HTML",
+        "relevance": 0.311709,
+        "_trigram_score": 0.4946969696969697,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.19787878787878788
+      },
+      {
+        "id": "id_412827",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "근로자에 대한 해고가 인정되지 않는다고 판정한 사례\n\n쟁점: 근로자에 대한 해고가 인정되지 않는다고 판정한 사례\n판단: 근로자에 대한 해고가 인정되지 않는다고 판정한 사례",
+        "summary_short": "근로자에 대한 해고가 인정되지 않는다고 판정한 사례",
+        "key_issue": "근로자에 대한 해고가 인정되지 않는다고 판정한 사례",
+        "reason_category": [
+          "other"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2026-01-05",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=412827&type=HTML",
+        "relevance": 0.317024,
+        "_trigram_score": 0.4897058823529412,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.0,
+        "_keyword_boost": 0.0,
+        "_effective_relevance": 0.1958823529411765
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "괴롭힘 인정되지 않음 신고 요구 갈등 사건",
+      "category": "",
+      "intent": "사건 분석",
+      "keywords": [
+        "괴롭힘",
+        "신고",
+        "요구",
+        "갈등",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 0,
+          "id": "id_413251",
+          "score": 0,
+          "reason": "결과가 부당해고와 관련되어 있으나, 괴롭힘과 관련된 쟁점이 전혀 다름."
+        },
+        {
+          "rank": 0,
+          "id": "id_349339",
+          "score": 0,
+          "reason": "괴롭힘이 인정된 사례로, 쿼리의 맥락과는 반대되는 내용."
+        },
+        {
+          "rank": 0,
+          "id": "id_411165",
+          "score": 0,
+          "reason": "대기발령에 대한 판정으로, 괴롭힘과 관련된 쟁점이 아님."
+        },
+        {
+          "rank": 0,
+          "id": "id_7133",
+          "score": 0,
+          "reason": "징계사유가 인정되지 않은 사례로, 괴롭힘과 관련된 쟁점이 아님."
+        },
+        {
+          "rank": 0,
+          "id": "id_412827",
+          "score": 0,
+          "reason": "해고가 인정되지 않는 사례로, 괴롭힘과 관련된 쟁점이 아님."
+        }
+      ],
+      "weighted_score": 0,
+      "precision_hits": 0
+    }
+  },
+  {
+    "query_id": "Q24",
+    "query": "여러 비위가 함께 있었지만 최종적으로는 해고 정당성 전체를 본 사건",
+    "category": "",
+    "baseline_weighted_score": 0,
+    "baseline_precision_hits": 0,
+    "upgraded_top5": [
+      {
+        "id": "id_16507",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "해고사유가 정당하지 않고 절차에 있어서도 하자가 있어 부당한 해고라고 판정한 사례\n\n쟁점: 가. 근로자 1～5에 대한 징계해고의 정당성 여부1) 해고사유의 정당성사용자는 회사가 최종 부도가 발생한 상태에서 회사의 내부기밀을 외부에 누설하지 않아야 함에도 근로자들이 채권단에 협의각서를 작성하고, 회사 정보와 자료를 유출하였으며, 법원에 탄원서를 제출하여\n판단: 가. 근로자 1～5에 대한 징계해고의 정당성 여부1) 해고사유의 정당성사용자는 회사가 최종 부도가 발생한 상태에서 회사의 내부기밀을 외부에 누설하지 않아야 함에도 근로자들이 채권단에 협의각서를 작성하고, 회사 정보와 자료를 유출하였으며, 법원에 탄원서를 제출하여 해고하였다고 주장하나, ① 협의각서는 채권단의 요구에 따라 회사 전체 직원이 작성하였음에도 근로자1～5에 대해서만 해고사유로 삼은 점, ② 사용자는 근로자1～5가 회사의 기밀을 외부에 유출하였는지 여부를 입증하지 못하는 점, ③ 근로자1～5는 해고일 이후 서울중앙지방법원에 탄원서를 제출한바, 탄원서 제출은 해고와 무관한 점 등을 종합하여 고려하면 이를 해고사유로 삼은 것은 부당하다.2) 해고절차의 적법성 여부회사의 취업규칙은 근로자를 징계할 때는 인사위원회를 구성하고, 진술의 기회를 부여하며, 징계사유 등을 명시하여 3일 전에 해당자에게 서면으로 통보하도록 규정하고 있음에도 사용자는 이러한 해고절차를 이행한 사실이 없으므로 ",
+        "summary_short": "해고사유가 정당하지 않고 절차에 있어서도 하자가 있어 부당한 해고라고 판정한 사례",
+        "key_issue": "가. 근로자 1～5에 대한 징계해고의 정당성 여부1) 해고사유의 정당성사용자는 회사가 최종 부도가 발생한 상태에서 회사의 내부기밀을 외부에 누설하지 않아야 함에도 근로자들이 채권단에 협의각서를 작성하고, 회사 정보와 자료를 유출하였으며, 법원에 탄원서를 제출하여",
+        "reason_category": [
+          "no_dismissal",
+          "worker_status",
+          "redundancy",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2016-07-07",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=16507&type=HTML",
+        "relevance": 0.457599,
+        "_trigram_score": 0.38018292682926824,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.18,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.38207317073170727
+      },
+      {
+        "id": "id_406043",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계사유 중 일부가 징계사유로 인정되지 않지만 나머지 징계사유만으로 해고사유로서 충분하며 절차상 하자가 없는 정당한 해고이며 부당노동행위에 해당하지 않는다고 판정한 사례",
+        "summary_short": "징계사유 중 일부가 징계사유로 인정되지 않지만 나머지 징계사유만으로 해고사유로서 충분하며 절차상 하자가 없는 정당한 해고이며 부당노동행위에 해당하지 않는다고 판정한 사례",
+        "key_issue": "가. 해고의 정당성 여부해고의 사유 ① 내지 ④에서 해고사유① 직장 내 괴롭힘 행위(이○○에 대해 부당한 만족도 수정 요구, 선거인단 모집 지시) 중 '이○○에 대해 부당한 만족도 수정 요구’ 부분과 징계사유③ 업무방해 및 강요죄는 정당한 징계사유로 인정되지 않으나",
+        "reason_category": [
+          "worker_status",
+          "union_activity",
+          "workplace_bullying",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2024-03-05",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=406043&type=HTML",
+        "relevance": 0.464652,
+        "_trigram_score": 0.37757633587786255,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.18,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.38103053435114503
+      },
+      {
+        "id": "id_20279",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "granted",
+        "holding_summary": "징계사유가 일부 인정되나 징계양정이 과하여 부당해고에 해당하지만, 부당노동행위로 보기는 어렵다고 판정한 사례",
+        "summary_short": "폭언 징계사유 일부 인정되나 양정 과다로 부당해고이며, 부당노동행위는 아니라고 판정한 사례",
+        "key_issue": "가. 해고의 정당성 여부① 법원의 판결로 벌금 이상의 실형이 확정되지 않은 점, ② 폭언이 복직원을 제출하였으나 복직을 허락하지 않은 것에 대한 다툼으로부터 비롯된 것으로 보이는 점, ③ 근로계약기간 등에 대한 고려 없이 일방적으로 ‘근로계약 및 고용관계 종료 사실",
+        "reason_category": [
+          "violence",
+          "misconduct",
+          "contract_expiry",
+          "union_activity"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2017-02-02",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=20279&type=HTML",
+        "relevance": 0.449644,
+        "_trigram_score": 0.376159793814433,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.18,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.3804639175257732
+      },
+      {
+        "id": "id_4355",
+        "title": "○ ○ ○ 부당해고 구제 재심신청",
+        "decision_result": "upheld",
+        "holding_summary": "징계사유와 양정 및 절차 등에 하자를 발견할 수 없어 해고의 정당성이 인정되고, 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "summary_short": "징계사유와 양정 및 절차 등에 하자를 발견할 수 없어 해고의 정당성이 인정되고, 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "key_issue": "가. 해고의 정당성 여부직속 상사에 대한 폭행 및 폭언 등의 징계사유가 인정되고, 이는 징계처분이 사회통념상 현저하게 타당성을 잃어 징계권자에게 맡겨진 재량권을 남용한 것이라고 볼 수 없으며, 징계위원회에 참석하여 소명한 사실이 있는 점 등을 종합하여 볼 때, 해고는 정당하다.",
+        "reason_category": [
+          "union_activity",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2021-02-04",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=4355&type=HTML",
+        "relevance": 0.477426,
+        "_trigram_score": 0.3678738317757009,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.18,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.37714953271028034
+      },
+      {
+        "id": "id_33061",
+        "title": "○ ○ ○ 부당해고 구제신청",
+        "decision_result": "dismissed",
+        "holding_summary": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "summary_short": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "key_issue": "직속상사 폭행 및 업무지시 불이행 등 징계사유가 존재하고, 양정도 적정하며, 절차에 하자가 없으므로 해고의 정당성이 인정되고, 해당 해고가 불이익 취급의 부당노동행위에도 해당하지 않는다고 판정한 사례",
+        "reason_category": [
+          "union_activity",
+          "violence",
+          "misconduct"
+        ],
+        "sanction_type": "dismissal",
+        "decision_date": "2018-11-23",
+        "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=33061&type=HTML",
+        "relevance": 0.462919,
+        "_trigram_score": 0.3442567567567567,
+        "_semantic_score": 0.0,
+        "_metadata_boost": 0.18,
+        "_keyword_boost": 0.05,
+        "_effective_relevance": 0.36770270270270267
+      }
+    ],
+    "rewrite": {
+      "searchQuery": "여러 비위가 함께 있었지만 최종적으로는 해고 정당성 전체를 본 사건",
+      "category": "",
+      "intent": "사건 판례 검색",
+      "keywords": [
+        "비위",
+        "해고",
+        "정당성",
+        "사건"
+      ]
+    },
+    "reranked": false,
+    "ai_rerank": [],
+    "evaluation": {
+      "per_result": [
+        {
+          "rank": 1,
+          "id": "id_16507",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 2,
+          "id": "id_406043",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 3,
+          "id": "id_20279",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 4,
+          "id": "id_4355",
+          "score": 2,
+          "reason": "fallback heuristic"
+        },
+        {
+          "rank": 5,
+          "id": "id_33061",
+          "score": 2,
+          "reason": "fallback heuristic"
+        }
+      ],
+      "weighted_score": 10,
+      "precision_hits": 5
+    }
+  }
+]
