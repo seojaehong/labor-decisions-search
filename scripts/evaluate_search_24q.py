@@ -364,7 +364,7 @@ def rewrite_query(query: str) -> dict[str, Any]:
                         }
                     ],
                 },
-                timeout=3,
+                timeout=15,
             )
             response.raise_for_status()
             payload = response.json()
@@ -402,7 +402,7 @@ def rewrite_query(query: str) -> dict[str, Any]:
                         },
                     ],
                 },
-                timeout=3,
+                timeout=15,
             )
             response.raise_for_status()
             payload = response.json()
@@ -887,7 +887,7 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
                         }
                     ],
                 },
-                timeout=5,
+                timeout=30,
             )
             response.raise_for_status()
             payload = response.json()
@@ -918,7 +918,7 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
                         {"role": "user", "content": f'사용자 검색 쿼리: "{user_query}"\n\n검색 결과:\n{rendered_results}'},
                     ],
                 },
-                timeout=5,
+                timeout=30,
             )
             response.raise_for_status()
             payload = response.json()
@@ -969,7 +969,7 @@ def evaluate_results_with_ai(query: EvalQuery, results: list[dict[str, Any]]) ->
                     "system": "당신은 노동법 판정례 검색 품질을 평가하는 독립 심사자입니다. 반드시 JSON 배열만 반환하세요.",
                     "messages": [{"role": "user", "content": instruction}],
                 },
-                timeout=8,
+                timeout=30,
             )
             response.raise_for_status()
             payload = response.json()
@@ -1007,7 +1007,7 @@ def evaluate_results_with_ai(query: EvalQuery, results: list[dict[str, Any]]) ->
                         {"role": "user", "content": instruction},
                     ],
                 },
-                timeout=8,
+                timeout=30,
             )
             response.raise_for_status()
             payload = response.json()
