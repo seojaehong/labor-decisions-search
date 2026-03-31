@@ -725,7 +725,7 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
         extra_terms.extend(["징계 과도", "해고 과중"])
 
     if category == "incompetence" and re.search(r"(개선|경고|시정|교육|기회|주고도|부여)", lowered):
-        extra_terms.extend(["개선 기회", "경고", "시정", "교육", "개선기회 부여", "직권면직", "직무수행능력"])
+        extra_terms.extend(["개선 기회", "경고", "시정", "교육", "개선기회 부여", "직권면직", "직무수행능력", "저성과", "업무능력 부족", "근무성적"])
 
     # Q09: 수습 + 절차 문제
     if category == "probation" and re.search(r"(서면|절차|통지|소명)", lowered):
@@ -805,6 +805,57 @@ def fetch_candidate_rows_for_query(query_text: str, category: str, keyword_hints
                     }
                 )
             )
+
+    # Q11-type: improvement opportunity + dismissal - fetch incompetence cases with improvement keywords
+    if re.search(r"(개선.{0,5}기회|경고.{0,5}(주고|후)|교육.{0,5}(후|제공)|주고도.{0,5}(해고|면직))", query_text):
+        for imp_term in ["개선기회", "저성과", "업무능력 부족", "직무수행능력", "시정기회", "경고 후 해고", "교육훈련 후"]:
+            merge(
+                safe_fetch_table_rows(
+                    {
+                        "select": select,
+                        "or": build_text_or_clause(imp_term),
+                        "limit": "30",
+                        "order": "decision_date.desc",
+                    }
+                )
+            )
+        # Also fetch incompetence category cases directly
+        merge(
+            safe_fetch_table_rows(
+                {
+                    "select": select,
+                    "reason_category": "cs.{incompetence}",
+                    "limit": "80",
+                    "order": "decision_date.desc",
+                }
+            )
+        )
+
+    # Q23-type: harassment NOT recognized + conflict escalated
+    if re.search(r"(괴롭힘.{0,10}(인정되지|불인정|미해당)|괴롭힘.{0,10}갈등|신고.{0,5}갈등)", query_text):
+        for harass_term in ["괴롭힘 인정되지", "괴롭힘 해당하지", "괴롭힘 존재하지", "괴롭힘 불인정", "괴롭힘 아닌"]:
+            merge(
+                safe_fetch_table_rows(
+                    {
+                        "select": select,
+                        "or": build_text_or_clause(harass_term),
+                        "limit": "30",
+                        "order": "decision_date.desc",
+                    }
+                )
+            )
+        # Fetch workplace_bullying cases with suspension sanction (often involve conflict after report)
+        merge(
+            safe_fetch_table_rows(
+                {
+                    "select": select,
+                    "reason_category": "cs.{workplace_bullying}",
+                    "sanction_type": "eq.suspension",
+                    "limit": "60",
+                    "order": "decision_date.desc",
+                }
+            )
+        )
 
     core_terms = CATEGORY_CORE_TERMS.get(category_filter, set())
     terms = [
