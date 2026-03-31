@@ -1,0 +1,181 @@
+{
+  "query_id": "Q10",
+  "query": "정규직 저성과나 업무능력 부족으로 해고된 사건",
+  "category": "incompetence",
+  "rewrite": {
+    "searchQuery": "정규직 저성과 업무능력 부족 해고 적절성",
+    "category": "incompetence",
+    "intent": "validity_check",
+    "keywords": [
+      "저성과",
+      "업무능력 부족",
+      "정규직",
+      "해고",
+      "개선 기회"
+    ]
+  },
+  "reranked": true,
+  "top5": [
+    {
+      "id": "id_15181",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "규정을 위반한 근무실적 평가 결과에 근거하여 업무능력 부족을 사유로 해고한 것은 부당하다고 판정한 사례",
+      "summary_short": "규정을 위반한 근무실적 평가 결과에 근거하여 업무능력 부족을 사유로 해고한 것은 부당하다고",
+      "key_issue": "① 무기계약근로자 관리규정 제26조제1항에 따르면 근무실적 평가 대상 기간의 근무기간이 2월 미만인 근로자는 평가에서 제외되어야 함에도 1개월 12일을 근무한 근로자의 근무실적을 평가하여 최하 등급으로 결정한 점, ② 4회에 걸쳐 업무 능력을 개선하라는 취지의",
+      "reason_category": [
+        "incompetence"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2016-05-03",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=15181&type=HTML",
+      "relevance": 0.657843,
+      "_trigram_score": 0.5916666666666667,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.46666666666666673
+    },
+    {
+      "id": "id_55695",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "해고사유가 정당하다고 보기 어려워 부당해고로 판정한 사례\n\n쟁점: 가. 경력 사항 허위 기재에 대하여근로자는 회사에서 2015. 12. 15.부터 2016. 3. 10.까지 (86일) 근무하고 퇴사하였음에도 회사에 재입사하는 과정에서 제출한 지원이력서에 실제 근무이력과 달리 2013. 7.부터 2016. 3.까지 총 2년 9개월로 기재한 사실은 인정된다.\n판단: 가. 경력 사항 허위 기재에 대하여근로자는 회사에서 2015. 12. 15.부터 2016. 3. 10.까지 (86일) 근무하고 퇴사하였음에도 회사에 재입사하는 과정에서 제출한 지원이력서에 실제 근무이력과 달리 2013. 7.부터 2016. 3.까지 총 2년 9개월로 기재한 사실은 인정된다. 그러나 사용자는 자체적으로 근로자의 과거 근무이력을 충분히 확인할 수 있었다는 점, 사용자의 대표이사가 근로자의 재입사 과정에서 근무경험을 토대로 근로자의 능력을 평가하고 이를 기초로 적극적으로 재입사를 제안·권유한 점 등에 비추어 보면 근로자가 과거 근무이력을 사실과 달리 기재한 사유만으로 고용계약의 신뢰관계를 중대하게 위반하였다고 볼 수 없어 징계사유로 인정되지 않음나. 업무능력 부족 또는 미흡에 대하여사용자는 근로자가 담당 업무능력이 부족하다거나 미흡하다고 볼 만한 객관적인 자료를 제출하지 않은 점, 사용자는 소속 직원들의 업무능력을 평가하는 최소한의 기준도 근로자에게 제시한 바 없고 근로자",
+      "summary_short": "경력 허위기재와 업무능력 부족 모두 징계사유로 인정되지 않아 부당해고로 판정한 사례",
+      "key_issue": "가. 경력 사항 허위 기재에 대하여근로자는 회사에서 2015. 12. 15.부터 2016. 3. 10.까지 (86일) 근무하고 퇴사하였음에도 회사에 재입사하는 과정에서 제출한 지원이력서에 실제 근무이력과 달리 2013. 7.부터 2016. 3.까지 총 2년 9개월로 기재한 사실은 인정된다.",
+      "reason_category": [
+        "incompetence",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2023-05-17",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=55695&type=HTML",
+      "relevance": 0.511603,
+      "_trigram_score": 0.5573529411764706,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.45294117647058824
+    },
+    {
+      "id": "id_37033",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "업무수행능력 부족을 뒷받침할 객관적 평가기준이 없고, 이력서 기재 차이가 근소하여 채용을 좌우하는 사정이라 보기 어려우므로 정당한 해고사유가 존재하지 않는다고 판정한 사례",
+      "summary_short": "업무능력 부족 입증이 부족했던 본채용 거부 부당 사건",
+      "key_issue": "근로자의 업무수행 능력 부족을 뒷받침할 만한 평가 기준 등과 같은 객관적 입증자료가 없고, 이력서에 기재된 이전 직장의 연봉금액 및 근무기간이 실제 경력과는 다른 측면이 있으나 차이가 크지 않아 채용을 결정적으로 좌우하는 사정이라고 보기 어려우므로 정당한 해고사유가",
+      "reason_category": [
+        "probation",
+        "no_dismissal",
+        "incompetence"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-05-21",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=37033&type=HTML",
+      "relevance": 0.538115,
+      "_trigram_score": 0.5533783783783783,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.0,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.3513513513513513
+    },
+    {
+      "id": "id_35533",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "가. 업무상 필요성의 존재 여부① 다면평가에 일부 감정적·주관적 평가 요소가 있다고 하여 다면평가 결과를 부인하기는 어렵고, 근로자는 다면평가에서 2년 연속 전국 평균 이하의 점수를 받았으며, ② 근로자에 대한 제보내용(반말·인격모독)은 진술의 구체성과 다른 자료 등을 종합하면 사실에 부합한다고 보이고, ③ 유통판매업의 특성상 사용자가 근로자들의 고객응대·근무태도·다면평가 등을 인사명령에 반영하는 것은 상당한 재량권으로 인정되어야 하는 점, ④ 저성과자들을 포함한 다수의 근로자를 대상으로 한 정기 인사발령이었음이 확인되는 점 등을 종합적으로 고려할 때 업무상 필요성이 존재함.나. 생활상 불이익의 정도① 정상적인 업무공간과 상당한 업무내용을 부여하였고, ② 직책 상실 시 당연히 지급되지 않는 직책 수당 미지급은 불이익한 조치로 볼 수 없으며, ③ 정신적 스트레스 등은 다소 주관적이거나 통상 감내할 수 있는 범위 내로 보여 업무상 필요성에 비해 생활상 불이익이 크다고 볼 수 없음.다. 신의칙상 요구되는 협의절차 준수 여부성실한 협의절차를 거치지 아니하였다는 사정만으로 인사명령이 권리남용에 해당되어 당연히 무효가 된다고 볼 수 없음.",
+      "summary_short": "보직해임+전보 업무상 필요성 있고 협의 하자=무효화수준 아님=정당",
+      "key_issue": "보직해임 및 전보에 업무상 필요성이 있고, 생활상 불이익은 통상 감내할 수 있는 범위 내로 볼 수 있으며, 신의칙상 협의여부는 인사명령을 무효화시킬 정도에 이르지 않아 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-03-21",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=35533&type=HTML",
+      "relevance": 0.500561,
+      "_trigram_score": 0.49504504504504504,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.348018018018018
+    },
+    {
+      "id": "id_407999",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "해고의 정당성이 인정되지 않아 해고처분이 부당하다고 판정한 사례\n\n쟁점: 사용자가 근로자의 근무성적이나 근무능력을 평가한 것이 합리적이고 공정한 평가로 보기 어렵고, 근로자에게 직무교육이나 전환배치 등 근로자의 근무성적이나 근무능력 개선을 위한 기회를 제공한 사실이 없는 등 해고사유가 정당하다고 보기 어렵다.\n판단: 사용자가 근로자의 근무성적이나 근무능력을 평가한 것이 합리적이고 공정한 평가로 보기 어렵고, 근로자에게 직무교육이나 전환배치 등 근로자의 근무성적이나 근무능력 개선을 위한 기회를 제공한 사실이 없는 등 해고사유가 정당하다고 보기 어렵다.",
+      "summary_short": "근무성적 평가 불공정+직무교육·전환배치 기회 없음=해고사유 불인정=부당해고",
+      "key_issue": "사용자가 근로자의 근무성적이나 근무능력을 평가한 것이 합리적이고 공정한 평가로 보기 어렵고, 근로자에게 직무교육이나 전환배치 등 근로자의 근무성적이나 근무능력 개선을 위한 기회를 제공한 사실이 없는 등 해고사유가 정당하다고 보기 어렵다.",
+      "reason_category": [
+        "transfer"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2025-01-10",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=407999&type=HTML",
+      "relevance": 0.501837,
+      "_trigram_score": 0.43671171171171175,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.2746846846846847
+    }
+  ],
+  "ai_rerank": [
+    {
+      "id": "id_15181",
+      "result": "granted"
+    },
+    {
+      "id": "id_37033",
+      "result": "granted"
+    },
+    {
+      "id": "id_407999",
+      "result": "granted"
+    },
+    {
+      "id": "id_45983",
+      "result": "granted"
+    },
+    {
+      "id": "id_14799",
+      "result": "granted"
+    }
+  ],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_15181",
+        "score": 2,
+        "reason": "업무능력 부족을 해고사유로 한 사건에서 근무실적 평가의 정당성을 다룬 핵심 사례로, 쿼리의 법적 쟁점을 정확히 부합"
+      },
+      {
+        "rank": 2,
+        "id": "id_37033",
+        "score": 2,
+        "reason": "업무수행능력 부족을 사유로 한 해고의 정당성을 판단한 사례로, 객관적 평가기준 부재를 지적하며 쿼리의 핵심 쟁점을 정확히 다룸"
+      },
+      {
+        "rank": 3,
+        "id": "id_407999",
+        "score": 2,
+        "reason": "근무성적·근무능력 평가의 합리성과 공정성, 개선 기회 제공 여부를 판단한 사례로 저성과 해고의 정당성 판단에 직접 관련"
+      },
+      {
+        "rank": 4,
+        "id": "id_35533",
+        "score": 1,
+        "reason": "저성과자 인사발령 사건이나, 다면평가와 고객응대 태도 등 복합적 사유를 다루어 순수 업무능력 부족 사유와는 맥락이 다름"
+      },
+      {
+        "rank": 5,
+        "id": "id_55695",
+        "score": 0,
+        "reason": "주요 해고사유가 이력서 허위 기재로, 업무능력 부족과는 무관한 사건"
+      }
+    ],
+    "weighted_score": 7,
+    "precision_hits": 4
+  }
+}

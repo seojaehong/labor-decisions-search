@@ -560,6 +560,10 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
             boost += 0.15
         if re.search(r"(전보|배치전환|대기발령|감봉|정직)", text) and re.search(r"신고", text):
             boost += 0.08
+        if "workplace_bullying" in reason_category and re.search(r"(직위해제|전보|보직해임|대기발령)", text + " " + key_issue):
+            boost += 0.12
+        if "workplace_bullying" not in reason_category and "union_activity" in reason_category:
+            boost -= 0.12
 
     # Q23: Harassment NOT recognized but conflict escalated
     if re.search(r"(인정되지 않|불인정|미해당|부인)", query):
@@ -567,6 +571,8 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
             boost += 0.15
         if re.search(r"(갈등|분쟁|대립)", text + " " + key_issue):
             boost += 0.05
+        if re.search(r"(신고|요구|문제제기|불이익|보복)", query) and re.search(r"(신고|요구|문제제기|불이익|보복)", text + " " + key_issue):
+            boost += 0.08
 
     # Q20: Violence recognized but dismissal too severe (양정과다)
     if re.search(r"(과하다|과하|과중|양정과다|해고까지는)", query):
@@ -592,6 +598,55 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
     if any(token in str(row.get("title") or "") for token in NON_LABOR_CASE_TYPES):
         boost -= 0.25
     return boost
+
+
+def add_unique_terms(base: str, extra_terms: list[str]) -> str:
+    existing = {token.strip() for token in base.split() if token.strip()}
+    additions = [term for term in extra_terms if term and term not in existing]
+    return " ".join([base, *additions]).strip()
+
+
+def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
+    intent = str(rewrite.get("intent") or "generic")
+    category = str(rewrite.get("category") or "")
+    lowered = query_text.lower()
+    extra_terms: list[str] = []
+
+    if intent == "retaliation_check":
+        extra_terms.extend(["불이익", "보복", "신고"])
+
+    if category == "workplace_bullying" and re.search(r"(불인정|미인정|미해당|부인)", lowered):
+        extra_terms.extend(["괴롭힘 불인정", "괴롭힘 미해당"])
+
+    if category == "workplace_bullying" and re.search(r"(갈등|불이익|보복|신고|요구|문제제기)", lowered):
+        extra_terms.extend(["신고 후", "갈등", "불이익 취급", "직위해제", "전보", "보직해임", "대기발령"])
+
+    if category == "contract_expiry" and re.search(r"(사실상 해고|해고처럼|실질적 해고|갱신거절)", lowered):
+        extra_terms.extend(["사실상 해고", "실질적 해고", "갱신거절"])
+
+    if intent == "severity_check":
+        extra_terms.extend(["양정과다", "과중"])
+
+    if category == "violence" and intent == "severity_check":
+        extra_terms.extend(["징계 과도", "해고 과중"])
+
+    if category == "incompetence" and re.search(r"(개선|경고|시정|교육|기회|주고도|부여)", lowered):
+        extra_terms.extend(["개선 기회", "경고", "시정", "교육"])
+
+    return add_unique_terms(query_text, extra_terms) if extra_terms else query_text
+
+
+def build_debug_payload(query: EvalQuery, upgraded: dict[str, Any], evaluation: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "query_id": query.query_id,
+        "query": query.text,
+        "category": query.category,
+        "rewrite": upgraded["rewrite"],
+        "reranked": upgraded["reranked"],
+        "top5": sanitize_results(upgraded["results"]),
+        "ai_rerank": upgraded["ai_rerank"],
+        "evaluation": evaluation,
+    }
 
 
 def fetch_candidate_rows_for_query(query_text: str, category: str, keyword_hints: list[str]) -> list[dict[str, Any]]:
@@ -714,6 +769,16 @@ def extract_json_array(text: str) -> list[dict[str, Any]]:
         return []
 
 
+def sanitize_rerank_items(items: list[Any], top_k: int) -> list[dict[str, Any]]:
+    sanitized: list[dict[str, Any]] = []
+    for item in items:
+        if isinstance(item, dict):
+            sanitized.append(item)
+        if len(sanitized) >= top_k:
+            break
+    return sanitized
+
+
 def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -> list[dict[str, Any]]:
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     openai_key = os.environ.get("OPENAI_API_KEY")
@@ -771,7 +836,7 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
             text = next((item.get("text", "") for item in payload.get("content", []) if item.get("type") == "text"), "")
             parsed = extract_json_array(text)
             if parsed:
-                return parsed[:top_k]
+                return sanitize_rerank_items(parsed, top_k)
         except Exception:
             pass
 
@@ -801,7 +866,7 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
             payload = response.json()
             text = payload["choices"][0]["message"]["content"]
             parsed = json.loads(text)
-            return list(parsed.get("results", []))[:top_k]
+            return sanitize_rerank_items(list(parsed.get("results", [])), top_k)
         except Exception:
             pass
 
@@ -933,7 +998,7 @@ def evaluate_results_with_ai(query: EvalQuery, results: list[dict[str, Any]]) ->
 
 def run_upgraded(query: EvalQuery, limit: int, top_k: int, skip_rerank: bool) -> dict[str, Any]:
     rewrite = rewrite_query(query.text)
-    effective_query = rewrite["searchQuery"] or query.text
+    effective_query = build_intent_aware_query(rewrite["searchQuery"] or query.text, rewrite)
     effective_category = query.category or rewrite["category"]
     embedding = create_embedding(effective_query)
     rows: list[dict[str, Any]] = []
@@ -1019,6 +1084,8 @@ def main() -> None:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = Path(args.output_dir) / timestamp
     output_dir.mkdir(parents=True, exist_ok=True)
+    debug_dir = output_dir / "debug"
+    debug_dir.mkdir(parents=True, exist_ok=True)
 
     started_at = time.time()
     result_bundle: list[dict[str, Any]] = []
@@ -1045,6 +1112,12 @@ def main() -> None:
                 "evaluation": evaluation,
             }
         )
+        if query.query_id in {"Q05", "Q10", "Q16", "Q20", "Q23"}:
+            debug_path = debug_dir / f"{query.query_id}.json"
+            debug_path.write_text(
+                json.dumps(build_debug_payload(query, upgraded, evaluation), ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
 
     duration_seconds = round(time.time() - started_at, 2)
     results_path = output_dir / "results.json"

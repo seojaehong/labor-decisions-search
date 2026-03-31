@@ -1,0 +1,12 @@
+{
+  "queries": 24,
+  "limit": 20,
+  "top_k": 5,
+  "skip_rerank": false,
+  "duration_seconds": 429.06,
+  "baseline_report_path": "C:\\dev\\labor-decisions-search\\evaluation\\rubric_haiku_eval_20260330.md",
+  "baseline_total_score": 165,
+  "upgraded_total_score": 188,
+  "score_delta": 23,
+  "results_path": "C:\\dev\\labor-decisions-search\\evaluation\\search_quality_99\\20260331_163224\\results.json"
+}

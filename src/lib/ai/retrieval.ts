@@ -391,6 +391,10 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('신고 후');
     extraTerms.add('갈등');
     extraTerms.add('불이익 취급');
+    extraTerms.add('직위해제');
+    extraTerms.add('전보');
+    extraTerms.add('보직해임');
+    extraTerms.add('대기발령');
   }
 
   if (category === 'contract_expiry' && /(사실상 해고|해고처럼|실질적 해고|갱신거절)/.test(lowered)) {

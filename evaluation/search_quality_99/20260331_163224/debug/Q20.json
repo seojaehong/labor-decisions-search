@@ -1,0 +1,187 @@
+{
+  "query_id": "Q20",
+  "query": "폭행은 있었지만 해고까지는 과하다고 본 사건",
+  "category": "violence",
+  "rewrite": {
+    "searchQuery": "폭행 행위 존재 해고 양정과다 징계 과도",
+    "category": "violence",
+    "intent": "severity_check",
+    "keywords": [
+      "폭행",
+      "해고",
+      "양정과다",
+      "징계 과도",
+      "비례성"
+    ]
+  },
+  "reranked": true,
+  "top5": [
+    {
+      "id": "id_25781",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "사내폭행의 징계사유는 인정되나, 양정이 과하고 절차상 하자가 있어 부당한 해고이며, 부당노동행위에는 해당되지 않는다고 판정한 사례",
+      "summary_short": "사내폭행 징계사유 인정되나 양정 과다·절차 하자로 부당해고이며, 부당노동행위는 아니라고 판정한 사례",
+      "key_issue": "사내폭행이라는 징계사유는 인정되나, 동 징계사유가 노동조합 활동에 기인한 것으로 해고에 이를 정도는 아닌 것으로 보여 양정이 과하고 단체협약 제129조 상 징계행위기간 중 징계가 불가함에도 이를 위반하여 절차 상 하자가 있어 부당한 해고로 판단된다.",
+      "reason_category": [
+        "union_activity",
+        "no_dismissal",
+        "violence",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2017-11-23",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=25781&type=HTML",
+      "relevance": 0.709977,
+      "_trigram_score": 0.47934782608695653,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.2,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.5217391304347827
+    },
+    {
+      "id": "id_17171",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "징계절차 및 징계사유는 정당하나 징계양정이 과하여 부당하다고 판정한 사례\n\n쟁점: 가. 징계절차의 정당성 여부① 취업규칙에 징계위원회 구성에 대해 별도 규정이 없고 관행상 사용자를 포함하여 간부급 임원들로 징계위원회를 구성(노조지부장은 참관)하여 운영해온 점, ② 근로자는 2016. 5. 27.과 같은 달 30일에 초심 징계위원회 및 재심\n판단: 가. 징계절차의 정당성 여부① 취업규칙에 징계위원회 구성에 대해 별도 규정이 없고 관행상 사용자를 포함하여 간부급 임원들로 징계위원회를 구성(노조지부장은 참관)하여 운영해온 점, ② 근로자는 2016. 5. 27.과 같은 달 30일에 초심 징계위원회 및 재심 징계위원회에 출석하여 소명한 사실이 있는 점 등을 볼 때 노조지부장을 징계위원회에 참석시키지 않았다는 이유만으로 이 사건 징계절차상 하자가 있다고 보기는 어려움.나. 징계사유의 정당성 여부동료 운전기사 ○○○과 다툼 후 칼을 던진 행위로 인하여 울산지방법원에서 특수폭행죄로 벌금 200만원 처분을 받은 점 등으로 볼 때 폭행이 있었다는 사실이 인정이 되므로, 이를 징계사유로 삼은 것은 정당함.다. 징계양정의 적정성 여부① 2016년 3월경부터 버스 배차시간과 관련하여 근로자와 ○○○ 간 갈등이 있어왔고, 동료 근로자들이 제출한 경위서에 의하면 같은 해 5. 5.발생한 사건도 쌍방 간 다툼이 있었던 것으로 보아 비위행위의 책임이 전",
+      "summary_short": "동료에게 칼을 던진 특수폭행의 징계사유는 인정되나, 쌍방 과실·형평성 등을 고려하면 해고 양정이 과하여 부당하다고 판정한 사례",
+      "key_issue": "가. 징계절차의 정당성 여부① 취업규칙에 징계위원회 구성에 대해 별도 규정이 없고 관행상 사용자를 포함하여 간부급 임원들로 징계위원회를 구성(노조지부장은 참관)하여 운영해온 점, ② 근로자는 2016. 5. 27.과 같은 달 30일에 초심 징계위원회 및 재심",
+      "reason_category": [
+        "violence",
+        "misconduct"
+      ],
+      "sanction_type": "warning",
+      "decision_date": "2016-08-11",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=17171&type=HTML",
+      "relevance": 0.636375,
+      "_trigram_score": 0.4553738317757009,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.2,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.5121495327102804
+    },
+    {
+      "id": "id_3959",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "근로자의 징계사유는 모두 인정되나, 비위행위의 정도와 징계 형평성 등을 고려할 때 해임은 양정이 과하여 부당하다고 판정한 사례",
+      "summary_short": "근로자의 징계사유는 모두 인정되나, 비위행위의 정도와 징계 형평성 등을 고려할 때 해임은 양정이 과하여 부당하다고 판정한 사례",
+      "key_issue": "가. 징계사유가 공사의 사규 등의 위반에 해당하고 근로자가 비위행위를 모두 인정하고 있으므로 징계사유가 인정됨나. ① 근로자가 입사 이후 철도기관사로서 100만 킬로미터 무사고 기록을 보유하는 등 성실히 근무하였던 것으로 보임, ② 근로자는 그간 징계처분을 받은",
+      "reason_category": [
+        "worker_status",
+        "violence",
+        "misconduct"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2021-01-13",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=3959&type=HTML",
+      "relevance": 0.634323,
+      "_trigram_score": 0.39293224299065416,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.2,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.4371728971962617
+    },
+    {
+      "id": "id_29283",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "징계사유가 존재하나, 그에 비해 양정이 과하여 부당함. 그러나 징계사유가 일부 있어 부당노동행위에는 해당하지 않는다고 판정한 사례임.",
+      "summary_short": "징계사유가 존재하나, 그에 비해 양정이 과하여 부당함. 그러나 징계사유가 일부 있어 부당노동행위에는 해당하지 않는다고 판정한 사례임.",
+      "key_issue": "가. 교통사고 야기의 징계사유가 존재한다.",
+      "reason_category": [
+        "union_activity",
+        "no_dismissal",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2018-05-17",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=29283&type=HTML",
+      "relevance": 0.54155,
+      "_trigram_score": 0.5173423423423423,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.2,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.40693693693693694
+    },
+    {
+      "id": "id_5805",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "징계사유가 존재하고 징계양정이 과하다고 보기 어려우며 징계절차도 적법하여 정당한 징계이고, 불이익취급의 부당노동행위가 아니라고 판정한 사례",
+      "summary_short": "징계사유가 존재하고 징계양정이 과하다고 보기 어려우며 징계절차도 적법하여 정당한 징계이고, 불이익취급의 부당노동행위가 아니라고 판정한 사례",
+      "key_issue": "가. 징계의 정당성 여부시내버스 운전기사의 안전운행 불이행은 징계사유가 인정되고 취업규칙 등 사규에 따라 징계양정이 적정하고, 약식징계 대상에 해당되어 징계절차상 중하자도 확인되지 않는다.",
+      "reason_category": [
+        "union_activity",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2021-04-01",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=5805&type=HTML",
+      "relevance": 0.566131,
+      "_trigram_score": 0.4732456140350877,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.2,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.3892982456140351
+    }
+  ],
+  "ai_rerank": [
+    {
+      "id": "25781",
+      "summary": "사내폭행 징계사유 인정, 해고는 과하다고 판단, 부당해고."
+    },
+    {
+      "id": "3043",
+      "summary": "징계사유 존재하나 양정 과하여 부당, 특별한 사정 없음."
+    },
+    {
+      "id": "37509",
+      "summary": "징계사유 인정하나 해고 양정 과하고 절차 하자 있어 부당."
+    },
+    {
+      "id": "24851",
+      "summary": "비위행위 인정하나 징계양정 과하고 절차 하자 있어 부당."
+    },
+    {
+      "id": "29565",
+      "summary": "징계사유 대부분 인정하나 절차 하자 있어 부당."
+    }
+  ],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_25781",
+        "score": 2,
+        "reason": "사내폭행 징계사유는 인정하면서도 양정이 과하다고 판정한 사례로, 쿼리의 핵심 쟁점(폭행 있음 + 해고 과함)을 정확히 다룸"
+      },
+      {
+        "rank": 2,
+        "id": "id_17171",
+        "score": 2,
+        "reason": "징계사유는 정당하나 징계양정이 과하여 부당하다고 판정한 사례로, 폭행 인정 후 해고 양정 과다 판단이라는 쿼리의 핵심을 정확히 반영"
+      },
+      {
+        "rank": 3,
+        "id": "id_3959",
+        "score": 2,
+        "reason": "근로자의 징계사유는 인정하면서도 비위행위의 정도와 형평성을 고려하여 해임 양정이 과하다고 판정한 사례로, 쿼리의 법적 쟁점과 정확히 부합"
+      },
+      {
+        "rank": 4,
+        "id": "id_29283",
+        "score": 2,
+        "reason": "징계사유 존재를 인정하면서도 양정이 과하여 부당하다고 판정한 사례로, 쿼리가 묻는 '폭행 있음 + 해고 과함' 구도를 정확히 다룸"
+      },
+      {
+        "rank": 5,
+        "id": "id_5805",
+        "score": 0,
+        "reason": "징계양정이 과하다고 보기 어렵다고 판정하여 정당한 징계로 본 사례로, 쿼리의 '해고까지는 과하다'는 핵심 쟁점과 상반됨"
+      }
+    ],
+    "weighted_score": 8,
+    "precision_hits": 4
+  }
+}
