@@ -681,6 +681,19 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         if decision_result in ("granted", "partial"):
             boost += 0.08
 
+    # Q20: Violence recognized but dismissal excessive
+    if re.search(r"(폭행|폭력)", query) and re.search(r"(과하|과다|과도|과중)", query):
+        combined = text + " " + key_issue
+        if "violence" in reason_category:
+            boost += 0.10
+        if re.search(r"(양정.{0,5}(과다|과하|과중)|해고.{0,5}(과다|과하|과중)|징계.{0,5}(과다|과하|과중))", combined):
+            boost += 0.12
+        if decision_result in ("granted", "partial", "upheld"):
+            boost += 0.10
+        # Penalize dismissed cases where dismissal was upheld as fair
+        if decision_result == "dismissed" and re.search(r"(과하다고 보기 어려|양정.{0,5}적정|정당하다고 판정|정당한 징계)", combined):
+            boost -= 0.20
+
     # Q24: Multiple misconducts + overall dismissal validity
     if re.search(r"(여러|함께|복합|복수).*(비위|사유)|정당성 전체", query):
         combined = text + " " + key_issue
