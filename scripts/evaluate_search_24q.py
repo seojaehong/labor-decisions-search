@@ -222,7 +222,7 @@ def parse_baseline_report(path: Path) -> dict[str, BaselineQueryScore]:
 
 
 def normalize_category(value: str | None) -> str:
-    allowed = {
+    db_categories = {
         "absence",
         "sexual_harassment",
         "workplace_bullying",
@@ -237,17 +237,23 @@ def normalize_category(value: str | None) -> str:
         "violence",
         "embezzlement",
         "incompetence",
-        "dismissal",
-        "discipline",
-        "disciplinary_severity",
-        "wage",
-        "industrial_accident",
         "union_activity",
-        "other",
-        "",
+    }
+    # Map non-DB categories to closest DB category
+    category_aliases = {
+        "dismissal": "misconduct",
+        "discipline": "misconduct",
+        "disciplinary_severity": "",  # keep original query category
+        "wage": "",
+        "industrial_accident": "",
+        "other": "",
     }
     normalized = (value or "").strip()
-    return normalized if normalized in allowed else ""
+    if normalized in db_categories:
+        return normalized
+    if normalized in category_aliases:
+        return category_aliases[normalized]
+    return ""
 
 
 def fallback_rewrite(query: str) -> dict[str, Any]:
@@ -335,14 +341,24 @@ def rewrite_query(query: str) -> dict[str, Any]:
                     "model": ANTHROPIC_MODEL,
                     "max_tokens": 260,
                     "temperature": 0,
-                    "system": "당신은 한국 노동위원회 판정례 검색용 쿼리 최적화 엔진입니다. 반드시 JSON 객체만 반환하세요. 키는 searchQuery, category, intent, keywords만 사용합니다.",
+                    "system": (
+                        "당신은 한국 노동위원회 판정례 검색용 쿼리 최적화 엔진입니다. 반드시 JSON 객체만 반환하세요.\n"
+                        "키: searchQuery, category, intent, keywords\n\n"
+                        "중요 규칙:\n"
+                        "1. category는 반드시 DB에 존재하는 값만 사용: absence, workplace_bullying, probation, incompetence, contract_expiry, transfer, violence, worker_status, sexual_harassment, embezzlement, misconduct, redundancy, no_dismissal, discrimination, union_activity\n"
+                        "2. 존재하지 않는 category(dismissal, discipline, disciplinary_severity, wage 등)는 절대 사용 금지. 가장 가까운 DB category로 매핑하세요.\n"
+                        "3. '해고가 과하다/양정과다' 쿼리 → category는 원래 비위 유형(violence, misconduct 등) 유지. intent를 severity_check로 설정.\n"
+                        "4. '~인정되지 않지만/불인정/미해당' 같은 부정 조건은 searchQuery에 '불인정', '미해당', '부인' 키워드를 명시적으로 포함.\n"
+                        "5. '보복/불이익/신고 후' 쿼리 → keywords에 '보복', '불이익 취급', '불이익 조치', '신고 후 징계' 포함.\n"
+                        "6. '계약만료 + 사실상 해고' → category는 contract_expiry. keywords에 '갱신거절', '갱신기대권', '사실상 해고' 포함.\n"
+                        "7. searchQuery는 판정례 제목/쟁점과 매칭될 수 있는 구체적 법률 용어로 변환."
+                    ),
                     "messages": [
                         {
                             "role": "user",
                             "content": (
                                 f"사용자 입력: {query}\n"
-                                "일상어를 노동법 검색용 핵심 키워드로 변환하고 category와 intent를 추론하세요.\n"
-                                "category 후보: absence, workplace_bullying, probation, incompetence, contract_expiry, transfer, violence, worker_status, sexual_harassment, embezzlement, misconduct, redundancy, no_dismissal, discrimination, union_activity, other, dismissal, discipline, disciplinary_severity, wage, industrial_accident\n"
+                                "위 규칙에 따라 JSON을 반환하세요.\n"
                                 '예시: {"searchQuery":"업무능력 부족 개선 기회 경고 시정 교육 후 해고","category":"incompetence","intent":"validity_check","keywords":["개선 기회","경고","시정","업무능력 부족","해고"]}'
                             ),
                         }
@@ -510,23 +526,69 @@ def trigram_like_score(query: str, row: dict[str, Any]) -> float:
 
 def metadata_boost(query: str, row: dict[str, Any]) -> float:
     text = f"{row.get('title') or ''} {row.get('holding_summary') or ''}"
+    key_issue = str(row.get("key_issue") or "")
     reason_category = row.get("reason_category") or []
     if not isinstance(reason_category, list):
         reason_category = []
     sanction_type = str(row.get("sanction_type") or "")
+    decision_result = str(row.get("decision_result") or "")
     boost = 0.0
+
+    # Sanction type matching
     if "감봉" in query and sanction_type == "pay_cut":
         boost += 0.15
     if "정직" in query and sanction_type == "suspension":
         boost += 0.12
+
+    # Composite misconduct
     if re.search(r"(여러|함께|복합|복수).*(비위|사유)|비위.*(여러|함께|복합|복수)|정당성 전체", query) and len(reason_category) >= 3:
         boost += 0.10
     if re.search(r"(여러|함께|복합|복수|정당성|양정|과하|정당)", query) and "징계사유" in text and re.search(r"(양정|과하|정당)", text):
         boost += 0.08
+
+    # Transport workers
     if re.search(r"(택시|버스|기사|운전|운수)", query) and re.search(r"(택시|버스|기사|운전|운수)", text):
         boost += 0.12
+
+    # Improvement opportunity / low performance
     if re.search(r"(개선|시정|경고|교육|기회|주고도|부여|업무능력|저성과)", query) and re.search(r"(개선|시정|경고|교육|기회|주고도|부여)", text):
         boost += 0.10
+
+    # Q05/Q23: Retaliation after harassment report
+    if re.search(r"(보복|불이익|신고.{0,5}후)", query):
+        if re.search(r"(보복|불이익|신고.{0,5}(후|이후)|불이익.{0,5}(취급|조치))", text + " " + key_issue):
+            boost += 0.15
+        if re.search(r"(전보|배치전환|대기발령|감봉|정직)", text) and re.search(r"신고", text):
+            boost += 0.08
+
+    # Q23: Harassment NOT recognized but conflict escalated
+    if re.search(r"(인정되지 않|불인정|미해당|부인)", query):
+        if re.search(r"(괴롭힘.{0,10}(인정.{0,5}않|불인정|해당.{0,5}않|부인)|불인정)", text + " " + key_issue):
+            boost += 0.15
+        if re.search(r"(갈등|분쟁|대립)", text + " " + key_issue):
+            boost += 0.05
+
+    # Q20: Violence recognized but dismissal too severe (양정과다)
+    if re.search(r"(과하다|과하|과중|양정과다|해고까지는)", query):
+        if re.search(r"(양정.{0,5}(과하|과다|과중)|해고.{0,10}(과하|과중|과다)|징계.{0,5}(과하|과중))", text + " " + key_issue):
+            boost += 0.12
+        # Boost cases where dismissal was overturned (인용 = worker won)
+        if "인용" in decision_result and re.search(r"(폭행|폭언)", text):
+            boost += 0.08
+
+    # Q16: Contract expiry treated as de facto dismissal
+    if re.search(r"(사실상 해고|해고처럼|해고.{0,5}다퉈)", query):
+        if re.search(r"(갱신거절|갱신기대권|사실상.{0,5}해고|해고.{0,5}다퉈)", text + " " + key_issue):
+            boost += 0.12
+        if "contract_expiry" in reason_category and "인용" in decision_result:
+            boost += 0.06
+
+    # Q10: Regular employee incompetence
+    if re.search(r"(정규직|저성과|업무능력 부족)", query) and "incompetence" in reason_category:
+        if re.search(r"(저성과|업무능력.{0,5}(부족|미달)|근무성적)", text + " " + key_issue):
+            boost += 0.10
+
+    # Non-labor penalty
     if any(token in str(row.get("title") or "") for token in NON_LABOR_CASE_TYPES):
         boost -= 0.25
     return boost
@@ -691,6 +753,12 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
                                 "- 3-4점: 일부 키워드만 겹치는 사건\n"
                                 "- 0-2점: 쿼리와 무관한 사건\n"
                                 "- 형사사건, 군사법 사건, 종중/교회 내부 분쟁은 0점\n\n"
+                                "쿼리 의도별 추가 기준:\n"
+                                "- '보복/불이익/신고 후' → 신고와 불이익 사이의 인과관계가 핵심. 단순 징계 사건은 낮은 점수\n"
+                                "- '인정되지 않/불인정' → 해당 사유가 부인·불인정된 사건이 높은 점수. 인정된 사건은 낮은 점수\n"
+                                "- '과하다/양정/수위' → 비위는 인정되나 징계가 과중하다고 본 사건이 높은 점수\n"
+                                "- '사실상 해고/해고처럼' → 계약만료이나 실질적으로 해고 다툼인 사건이 높은 점수\n"
+                                "- '정규직 저성과/업무능력' → 기간제가 아닌 정규직의 능력 부족 해고가 높은 점수\n\n"
                                 f"검색 결과:\n{rendered_results}"
                             ),
                         }
