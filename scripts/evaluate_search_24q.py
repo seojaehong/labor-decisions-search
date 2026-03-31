@@ -563,6 +563,25 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         if decision_result == "dismissed" and not re.search(r"(절차.{0,5}(위반|하자))", text + " " + key_issue):
             boost -= 0.08  # dismissed + no procedure issue = wrong match
 
+    # Q10: Regular employee low performance dismissal
+    if re.search(r"(정규직|저성과|업무능력.{0,3}부족)", query) and re.search(r"(해고|면직)", query):
+        combined = text + " " + key_issue
+        # Boost actual dismissal cases (not suspension/warning)
+        if sanction_type == "dismissal" and "incompetence" in reason_category:
+            boost += 0.15
+        elif sanction_type == "dismissal" and re.search(r"(업무능력|근무성적|저성과|직무수행능력)", combined):
+            boost += 0.12
+        # Boost cases about 통상해고 (ordinary dismissal for performance)
+        if re.search(r"통상해고", combined):
+            boost += 0.10
+        # Penalize non-dismissal sanctions (정직, 감봉 etc.)
+        if sanction_type in ("suspension", "pay_cut", "reprimand") and not re.search(r"(해고|면직)", combined):
+            boost -= 0.12
+        # Penalize mixed-category cases where incompetence isn't primary
+        non_perf = [c for c in reason_category if c not in ("incompetence", "no_dismissal", "worker_status")]
+        if len(non_perf) >= 3:
+            boost -= 0.15
+
     # Improvement opportunity / low performance
     if re.search(r"(개선|시정|경고|교육|기회|주고도|부여|업무능력|저성과)", query) and re.search(r"(개선|시정|경고|교육|기회|주고도|부여)", text):
         boost += 0.10
