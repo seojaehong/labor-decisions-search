@@ -711,8 +711,8 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
     extra_terms: list[str] = []
 
     # Q02: Absence + procedure violation
-    if category == "absence" and re.search(r"(절차|서면|통지|소명)", lowered):
-        extra_terms.extend(["징계절차 위반", "절차 하자", "서면통지", "소명기회 미부여", "부당해고"])
+    if re.search(r"(무단결근|결근)", lowered) and re.search(r"(절차|서면|통지|소명)", lowered):
+        extra_terms.extend(["징계절차 위반", "절차 하자", "서면통지 의무 위반", "소명기회 미부여", "해고예고 위반", "해고통지서 미교부", "부당해고"])
 
     if intent == "retaliation_check":
         extra_terms.extend(["불이익", "보복", "신고"])
@@ -798,6 +798,21 @@ def fetch_candidate_rows_for_query(query_text: str, category: str, keyword_hints
         merge(safe_fetch_table_rows({"select": select, "sanction_type": "eq.pay_cut", "limit": "120", "order": "decision_date.desc"}))
     if "정직" in query_text:
         merge(safe_fetch_table_rows({"select": select, "sanction_type": "eq.suspension", "limit": "120", "order": "decision_date.desc"}))
+
+    # Q02-type: absence + procedure violation - fetch granted/partial cases with procedure keywords
+    if re.search(r"(무단결근|결근)", query_text) and re.search(r"(절차|서면|통지|소명)", query_text):
+        for proc_term in ["서면통지", "절차위반", "절차 하자", "소명기회", "해고예고"]:
+            merge(
+                safe_fetch_table_rows(
+                    {
+                        "select": select,
+                        "or": build_text_or_clause(proc_term),
+                        "decision_result": "in.(granted,partial,upheld)",
+                        "limit": "30",
+                        "order": "decision_date.desc",
+                    }
+                )
+            )
 
     core_terms = CATEGORY_CORE_TERMS.get(category_filter, set())
     terms = [
