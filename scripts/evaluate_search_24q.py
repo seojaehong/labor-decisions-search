@@ -552,14 +552,16 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
 
     # Q02: Absence mentioned but procedure is the real issue
     if re.search(r"(무단결근|결근)", query) and re.search(r"(절차|서면|통지|소명)", query):
-        if re.search(r"(절차.{0,5}(위반|하자)|서면.{0,5}(미)?통지|소명.{0,5}기회.{0,5}(미부여|없))", text + " " + key_issue):
-            boost += 0.18
-        elif re.search(r"(절차.{0,10}(적법|정당|문제.?없)|하자.{0,5}없)", text + " " + key_issue):
-            boost -= 0.10  # penalize "no procedural defect" cases
+        if re.search(r"(절차.{0,5}(위반|하자)|서면.{0,5}(미)?통지|소명.{0,5}기회.{0,5}(미부여|없|불부여)|해고.{0,5}(절차|통보).{0,5}(없|미)|해고통지서.{0,5}(미교부|교부.{0,3}않))", text + " " + key_issue):
+            boost += 0.22
+        elif re.search(r"(절차.{0,10}(적법|정당|문제.?없)|하자.{0,5}(없|인정.{0,3}않))", text + " " + key_issue):
+            boost -= 0.15  # penalize "no procedural defect" cases
         if re.search(r"(무단결근|결근)", text) and re.search(r"(절차|서면|통지|소명)", text):
             boost += 0.08
         if decision_result in ("granted", "partial"):
-            boost += 0.08  # procedure violation cases tend to be granted
+            boost += 0.12  # procedure violation cases tend to be granted
+        if decision_result == "dismissed" and not re.search(r"(절차.{0,5}(위반|하자))", text + " " + key_issue):
+            boost -= 0.08  # dismissed + no procedure issue = wrong match
 
     # Improvement opportunity / low performance
     if re.search(r"(개선|시정|경고|교육|기회|주고도|부여|업무능력|저성과)", query) and re.search(r"(개선|시정|경고|교육|기회|주고도|부여)", text):
@@ -567,27 +569,45 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
 
     # Q05/Q23: Retaliation after harassment report
     if re.search(r"(보복|불이익|신고.{0,5}후)", query):
-        if re.search(r"(보복|불이익|신고.{0,5}(후|이후)|불이익.{0,5}(취급|조치))", text + " " + key_issue):
+        combined_q5 = text + " " + key_issue
+        if re.search(r"(보복|불이익|신고.{0,5}(후|이후)|불이익.{0,5}(취급|조치))", combined_q5):
             boost += 0.15
         if re.search(r"(전보|배치전환|대기발령|감봉|정직)", text) and re.search(r"신고", text):
             boost += 0.08
-        if "workplace_bullying" in reason_category and re.search(r"(직위해제|전보|보직해임|대기발령)", text + " " + key_issue):
+        if "workplace_bullying" in reason_category and re.search(r"(직위해제|전보|보직해임|대기발령)", combined_q5):
             boost += 0.12
-        if "workplace_bullying" not in reason_category and "union_activity" in reason_category:
-            boost -= 0.12
+        # Strong penalty for union_activity-focused cases (not retaliation for harassment report)
+        if "union_activity" in reason_category:
+            boost -= 0.20
+        # Penalty for cases where transfer was found justified (not retaliation)
+        if re.search(r"전보.{0,5}(정당|업무상 필요)", combined_q5) and decision_result == "dismissed":
+            boost -= 0.10
 
     # Q23: Harassment NOT recognized but conflict escalated
     if re.search(r"(인정되지 않|불인정|미해당|부인)", query) or re.search(r"(괴롭힘.{0,10}갈등|신고.{0,5}갈등)", query):
-        if re.search(r"(괴롭힘.{0,10}(인정.{0,5}않|불인정|해당.{0,5}않|부인|아니)|불인정)", text + " " + key_issue):
-            boost += 0.18
-        if re.search(r"(갈등|분쟁|대립)", text + " " + key_issue):
-            boost += 0.08
-        if re.search(r"(신고|요구|문제제기|불이익|보복)", query) and re.search(r"(신고|요구|문제제기|불이익|보복)", text + " " + key_issue):
+        combined = text + " " + key_issue
+        # Core: bullying was NOT recognized
+        if re.search(r"(괴롭힘.{0,10}(인정.{0,5}않|불인정|해당.{0,5}않|부인|아니|존재하지|존재하지 않)|직장.{0,5}내.{0,5}괴롭힘.{0,5}(아니|부정))", combined):
+            boost += 0.22
+        if re.search(r"(갈등|분쟁|대립|반목)", combined):
             boost += 0.10
+        # Only boost retaliation aspect if query specifically mentions it AND not union case
+        if re.search(r"(신고|요구|문제제기)", query) and re.search(r"(신고|요구|문제제기)", combined):
+            if "union_activity" not in reason_category:
+                boost += 0.10
+        # Boost cases where bullying was dismissed but there was a related action
+        if "workplace_bullying" in reason_category and re.search(r"(괴롭힘.{0,8}(없|아니|부정|존재하지)|괴롭힘.{0,5}행위.{0,5}존재하지)", combined):
+            boost += 0.15
         # Penalize cases where bullying WAS recognized (opposite of Q23 intent)
-        if re.search(r"괴롭힘.{0,5}(행위가 인정|인정되|에 해당)", text + " " + key_issue):
-            if not re.search(r"(인정되지|해당하지|아니)", text + " " + key_issue):
-                boost -= 0.10
+        if re.search(r"괴롭힘.{0,5}(행위가 인정|인정되|에 해당)", combined):
+            if not re.search(r"(인정되지|해당하지|아니|않)", combined):
+                boost -= 0.15
+        # Strong penalty for union_activity cases (wrong topic)
+        if "union_activity" in reason_category:
+            boost -= 0.20
+        # Penalty for cases where action was found justified (not conflict escalation)
+        if re.search(r"(전보|직위해제).{0,5}(정당|필요성.{0,5}인정)", combined) and decision_result == "dismissed":
+            boost -= 0.08
 
     # Q20: Violence recognized but dismissal too severe (양정과다)
     if re.search(r"(과하다|과하|과중|양정과다|해고까지는)", query):
@@ -600,16 +620,19 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
     # Q16: Contract expiry treated as de facto dismissal
     if re.search(r"(사실상 해고|해고처럼|해고.{0,5}다퉈)", query):
         if re.search(r"(갱신거절|갱신기대권|사실상.{0,5}해고|해고.{0,5}다퉈)", text + " " + key_issue):
-            boost += 0.12
-        if "contract_expiry" in reason_category and "인용" in decision_result:
-            boost += 0.10
+            boost += 0.15
+        if "contract_expiry" in reason_category and decision_result in ("granted", "partial"):
+            boost += 0.18  # strong boost: renewal recognized = de facto dismissal
         # Boost cases where renewal expectation WAS recognized
-        if re.search(r"갱신기대권.{0,5}(인정|있)", text + " " + key_issue):
-            if not re.search(r"갱신기대권.{0,5}(인정되지 않|부정|부인|없)", text + " " + key_issue):
-                boost += 0.12
+        combined = text + " " + key_issue
+        if re.search(r"갱신기대권.{0,5}(인정|존재|있)", combined):
+            if not re.search(r"갱신기대권.{0,5}(인정되지|부정|부인|없|존재하지|존재한다고 볼 수 없)", combined):
+                boost += 0.15
         # Penalize cases where renewal expectation was denied (simple termination)
-        if re.search(r"갱신기대권.{0,5}(인정되지 않|부정|부인|없)", text + " " + key_issue):
-            boost -= 0.06
+        if re.search(r"(갱신기대권.{0,5}(인정되지|부정|부인|없|존재하지|존재한다고 볼 수 없)|정상적.{0,5}(계약기간|근로관계).{0,5}(만료|종료))", combined):
+            boost -= 0.15  # strong penalty: opposite of query intent
+        if decision_result == "dismissed" and "no_dismissal" in reason_category:
+            boost -= 0.10  # dismissed + no_dismissal = clear non-match
 
     # Q10: Regular employee incompetence
     if re.search(r"(정규직|저성과|업무능력 부족)", query) and "incompetence" in reason_category:
@@ -624,11 +647,31 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
             boost += 0.08
 
     # Q11: Improvement opportunity given before dismissal
-    if re.search(r"(개선.{0,5}(기회|기회를)|경고.{0,5}(주고|후)|교육.{0,5}(후|제공))", query):
-        if re.search(r"(개선.{0,5}(기회|부여)|경고|교육|시정)", text + " " + key_issue):
-            boost += 0.12
+    if re.search(r"(개선.{0,5}(기회|기회를)|경고.{0,5}(주고|후)|교육.{0,5}(후|제공)|주고도.{0,5}(해고|면직))", query):
+        combined = text + " " + key_issue
+        if re.search(r"(개선.{0,5}(기회|부여)|경고|교육훈련|시정.{0,5}기회|직위해제.{0,5}(후|기간).{0,5}(면직|해고))", combined):
+            boost += 0.15
         if "incompetence" in reason_category:
-            boost += 0.06
+            boost += 0.08
+        # Boost cases about actual dismissal/termination after improvement period
+        if re.search(r"(면직|해고|해임|직권면직)", combined) and re.search(r"(능력|성적|성과|직무수행)", combined):
+            boost += 0.10
+        # Penalize if it's about suspension/training order rather than actual dismissal
+        if not re.search(r"(면직|해고|해임)", combined) and re.search(r"(직위해제|교육훈련.{0,5}명령|대기발령)", combined):
+            boost -= 0.05
+
+    # Q09: Probation + procedure issues (서면통지, 절차 문제)
+    if re.search(r"(수습|시용)", query) and re.search(r"(서면|절차|통지|소명)", query):
+        combined = text + " " + key_issue
+        if "probation" in reason_category:
+            boost += 0.10
+        if re.search(r"(수습|시용)", combined) and re.search(r"(서면.{0,5}통지|절차.{0,5}(위반|하자)|통보.{0,5}(없|미)|해고.{0,5}(예고|통지)|소명.{0,5}기회)", combined):
+            boost += 0.15
+        if decision_result in ("granted", "partial"):
+            boost += 0.08  # probation procedure violation → usually granted
+        # Penalize non-probation cases
+        if "probation" not in reason_category and not re.search(r"(수습|시용)", combined):
+            boost -= 0.10
 
     # Q12: Discipline recognized + dismissal excessive (generic)
     if re.search(r"(사유.{0,5}인정|비위.{0,5}인정)", query) and re.search(r"(과하|과다|과도)", query):
@@ -639,9 +682,14 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
 
     # Q24: Multiple misconducts + overall dismissal validity
     if re.search(r"(여러|함께|복합|복수).*(비위|사유)|정당성 전체", query):
-        if len(reason_category) >= 2:
+        combined = text + " " + key_issue
+        if len(reason_category) >= 3:
+            boost += 0.15
+        elif len(reason_category) >= 2:
             boost += 0.10
-        if re.search(r"(징계사유|해고사유).{0,10}(여러|복합|복수|다수)", text + " " + key_issue):
+        if re.search(r"(징계사유|해고사유|비위).{0,10}(여러|복합|복수|다수|다양)", combined):
+            boost += 0.10
+        if re.search(r"(정당성.{0,5}(전체|종합)|종합적.{0,5}판단|해고.{0,5}(정당|부당))", combined):
             boost += 0.08
 
     # Non-labor penalty
@@ -685,7 +733,11 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
         extra_terms.extend(["징계 과도", "해고 과중"])
 
     if category == "incompetence" and re.search(r"(개선|경고|시정|교육|기회|주고도|부여)", lowered):
-        extra_terms.extend(["개선 기회", "경고", "시정", "교육", "개선기회 부여"])
+        extra_terms.extend(["개선 기회", "경고", "시정", "교육", "개선기회 부여", "직권면직", "직무수행능력"])
+
+    # Q09: 수습 + 절차 문제
+    if category == "probation" and re.search(r"(서면|절차|통지|소명)", lowered):
+        extra_terms.extend(["수습 해고", "서면통지", "해고예고", "절차 위반", "수습기간 만료", "본채용 거부"])
 
     # Q04: 괴롭힘 성립 여부
     if category == "workplace_bullying" and re.search(r"(성립|해당하는지|인정되는지|다툼)", lowered):
@@ -851,9 +903,17 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
     if not anthropic_key and not openai_key:
         return []
 
+    def _clean_for_rerank(text: str) -> str:
+        """Strip markdown headers and excess whitespace for concise reranking input."""
+        text = re.sub(r"^#+\s+.*$", "", text, flags=re.MULTILINE)
+        text = re.sub(r"^\*\*[^*]+\*\*\s*$", "", text, flags=re.MULTILINE)
+        text = re.sub(r"^##?\s+(결과 요약|사실관계|판단|주문|결론).*$", "", text, flags=re.MULTILINE)
+        text = re.sub(r"\n{2,}", "\n", text).strip()
+        return text
+
     rendered_results = "\n\n".join(
         f"{idx + 1}. [{result.get('id')}] {result.get('title')}\n"
-        f"쟁점: {str(result.get('key_issue') or result.get('holding_summary') or result.get('summary_short') or '')[:320]}\n"
+        f"쟁점: {_clean_for_rerank(str(result.get('key_issue') or result.get('holding_summary') or result.get('summary_short') or ''))[:400]}\n"
         f"결과: {result.get('decision_result') or '미상'}"
         for idx, result in enumerate(results)
     )
@@ -942,9 +1002,15 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
 def evaluate_results_with_ai(query: EvalQuery, results: list[dict[str, Any]]) -> dict[str, Any]:
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     openai_key = os.environ.get("OPENAI_API_KEY")
+    def _strip_md(text: str) -> str:
+        text = re.sub(r"^#+\s+.*$", "", text, flags=re.MULTILINE)
+        text = re.sub(r"^\*\*[^*]+\*\*\s*$", "", text, flags=re.MULTILINE)
+        text = re.sub(r"^##?\s+(결과 요약|사실관계|판단|주문|결론).*$", "", text, flags=re.MULTILINE)
+        return re.sub(r"\n{2,}", "\n", text).strip()
+
     rendered_results = "\n\n".join(
         f"{idx + 1}. [{result.get('id')}] {result.get('title')}\n"
-        f"요지: {str(result.get('holding_summary') or result.get('summary_short') or result.get('key_issue') or '')[:400]}\n"
+        f"요지: {_strip_md(str(result.get('holding_summary') or result.get('summary_short') or result.get('key_issue') or ''))[:500]}\n"
         f"결과: {result.get('decision_result') or '미상'}"
         for idx, result in enumerate(results[:5])
     )
