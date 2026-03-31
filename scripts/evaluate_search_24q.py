@@ -576,12 +576,12 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
             boost += 0.08
         if "workplace_bullying" in reason_category and re.search(r"(직위해제|전보|보직해임|대기발령)", combined_q5):
             boost += 0.12
-        # Strong penalty for union_activity-focused cases (not retaliation for harassment report)
-        if "union_activity" in reason_category:
+        # Penalty for union_activity-ONLY cases (not about harassment retaliation)
+        if "union_activity" in reason_category and "workplace_bullying" not in reason_category:
             boost -= 0.20
-        # Penalty for cases where transfer was found justified (not retaliation)
-        if re.search(r"전보.{0,5}(정당|업무상 필요)", combined_q5) and decision_result == "dismissed":
-            boost -= 0.10
+        # Mild penalty for dismissed transfer cases (retaliation not proven)
+        if decision_result == "dismissed" and re.search(r"전보.{0,5}(정당|업무상 필요)", combined_q5):
+            boost -= 0.05
 
     # Q23: Harassment NOT recognized but conflict escalated
     if re.search(r"(인정되지 않|불인정|미해당|부인)", query) or re.search(r"(괴롭힘.{0,10}갈등|신고.{0,5}갈등)", query):
@@ -602,10 +602,10 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         if re.search(r"괴롭힘.{0,5}(행위가 인정|인정되|에 해당)", combined):
             if not re.search(r"(인정되지|해당하지|아니|않)", combined):
                 boost -= 0.15
-        # Strong penalty for union_activity cases (wrong topic)
-        if "union_activity" in reason_category:
+        # Penalty for union_activity-ONLY cases (not about bullying)
+        if "union_activity" in reason_category and "workplace_bullying" not in reason_category:
             boost -= 0.20
-        # Penalty for cases where action was found justified (not conflict escalation)
+        # Penalty for cases where action was justified (not conflict escalation)
         if re.search(r"(전보|직위해제).{0,5}(정당|필요성.{0,5}인정)", combined) and decision_result == "dismissed":
             boost -= 0.08
 
