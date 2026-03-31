@@ -706,6 +706,19 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         if re.search(r"(정당성.{0,5}(전체|종합)|종합적.{0,5}판단|해고.{0,5}(정당|부당))", combined):
             boost += 0.08
 
+    # Q22: Worker status (근로자성) as core issue
+    if re.search(r"(근로자성|근로자.{0,3}(인지|여부|해당))", query):
+        combined = text + " " + key_issue
+        # Boost cases where worker status determination is the actual issue
+        if re.search(r"(근로자.{0,5}(인지|여부|해당|성립)|사용.{0,3}종속|근로기준법.{0,5}근로자)", combined):
+            boost += 0.15
+        # Penalize cases where worker_status is about employee count, not actual worker status
+        if re.search(r"(상시.{0,5}(근로자|종업원).{0,5}(수|미만|이상)|5인.{0,3}미만|상시근로자수)", combined):
+            boost -= 0.15
+        # Penalize cases where worker status is already established (not the dispute)
+        if re.search(r"(당사자.{0,3}적격|일신전속|상속|유가족|파견.{0,5}사용자)", combined) and not re.search(r"근로자.{0,5}(인지|여부|해당)", combined):
+            boost -= 0.12
+
     # Non-labor penalty
     if any(token in str(row.get("title") or "") for token in NON_LABOR_CASE_TYPES):
         boost -= 0.25
