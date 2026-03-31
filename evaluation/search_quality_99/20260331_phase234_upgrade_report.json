@@ -1,0 +1,24 @@
+{
+  "date": "2026-03-31",
+  "status": "implemented",
+  "summary": {
+    "phase2_query_rewriting": "done",
+    "phase3_hybrid_integration": "partial",
+    "phase4_ai_reranking": "done"
+  },
+  "changed_files": [
+    "src/lib/search/ai-query-rewriter.ts",
+    "src/lib/ai/reranker.ts",
+    "src/lib/ai/retrieval.ts",
+    "src/lib/search/search-modes.ts"
+  ],
+  "verification": {
+    "lint": "npm.cmd run lint -- src\\\\lib\\\\search\\\\ai-query-rewriter.ts src\\\\lib\\\\ai\\\\reranker.ts src\\\\lib\\\\ai\\\\retrieval.ts src\\\\lib\\\\search\\\\search-modes.ts",
+    "tsc": "npx.cmd tsc --noEmit"
+  },
+  "notes": [
+    "search-modes baseline path now uses AI query rewriting before baseline/lawgo/bigcase merge ranking.",
+    "retrieval hybrid path now uses shared AI query rewriting and AI reranking with graceful fallback.",
+    "labor-law-guide does not currently contain src/app/api/analyze/route.ts, so the documented Phase 3 target route was not modified in this pass."
+  ]
+}

@@ -1,13 +1,12 @@
 import 'server-only'
 import { createClient } from '@supabase/supabase-js';
 import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
+import { rerankResults } from '@/lib/ai/reranker';
+import { rewriteQuery } from '@/lib/search/ai-query-rewriter';
 import { ALL_TAGS } from '@/lib/tags';
 
-const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
 const OPENAI_EMBEDDING_URL = 'https://api.openai.com/v1/embeddings';
 const OPENAI_EMBEDDING_MODEL = 'text-embedding-3-small';
-const QUERY_REWRITE_TIMEOUT_MS = 3000;
 const EMBEDDING_TIMEOUT_MS = 5000;
 
 const supabase = createClient(
@@ -81,12 +80,6 @@ export interface RetrievalResult {
   cases: CaseCard[];
   allCases: Record<string, unknown>[];
   reranked: boolean;
-}
-
-interface SearchRewriteResult {
-  expandedQuery: string;
-  suggestedCategory: string;
-  keywords: string[];
 }
 
 interface HybridSearchRow {
@@ -273,20 +266,7 @@ function asStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((v): v is string => typeof v === 'string') : [];
 }
 
-const rewriteCache = new Map<string, SearchRewriteResult>();
 const embeddingCache = new Map<string, number[]>();
-
-const QUERY_SCENARIO_TO_REASON_CATEGORY: Record<CandidateQueryProfile['scenario'], string> = {
-  generic: '',
-  absence_procedure: 'absence',
-  regular_work_ability: 'incompetence',
-  retaliation: 'workplace_bullying',
-  severity_excessive: 'disciplinary_severity',
-  wage_dispute: 'wage',
-  contract_termination: 'contract_expiry',
-  workplace_safety: 'industrial_accident',
-  union_related: 'union_activity',
-};
 
 function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
   return new Promise<T>((resolve, reject) => {
@@ -301,124 +281,6 @@ function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): 
         reject(error);
       });
   });
-}
-
-function normalizeSuggestedCategory(value: string | null | undefined): string {
-  const normalized = (value || '').trim();
-  if (!normalized) return '';
-
-  const allowed = new Set([
-    'absence',
-    'sexual_harassment',
-    'workplace_bullying',
-    'transfer',
-    'probation',
-    'contract_expiry',
-    'no_dismissal',
-    'worker_status',
-    'discrimination',
-    'redundancy',
-    'misconduct',
-    'violence',
-    'embezzlement',
-    'incompetence',
-    'dismissal',
-    'discipline',
-    'disciplinary_severity',
-    'wage',
-    'industrial_accident',
-    'union_activity',
-  ]);
-
-  return allowed.has(normalized) ? normalized : '';
-}
-
-function fallbackRewriteQuery(query: string): SearchRewriteResult {
-  const profile = buildCandidateQueryProfile(query);
-  const extractedReasons = extractReasonCategories(query);
-  return {
-    expandedQuery: query.trim(),
-    suggestedCategory: extractedReasons[0] || QUERY_SCENARIO_TO_REASON_CATEGORY[profile.scenario] || '',
-    keywords: query
-      .split(/\s+/)
-      .map((token) => token.trim())
-      .filter((token) => token.length >= 2)
-      .slice(0, 5),
-  };
-}
-
-async function rewriteQueryForSearch(query: string): Promise<SearchRewriteResult> {
-  const trimmed = query.trim();
-  if (!trimmed) return { expandedQuery: '', suggestedCategory: '', keywords: [] };
-
-  const cached = rewriteCache.get(trimmed);
-  if (cached) return cached;
-
-  const fallback = fallbackRewriteQuery(trimmed);
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    rewriteCache.set(trimmed, fallback);
-    return fallback;
-  }
-
-  try {
-    const response = await withTimeout(
-      fetch(ANTHROPIC_URL, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: ANTHROPIC_MODEL,
-          max_tokens: 220,
-          temperature: 0,
-          system:
-            '당신은 한국 노동위원회 판정례 검색 시스템의 쿼리 최적화 엔진입니다. 반드시 JSON만 반환하세요. 키는 expandedQuery, suggestedCategory, keywords만 사용하세요. expandedQuery는 50자 이내, suggestedCategory는 지정된 카테고리 또는 빈 문자열, keywords는 3~5개 문자열 배열입니다.',
-          messages: [
-            {
-              role: 'user',
-              content:
-                `입력 쿼리: ${trimmed}\n` +
-                '카테고리 후보: absence, sexual_harassment, workplace_bullying, transfer, probation, contract_expiry, no_dismissal, worker_status, discrimination, redundancy, misconduct, violence, embezzlement, incompetence, dismissal, discipline, disciplinary_severity\n' +
-                'JSON 예시: {"expandedQuery":"업무능력 부족 개선 기회 경고 시정 교육 후 해고","suggestedCategory":"incompetence","keywords":["개선 기회","경고","시정","업무능력 부족","해고"]}',
-            },
-          ],
-        }),
-      }),
-      QUERY_REWRITE_TIMEOUT_MS,
-      'query rewrite',
-    );
-
-    if (!response.ok) {
-      throw new Error(`rewrite failed: ${response.status}`);
-    }
-
-    const payload = (await response.json()) as {
-      content?: Array<{ type?: string; text?: string }>;
-    };
-    const text = payload.content?.find((part) => part.type === 'text')?.text?.trim() || '';
-    const parsed = JSON.parse(text) as Partial<SearchRewriteResult>;
-
-    const result: SearchRewriteResult = {
-      expandedQuery: (parsed.expandedQuery || fallback.expandedQuery).trim().slice(0, 50) || fallback.expandedQuery,
-      suggestedCategory: normalizeSuggestedCategory(parsed.suggestedCategory) || fallback.suggestedCategory,
-      keywords: Array.isArray(parsed.keywords)
-        ? parsed.keywords
-            .filter((item): item is string => typeof item === 'string')
-            .map((item) => item.trim())
-            .filter(Boolean)
-            .slice(0, 5)
-        : fallback.keywords,
-    };
-
-    rewriteCache.set(trimmed, result);
-    return result;
-  } catch {
-    rewriteCache.set(trimmed, fallback);
-    return fallback;
-  }
 }
 
 function toVectorLiteral(values: number[]): string {
@@ -964,10 +826,10 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
   let candidates: Record<string, unknown>[] = [];
   let reranked = false;
 
-  const rewrite = query ? await rewriteQueryForSearch(query) : null;
-  const effectiveQuery = rewrite?.expandedQuery || query || tags.join(' ');
+  const rewrite = query ? await rewriteQuery(query) : null;
+  const effectiveQuery = rewrite?.searchQuery || query || tags.join(' ');
   const reasons = effectiveQuery ? extractReasonCategories(effectiveQuery) : [];
-  const rpcCategory = rewrite?.suggestedCategory || (reasons.length > 0 ? reasons[0] : '');
+  const rpcCategory = rewrite?.category || (reasons.length > 0 ? reasons[0] : '');
 
   if (effectiveQuery) {
     const rpcRows = await searchCasesViaRpc(effectiveQuery, rpcCategory, RESULT_LIMIT * 4);
@@ -991,19 +853,52 @@ export async function searchCases(tags: string[], query?: string): Promise<Retri
         } satisfies Record<string, unknown>;
       });
 
-      const rerankedRpc: Record<string, unknown>[] = rankTaggedCandidates(effectiveQuery, rpcCandidates).map((candidate) => ({
+      const keywordBoostedRpc: Record<string, unknown>[] = rankTaggedCandidates(effectiveQuery, rpcCandidates).map((candidate) => ({
         ...candidate,
         _score: Number(candidate._score || 0) + computeKeywordReRankBoost(candidate, rewrite?.keywords || []),
       }));
 
-      rerankedRpc.sort((a, b) => {
+      keywordBoostedRpc.sort((a, b) => {
         const scoreDiff = Number(b._score || 0) - Number(a._score || 0);
         if (scoreDiff !== 0) return scoreDiff;
         return String(b.decision_date || '').localeCompare(String(a.decision_date || ''));
       });
 
-      candidates = rerankedRpc;
-      reranked = true;
+      const aiReranked = await rerankResults(
+        query || effectiveQuery,
+        keywordBoostedRpc.slice(0, RESULT_LIMIT * 4).map((candidate) => ({
+          id: String(candidate.id || ''),
+          title: String(candidate.title || ''),
+          key_issue: String(candidate.key_issue || ''),
+          holding_summary: String(candidate.holding_summary || ''),
+          holding_points: String(candidate.holding_points || ''),
+          decision_result: String(candidate.decision_result || ''),
+          source: detectSource(String(candidate.id || '')),
+        })),
+        RESULT_LIMIT,
+      );
+
+      if (aiReranked.length > 0) {
+        const rankById = new Map(aiReranked.map((item) => [item.id, item]));
+        const aiCandidateRows: Record<string, unknown>[] = keywordBoostedRpc.map((candidate) => ({
+            ...candidate,
+            _ai_score: rankById.get(String(candidate.id || ''))?.relevanceScore ?? -1,
+            _ai_reason: rankById.get(String(candidate.id || ''))?.reasoning ?? '',
+          }));
+        aiCandidateRows.sort((a, b) => {
+          const aiDiff = Number(b._ai_score || -1) - Number(a._ai_score || -1);
+          if (aiDiff !== 0) return aiDiff;
+          const scoreDiff = Number(b._score || 0) - Number(a._score || 0);
+          if (scoreDiff !== 0) return scoreDiff;
+          return String(b.decision_date || '').localeCompare(String(a.decision_date || ''));
+        });
+        const aiSortedCandidates: Record<string, unknown>[] = aiCandidateRows;
+        candidates = aiSortedCandidates;
+        reranked = true;
+      } else {
+        candidates = keywordBoostedRpc;
+        reranked = true;
+      }
     }
   }
 

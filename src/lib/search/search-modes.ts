@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
+import { asReasonCategory, rewriteQuery } from '@/lib/search/ai-query-rewriter';
 import { normalizeQuery } from '@/lib/search/normalize-query';
 import { parseCandidateQuery } from '@/lib/search/query-parser';
 import type {
@@ -339,11 +340,15 @@ async function runBaselineSearch({
   page = 0,
   pageSize = BASELINE_PAGE_SIZE,
 }: SearchRequestOptions): Promise<SearchBucket> {
-  if (query && !reason && !result) {
-    const escaped = escapeIlike(query);
-    const normalized = normalizeQuery(query);
+  const rewritten = query ? await rewriteQuery(query) : null;
+  const effectiveQuery = rewritten?.searchQuery || query;
+  const effectiveReason = reason || asReasonCategory(rewritten?.category);
+
+  if (effectiveQuery && !effectiveReason && !result) {
+    const escaped = escapeIlike(effectiveQuery);
+    const normalized = normalizeQuery(effectiveQuery);
     const searchTerms =
-      normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : query.split(' ').join(' & ');
+      normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : effectiveQuery.split(' ').join(' & ');
 
     let nlrcQuery = supabase
       .from('nlrc_decisions')
@@ -386,9 +391,9 @@ async function runBaselineSearch({
       source_provider: 'nlrc',
     }));
 
-    const bigcaseBucket = await runBigcaseSearch(query, COMBINED_QUERY_FETCH_SIZE);
-    const lawgoBucket = await runLawgoSearch(query, COMBINED_QUERY_FETCH_SIZE);
-    const merged = mergeAndRankSearchCards([...nlrcItems, ...bigcaseBucket.items, ...lawgoBucket.items], query, page, pageSize);
+    const bigcaseBucket = await runBigcaseSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE);
+    const lawgoBucket = await runLawgoSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE);
+    const merged = mergeAndRankSearchCards([...nlrcItems, ...bigcaseBucket.items, ...lawgoBucket.items], effectiveQuery, page, pageSize);
 
     return {
       ...merged,
@@ -397,23 +402,23 @@ async function runBaselineSearch({
   }
 
   let q = buildBaselineSelect(page, pageSize);
-  if (reason) q = q.contains('reason_category', [reason]);
+  if (effectiveReason) q = q.contains('reason_category', [effectiveReason]);
   if (result) q = q.eq('decision_result', result);
-  if (query) {
-    const normalized = normalizeQuery(query);
+  if (effectiveQuery) {
+    const normalized = normalizeQuery(effectiveQuery);
     const searchTerms =
-      normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : query.split(' ').join(' & ');
+      normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : effectiveQuery.split(' ').join(' & ');
     q = q.textSearch('search_vector', searchTerms);
   }
 
   let { data, count, error } = await q;
 
-  if (error || (query && (count || 0) === 0)) {
+  if (error || (effectiveQuery && (count || 0) === 0)) {
     let fallback = buildBaselineSelect(page, pageSize);
-    if (reason) fallback = fallback.contains('reason_category', [reason]);
+    if (effectiveReason) fallback = fallback.contains('reason_category', [effectiveReason]);
     if (result) fallback = fallback.eq('decision_result', result);
-    if (query) {
-      fallback = fallback.or(`title.ilike.%${query}%,key_issue.ilike.%${query}%,holding_points.ilike.%${query}%`);
+    if (effectiveQuery) {
+      fallback = fallback.or(`title.ilike.%${effectiveQuery}%,key_issue.ilike.%${effectiveQuery}%,holding_points.ilike.%${effectiveQuery}%`);
     }
     const fallbackResp = await fallback;
     data = fallbackResp.data;
@@ -597,7 +602,9 @@ async function runCompareSearch(options: SearchRequestOptions): Promise<Pick<Sea
 
 export async function runSearch(options: SearchRequestOptions): Promise<SearchResponsePayload> {
   const page = options.page ?? 0;
-  const effectiveQuery = options.query.trim() || (options.reason ? REASON_TO_QUERY[options.reason] || options.reason : '');
+  const rewritten = options.query.trim() ? await rewriteQuery(options.query) : null;
+  const effectiveReason = options.reason || asReasonCategory(rewritten?.category);
+  const effectiveQuery = rewritten?.searchQuery || options.query.trim() || (effectiveReason ? REASON_TO_QUERY[effectiveReason] || effectiveReason : '');
   const parsedCandidateQuery = options.mode !== 'baseline' && effectiveQuery
     ? await parseCandidateQuery(effectiveQuery)
     : null;
@@ -624,6 +631,9 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
     }
     try {
       payload.molab = await runMolabSearch(effectiveQuery, 5, options.reason || '');
+      if (!options.reason && effectiveReason && payload.baseline) {
+        payload.reason = effectiveReason;
+      }
     } catch {
       // 행정해석 검색 실패 시 무시 (핵심 기능 아님)
     }
@@ -646,7 +656,7 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
       payload.candidateError = error instanceof Error ? error.message : 'candidate search failed';
     }
     try {
-      payload.molab = await runMolabSearch(effectiveQuery, 5, options.reason || '');
+      payload.molab = await runMolabSearch(effectiveQuery, 5, effectiveReason || '');
     } catch {
       // 행정해석 검색 실패 시 무시
     }
@@ -666,7 +676,7 @@ export async function runSearch(options: SearchRequestOptions): Promise<SearchRe
     : undefined;
   let molab: MolabInterpretation[] | undefined;
   try {
-    molab = await runMolabSearch(effectiveQuery, 5, options.reason || '');
+    molab = await runMolabSearch(effectiveQuery, 5, effectiveReason || '');
   } catch {
     // 행정해석 검색 실패 시 무시
   }
