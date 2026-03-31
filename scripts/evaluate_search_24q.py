@@ -552,10 +552,14 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
 
     # Q02: Absence mentioned but procedure is the real issue
     if re.search(r"(무단결근|결근)", query) and re.search(r"(절차|서면|통지|소명)", query):
-        if re.search(r"(절차.{0,5}(위반|하자)|서면.{0,5}통지|소명.{0,5}기회)", text + " " + key_issue):
-            boost += 0.15
+        if re.search(r"(절차.{0,5}(위반|하자)|서면.{0,5}(미)?통지|소명.{0,5}기회.{0,5}(미부여|없))", text + " " + key_issue):
+            boost += 0.18
+        elif re.search(r"(절차.{0,10}(적법|정당|문제.?없)|하자.{0,5}없)", text + " " + key_issue):
+            boost -= 0.10  # penalize "no procedural defect" cases
         if re.search(r"(무단결근|결근)", text) and re.search(r"(절차|서면|통지|소명)", text):
             boost += 0.08
+        if decision_result in ("granted", "partial"):
+            boost += 0.08  # procedure violation cases tend to be granted
 
     # Improvement opportunity / low performance
     if re.search(r"(개선|시정|경고|교육|기회|주고도|부여|업무능력|저성과)", query) and re.search(r"(개선|시정|경고|교육|기회|주고도|부여)", text):
@@ -657,6 +661,10 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
     category = str(rewrite.get("category") or "")
     lowered = query_text.lower()
     extra_terms: list[str] = []
+
+    # Q02: Absence + procedure violation
+    if category == "absence" and re.search(r"(절차|서면|통지|소명)", lowered):
+        extra_terms.extend(["징계절차 위반", "절차 하자", "서면통지", "소명기회 미부여", "부당해고"])
 
     if intent == "retaliation_check":
         extra_terms.extend(["불이익", "보복", "신고"])
@@ -1074,6 +1082,12 @@ def run_upgraded(query: EvalQuery, limit: int, top_k: int, skip_rerank: bool) ->
                 },
             )
         except requests.HTTPError:
+            rows = []
+
+    # Validate RPC results: if category specified but <20% of results match, fallback
+    if rows and effective_category and effective_category in DB_REASON_CATEGORIES:
+        cat_match = sum(1 for r in rows[:20] if effective_category in (r.get("reason_category") or []))
+        if cat_match < max(2, len(rows[:20]) * 0.2):
             rows = []
 
     if not rows:
