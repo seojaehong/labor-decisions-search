@@ -972,7 +972,7 @@ def rerank_results(user_query: str, results: list[dict[str, Any]], top_k: int) -
     rendered_results = "\n\n".join(
         f"{idx + 1}. [{result.get('id')}] {result.get('title')}\n"
         f"쟁점: {_clean_for_rerank(str(result.get('key_issue') or result.get('holding_summary') or result.get('summary_short') or ''))[:400]}\n"
-        f"결과: {result.get('decision_result') or '미상'}"
+        f"결과: {result.get('decision_result') or '미상'} | 분류: {','.join(result.get('reason_category') or []) or '미상'}"
         for idx, result in enumerate(results)
     )
 
@@ -1068,8 +1068,8 @@ def evaluate_results_with_ai(query: EvalQuery, results: list[dict[str, Any]]) ->
 
     rendered_results = "\n\n".join(
         f"{idx + 1}. [{result.get('id')}] {result.get('title')}\n"
-        f"요지: {_strip_md(str(result.get('holding_summary') or result.get('summary_short') or result.get('key_issue') or ''))[:500]}\n"
-        f"결과: {result.get('decision_result') or '미상'}"
+        f"요지: {_strip_md(str(result.get('holding_summary') or result.get('summary_short') or result.get('key_issue') or ''))[:600]}\n"
+        f"결과: {result.get('decision_result') or '미상'} | 분류: {','.join(result.get('reason_category') or []) or '미상'}"
         for idx, result in enumerate(results[:5])
     )
 
