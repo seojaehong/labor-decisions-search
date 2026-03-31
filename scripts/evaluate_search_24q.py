@@ -651,6 +651,15 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         # Penalize if it's about suspension/training order rather than actual dismissal
         if not re.search(r"(면직|해고|해임)", combined) and re.search(r"(직위해제|교육훈련.{0,5}명령|대기발령)", combined):
             boost -= 0.05
+        # Penalize cases where incompetence is mixed with many unrelated categories (harassment, violence, etc.)
+        non_core = [c for c in reason_category if c not in ("incompetence", "misconduct", "no_dismissal", "worker_status")]
+        if len(non_core) >= 2:
+            boost -= 0.20
+        elif len(non_core) == 1 and "incompetence" not in reason_category:
+            boost -= 0.15
+        # Penalize cases without incompetence category at all
+        if "incompetence" not in reason_category and not re.search(r"(업무능력|직무수행능력|근무성적|저성과|업무태만)", combined):
+            boost -= 0.15
 
     # Q09: Probation + procedure issues (서면통지, 절차 문제)
     if re.search(r"(수습|시용)", query) and re.search(r"(서면|절차|통지|소명)", query):
