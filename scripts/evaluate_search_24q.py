@@ -868,8 +868,25 @@ def run_upgraded(query: EvalQuery, limit: int, top_k: int, skip_rerank: bool) ->
     effective_query = rewrite["searchQuery"] or query.text
     effective_category = query.category or rewrite["category"]
     embedding = create_embedding(effective_query)
+    rows: list[dict[str, Any]] = []
 
-    rows = fetch_candidate_rows_for_query(effective_query, effective_category, rewrite["keywords"])
+    if embedding:
+        try:
+            rows = call_supabase_rpc(
+                "search_similar_cases_hybrid",
+                {
+                    "query_text": effective_query,
+                    "query_embedding": to_vector_literal(embedding),
+                    "category": effective_category,
+                    "match_count": limit,
+                    "semantic_weight": 0.6,
+                },
+            )
+        except requests.HTTPError:
+            rows = []
+
+    if not rows:
+        rows = fetch_candidate_rows_for_query(effective_query, effective_category, rewrite["keywords"])
 
     rescored_rows = []
     for row in rows:
