@@ -63,9 +63,56 @@ const REASON_TO_LAWGO_KEYWORDS: Record<string, string[]> = {
   discrimination: ['남녀고용평등', '근로조건'],
 };
 
+const REASON_TEXT_GUARDS: Partial<Record<ReasonCategory, string[]>> = {
+  worker_status: [
+    '근로자성',
+    '근로자에 해당',
+    '근로기준법상 근로자',
+    '당사자적격',
+    '종속적 관계',
+    '종속관계',
+    '사용종속관계',
+  ],
+};
+
+function getReasonTextGuards(reason: ReasonCategory | ''): string[] | null {
+  if (!reason) return null;
+  return REASON_TEXT_GUARDS[reason] || null;
+}
+
 function matchesReason(reasonCategory: string[] | null | undefined, reason: ReasonCategory | ''): boolean {
   if (!reason) return true;
   return (reasonCategory || []).includes(reason);
+}
+
+function buildReasonGuardOr(reason: ReasonCategory | ''): string | null {
+  const markers = getReasonTextGuards(reason);
+  if (!markers || markers.length === 0) return null;
+
+  const clauses: string[] = [];
+  for (const marker of markers) {
+    const escaped = escapeIlike(marker);
+    clauses.push(`title.ilike.%${escaped}%`);
+    clauses.push(`key_issue.ilike.%${escaped}%`);
+    clauses.push(`holding_summary.ilike.%${escaped}%`);
+    clauses.push(`holding_points.ilike.%${escaped}%`);
+  }
+
+  return Array.from(new Set(clauses)).join(',');
+}
+
+function matchesReasonTextGuard(
+  item: Pick<SearchCard, 'title' | 'key_issue' | 'holding_summary' | 'holding_points'>,
+  reason: ReasonCategory | ''
+): boolean {
+  const markers = getReasonTextGuards(reason);
+  if (!markers || markers.length === 0) return true;
+
+  const haystack = [item.title, item.key_issue, item.holding_summary, item.holding_points]
+    .map((value) => String(value || '').toLowerCase())
+    .join(' ');
+
+  return markers.some((marker: string) => haystack.includes(marker.toLowerCase()));
 }
 
 function escapeIlike(value: string): string {
@@ -404,6 +451,12 @@ async function runBaselineSearch({
   let q = buildBaselineSelect(page, pageSize);
   if (effectiveReason) q = q.contains('reason_category', [effectiveReason]);
   if (result) q = q.eq('decision_result', result);
+  if (!effectiveQuery && effectiveReason) {
+    const guard = buildReasonGuardOr(effectiveReason);
+    if (guard) {
+      q = q.or(guard);
+    }
+  }
   if (effectiveQuery) {
     const normalized = normalizeQuery(effectiveQuery);
     const searchTerms =
@@ -417,6 +470,12 @@ async function runBaselineSearch({
     let fallback = buildBaselineSelect(page, pageSize);
     if (effectiveReason) fallback = fallback.contains('reason_category', [effectiveReason]);
     if (result) fallback = fallback.eq('decision_result', result);
+    if (!effectiveQuery && effectiveReason) {
+      const guard = buildReasonGuardOr(effectiveReason);
+      if (guard) {
+        fallback = fallback.or(guard);
+      }
+    }
     if (effectiveQuery) {
       fallback = fallback.or(`title.ilike.%${effectiveQuery}%,key_issue.ilike.%${effectiveQuery}%,holding_points.ilike.%${effectiveQuery}%`);
     }
@@ -440,8 +499,8 @@ async function runBaselineSearch({
     holding_points: row.holding_points || null,
     url: row.url,
     reason_category: row.reason_category || [],
-    source_provider: 'nlrc',
-  }));
+    source_provider: 'nlrc' as const,
+  })).filter((item) => matchesReasonTextGuard(item, effectiveReason));
 
   return {
     items,

@@ -1,0 +1,20 @@
+{
+  "scope": "worker_status_pilot",
+  "total_worker_status_rows": 12196,
+  "kept_worker_status_rows": 3468,
+  "removed_worker_status_rows": 8728,
+  "removed_ratio": 0.7156,
+  "bucket_breakdown": {
+    "기타": 3644,
+    "정탐": 3468,
+    "양정": 3455,
+    "전보": 1035,
+    "도급만": 399,
+    "파견만": 118,
+    "괴롭힘": 77
+  },
+  "granted_before_count": 2487,
+  "granted_after_count": 608,
+  "applied_updates": 0,
+  "limit": null
+}
