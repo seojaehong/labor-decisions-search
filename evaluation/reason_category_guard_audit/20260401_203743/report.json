@@ -1,0 +1,275 @@
+{
+  "scope": "reason_category_guard_audit",
+  "total_rows": 81212,
+  "kept_rows": 53882,
+  "removed_rows": 27330,
+  "rows": [
+    {
+      "reason": "absence",
+      "total": 5397,
+      "kept": 2949,
+      "removed": 2448,
+      "kept_ratio": 0.5464,
+      "granted_before": 1453,
+      "granted_after": 674,
+      "markers": [
+        "무단결근",
+        "무단 이탈",
+        "연락 두절",
+        "근태 불량",
+        "지각",
+        "결근",
+        "출근하지"
+      ]
+    },
+    {
+      "reason": "workplace_bullying",
+      "total": 3659,
+      "kept": 2759,
+      "removed": 900,
+      "kept_ratio": 0.754,
+      "granted_before": 760,
+      "granted_after": 572,
+      "markers": [
+        "직장내괴롭힘",
+        "괴롭힘",
+        "괴롭힘 행위",
+        "따돌림",
+        "신고 후",
+        "분리조치",
+        "접촉금지"
+      ]
+    },
+    {
+      "reason": "sexual_harassment",
+      "total": 2053,
+      "kept": 2004,
+      "removed": 49,
+      "kept_ratio": 0.9761,
+      "granted_before": 348,
+      "granted_after": 331,
+      "markers": [
+        "성희롱",
+        "성추행",
+        "성적 언동",
+        "성폭력"
+      ]
+    },
+    {
+      "reason": "violence",
+      "total": 2637,
+      "kept": 2424,
+      "removed": 213,
+      "kept_ratio": 0.9192,
+      "granted_before": 623,
+      "granted_after": 573,
+      "markers": [
+        "폭행",
+        "폭언",
+        "욕설",
+        "협박",
+        "모욕",
+        "가혹행위"
+      ]
+    },
+    {
+      "reason": "embezzlement",
+      "total": 1380,
+      "kept": 1286,
+      "removed": 94,
+      "kept_ratio": 0.9319,
+      "granted_before": 391,
+      "granted_after": 371,
+      "markers": [
+        "횡령",
+        "배임",
+        "공금 유용",
+        "착복",
+        "부정 수령",
+        "금전 비위"
+      ]
+    },
+    {
+      "reason": "incompetence",
+      "total": 2239,
+      "kept": 429,
+      "removed": 1810,
+      "kept_ratio": 0.1916,
+      "granted_before": 524,
+      "granted_after": 112,
+      "markers": [
+        "업무능력 부족",
+        "저성과",
+        "근무성적 불량",
+        "부적격",
+        "실적 최하위",
+        "개선 기회",
+        "본채용 거부"
+      ]
+    },
+    {
+      "reason": "probation",
+      "total": 3984,
+      "kept": 2427,
+      "removed": 1557,
+      "kept_ratio": 0.6092,
+      "granted_before": 1075,
+      "granted_after": 645,
+      "markers": [
+        "수습",
+        "시용",
+        "본채용 거부",
+        "수습기간",
+        "수습 평가"
+      ]
+    },
+    {
+      "reason": "redundancy",
+      "total": 1495,
+      "kept": 909,
+      "removed": 586,
+      "kept_ratio": 0.608,
+      "granted_before": 625,
+      "granted_after": 392,
+      "markers": [
+        "경영상 해고",
+        "정리해고",
+        "구조조정",
+        "경영 악화",
+        "인원 감축",
+        "사업 폐지"
+      ]
+    },
+    {
+      "reason": "transfer",
+      "total": 5282,
+      "kept": 4342,
+      "removed": 940,
+      "kept_ratio": 0.822,
+      "granted_before": 1449,
+      "granted_after": 1253,
+      "markers": [
+        "전보",
+        "인사발령",
+        "배치전환",
+        "대기발령",
+        "전직명령",
+        "보직 변경"
+      ]
+    },
+    {
+      "reason": "misconduct",
+      "total": 13758,
+      "kept": 13066,
+      "removed": 692,
+      "kept_ratio": 0.9497,
+      "granted_before": 3728,
+      "granted_after": 3559,
+      "markers": [
+        "비위행위",
+        "복무규정 위반",
+        "복종의무 위반",
+        "업무 지시 불이행",
+        "허위 보고",
+        "겸직",
+        "징계사유"
+      ]
+    },
+    {
+      "reason": "contract_expiry",
+      "total": 7629,
+      "kept": 6052,
+      "removed": 1577,
+      "kept_ratio": 0.7933,
+      "granted_before": 1357,
+      "granted_after": 1066,
+      "markers": [
+        "갱신기대권",
+        "계약만료",
+        "기간제",
+        "계약 갱신",
+        "재계약",
+        "근로계약 기간"
+      ]
+    },
+    {
+      "reason": "no_dismissal",
+      "total": 14230,
+      "kept": 6444,
+      "removed": 7786,
+      "kept_ratio": 0.4528,
+      "granted_before": 2754,
+      "granted_after": 727,
+      "markers": [
+        "해고가 존재하지",
+        "해고부존재",
+        "권고사직",
+        "사직서",
+        "자발적 사직",
+        "합의 퇴직"
+      ]
+    },
+    {
+      "reason": "union_activity",
+      "total": 4572,
+      "kept": 4491,
+      "removed": 81,
+      "kept_ratio": 0.9823,
+      "granted_before": 987,
+      "granted_after": 977,
+      "markers": [
+        "부당노동행위",
+        "노동조합",
+        "지배개입",
+        "불이익취급",
+        "조합활동",
+        "단체교섭",
+        "단체협약"
+      ]
+    },
+    {
+      "reason": "worker_status",
+      "total": 12196,
+      "kept": 3690,
+      "removed": 8506,
+      "kept_ratio": 0.3026,
+      "granted_before": 2487,
+      "granted_after": 629,
+      "markers": [
+        "근로자성",
+        "근로자에 해당",
+        "근로기준법상 근로자",
+        "당사자적격",
+        "종속적 관계",
+        "종속관계",
+        "사용종속관계",
+        "계약의 형식",
+        "도급계약인지",
+        "고용계약인지",
+        "실질에 있어",
+        "임금을 목적으로",
+        "지휘감독",
+        "출퇴근",
+        "사업소득세",
+        "4대보험"
+      ]
+    },
+    {
+      "reason": "discrimination",
+      "total": 701,
+      "kept": 610,
+      "removed": 91,
+      "kept_ratio": 0.8702,
+      "granted_before": 73,
+      "granted_after": 53,
+      "markers": [
+        "차별시정",
+        "차별적 처우",
+        "비교 대상 근로자",
+        "동일가치노동",
+        "남녀고용평등"
+      ]
+    }
+  ],
+  "limit_per_reason": 0
+}

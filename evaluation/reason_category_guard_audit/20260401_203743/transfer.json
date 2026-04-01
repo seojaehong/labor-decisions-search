@@ -1,0 +1,289 @@
+{
+  "reason": "transfer",
+  "markers": [
+    "전보",
+    "인사발령",
+    "배치전환",
+    "대기발령",
+    "전직명령",
+    "보직 변경"
+  ],
+  "total": 5282,
+  "kept": 4342,
+  "removed": 940,
+  "kept_ratio": 0.822,
+  "granted_before": 1449,
+  "granted_after": 1253,
+  "kept_examples": [
+    {
+      "id": "id_414043",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-02-06",
+      "decision_result": "rejected",
+      "summary": "전직발령은 2025. 1. 2. 및 2025. 8. 1.로 확인되어 각 인사발령일로부터 3개월이 지나 신청한 것으로 제척기간을 도과하였다고 판정한 사례",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_414057",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-02-04",
+      "decision_result": "dismissed",
+      "summary": "인사발령의 구제이익이 있으나, 업무상 필요성이 인정되며, 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_414023",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-02-02",
+      "decision_result": "granted",
+      "summary": "근로자는 기간의 정함이 없는 근로자에 해당하고, 근로관계 종료는 실질적인 해고로서 해고의 절차적 정당성을 갖추지 못한 부당해고에 해당한다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "no_dismissal",
+        "contract_expiry",
+        "worker_status"
+      ]
+    },
+    {
+      "id": "id_414053",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경남지방노동위원회",
+      "decision_date": "2026-02-02",
+      "decision_result": "granted",
+      "summary": "징계위원회 개최에 대한 사전통보 없이 당일에 징계위원회를 개최하면서 충분한 소명기회를 부여하지 않아 절차상 하자가 있다고 판정한 사례",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_413557",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "제주지방노동위원회",
+      "decision_date": "2026-01-28",
+      "decision_result": "dismissed",
+      "summary": "사용자가 전직명령을 철회하여 구제이익이 소멸하였다고 판정한 사례\n\n쟁점: 사용자가 근로자에게 전직처분을 유보하고 전직처분과 관련한 협의 절차를 진행하겠다고 통지한 후 별다른 조치가 이루어지지 아니한 채 현재까지 근로자가 이전의 업무를 계속 수행한 점에 비추어 보면, 사용자의 유보 통지는 전직처분의 절차적 흠결을 인정하고 이를 시행하지 않겠다는 의사통지로써 전직처분을 철회한 것으로 보아야 한다",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_413561",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "granted",
+      "summary": "근로자에 대한 해고가 존재하고, 해고에 관해 서면 통지가 이루어지지 않아 부당해고라고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_413763",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "울산지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "granted",
+      "summary": "해고가 존재하고 해고의 정당성(사유, 절차)이 확보되지 않아 부당하다고 판정하고 금전보상명령 신청을 수용한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "no_dismissal",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413735",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "dismissed",
+      "summary": "전보의 업무상 필요성이 인정되고, 생활상 불이익이 현저하게 크다고 볼 수 없어 전보 처분이 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "id_413831",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-23",
+      "decision_result": "granted",
+      "summary": "사유 및 절차 모두 정당성을 갖추지 못하여 부당한 해고라고 판정한 사례\n\n쟁점: 가. 해고가 존재하는지 여부사용자가 근로자에게 일방적으로 근로관계 종료일을 특정하여 해고예고통지서를 발송한 점, 근로자가 개인 일정을 이유로 근로관계 종료일 조정을 협의한 것은 이미 해고가 예정된 상황에서 이루어진 부수적인 논의로 보일 뿐, 이를 두고 자발적 퇴사\n판단: 가. 해고가 존재하는지 여부사용자가 근로자",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_413867",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-23",
+      "decision_result": "dismissed",
+      "summary": "근로자는 일용직 근로자로 사용자가 일일 단위 근로관계 종료를 통보하였으므로 해고가 존재하지 않는다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "no_dismissal"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_414099",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-02-19",
+      "decision_result": "dismissed",
+      "summary": "회사 직원 중 일부가 근로자에게 출근하지 말라는 취지로 말한 사실이 있었다 하더라도 그 직원이 사용자와 근로자 사이의 근로관계를 종료시킬 수 있는 결정 권한이 있거나 그와 같은 권한을 행사할 만한 사용자의 지위에도 있지 않은 점, 반면에 근로자가 사용자의 보직변경 요청을 거절하고 타 사업장에 재취업한 후 사용자에게 어떠한 이의제기도 없었던 점, 근로자가 기타 해고 사실을 객관적으로 입증할 만",
+      "reason_category": [
+        "worker_status",
+        "no_dismissal",
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_413979",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-16",
+      "decision_result": "dismissed",
+      "summary": "전직의 업무상 필요성이 인정되고 생활상 불이익이 감수할 수준이며 협의절차에 중대한 하자가 없어 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_412937",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "dismissed",
+      "summary": "전직의 업무상 필요성이 존재하고, 근로자에게 생활상 불이익이 크다고 볼 수 없으며, 협의절차를 거치지 않은 사정만으로 인사명령이 당연 무효라고 보기 어렵다고 판정한 사례",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_413237",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-05",
+      "decision_result": "upheld",
+      "summary": "부당징계(감봉)는 제척기간이 도과하였고, 전직은 징계처분에 해당하지 아니하며, 그 정당성이 인정되어 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_413719",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경남지방노동위원회",
+      "decision_date": "2026-01-05",
+      "decision_result": "dismissed",
+      "summary": "호봉조정이 근로기준법 제23조제1항의 '그 밖의 징벌’에 해당하지 않아 구제신청 대상에 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413931",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-29",
+      "decision_result": "dismissed",
+      "summary": "파견부서 폐지에 따른 전직의 업무상 필요성이 인정되고, 생활상 불이익이 과도하다고 볼 수 없으며, 당사자 간 협의절차도 거쳐 전직이 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_413339",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-18",
+      "decision_result": "partial",
+      "summary": "근로자2 내지 4에 대한 징계는 정당하나, 근로자1은 징계 형평성에 어긋나 부당하고, 전직은 직장 내 괴롭힘 행위로 인한 피해자와의 분리를 위한 것으로 정당하며, 근로자들에 대한 전직과 징계가 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "union_activity",
+        "workplace_bullying",
+        "violence",
+        "absence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "bc_e41ec0b8",
+      "title": "청주지방법원 2025. 12. 12. 선고 2023가단750 판결 손해배상(기)",
+      "case_number": "2023가단750",
+      "department": "청주지방법원",
+      "decision_date": "2025-12-12",
+      "decision_result": "dismissed",
+      "summary": "# 파면된 공무원의 명예훼손 손해배상 청구 기각\n## 결과 요약\n- 원고의 명예훼손으로 인한 손해배상 청구를 기각함.\n## 사실관계\n- 원고는 1985. 12. 5. 임용되어 2020. 12. 1.부터 충북 진천군 D으로 재직 중 2020. 12. 30. 직위해제 처분을 받음.\n- 2021. 1. 27. 충청북도인사위원회는 원고의 동료들에 대한 폭언 등을 이유로 파면 의결을 하였고, 2021",
+      "reason_category": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_412605",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "강원지방노동위원회",
+      "decision_date": "2025-12-11",
+      "decision_result": "dismissed",
+      "summary": "이동배차는 구제신청의 대상에 해당하나 사용자의 업무상 필요성이 인정되고 생활상 불이익은 감내할 정도를 넘어섰다고 보기는 어려워 정당한 인사권의 행사라고 판단한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer"
+      ]
+    },
+    {
+      "id": "id_412233",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2025-12-08",
+      "decision_result": "dismissed",
+      "summary": "정직은 징계사유가 존재하고, 양정이 과도하다고 볼 수 없으며, 절차상 하자도 없어 정당하고, 전직 또한 업무상 필요성, 생활상 불이익 등의 측면에서 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "transfer",
+        "misconduct"
+      ]
+    }
+  ]
+}

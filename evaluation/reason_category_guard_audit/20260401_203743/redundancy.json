@@ -1,0 +1,290 @@
+{
+  "reason": "redundancy",
+  "markers": [
+    "경영상 해고",
+    "정리해고",
+    "구조조정",
+    "경영 악화",
+    "인원 감축",
+    "사업 폐지"
+  ],
+  "total": 1495,
+  "kept": 909,
+  "removed": 586,
+  "kept_ratio": 0.608,
+  "granted_before": 625,
+  "granted_after": 392,
+  "kept_examples": [
+    {
+      "id": "id_413831",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-23",
+      "decision_result": "granted",
+      "summary": "사유 및 절차 모두 정당성을 갖추지 못하여 부당한 해고라고 판정한 사례\n\n쟁점: 가. 해고가 존재하는지 여부사용자가 근로자에게 일방적으로 근로관계 종료일을 특정하여 해고예고통지서를 발송한 점, 근로자가 개인 일정을 이유로 근로관계 종료일 조정을 협의한 것은 이미 해고가 예정된 상황에서 이루어진 부수적인 논의로 보일 뿐, 이를 두고 자발적 퇴사\n판단: 가. 해고가 존재하는지 여부사용자가 근로자",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412647",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2025-12-22",
+      "decision_result": "granted",
+      "summary": "가. 긴박한 경영상의 필요성이 존재하는지 여부이 사건 시설이 약 3억 원 금액의 환수와 영업정지 결정 통보가 내려질 것이라고 인지하여 이 사건 시설로서는 인력 감원 등의 필요성이 있다고 보여져 긴박한 경영상의 필요성이 인정된다.나. 해고회피 노력을 다하였는지 여부이 사건 시설이 직원들에게 2025년 추석상여금을 30%에서 10%로 경감？지급한 것은 근로자에게 정리해고를 통보한 2025. 6.",
+      "reason_category": [
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412777",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2025-12-08",
+      "decision_result": "granted",
+      "summary": "긴박한 경영상의 필요성은 존재하나, 해고회피 노력, 합리적이고 공정한 기준에 의한 해고 대상자 선정 등의 요건을 갖추지 못하였으므로 부당해고라고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412295",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2025-12-01",
+      "decision_result": "granted",
+      "summary": "구제신청의 이익이 인정되며, 사용자가 주장하는 해고사유는 이를 인정할 만한 객관적인 증거나 정황이 확인되지 아니하므로 부당해고에 해당한다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "no_dismissal",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412025",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-28",
+      "decision_result": "upheld",
+      "summary": "대기발령의 업무상 필요성이 인정되고 생활상 불이익이 통상 감수할 수 있는 정도이므로 정당하다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412081",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2025-11-27",
+      "decision_result": "granted",
+      "summary": "경영상 해고의 요건을 갖추지 못하여 부당한 해고라고 판정한 사례\n\n쟁점: 사용자의 근로자에 대한 해고는 다음과 같은 점을 종합하여 보면 경영상 해고의 요건을 모두 갖추지 못한 부당한 해고이다.\n판단: 사용자의 근로자에 대한 해고는 다음과 같은 점을 종합하여 보면 경영상 해고의 요건을 모두 갖추지 못한 부당한 해고이다.가. 긴박한 경영상의 필요가 있었는지 여부2023년과 2024년의 월별손익분",
+      "reason_category": [
+        "redundancy",
+        "discrimination"
+      ]
+    },
+    {
+      "id": "id_411507",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-11-25",
+      "decision_result": "dismissed",
+      "summary": "위탁운영 사업 종료로 고용유지가 불가능하여 경영상 필요성이 인정되므로 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "redundancy",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_411291",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-11-21",
+      "decision_result": "granted",
+      "summary": "경영상 해고에 해당하고, 근로기준법 제24조에서 정하고 있는 경영상 해고 요건을 갖추지 못하여 부당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "no_dismissal",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_411297",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-11-17",
+      "decision_result": "granted",
+      "summary": "경영상 해고의 요건과 근로자 귀책에 의한 해고의 요건을 모두 갖추지 못하여 부당해고라고 판정한 사례",
+      "reason_category": [
+        "embezzlement",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_410805",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2025-11-07",
+      "decision_result": "granted",
+      "summary": "구제신청의 구제이익이 있고 해고가 존재하며 경영상 이유에 의한 해고의 요건을 갖추지 못하여 부당하다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "worker_status",
+        "redundancy",
+        "contract_expiry"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_413767",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "granted",
+      "summary": "근로관계 종료는 사용자의 일방적인 해고에 해당하고, 해고사유를 서면으로 통지하지 않은 절차적 요건을 위반하였으므로 부당하다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412611",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-19",
+      "decision_result": "dismissed",
+      "summary": "가. 업무상 필요성 여부회사가 경영악화를 이유로 2024. 8. 실시한 대규모 희망퇴직에 따라 효율적인 인력 운용이 필요한 상황에서 인력 재배치를 위하여 인사명령을 한 것으로 보이므로 업무상 필요성이 인정됨나. 생활상 불이익 여부업무형태가 변경되었으므로 실비변상적인 업무지원비가 지급되지 않는다고 하여 중대한 불이익이라고 할 수 없고, 인센티브도 크게 차이가 없어 생활상 불이익이 과도하다고 보",
+      "reason_category": [
+        "no_dismissal",
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_413603",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2025-12-15",
+      "decision_result": "granted",
+      "summary": "해고의 긴박한 경영상 필요성이 인정되지 않고, 해고회피 노력 및 해고회피에 관해 노동조합이나 근로자대표와 성실한 협의를 하지 않았으므로 해고는 부당하다고 판정한 사례",
+      "reason_category": [
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_411949",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-02",
+      "decision_result": "granted",
+      "summary": "가. 업무상 필요성 여부사용자가 경영악화 상황을 겪고 있다는 사실은 인정되나, 경영악화의 주된 이유가 이자비용 증가에 기인한 것으로 보이고 물류 업무 직접하기가 비용 절감에 일부 효과가 있다하더라도 그로 인하여 발생될 안전비용 증가, 업무능력 저하로 인한 효율 감소 등을 감안하면, 기업의 합리적 운영에 기여하였다고 단정할 수 없어 전직의 업무상 필요성이 인정된다고 보기 어려움나. 생활상 불이",
+      "reason_category": [
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "2025휴업OOO",
+      "title": "기준미달의 휴업수당 지급에 대한 승인사건",
+      "case_number": "2025휴업OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-11-26",
+      "decision_result": "granted",
+      "summary": "부득이한 사유로 사업계속이 불가능한 경우에 해당하여 법정 휴업수당에 미치지 못하는 급여(무급)의 지급을 승인한 사례",
+      "reason_category": [
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_412475",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-21",
+      "decision_result": "upheld",
+      "summary": "가. 정규직 전환 기대권이 인정되는지 여부이 사건 사용자가 근로계약, 취업규칙 등에 기간만료에도 불구하고 일정한 요건을 갖추면 근로계약이 갱신된다는 규정을 두고 있지는 않으나,채용공고ㆍ근로계약서 부속문서에 '정규직 전환 예정’을 안내하고 있고, 이 사건 근로자와 같은 기간제근로자들 중 정규직 전환 관행이 존재하므로 정규직 전환 기대에 대한 신뢰가 형성되어 있다고 판단함나. 정규직 전환 거절에",
+      "reason_category": [
+        "contract_expiry",
+        "redundancy",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_411073",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2025-11-17",
+      "decision_result": "dismissed",
+      "summary": "전직의 업무상 필요성이 인정되고, 근로자가 입게 될 생활상 불이익이 과도하다고 볼 수 없으며, 당사자 간 협의절차도 거친 것으로 보여 전직이 정당하다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "transfer",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_411947",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경남지방노동위원회",
+      "decision_date": "2025-11-11",
+      "decision_result": "dismissed",
+      "summary": "회사가 이미 사실상 폐업하여 근로자들이 복귀할 사업장이 없어져, 복직을 명하는 구제명령이 내려진다고 하더라도 그 실현이 불가능하여 구제이익이 존재하지 않는다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_410957",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-10-28",
+      "decision_result": "dismissed",
+      "summary": "직무전환대기처분의 업무상 필요성이 인정되고, 생활상 불이익의 정도는 감수 범위 내에 있으며, 근로자와의 협의절차도 거쳤으므로 정당하다고 판정한 사례",
+      "reason_category": [
+        "redundancy"
+      ]
+    },
+    {
+      "id": "id_406625",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2025-10-20",
+      "decision_result": "granted",
+      "summary": "경영상 이유로 인한 해고의 정당성이 없어 부당해고로 판단되고, 근로자들의 금전보상명령신청을 수용한다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "redundancy"
+      ]
+    }
+  ]
+}

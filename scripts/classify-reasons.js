@@ -50,7 +50,7 @@ const REASON_PATTERNS = [
   { category: "contract_expiry", patterns: [/갱신\s*기대권/, /계약\s*만료/, /기간제/, /근로계약\s*기간/, /재계약/, /계약\s*갱신/] },
   { category: "no_dismissal", patterns: [/해고.*존재하지/, /해고가\s*존재하지/, /해고\s*부존재/, /자발적.*사직/, /사직서.*제출/, /권고\s*사직/, /합의\s*퇴직/] },
   { category: "union_activity", patterns: [/부당노동행위/, /노조\s*활동/, /지배\s*개입/, /불이익\s*취급/, /조합\s*활동/] },
-  { category: "worker_status", patterns: [/근로자.*해당하는지/, /근로자성/, /근로기준법상\s*근로자/, /위임\s*계약/, /도급\s*계약/] },
+  { category: "worker_status", patterns: [/근로자.*해당하는지/, /근로자성/, /근로기준법상\s*근로자/, /당사자적격/, /사용종속관계/, /종속적\s*관계/, /계약의\s*형식/, /실질에\s*있어/, /임금을\s*목적으로/, /지휘\s*감독/] },
   { category: "discrimination", patterns: [/차별\s*시정/, /차별적\s*처우/, /비교\s*대상\s*근로자/] },
 ];
 

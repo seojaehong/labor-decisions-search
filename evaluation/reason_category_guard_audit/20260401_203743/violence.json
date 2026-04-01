@@ -1,0 +1,313 @@
+{
+  "reason": "violence",
+  "markers": [
+    "폭행",
+    "폭언",
+    "욕설",
+    "협박",
+    "모욕",
+    "가혹행위"
+  ],
+  "total": 2637,
+  "kept": 2424,
+  "removed": 213,
+  "kept_ratio": 0.9192,
+  "granted_before": 623,
+  "granted_after": 573,
+  "kept_examples": [
+    {
+      "id": "id_413717",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-02-02",
+      "decision_result": "dismissed",
+      "summary": "사용자가 일방적으로 근로관계를 종료하였다고 볼 수 없어 해고가 존재하지 않는다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "violence"
+      ]
+    },
+    {
+      "id": "id_414001",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "upheld",
+      "summary": "욕설 및 폭언, 폭행 등은 징계사유로 인정되고, 징계양정이 과도하지 않으며, 징계절차에도 하자가 없으므로 해고는 정당하며, 해고가 불이익 취급 및 지배ㆍ개입의 부당노동행위라고 보기는 어렵다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "union_activity",
+        "workplace_bullying",
+        "no_dismissal",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413677",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "dismissed",
+      "summary": "동료 근로자와 쌍방 폭행의 비위행위를 저지른 근로자에 대한 정직의 징계가 정당하다고 판정한 사례",
+      "reason_category": [
+        "violence",
+        "transfer",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_413967",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "summary": "징계사유가 인정되고, 징계양정이 과하다고 볼 수 없으며, 징계절차에 하자가 없어 해고가 정당하다고 판정한 사례",
+      "reason_category": [
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413933",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-16",
+      "decision_result": "granted",
+      "summary": "징계사유가 일부 인정되고 절차가 정당하나, 양정이 과도하여 부당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부① 발령지 부임 지연, ② 회사 품위 손상은 징계사유에 해당하지 않고, ③ 인사발령에 대한 불복은 일부만 징계사유에 해당하고, ④ 폭언ㆍ위협은 징계사유에 해당함나. 징계양정의 적정성 여부징계사유로 인정되는 부적절한 발언은 발언의 경위 등\n판단: 가. 징계사유의 존재 여부① 발령",
+      "reason_category": [
+        "violence",
+        "transfer",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_414027",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-01-16",
+      "decision_result": "granted",
+      "summary": "근로자의 징계사유가 모두 인정되고 징계절차도 적법하나 징계양정이 과하여 부당한 징계라고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413821",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-15",
+      "decision_result": "dismissed",
+      "summary": "징계사유가 존재하고 양정도 적정하며, 절차에도 하자가 없어 해고가 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유가 존재하는지 여부근로자와 상급자의 부적절한 관계, 상급자에 대한 폭언 등의 비위행위가 객관적으로 인정되므로 징계사유가 존재함나. 징계양정이 적정한지 여부상급자와의 부적절한 관계 등의 비위 행위들이 상당기간 이루어졌던 것으로 보이고, 이는 직장 내 근무\n판단: 가. 징계사유가 존재하",
+      "reason_category": [
+        "worker_status",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413611",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충북지방노동위원회",
+      "decision_date": "2026-01-13",
+      "decision_result": "granted",
+      "summary": "징계사유는 존재하나 징계양정이 과하여 해고처분이 부당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부무단결근을 1일 한 사실이 있었던 것으로 보아 근태가 불량한 사실은 인정된다.\n판단: 가. 징계사유의 존재 여부무단결근을 1일 한 사실이 있었던 것으로 보아 근태가 불량한 사실은 인정된다. 그러나 대표이사 폭행은 입증이 충분하지 않아 징계사유로 볼 수 없다. 따라서 근태 불량의 점에 대하",
+      "reason_category": [
+        "violence",
+        "absence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413623",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-13",
+      "decision_result": "granted",
+      "summary": "근로자가 사용자의 승인 없이 일방적으로 출근을 거부했다고 보기 어려워 무단결근으로 볼 수 없고 징계사유가 인정되지 않으므로 해고가 부당하다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "violence",
+        "absence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413761",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "granted",
+      "summary": "징계사유는 인정되나, 비위의 정도, 징계 형평성 등에 비추어 정직 5월의 징계는 양정이 과하여 부당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "violence",
+        "misconduct"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_413339",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-18",
+      "decision_result": "partial",
+      "summary": "근로자2 내지 4에 대한 징계는 정당하나, 근로자1은 징계 형평성에 어긋나 부당하고, 전직은 직장 내 괴롭힘 행위로 인한 피해자와의 분리를 위한 것으로 정당하며, 근로자들에 대한 전직과 징계가 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "union_activity",
+        "workplace_bullying",
+        "violence",
+        "absence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412745",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2025-11-27",
+      "decision_result": "granted",
+      "summary": "1차 정직은 이 사건 근로자의 직장 내 괴롭힘 행위가 취업규칙에서 정한 징계사유에 해당하나 징계양정이 적정하지 않아 부당하고, 2차 정직은 근로자에게 허위사실 유포행위가 객관적으로 입증되었다고 보기 어려운 점에서 징계사유가 존재하지 않아 부당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "workplace_bullying",
+        "violence",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_412013",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2025-11-26",
+      "decision_result": "granted",
+      "summary": "징계사유 일부가 인정되지 않고 양정이 과다하며, 징계절차에도 하자가 있어 해고는 부당하고, 사용자의 부당노동행위 의사를 확인할 만한 특별한 사정이 없어 해고가 불이익취급의 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "union_activity",
+        "workplace_bullying",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_402565",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2025-07-18",
+      "decision_result": "granted",
+      "summary": "보안위반의 징계사유는 인정되나, 일부 징계사유는 인정되지 않고, 사용자가 행한 감봉 처분은 징계로 달성하려는 목적에 비해 그 양정이 과하므로 부당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_402263",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-06-16",
+      "decision_result": "upheld",
+      "summary": "시용근로자에 해당하고 본채용 거부 절차는 적법하나 회사경영에 대한 허위사실 유포 및 업무방해 주장에 대한 객관적인 증거가 없고 수습평가 평정자의 업무 및 직책, 근로자와의 갈등 관계를 고려하면 평정의 객관성 및 공정성이 결여되었다고 보이므로 본채용 거부의 정당한 사유가 없어 부당해고에 해당한다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "violence"
+      ]
+    },
+    {
+      "id": "id_403331",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-05-09",
+      "decision_result": "overturned",
+      "summary": "입사 1년 미만 근로자에게 노조 미가입 시 불이익 시사 발언이 직장 내 괴롭힘으로 인정되어, 피해자 보호를 위한 직위해제가 정당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "violence"
+      ]
+    },
+    {
+      "id": "id_405911",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2025-03-24",
+      "decision_result": "dismissed",
+      "summary": "반복？지속적인 무단결근행위로 인한 징계해고가 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부사용자의 허가 및 승인 없는 무단결근행위는 징계사유로 인정된다.\n판단: 가. 징계사유의 존재 여부사용자의 허가 및 승인 없는 무단결근행위는 징계사유로 인정된다.나. 징계양정의 적정성 여부근로자 본연의 업무와 무관한 세탁업에 종사하다 쓰레기 무단투기로 정직 25일의 징계처분을 받은 이력이 존재",
+      "reason_category": [
+        "violence",
+        "absence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_405643",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2024부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-02-14",
+      "decision_result": "upheld",
+      "summary": "근로자의 직장 내 괴롭힘 행위가 인정되어 징계 사유, 양정, 절차에 하자가 없으므로 감봉 2월의 징계는 정당하고, 직장 내 괴롭힘 피해자와 분리라는 업무상 필요성이 인정되는 반면, 전보로 인한 근로자의 생활상 불이익은 통상 감내해야 할 범위이므로 전보도 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_409009",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2024부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2024-12-18",
+      "decision_result": "dismissed",
+      "summary": "가. 이 사건 징계사유가 존재하는지업무 불이행에 대해서는 징계사유로 삼기 곤란하다고 판단되나, 관리비 미납세대에 대한 독단적 단전 단수 지시, 타 직원들에게 소리를 지르는 등 신체적 정신적 위협을 한 행위, 업무시간 중 보고 없이 무단외출 및 무단조퇴 등은 이 사건 회사 동료 근로자들의 진술, 차량 입출입 현황 등을 통해 확인되므로 징계사유로 인정됨나. 이 사건 징계양정이 적정한지인정되는 징",
+      "reason_category": [
+        "no_dismissal",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_409537",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2024부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2024-12-02",
+      "decision_result": "dismissed",
+      "summary": "징계가 아닌 통상의 인사명령으로서의 전보이고, 업무상 필요성이 인정되며 생활상 불이익이 있다고 보기 어려울 뿐만 아니라 근로자와의 협의도 시도하였다는 점에서 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "workplace_bullying",
+        "violence"
+      ]
+    }
+  ]
+}

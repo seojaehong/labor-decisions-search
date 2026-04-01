@@ -1,0 +1,291 @@
+{
+  "reason": "embezzlement",
+  "markers": [
+    "횡령",
+    "배임",
+    "공금 유용",
+    "착복",
+    "부정 수령",
+    "금전 비위"
+  ],
+  "total": 1380,
+  "kept": 1286,
+  "removed": 94,
+  "kept_ratio": 0.9319,
+  "granted_before": 391,
+  "granted_after": 371,
+  "kept_examples": [
+    {
+      "id": "id_414033",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-08",
+      "decision_result": "granted",
+      "summary": "해고에 의해 근로관계가 종료되었고, 사용자가 해고사유와 시기를 서면으로 통지하지 않아 부당한 해고라고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "transfer",
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "id_413267",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2025-12-30",
+      "decision_result": "dismissed",
+      "summary": "징계사유가 인정되고 인정되는 비위행위의 정도에 비하여 그 양정이 적정하며, 징계절차상 하자도 존재하지 아니하여 해고처분이 부당하지 않다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "absence",
+        "embezzlement",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_412933",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2025-12-26",
+      "decision_result": "dismissed",
+      "summary": "가. 징계해고에 대한 징계사유 존재 여부근로자는 오전 파출수납 업무 중 고객의 입금액을 받는 과정에서 고객이 모르게 3차례에 걸쳐 80만 원을 횡령하여 복무규정 제3조 성실의무를 위반하였으므로 이는 인사규정 제60조의 징계사유에 해당한다.나. 징계해고에 대한 징계양정의 적정성 여부사용자가 인사규정 제6장 및 징계양정기준에 근거하여 근로자에게 행한 징계해고 처분은 근로자의 반복된 비위행위에 따",
+      "reason_category": [
+        "worker_status",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412623",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-17",
+      "decision_result": "granted",
+      "summary": "해고에 이를 만큼 중대한 귀책사유가 있다고 보기 어렵고, 해고의 서면통지 의무를 위반하여 부당한 해고라고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "id_412725",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-15",
+      "decision_result": "dismissed",
+      "summary": "징계사유가 존재하고, 징계사유의 성질, 중대성에 비추어 양정이 적정하며, 절차에 하자가 없어 징계가 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_411835",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2025-12-03",
+      "decision_result": "dismissed",
+      "summary": "근로자의 징계사유가 존재하고 양정이 적정하며 절차에 하자가 없어 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 정당성 여부중고업자가 의뢰한 특별처리 사유가 없는 휴대폰에 대한 수리 비용을 2020. 7. 22.경부터 2022. 6. 29.경까지 총 41회에 걸쳐 합계 890,000원을 임의로 할인하여 업무상 배임으로 형사처벌을 받은 것은 징계사유에 해당한다.\n판단: 가. 징계사유의 정당성 ",
+      "reason_category": [
+        "no_dismissal",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_411891",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-11-27",
+      "decision_result": "granted",
+      "summary": "징계사유가 인정되지 않고, 징계절차에도 하자가 있어 부당징계라고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부근로자가 직원들과 대화 중 직공 회장의 횡령 의혹을 언급하며 “직공 회장을 날린다,\n판단: 가. 징계사유의 존재 여부근로자가 직원들과 대화 중 직공 회장의 횡령 의혹을 언급하며 “직공 회장을 날린다, 제명 처리한다.”라는 취지의 발언을 한 것은 사실이나, ① 사적인 대화 중의 발언이",
+      "reason_category": [
+        "worker_status",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412293",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-24",
+      "decision_result": "upheld",
+      "summary": "사용자는 근로자의 업무상 배임 등의 비위행위에 대해 검찰에서 공소를 제기한바, 재단의 인사 규정상 '형사사건으로 기소된 자’에 해당하는 근로자에 대해 직위해제 조치를 행한 것이고, 보수규정에 따라 직위해제 기간에 해당하는 임금을 지급하였으므로 정당한 인사조치라고 주장하지만, ① 사용자가 동일한 사건의 관련자인 다른 근로자에 대해서는 별도의 직위해제 조치를 하지 않은 점, ② 근로자에 대한 1",
+      "reason_category": [
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412393",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-24",
+      "decision_result": "upheld",
+      "summary": "해고는 징계사유를 입증할 구체적이고 객관적인 근거가 존재하지 않아 부당하다고 판정한 사례\n\n쟁점: ① 사용자는 대표자에 대한 무시ㆍ비난 및 근무태도 불량, 업무지시 불이행, 사적 행위, 실적저조, 책임감 결여, 법인카드 사적 사용 등 배임, 조직질서 문란, 허위사실 유포 등 회사의 명예 실추 행위 등에 대해 징계사유로 삼으면서 그 근거로 취업규칙상 신의 성실의\n판단: ① 사용자는 대표자에 대",
+      "reason_category": [
+        "no_dismissal",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_400657",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2025-11-21",
+      "decision_result": "granted",
+      "summary": "징계사유는 대부분 인정되나, 징계양정이 정당하지 않아 부당한 해고라고 판정한 사례\n\n쟁점: 가. 일사부재리의 원칙의 위반 여부1차 해고에 대하여 부당해고 판정 확정으로 소급하여 징계처분을 받지 않은 것으로 보아, 새로이 같은 사유로 다시 징계처분을 한다고 하여 일사부재리에 원칙에 위반된다고 볼 수 없고 1차 해고와 2차 해고는 징계사유가 동일하지 아니하여 근로자 주장은 이유 없다.\n판단: 가",
+      "reason_category": [
+        "worker_status",
+        "no_dismissal",
+        "embezzlement",
+        "misconduct"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_411781",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-11-25",
+      "decision_result": "dismissed",
+      "summary": "기각징계사유가 존재하고 양정도 적정하며, 절차에도 하자가 없어 해고가 정당하다고 판정한 사례",
+      "reason_category": [
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_411575",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-11-20",
+      "decision_result": "dismissed",
+      "summary": "시용근로자에 해당하고, 본채용 거부에 합리적인 사유가 존재하며 절차상 하자도 존재하지 않아 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "no_dismissal",
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "id_410847",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-10-02",
+      "decision_result": "dismissed",
+      "summary": "대기발령들은 해고로 실효되고 법률상 불이익이 없어 구제이익이 존재하지 않고, 징계는 징계사유가 존재하고 징계양정이 과도하지 않으며 징계절차도 적법하여 정당하다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_401829",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-07-09",
+      "decision_result": "upheld",
+      "summary": "가. 구제이익의 존부근로자에 대한 해고는 2024. 11. 20.에 종국적인 의사표시가 근로자에게 전달되어 2024. 11. 20. 자 해고 처분이 있었던 것은 분명하므로 2024. 12. 6. 신청한 이 사건은 해고의 정당성을 다툴 구제이익이 존재함나. 징계사유의 존재 여부① 이사장 사전 승인 없이 보수규정과 다르게 시간외 및 휴일근무수당 수령한 사실, ② 피복비 세부내역 기준표는 보수규정",
+      "reason_category": [
+        "no_dismissal",
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "bc_03880756",
+      "title": "서울행정법원 2024. 8. 22. 선고 2023구합86577 판결 부당해고구제재심판정취소",
+      "case_number": "2023구합86577",
+      "department": "서울행정법원",
+      "decision_date": "2024-08-22",
+      "decision_result": "dismissed",
+      "summary": "부당해고 구제 재심판정 취소를 구한 행정소송. 서울행정법원 1심에서 중앙노동위원회의 재심판정에 법적 하자가 없다고 판단하여 원고의 청구를 기각한 사건이다.",
+      "reason_category": [
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "id_351279",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2024부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2024-08-12",
+      "decision_result": "upheld",
+      "summary": "징계사유가 존재하고 양정 또한 적정하며 징계절차에도 하자가 없어 징계가 정당하다고 판정한 사례",
+      "reason_category": [
+        "embezzlement",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "bc_c346b046",
+      "title": "인천지방법원 2024. 7. 25. 선고 2022가합59171 판결 면직판결등무효확인의소",
+      "case_number": "2022가합59171",
+      "department": "인천지방법원",
+      "decision_date": "2024-07-25",
+      "decision_result": "dismissed",
+      "summary": "면직판결등무효확인의소 사건. 인천지방법원 1심에서 무효 확인 청구가 기각됨. 면직 처분이 유효함.",
+      "reason_category": [
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "bc_b0f52db2",
+      "title": "의정부지방법원 고양지원 2024. 7. 5. 선고 2023가합53532 판결 해임처분무효확인청구등의소",
+      "case_number": "2023가합53532",
+      "department": "의정부지방법원 고양지원",
+      "decision_date": "2024-07-05",
+      "decision_result": "granted",
+      "summary": "해임처분무효확인청구등의소 사건. 의정부지방법원 고양지원 1심에서 무효 확인이 인용됨. 해임 처분이 취소됨.",
+      "reason_category": [
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "bc_03e73270",
+      "title": "전주지방법원 2024. 6. 26. 선고 2023가합12134 판결 해고무효확인",
+      "case_number": "2023가합12134",
+      "department": "전주지방법원",
+      "decision_date": "2024-06-26",
+      "decision_result": "dismissed",
+      "summary": "# 직상감독자 징계의 정당성 및 징계양정의 적법성 판단\n## 결과 요약\n- 법원은 원고의 청구를 모두 기각하며, 피고의 원고에 대한 정직 1개월 징계 처분은 적법하고 유효하다고 판단함.\n## 사실관계\n- 피고는 국가공간정보기본법에 따라 설립된 특수법인으로, 원고는 1989. 1. 4. 피고 회사에 입사하여 2023. 7. 1.부터 C지사장으로 근무 중임.\n- 원고는 2023. 1. 4.경 D",
+      "reason_category": [
+        "embezzlement"
+      ]
+    },
+    {
+      "id": "bc_e5bd7ac3",
+      "title": "서울동부지방법원 2024. 6. 20. 선고 2023가합102999(본소),2023가합106212(반소) 판결 약정금,부당이득금반환청구",
+      "case_number": "2023가합102999(본소),2023가합106212(반소)",
+      "department": "서울동부지방법원",
+      "decision_date": "2024-06-20",
+      "decision_result": "dismissed",
+      "summary": "# 이사 보수 지급의 적법성 및 근로자성 인정 여부\n## 결과 요약\n- 원고들의 본소 청구(미지급 이사 보수 청구)는 기각하고, 피고의 반소 청구(부당이득 반환 청구)는 일부 인용함.\n- 원고 A는 피고에게 56,468,250원, 원고 B은 109,694,050원, 원고 C은 33,968,250원 및 각 지연손해금을 지급함.\n## 사실관계\n- 피고는 집합투자업 등을 영위하는 회사이며, 원고 ",
+      "reason_category": [
+        "embezzlement"
+      ]
+    }
+  ]
+}

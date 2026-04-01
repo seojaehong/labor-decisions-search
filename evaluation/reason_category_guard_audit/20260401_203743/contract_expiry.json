@@ -1,0 +1,287 @@
+{
+  "reason": "contract_expiry",
+  "markers": [
+    "갱신기대권",
+    "계약만료",
+    "기간제",
+    "계약 갱신",
+    "재계약",
+    "근로계약 기간"
+  ],
+  "total": 7629,
+  "kept": 6052,
+  "removed": 1577,
+  "kept_ratio": 0.7933,
+  "granted_before": 1357,
+  "granted_after": 1066,
+  "kept_examples": [
+    {
+      "id": "id_413987",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-02-02",
+      "decision_result": "overturned",
+      "summary": "기간의 정함이 없는 근로자로 전환된 근로자를 계약기간 만료를 이유로 근로관계를 종료하는 것은 부당해고라고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_414023",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-02-02",
+      "decision_result": "granted",
+      "summary": "근로자는 기간의 정함이 없는 근로자에 해당하고, 근로관계 종료는 실질적인 해고로서 해고의 절차적 정당성을 갖추지 못한 부당해고에 해당한다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "no_dismissal",
+        "contract_expiry",
+        "worker_status"
+      ]
+    },
+    {
+      "id": "id_413765",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "제주지방노동위원회",
+      "decision_date": "2026-01-30",
+      "decision_result": "dismissed",
+      "summary": "이 사건 근로계약은 기간의 정함이 있는 근로계약이고, 근로자에게 계약갱신 기대권이 인정되지 않아 계약기간 만료로 근로관계가 종료된 것으로 판정한 사례",
+      "reason_category": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_414031",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-30",
+      "decision_result": "granted",
+      "summary": "가. 사실상 기간의 정함이 없는 근로자들인지 여부근로계약서에는 계약기간이 명시되어 있고 근로자들이 계약기간 및 내용 등에 대해 충분히 인지하고 있는 것으로 보아 기간의 정함이 없는 근로계약을 체결하였다고 보기 어렵다.나. (기간제 근로자들이라면) 갱신 기대권이 존재하는지 여부단기간 근로계약을 체결한 후 매번 평가를 통해 재계약 여부가 결정되고 계약 갱신과정을 거쳐 정규직으로 전환하는 관행이 ",
+      "reason_category": [
+        "contract_expiry",
+        "worker_status",
+        "union_activity",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_413763",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "울산지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "granted",
+      "summary": "해고가 존재하고 해고의 정당성(사유, 절차)이 확보되지 않아 부당하다고 판정하고 금전보상명령 신청을 수용한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "no_dismissal",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413771",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "울산지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "dismissed",
+      "summary": "해고가 아니라 계약기간 만료로 근로관계가 종료된 사실이 인정되어 노동위원회의 구제신청을 기각 판정한 사례",
+      "reason_category": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413965",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "dismissed",
+      "summary": "근로자가 계약기간 만료 후 근로자의 지위에서 벗어난 이후에 구제신청을 하였고, 계약기간 만료일까지의 임금 상당액도 모두 지급되어 근로자에게 구제신청의 이익이 없다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "no_dismissal",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "2025손해OOO",
+      "title": "근로조건 위반에 대한 손해배상사건",
+      "case_number": "2025손해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "summary": "근로관계가 일정 기간 지속된 이후에 근로조건을 변경한 것은 근로조건 위반에 대한 손해배상 청구 대상에 해당하지 않는다고 결정한 사례",
+      "reason_category": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413541",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "granted",
+      "summary": "근로자의 무기계약직 전환 기대권이 인정되고, 무기계약 전환거절의 합리적 사유가 없어 부당해고에 해당한다고 판정한 사례",
+      "reason_category": [
+        "contract_expiry",
+        "worker_status"
+      ]
+    },
+    {
+      "id": "id_413579",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "summary": "기간제 근로자에 대한 근로계약 갱신기대권이 인정되지 않는다고 판정한 사례\n\n쟁점: 가. 사용자 적격이 누구에게 있는지 여부수급업체인 사용자1이 근로자와 근로계약을 체결하고 급여 지급, 4대 보험 가입, 현장 대리인을 통한 업무지시 등을 한 것으로 보이므로 사용자 적격은 사용자1에게 있는 것으로 판단됨나. 근로계약 갱신기대권이 존재하는지\n판단: 가. 사용자 적격이 누구에게 있는지 여부수급업체인",
+      "reason_category": [
+        "contract_expiry"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_413227",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2026-12-31",
+      "decision_result": "dismissed",
+      "summary": "무기계약직 전환기대권은 인정되나 무기계약직 전환을 거절하는 데에는 합리적인 이유가 있음\n\n쟁점: 무기계약직 전환기대권은 인정되나 무기계약직 전환을 거절하는 데에는 합리적인 이유가 있음\n판단: 무기계약직 전환기대권은 인정되나 무기계약직 전환을 거절하는 데에는 합리적인 이유가 있음",
+      "reason_category": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_414057",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-02-04",
+      "decision_result": "dismissed",
+      "summary": "인사발령의 구제이익이 있으나, 업무상 필요성이 인정되며, 생활상 불이익이 크지 않아 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413859",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-29",
+      "decision_result": "dismissed",
+      "summary": "근로계약 만료 이후 구제신청을 제기하여 구제이익이 없을 뿐더러 사직서를 제출하여 해고가 존재하지 않는다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413801",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "dismissed",
+      "summary": "당사자가 맺은 근로계약서상 근로계약기간이 만료되어 근로관계가 종료된 것으로 해고가 존재하지 않는다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413835",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-15",
+      "decision_result": "dismissed",
+      "summary": "갱신 기대권이 인정되지 않으므로 계약기간 만료로 인한 근로관계 종료는 정당하다고 판정한 사례",
+      "reason_category": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413645",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2026-01-13",
+      "decision_result": "dismissed",
+      "summary": "근로관계 종료가 근로자의 의사에 반하여 사용자의 일방적인 의사에 기인하였다고 볼 만한 입증이 없어 해고가 존재하지 아니한다고 판정한 사례",
+      "reason_category": [
+        "no_dismissal",
+        "absence",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413581",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "granted",
+      "summary": "가. 근로기준법상 근로자에 해당하는지① 사용자는 근로자와 근로계약을 체결하고, 임원 위촉계약 및 임원 보수 등에 관한 사항에 대해 별도의 계약을 체결한 사실이 없는 점, ② 근로자가 법인 등기부등본상 등기된 임원이 아니고 회사의 주식을 보유하고 있지 않은 점, ③ 근로자가 업무수행 과정에서 근로자성을 부인할 정도로 독자적인 권한을 가지고 있었던 것으로 보기 어려운 점 등을 종합할 때 근로기준",
+      "reason_category": [
+        "worker_status",
+        "no_dismissal",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413647",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "dismissed",
+      "summary": "근로자에게 정년 이후 재고용 기대권이 존재하지 않아 근로관계는 정년으로 정당하게 종료되었다고 판정한 사례",
+      "reason_category": [
+        "contract_expiry",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_413687",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "dismissed",
+      "summary": "근로기준법상 근로자에 해당하고 해고는 있었으나 근로계약기간 만료일 이후 구제신청을 하여 구제이익이 없다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_413755",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "dismissed",
+      "summary": "촉탁직 재고용 기대권이 존재하지 않아 계약기간 만료로 인한 근로관계 종료는 정당하고, 촉탁직 재고용 거절이 불이익 취급 및 지배ㆍ개입의 부당노동행위라고 보기도 어렵다.",
+      "reason_category": [
+        "contract_expiry",
+        "worker_status",
+        "union_activity",
+        "no_dismissal"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "reason": "workplace_bullying",
+  "markers": [
+    "직장내괴롭힘",
+    "괴롭힘",
+    "괴롭힘 행위",
+    "따돌림",
+    "신고 후",
+    "분리조치",
+    "접촉금지"
+  ],
+  "total": 3659,
+  "kept": 2759,
+  "removed": 900,
+  "kept_ratio": 0.754,
+  "granted_before": 760,
+  "granted_after": 572,
+  "kept_examples": [
+    {
+      "id": "bc_76b54438",
+      "title": "창원지방법원 2026. 2. 4. 선고 2024가단121930 판결 손해배상(기)",
+      "case_number": "2024가단121930",
+      "department": "창원지방법원",
+      "decision_date": "2026-02-04",
+      "decision_result": "partial",
+      "summary": "# 학교법인, 행정실장, 교사의 직장 내 성희롱 및 괴롭힘에 대한 손해배상 책임 인정\n## 결과 요약\n- 피고 학교법인 B은 원고에게 2,000,000원, 피고 C는 1,000,000원, 피고 D는 5,000,000원 및 각 지연손해금을 지급함.\n- 원고의 피고들에 대한 나머지 청구는 기각함.\n## 사실관계\n- 원고는 F고등학교 영양사로 근무하다 2023. 6. 2. 퇴직함.\n- 원고는 피고",
+      "reason_category": [
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "bc_f4b9e128",
+      "title": "창원지방법원 2026. 2. 4. 선고 2024가단121930 판결 손해배상(기)",
+      "case_number": "2024가단121930",
+      "department": "창원지방법원",
+      "decision_date": "2026-02-04",
+      "decision_result": "dismissed",
+      "summary": "# 학교법인, 행정실장, 교사의 직장 내 성희롱 및 괴롭힘에 대한 손해배상 책임 인정\n## 결과 요약\n- 피고 학교법인 B은 원고에게 2,000,000원, 피고 C는 1,000,000원, 피고 D는 5,000,000원 및 각 지연손해금을 지급함.\n- 원고의 피고들에 대한 나머지 청구는 기각함.\n## 사실관계\n- 원고는 F고등학교 영양사로 근무하다 2023. 6. 2. 퇴직함.\n- 원고는 피고",
+      "reason_category": [
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "bc_834ea7ab",
+      "title": "의정부지방법원 2026. 2. 3. 선고 2024가단110876 판결 손해배상(기)",
+      "case_number": "2024가단110876",
+      "department": "의정부지방법원",
+      "decision_date": "2026-02-03",
+      "decision_result": "partial",
+      "summary": "# 직장 내 괴롭힘으로 인한 사망 사건에서 사용자 책임 및 불법행위 책임 인정 여부\n## 결과 요약\n- 피고들은 공동하여 원고 A에게 5천만 원 및 지연손해금을 지급함.\n- 원고 A의 나머지 청구 및 원고 B의 청구를 모두 기각함.\n- 소송총비용 중 원고 A과 피고들 사이 생긴 부분의 90%는 원고 A이, 10%는 피고들이 부담하고, 원고 B과 피고들 사이 생긴 부분은 원고 B이 부담함.\n-",
+      "reason_category": [
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "id_413701",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-29",
+      "decision_result": "dismissed",
+      "summary": "징계의 사유, 양정, 절차가 모두 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유가 존재하는지 여부사용자가 근로자에게 직장 내 괴롭힘 조사 시 인정한 3가지 사유(① 신고인에 대한 과중한 업무할당으로 인한 업무량 증가 및 이로 인한 신고인의 신체적, 정신적 부담가중, ② 업무미처리 상태로 퇴근함으로써 신고인에게 업무량 가중, ③\n판단: 가. 징계사유가 존재하는지 여부사용자가 근로자에게 직장 내",
+      "reason_category": [
+        "workplace_bullying",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413807",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "dismissed",
+      "summary": "사용자1에게 당사자 적격이 인정되고, 근로자의 징계사유가 모두 인정되고 징계양정이 적정하며 징계절차상 하자가 없어 징계가 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "workplace_bullying",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_413735",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "dismissed",
+      "summary": "전보의 업무상 필요성이 인정되고, 생활상 불이익이 현저하게 크다고 볼 수 없어 전보 처분이 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "transfer",
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "id_413769",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "dismissed",
+      "summary": "회식 자리 후 직장 내 성비위 행위를 하여 징계해고가 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부① 회식 과정에서의 성추행 행위, ② 택시 안에서 성추행 행위, ③ 만취로 정상적인 판단능력이 없거나 항거불능인 피해자에 대한 성행위는 직장 내 성희롱, 직장 내 괴롭힘 및 사업장 규율과 질서 문란 등에 해당하므로 징계사유는 있음나.\n판단: 가. 징계사유의 존재 여부① 회식 과정에서",
+      "reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "workplace_bullying",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413927",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "dismissed",
+      "summary": "강등 및 대기발령 모두 정당하여 기각\n\n쟁점: 가. 강등의 정당성 여부1) 징계사유의 존재 여부사용자가 징계사유로 삼은 근로자의 성희롱 및 직장 내 괴롭힘 행위 모두 징계사유로 인정된다.\n판단: 가. 강등의 정당성 여부1) 징계사유의 존재 여부사용자가 징계사유로 삼은 근로자의 성희롱 및 직장 내 괴롭힘 행위 모두 징계사유로 인정된다.2) 징계양정의 적정성 여부근로자는 피해자의 입사 초기부터 ",
+      "reason_category": [
+        "sexual_harassment",
+        "workplace_bullying",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413913",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-21",
+      "decision_result": "dismissed",
+      "summary": "직장 내 괴롭힘 신고인 보호를 위해 내려진 대기발령이 정당하다고 판정한 사례\n\n쟁점: 가. 업무상 필요성 여부회사 소속 괴롭힘 신고인가 근로자에 직장 내 괴롭힘 신고를 함에 따라 괴롭힘 신고인 보호 및 조사 절차의 중립성ㆍ공정성 담보를 위하여 대기발령이 필요한 것으로 보이고, 사용자가 이 권고사직을 강요하기 위하여 대기발령을 하였다는 근로자 주장을\n판단: 가. 업무상 필요성 여부회사 소속 괴",
+      "reason_category": [
+        "no_dismissal",
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "id_413655",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "summary": "직장 내 괴롭힘 비위행위에 따른 전보 및 불문경고 처분이 모두 정당하다고 판정한 사례\n\n쟁점: 가. 전보의 정당성(업무상 필요성의 존재 여부, 생활상 불이익의 정도, 신의칙상 요구되는 협의절차 준수 여부) 여부① 직장 내 괴롭힘 사실이 인정되므로 사용자가 취업규칙과 직장 내 괴롭힘 예방 및 대응 지침에 따라 근로자를 전보한 것이므로 업무상 필요성이 인정되고,\n판단: 가. 전보의 정당성(업무상",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "misconduct"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_414001",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "upheld",
+      "summary": "욕설 및 폭언, 폭행 등은 징계사유로 인정되고, 징계양정이 과도하지 않으며, 징계절차에도 하자가 없으므로 해고는 정당하며, 해고가 불이익 취급 및 지배ㆍ개입의 부당노동행위라고 보기는 어렵다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "union_activity",
+        "workplace_bullying",
+        "no_dismissal",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_413519",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-08",
+      "decision_result": "dismissed",
+      "summary": "제2 징계사유는 존재를 인정하기는 어려우나, 제1 징계사유가 명백히 징계사유로 인정되고 비위의 정도도 중하므로 양정의 정당성은 충분히 인정되며, 절차상 하자가 확인되지 않아 정직이 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "workplace_bullying",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_412537",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-15",
+      "decision_result": "partial",
+      "summary": "전보는 업무상 필요성이 인정되지 않을 뿐 아니라 불이익이 상당하여 부당하고, 징계해고는 이력서 허위기재 사실이 인정되어 정당하나, 정직은 인정되는 비위에 비해 양정이 과중하여 부당하다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412279",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-02",
+      "decision_result": "partial",
+      "summary": "구제신청에 대한 심판권은 노동위원회에 있고, 대기발령의 구제이익은 존재하나 대기발령의 정당성이 인정되므로 정당하며, 징계사유가 존재하고 절차에 하자는 없으나 양정이 과도하여 부당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "workplace_bullying",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412071",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2025-11-27",
+      "decision_result": "dismissed",
+      "summary": "피해근로자의 업무수행에 대한 부정적인 의견 게시 및 사생활에 관한 추측성 댓글 작성 행위는 징계사유에 해당하고, 정직 1월의 징계양정은 적정하고, 절차에 하자도 없으므로 징계는 정당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "bc_38a4de51",
+      "title": "대구지방법원 2025. 11. 26. 선고 2024가단162492 판결 손해배상(기)",
+      "case_number": "2024가단162492",
+      "department": "대구지방법원",
+      "decision_date": "2025-11-26",
+      "decision_result": "partial",
+      "summary": "# 공익신고자 신상 공개 보도에 따른 위자료 청구 사건\n## 결과 요약\n- 피고는 원고에게 공익신고자 보호법 위반에 따른 불법행위로 인한 정신적 피해에 대한 위자료 250만 원 및 지연손해금을 지급함.\n- 원고의 나머지 청구는 기각됨.\n## 사실관계\n- 원고는 2020. 7. 20.부터 2023. 6. 30.까지 C재가센터에서 요양보호사로 근무함.\n- 원고는 2021. 2. 2. 이 사건 센",
+      "reason_category": [
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "id_412013",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2025-11-26",
+      "decision_result": "granted",
+      "summary": "징계사유 일부가 인정되지 않고 양정이 과다하며, 징계절차에도 하자가 있어 해고는 부당하고, 사용자의 부당노동행위 의사를 확인할 만한 특별한 사정이 없어 해고가 불이익취급의 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "union_activity",
+        "workplace_bullying",
+        "violence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_411831",
+      "title": "○ ○ ○ 차별시정 신청",
+      "case_number": "2025차별OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2025-11-21",
+      "decision_result": "dismissed",
+      "summary": "사용자는 직장 내 성희롱 피해근로자에 대해 적절한 조치를 하였고, 근로자가 주장하는 불리한 처우가 직장 내 성희롱과는 관련성이 없는 등 사용자의 근로자에 대한 차별적 처우가 인정되지 아니함",
+      "reason_category": [
+        "sexual_harassment",
+        "workplace_bullying",
+        "discrimination"
+      ]
+    },
+    {
+      "id": "bc_9c93def6",
+      "title": "대법원 2025. 11. 20. 선고 2025다213717 판결 손해배상(기)",
+      "case_number": "2025다213717",
+      "department": "대법원",
+      "decision_date": "2025-11-20",
+      "decision_result": "overturned",
+      "summary": "# 명예훼손에 있어 허위사실 적시 여부 및 공공의 이익 판단 기준\n## 결과 요약\n- 원심판결을 파기하고, 사건을 서울중앙지방법원에 환송함.\n## 사실관계\n- 원고는 C박물관 시설관리과 공무직 근로자(미화 주임)로 근무하다 퇴직하였고, 피고는 같은 곳에서 미화 업무를 담당하는 공무직 근로자임.\n- 원고는 2020. 7. 9. 자신의 관리·감독을 받던 피고로부터 15만 원 상당의 양주 1병을 ",
+      "reason_category": [
+        "workplace_bullying"
+      ]
+    },
+    {
+      "id": "id_399983",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-10-28",
+      "decision_result": "dismissed",
+      "summary": "직위해제는 업무상 필요성에 비해 생활상 불이익이 크지 않아 정당하고, 정직은 징계사유가 모두 인정되고 비위행위에 비하여 징계양정이 과도하지 않으며 징계절차도 적법하여 정당하다고 판정한 사례",
+      "reason_category": [
+        "workplace_bullying",
+        "misconduct"
+      ]
+    }
+  ]
+}

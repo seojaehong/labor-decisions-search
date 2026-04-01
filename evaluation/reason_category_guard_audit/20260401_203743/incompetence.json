@@ -1,0 +1,286 @@
+{
+  "reason": "incompetence",
+  "markers": [
+    "업무능력 부족",
+    "저성과",
+    "근무성적 불량",
+    "부적격",
+    "실적 최하위",
+    "개선 기회",
+    "본채용 거부"
+  ],
+  "total": 2239,
+  "kept": 429,
+  "removed": 1810,
+  "kept_ratio": 0.1916,
+  "granted_before": 524,
+  "granted_after": 112,
+  "kept_examples": [
+    {
+      "id": "id_413549",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-29",
+      "decision_result": "granted",
+      "summary": "일부 징계사유가 인정되나, 인정되는 징계사유만으로 감봉 3개월의 처분은 양정이 과하여 부당하며, 징계절차상 하자는 없다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "absence",
+        "incompetence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_412831",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "제주지방노동위원회",
+      "decision_date": "2026-01-14",
+      "decision_result": "dismissed",
+      "summary": "사용자가 수습근로자의 본채용 거절로 근로관계를 정당하게 종료한 것으로 판정한 사례\n\n쟁점: 가. 본채용 거부의 정당성 여부양 당사자가 체결한 근로계약서 제5조 및 취업규칙 제4조에 따르면 수습기간은 입사 시점부터 3개월로 정하고, 수습기간 동안 업무 적격성을 판단하여 근로계약을 종료할 수 있도록 규정되어 있다.\n판단: 가. 본채용 거부의 정당성 여부양 당사자가 체결한 근로계약서 제5조 및 취",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_413001",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-05",
+      "decision_result": "dismissed",
+      "summary": "시용근로자에 대한 정당한 평가를 통해 객관적이고 합리적인 이유로 본채용을 거부하였고 절차도 적법하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_412551",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-18",
+      "decision_result": "dismissed",
+      "summary": "시용근로관계에 해당하고, 본채용 거부에 합리적 이유가 있으며 절차에도 하자가 없어 해고가 정당하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_412075",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-10",
+      "decision_result": "granted",
+      "summary": "해고사유의 정당성이 인정되지 않고 해고절차 또한 적법하지 않다고 판정한 사례\n\n쟁점: 가. 해고가 존재하는지 여부2025. 9. 25. 자 해고 통보 이후 사용자가 2025. 9. 30. 근로자에게 해고 통보를 한다며 2025. 10. 30.까지 일하라고 문자메시지를 보냈으므로, 2025. 9. 25. 자 해고는 철회되었고 2025. 10. 30. 자\n판단: 가. 해고가 존재하는지 여부202",
+      "reason_category": [
+        "no_dismissal",
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_412309",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경남지방노동위원회",
+      "decision_date": "2025-12-08",
+      "decision_result": "granted",
+      "summary": "사용자가 2025. 10. 2. 근로자에게 행한 해고는 통상해고로서, 해고의 정당성을 갖추지 않아 부당하며, 근로자의 금전보상명령신청을 수용하기로 판정한 사례",
+      "reason_category": [
+        "probation",
+        "transfer",
+        "incompetence",
+        "misconduct"
+      ]
+    },
+    {
+      "id": "id_411941",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-05",
+      "decision_result": "dismissed",
+      "summary": "사용자가 일방적 의사에 따라 근로관계를 종료하였다고 볼만한 사정이 보이지 않으므로 해고는 없었다고 판정한 사례",
+      "reason_category": [
+        "absence",
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_412327",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-11-28",
+      "decision_result": "dismissed",
+      "summary": "근로자에게 근로계약 갱신기대권이 인정되나, 갱신 거절에 합리적인 이유가 존재한다고 판정한 사례",
+      "reason_category": [
+        "contract_expiry",
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_412461",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-14",
+      "decision_result": "upheld",
+      "summary": "징계사유 일부 인정되나 양정이 과도하고 절차도 위법하여 해고가 부당하다고 판정한 사례\n\n쟁점: 근로자의 징계혐의 중 일부는 징계사유가 인정되나 일부는 업무능력 부족으로 보는 것이 타당하고 징계사유에 비해 징계해고는 과도하여 사회통념상 합리성이 부족하며 징계위원회 개최 사전통지 및 소명기회 부여도 하지 않아 위법하다고 판정한 사례\n판단: 근로자의 징계혐의 중 일부는 징계사유가 인정되나 일부는 ",
+      "reason_category": [
+        "worker_status",
+        "incompetence",
+        "misconduct",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_413175",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-10-23",
+      "decision_result": "upheld",
+      "summary": "시용기간 중 저조한 평가 결과가 본채용 거부의 합리적 이유로 인정되고 절차도 적법하다고 판정한 사례",
+      "reason_category": [
+        "worker_status",
+        "probation",
+        "incompetence"
+      ]
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "bc_fa7ad0ba",
+      "title": "부산지방법원 동부지원 2026. 2. 11. 선고 2023가단135177 판결 부당이득금",
+      "case_number": "2023가단135177",
+      "department": "부산지방법원 동부지원",
+      "decision_date": "2026-02-11",
+      "decision_result": "dismissed",
+      "summary": "# 연출계약 해지에 따른 연출료 반환 및 부당해고구제신청 관련 손해배상 청구 기각\n## 결과 요약\n- 원고의 피고들에 대한 연출료 반환 및 손해배상 청구를 모두 기각함.\n## 사실관계\n- 원고는 2023. 1.경 서핑 예능 프로그램 'E'를 기획하고, 2023. 2. 17. 피고 B, C과, 2023. 4. 3. 피고 D와 연출계약을 체결함.\n- 원고는 2023. 5. 10. 피고들의 의무 ",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_60d193b9",
+      "title": "서울고등법원 2025. 12. 18. 선고 2025누8092 판결 부당해고구제재심판정취소",
+      "case_number": "2025누8092",
+      "department": "서울고등법원",
+      "decision_date": "2025-12-18",
+      "decision_result": "dismissed",
+      "summary": "# 부당해고 구제신청 관련 신뢰관계 파탄 주장의 적법성 판단\n## 결과 요약\n- 원고의 항소를 기각하고, 항소비용은 원고가 부담함.\n## 사실관계\n- 원고는 참가인과의 근로계약서 작성 업무 미이행을 이유로 참가인이 허위 진정을 하였다고 주장함.\n- 원고는 이 사건 복직명령 당시 이미 원고와 참가인 사이에 신뢰관계가 중대하게 손상되어 고용관계 유지가 어렵다고 주장하며 통상해고의 적법성을 주장함",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_c95a9d9b",
+      "title": "서울남부지방법원 2025. 10. 28. 선고 2025고단2573 판결 도로교통법위반(음주운전)",
+      "case_number": "2025고단2573",
+      "department": "서울남부지방법원",
+      "decision_date": "2025-10-28",
+      "decision_result": "징역 1년6월 집행유예 3년",
+      "summary": "# 음주운전 재범에 대한 집행유예 선고\n## 결과 요약\n- 피고인에게 징역 1년 6개월 및 집행유예 3년을 선고하고, 보호관찰, 사회봉사 160시간, 준법운전강의 수강 40시간을 명함.\n## 사실관계\n- 피고인은 2022. 8. 17. 서울남부지방법원에서 도로교통법위반(음주운전)죄 등으로 벌금 1,200만 원의 약식명령을 받아 2022. 9. 8. 형이 확정됨.\n- 피고인은 2025. 6. ",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_1ec79295",
+      "title": "부산고등법원 (창원) 2025. 9. 25. 선고 2025나10167 판결 해고무효확인",
+      "case_number": "2025나10167",
+      "department": "부산고등법원 (창원)",
+      "decision_date": "2025-09-25",
+      "decision_result": "granted",
+      "summary": "# 건강상 이유로 인한 외국인 근로자 해고의 부당성 판단\n## 결과 요약\n- 피고가 원고에게 한 2023. 11. 10.자 해고는 무효임을 확인하고, 제1심판결을 취소함.\n## 사실관계\n- 원고는 우즈베키스탄 국적으로, 2023. 7. 3. 피고 회사와 용접업무를 담당하는 근로계약을 체결함.\n- 원고는 2023. 11. 3. 대한민국에 입국하여 2023. 11. 8. 배치전 건강검진을 받았고",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_7959be2b",
+      "title": "서울행정법원 2025. 9. 25. 선고 2023구합83097 판결 차별시정재심판정취소",
+      "case_number": "2023구합83097",
+      "department": "서울행정법원",
+      "decision_date": "2025-09-25",
+      "decision_result": "granted",
+      "summary": "# 육아휴직 후 복직자의 승진추천 탈락이 육아휴직 사용 또는 성별에 따른 차별에 해당하는지 여부\n## 결과 요약\n- 육아휴직 후 복직한 직원의 승진추천 탈락은 회사의 정당한 인사평가에 따른 결과로 합리적인 이유가 있어 육아휴직 사용 또는 성별에 따른 차별이 인정될 수 없으며, 회사가 육아휴직 사용 여부에 따라 승진제도를 불리하게 운용했다고 볼 수도 없어 승진에서 육아휴직 사용에 따른 직간접차",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_9a6de0cd",
+      "title": "부산고등법원 (창원) 2025. 9. 25. 선고 2025나10167 판결 해고무효확인",
+      "case_number": "2025나10167",
+      "department": "부산고등법원 (창원)",
+      "decision_date": "2025-09-25",
+      "decision_result": "granted",
+      "summary": "# 건강상 이유로 인한 외국인 근로자 해고의 부당성 판단\n## 결과 요약\n- 피고가 원고에게 한 2023. 11. 10.자 해고는 무효임을 확인하고, 제1심판결을 취소함.\n## 사실관계\n- 원고는 우즈베키스탄 국적으로, 2023. 7. 3. 피고 회사와 용접업무를 담당하는 근로계약을 체결함.\n- 원고는 2023. 11. 3. 대한민국에 입국하여 2023. 11. 8. 배치전 건강검진을 받았고",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "id_400879",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-09-25",
+      "decision_result": "upheld",
+      "summary": "이 사건 직위해제는 단순히 잠정적인 조치를 넘어 사실상 인사상의 불이익을 주는 전보이며, 업무상 필요성이 존재하지 않으므로 부당하다고 본 사례",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "absence",
+        "incompetence",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "bc_1380a026",
+      "title": "춘천지방법원 강릉지원 2025. 9. 2. 선고 2025나30154 판결 손해배상(기)",
+      "case_number": "2025나30154",
+      "department": "춘천지방법원 강릉지원",
+      "decision_date": "2025-09-02",
+      "decision_result": "granted",
+      "summary": "# 부당해고에 따른 변호사 선임비용 손해배상 책임 인정 및 범위\n## 결과 요약\n- 원고의 항소를 일부 인용하여 피고는 원고에게 3,500,000원 및 이에 대한 지연손해금을 추가로 지급함.\n- 원고의 나머지 항소와 피고의 부대항소는 모두 기각함.\n- 소송 총비용 중 20%는 원고가, 나머지는 피고가 각 부담함.\n## 사실관계\n- 원고는 2016. 12. 1. 피고가 위탁받은 C어린이집 원장",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_d144164f",
+      "title": "서울고등법원 2025. 8. 22. 선고 2024누44114 판결 부당해고구제재심판정취소",
+      "case_number": "2024누44114",
+      "department": "서울고등법원",
+      "decision_date": "2025-08-22",
+      "decision_result": "granted",
+      "summary": "# E 사업 위탁 종료에 따른 근로자 해고의 정당성 여부\n## 결과 요약\n- 원고들의 청구를 모두 기각하고, 제1심판결을 취소함.\n- E 사업 위탁 종료에 따른 원고들에 대한 해고는 통상해고로서 정당하다고 판단함.\n## 사실관계\n- 서울특별시는 2001. 10.경부터 참가인에게 E 운영을 위탁하였고, 2005. 7. 1.부터 2009. 6. 30.까지는 O가, 2009. 7. 1.부터 202",
+      "reason_category": [
+        "incompetence"
+      ]
+    },
+    {
+      "id": "bc_f50cfdb5",
+      "title": "서울고등법원 2025. 8. 22. 선고 2024누44114 판결 부당해고구제재심판정취소",
+      "case_number": "2024누44114",
+      "department": "서울고등법원",
+      "decision_date": "2025-08-22",
+      "decision_result": "dismissed",
+      "summary": "# E 사업 위탁 종료에 따른 근로자 해고의 정당성 여부\n## 결과 요약\n- 원고들의 청구를 모두 기각하고, 제1심판결을 취소함.\n- E 사업 위탁 종료에 따른 원고들에 대한 해고는 통상해고로서 정당하다고 판단함.\n## 사실관계\n- 서울특별시는 2001. 10.경부터 참가인에게 E 운영을 위탁하였고, 2005. 7. 1.부터 2009. 6. 30.까지는 O가, 2009. 7. 1.부터 202",
+      "reason_category": [
+        "incompetence"
+      ]
+    }
+  ]
+}
