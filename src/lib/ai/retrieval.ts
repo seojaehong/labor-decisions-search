@@ -110,6 +110,7 @@ interface CandidateQueryProfile {
     | 'regular_work_ability'
     | 'retaliation'
     | 'severity_excessive'
+    | 'compound_misconduct'
     | 'wage_dispute'
     | 'contract_termination'
     | 'constructive_dismissal'
@@ -393,6 +394,10 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('신고 후');
     extraTerms.add('갈등');
     extraTerms.add('불이익 취급');
+    extraTerms.add('괴롭힘이 아니라는 조사 결과');
+    extraTerms.add('분리조치');
+    extraTerms.add('접촉금지');
+    extraTerms.add('근무장소 변경');
     extraTerms.add('직위해제');
     extraTerms.add('전보');
     extraTerms.add('보직해임');
@@ -445,6 +450,10 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('징계사유');
     extraTerms.add('해고 정당성');
     extraTerms.add('복합 비위');
+    extraTerms.add('징계사유가 모두 인정');
+    extraTerms.add('양정이 적정');
+    extraTerms.add('절차상 하자 없음');
+    extraTerms.add('사유 양정 절차');
   }
 
   if (category === 'incompetence' && /(정규직|무기계약|상용직)/.test(lowered)) {
@@ -672,6 +681,37 @@ function buildCandidateQueryProfile(query: string): CandidateQueryProfile {
       excludedDecisionResults: [],
       preferredQueryHints: ['양정과다', '해고 과중', '징계 과다', '비례원칙', '징계사유 인정 해고 부당'],
       penalizedKeywords: ['구제이익', '채용내정', '상시근로자 수', '복직명령', '계약기간 만료'],
+    };
+  }
+
+  const hasCompoundMisconduct =
+    includesAny(lowered, ['여러 비위', '복합 비위', '복수 비위', '여러 사유', '복수 사유']) ||
+    includesAny(lowered, ['정당성 전체', '전체를 본', '종합 판단', '종합적으로']) ||
+    (includesAny(lowered, ['징계사유']) && includesAny(lowered, ['양정', '절차', '정당성']));
+  if (hasCompoundMisconduct && hasDismissal) {
+    return {
+      ...base,
+      scenario: 'compound_misconduct',
+      primaryPool: uniq(['misconduct', 'disciplinary_severity', 'dismissal_validity']),
+      primaryBoosts: {
+        misconduct: 14,
+        disciplinary_severity: 9,
+        dismissal_validity: 8,
+      },
+      preferredDispositions: ['dismissal', 'disciplinary_dismissal'],
+      preferredLegalFocus: ['just_cause', 'appropriateness_of_discipline', 'procedural_due_process'],
+      preferredSecondary: ['misconduct', 'disciplinary_severity'],
+      preferredFactMarkers: ['multiple_misconduct_counts', 'discipline_hearing_held'],
+      preferredQueryHints: [
+        '징계사유가 모두 인정',
+        '해고 정당성',
+        '사유 양정 절차',
+        '양정이 적정',
+        '절차에도 하자가 없어',
+      ],
+      boostedDecisionResults: ['dismissed', 'upheld'],
+      excludedDecisionResults: [],
+      penalizedKeywords: ['양정과다', '과중', '비례원칙', '해고가 과도'],
     };
   }
 
@@ -998,6 +1038,31 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
     }
   }
 
+  if (profile.scenario === 'compound_misconduct') {
+    const hasMultipleReasons = candidateReasons.length >= 3 || factMarkers.includes('multiple_misconduct_counts');
+    const hasOverallValidityStructure =
+      includesAny(haystack, ['징계사유가 모두 인정', '징계사유가 존재하고', '복수의 징계사유']) &&
+      includesAny(haystack, ['양정이 적정', '양정이 과하지 않', '양정이 과도하지 않']) &&
+      includesAny(haystack, ['절차에도 하자가 없', '징계절차도 적법', '절차상 하자도 없']);
+
+    if (hasMultipleReasons) {
+      score += 10;
+      reasons.push('cross:compound_multiple_reasons');
+    }
+    if (hasOverallValidityStructure) {
+      score += 12;
+      reasons.push('cross:compound_overall_validity');
+    }
+    if (decisionResult === 'dismissed' || decisionResult === 'upheld') {
+      score += 6;
+      reasons.push('cross:compound_employer_win');
+    }
+    if (includesAny(haystack, ['양정과다', '과중', '비례원칙']) && !hasOverallValidityStructure) {
+      score -= 10;
+      reasons.push('cross_penalty:severity_only_case');
+    }
+  }
+
   // Q16: 사실상 해고 — 갱신기대권 인정 + granted 사건 우선
   if (profile.scenario === 'constructive_dismissal') {
     const hasRenewalRecognized = includesAny(haystack, ['갱신기대권이 인정', '갱신기대권은 인정', '갱신기대권 인정']);
@@ -1030,8 +1095,9 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
   if (profile.scenario === 'bullying_conflict') {
     const hasBullyingNotRecognized = includesAny(haystack, ['괴롭힘이 아니', '괴롭힘 불인정', '괴롭힘에 해당하지', '괴롭힘으로 인정되지', '괴롭힘으로 볼 수 없']);
     const hasReportFiled = includesAny(haystack, ['괴롭힘 신고', '신고에 따', '신고를 한', '신고하였']);
-    const hasConflict = includesAny(haystack, ['갈등', '분쟁', '대립', '불이익', '전보', '직위해제']);
+    const hasConflict = includesAny(haystack, ['갈등', '분쟁', '대립', '불이익', '전보', '직위해제', '보직해임', '접촉금지', '분리조치']);
     const hasPostReportAction = hasReportFiled && hasConflict;
+    const hasNegativeInvestigation = includesAny(haystack, ['괴롭힘이 아니라는 조사 결과', '괴롭힘이 아니라는', '조사 결과 괴롭힘이 아니', '괴롭힘에 해당하지 않는다는 조사 결과']);
 
     if (hasBullyingNotRecognized && hasPostReportAction) {
       score += 15;
@@ -1043,12 +1109,20 @@ function scoreTaggedCandidate(candidate: Record<string, unknown>, query: string,
       score += 6;
       reasons.push('cross:post_report_conflict');
     }
+    if (hasNegativeInvestigation) {
+      score += 8;
+      reasons.push('cross:negative_investigation_result');
+    }
 
     // 괴롭힘이 인정된 사건은 Q23 취지와 다름
     const hasBullyingRecognized = includesAny(haystack, ['괴롭힘이 인정', '괴롭힘 행위가 인정', '괴롭힘에 해당']);
     if (hasBullyingRecognized && !hasBullyingNotRecognized) {
-      score -= 8;
+      score -= 14;
       reasons.push('cross_penalty:bullying_recognized');
+    }
+    if (decisionResult === 'dismissed' && hasPostReportAction) {
+      score += 4;
+      reasons.push('cross:dismissed_post_report');
     }
   }
 

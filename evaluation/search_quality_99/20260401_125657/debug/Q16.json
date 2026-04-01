@@ -1,0 +1,204 @@
+{
+  "query_id": "Q16",
+  "query": "계약기간 만료인데 사실상 해고처럼 다퉈진 사건",
+  "category": "contract_expiry",
+  "rewrite": {
+    "searchQuery": "계약기간 만료 갱신거절 사실상 해고",
+    "category": "contract_expiry",
+    "intent": "validity_check",
+    "keywords": [
+      "계약만료",
+      "갱신거절",
+      "갱신기대권",
+      "사실상 해고",
+      "계약 비갱신"
+    ]
+  },
+  "reranked": true,
+  "top5": [
+    {
+      "id": "id_12569",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "근로자에게 근로계약의 갱신기대권이 인정되고, 갱신거절의 합리적 이유가 존재하지 않으므로 부당하다고 판정한 사례",
+      "summary_short": "근로자에게 근로계약의 갱신기대권이 인정되고, 갱신거절의 합리적 이유가 존재하지 않으므로 부당하다고 판정한 사례",
+      "key_issue": "가. 근로계약의 갱신기대권이 있는지 여부근로자는 기간제근로자로서 입사 시 사용자와 계약기간의 정함이 있는 근로계약을 체결한 점, 계약기간이 종료된 이후에도 추가적인 근로계약 체결 없이 근로계약이 갱신되어 계속 근무한 점, 사용자가 근로자의 계약연장에 대한 문서에 결재한 사실이 있는 점 등으로 보아 근로계약의 갱신기대권이 존재한다고 판단된다.",
+      "reason_category": [
+        "contract_expiry",
+        "no_dismissal"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2021-12-27",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=12569&type=HTML",
+      "relevance": 0.795988,
+      "_trigram_score": 0.4904761904761904,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.58,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.9061904761904762
+    },
+    {
+      "id": "id_43053",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "갱신기대권이 인정되고 갱신거절의 합리적 사유도 없어 사용자의 갱신거절이 부당한 해고라고 판정한 사례",
+      "summary_short": "갱신기대권이 인정되고 갱신거절의 합리적 사유도 없어 사용자의 갱신거절이 부당한 해고라고 판정한 사례",
+      "key_issue": "가. 갱신기대권 존재 여부근로자가 근로계약 기간이 3개월인 근로계약을 체결한 이후 8차례 근로계약을 갱신하였고, 특별한 사정이 없으면 근로계약 기간을 연장한 사실로 보아 갱신기대권이 존재한다.",
+      "reason_category": [
+        "contract_expiry"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2022-01-13",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=43053&type=HTML",
+      "relevance": 0.947664,
+      "_trigram_score": 0.45158730158730154,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.58,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.8906349206349207
+    },
+    {
+      "id": "id_37317",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "근로계약의 갱신에 대한 규정이 없으나 근로계약 갱신 관행, 사업 또는 업무의 상시·계속성 등을 볼 때 근로계약의 갱신기대권이 인정된다고 판정한 사례",
+      "summary_short": "근로계약의 갱신에 대한 규정이 없으나 근로계약 갱신 관행, 사업 또는 업무의 상시·계속성 등을 볼 때 근로계약의 갱신기대권이 인정된다고 판정한 사례",
+      "key_issue": "가. 갱신기대권 존재 여부근로계약 갱신에 관한 규정은 없으나 특별한 제한 없이 근로계약을 갱신한 관행이 존재하는 점, 사업이 상시·계속적인 점, 수행 업무가 상시·계속적인 점 등을 볼 때 근로계약이 갱신된다는 신뢰관계가 형성되어 있어 근로계약의 갱신기대권이 인정된다.",
+      "reason_category": [
+        "contract_expiry"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-05-30",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=37317&type=HTML",
+      "relevance": 0.80163,
+      "_trigram_score": 0.46212489862124895,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.58,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.8448499594484995
+    },
+    {
+      "id": "id_37133",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "기간제근로자로 근로계약의 갱신기대권이 인정되고, 갱신거절에 합리적 이유가 없으므로 부당해고라고 판정한 사례",
+      "summary_short": "기간제근로자로 근로계약의 갱신기대권이 인정되고, 갱신거절에 합리적 이유가 없으므로 부당해고라고 판정한 사례",
+      "key_issue": "가. 근로계약의 갱신기대권이 있는지 여부업무가 상시ㆍ지속적이고, 채용공고 및 근로계약서에 계약연장이 가능하다고 기재되어 있고, 계약기간이 만료되더라도 별도의 절차 없이 근로계약이 갱신되었고, 인사규정 등에 공무직 전환을 기대할 수 있는 내용이 있으므로 갱신기대권이 인정된다.",
+      "reason_category": [
+        "contract_expiry"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2019-05-24",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=37133&type=HTML",
+      "relevance": 0.801611,
+      "_trigram_score": 0.5461948249619482,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.4,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.7484779299847794
+    },
+    {
+      "id": "id_30285",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "가. 갱신기대권이 있는지①취업규칙에 일정한 요건이 충족되면 근로계약이 갱신된다는 취지의 규정이 있는 점, ②사용자 역시 근로계약기간 만료 이후 재계약된 근로자의 비율은 70%~80%임을 인정하는 점, ③애초 근로계약이 이루어진 동기나 상황 등을 종합하여 볼 때 갱신기대권이 인정된다.나. 갱신 거절에 합리적인 이유가 있는지승차거부 및 과속한 사실이 있고 이는 취업규칙상 갱신거절사유에 해당하여 갱신 거절에 합리적 사유가 인정된다.다. 부당노동행위 해당 여부근로관계 종료가 부당노동행위 의사에 기인하여 이루어진 것이라는 객관적인 증거가 불충분하여 부당노동행위를 인정하기는 어렵다.",
+      "summary_short": "근로자의 계약 갱신기대권은 인정되나 갱신을 거절할 만한 합리적 사유가 인정되어 부당해고로 보기 어렵다. 또한, 계약 갱신거절이 사용자의 부당노동행위 의사에 기인한 것으로도 볼 수 없어 근로자 및 노동조합의 구제신청 ",
+      "key_issue": "근로자의 계약 갱신기대권은 인정되나 갱신을 거절할 만한 합리적 사유가 인정되어 부당해고로 보기 어렵다.",
+      "reason_category": [
+        "contract_expiry",
+        "worker_status",
+        "union_activity"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2018-07-09",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=30285&type=HTML",
+      "relevance": 0.807186,
+      "_trigram_score": 0.5293650793650793,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.4,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.7417460317460318
+    }
+  ],
+  "ai_rerank": [
+    {
+      "id": "id_12569",
+      "summary": "근로계약의 갱신기대권이 존재한다고 판단됨.",
+      "result": "granted",
+      "classification": [
+        "contract_expiry",
+        "no_dismissal"
+      ]
+    },
+    {
+      "id": "id_43053",
+      "summary": "갱신기대권이 존재함.",
+      "result": "granted",
+      "classification": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_37317",
+      "summary": "갱신기대권이 인정됨.",
+      "result": "granted",
+      "classification": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_37133",
+      "summary": "갱신기대권이 인정됨.",
+      "result": "upheld",
+      "classification": [
+        "contract_expiry"
+      ]
+    },
+    {
+      "id": "id_30285",
+      "summary": "갱신기대권은 인정되나, 갱신 거절의 합리적 사유가 있음.",
+      "result": "dismissed",
+      "classification": [
+        "contract_expiry",
+        "worker_status",
+        "union_activity"
+      ]
+    }
+  ],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_12569",
+        "score": 2,
+        "reason": "계약기간 만료 후 갱신거절이 부당해고인지를 다룬 핵심 사례. 갱신기대권 인정 및 합리적 이유 부재를 판단하여 쿼리의 '사실상 해고'라는 법적 쟁점을 정확히 해결"
+      },
+      {
+        "rank": 2,
+        "id": "id_43053",
+        "score": 2,
+        "reason": "계약기간 만료 시 갱신거절이 부당한 해고에 해당하는지를 판단한 사례. 갱신기대권과 합리적 사유 부재를 통해 쿼리의 핵심 법적 쟁점을 정확히 다룸"
+      },
+      {
+        "rank": 3,
+        "id": "id_37317",
+        "score": 2,
+        "reason": "계약기간 만료 후 갱신기대권 인정 여부를 판단한 사례. 갱신 관행과 업무의 상시·계속성을 통해 사실상 해고 판단의 기초가 되는 갱신기대권 인정 기준을 명확히 제시"
+      },
+      {
+        "rank": 4,
+        "id": "id_37133",
+        "score": 2,
+        "reason": "기간제근로자의 계약기간 만료 시 갱신거절이 부당해고인지를 판단한 재심 사례. 갱신기대권 인정 및 합리적 이유 부재를 통해 쿼리의 핵심 쟁점을 정확히 다룸"
+      },
+      {
+        "rank": 5,
+        "id": "id_30285",
+        "score": 1,
+        "reason": "계약기간 만료 후 갱신거절 사건이나, 합리적 사유(승차거부, 과속)가 인정되어 부당해고로 판단되지 않은 사례. 쿼리의 '사실상 해고처럼 다퉈진' 맥락과 달리 갱신거절이 정당화된 경우로 핵심 쟁점이 다름"
+      }
+    ],
+    "weighted_score": 9,
+    "precision_hits": 5
+  }
+}

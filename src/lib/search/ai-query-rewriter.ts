@@ -187,6 +187,7 @@ async function rewriteWithAnthropic(userQuery: string, apiKey: string): Promise<
               `사용자 입력: ${userQuery}\n` +
               '목표: 일상어를 노동법 검색용 핵심 키워드로 변환하고, category와 intent를 추론하세요.\n' +
               'category 후보: absence, workplace_bullying, probation, incompetence, contract_expiry, transfer, violence, worker_status, sexual_harassment, embezzlement, misconduct, redundancy, no_dismissal, discrimination, union_activity, other, dismissal, discipline, disciplinary_severity, wage, industrial_accident\n' +
+              "규칙: '불인정/미해당/부인'은 searchQuery에 그대로 포함하세요. '여러 비위/복합 비위/정당성 전체'는 '징계사유가 모두 인정', '양정이 적정', '절차상 하자 없음' 같은 표현을 포함하세요.\n" +
               '예시: {"searchQuery":"업무능력 부족 개선 기회 경고 시정 교육 후 해고","category":"incompetence","intent":"validity_check","keywords":["개선 기회","경고","시정","업무능력 부족","해고"]}',
           },
         ],
@@ -228,6 +229,7 @@ async function rewriteWithOpenAI(userQuery: string, apiKey: string): Promise<Rew
               `사용자 입력: ${userQuery}\n` +
               '일상어를 노동법 검색용 키워드로 변환하고 category와 intent를 추론하세요.\n' +
               'category 후보: absence, workplace_bullying, probation, incompetence, contract_expiry, transfer, violence, worker_status, sexual_harassment, embezzlement, misconduct, redundancy, no_dismissal, discrimination, union_activity, other, dismissal, discipline, disciplinary_severity, wage, industrial_accident\n' +
+              "규칙: '불인정/미해당/부인'은 searchQuery에 그대로 포함하세요. '여러 비위/복합 비위/정당성 전체'는 '징계사유가 모두 인정', '양정이 적정', '절차상 하자 없음' 같은 표현을 포함하세요.\n" +
               'JSON 예시: {"searchQuery":"폭행 비위 징계해고 양정 과다 우발적","category":"violence","intent":"severity_check","keywords":["폭행","비위","징계해고","양정 과다","우발적"]}',
           },
         ],

@@ -603,6 +603,8 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         # Core: bullying was NOT recognized
         if re.search(r"(괴롭힘.{0,10}(인정.{0,5}않|불인정|해당.{0,5}않|부인|아니|존재하지|존재하지 않)|직장.{0,5}내.{0,5}괴롭힘.{0,5}(아니|부정))", combined):
             boost += 0.22
+        if re.search(r"(괴롭힘이 아니라는 조사 결과|조사 결과.{0,10}괴롭힘.{0,5}아니|괴롭힘에 해당하지 않는다는 조사 결과)", combined):
+            boost += 0.12
         if re.search(r"(갈등|분쟁|대립|반목)", combined):
             boost += 0.10
         # Only boost retaliation aspect if query specifically mentions it AND not union case
@@ -612,10 +614,12 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
         # Boost cases where bullying was dismissed but there was a related action
         if "workplace_bullying" in reason_category and re.search(r"(괴롭힘.{0,8}(없|아니|부정|존재하지)|괴롭힘.{0,5}행위.{0,5}존재하지)", combined):
             boost += 0.15
+        if re.search(r"(분리조치|접촉금지|근무장소 변경|직위해제|전보|보직해임|대기발령)", combined) and re.search(r"(신고|요구)", combined):
+            boost += 0.10
         # Penalize cases where bullying WAS recognized (opposite of Q23 intent)
         if re.search(r"괴롭힘.{0,5}(행위가 인정|인정되|에 해당)", combined):
             if not re.search(r"(인정되지|해당하지|아니|않)", combined):
-                boost -= 0.15
+                boost -= 0.24
         # Penalty for union_activity cases (not about bullying conflict)
         if "union_activity" in reason_category and "workplace_bullying" not in reason_category:
             boost -= 0.15
@@ -734,6 +738,14 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
             boost += 0.10
         if re.search(r"(정당성.{0,5}(전체|종합)|종합적.{0,5}판단|해고.{0,5}(정당|부당))", combined):
             boost += 0.08
+        if re.search(r"(징계사유가 모두 인정|징계사유가 존재하고|복수의 징계사유)", combined):
+            boost += 0.10
+        if re.search(r"(양정이 적정|양정이 과하지 않|양정이 과도하지 않)", combined):
+            boost += 0.08
+        if re.search(r"(절차에도 하자가 없|징계절차도 적법|절차상 하자도 없)", combined):
+            boost += 0.08
+        if re.search(r"(양정과다|과중|비례원칙)", combined) and not re.search(r"(정당성.{0,5}(전체|종합)|징계사유가 모두 인정)", combined):
+            boost -= 0.10
 
     # Q22: Worker status (근로자성) as core issue
     if re.search(r"(근로자성|근로자.{0,3}(인지|여부|해당))", query):
@@ -777,7 +789,7 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
         extra_terms.extend(["괴롭힘 불인정", "괴롭힘 미해당"])
 
     if category == "workplace_bullying" and re.search(r"(갈등|불이익|보복|신고|요구|문제제기)", lowered):
-        extra_terms.extend(["신고 후", "갈등", "불이익 취급", "직위해제", "전보", "보직해임", "대기발령"])
+        extra_terms.extend(["신고 후", "갈등", "불이익 취급", "괴롭힘이 아니라는 조사 결과", "분리조치", "접촉금지", "근무장소 변경", "직위해제", "전보", "보직해임", "대기발령"])
 
     if category == "contract_expiry" and re.search(r"(사실상 해고|해고처럼|실질적 해고|갱신거절)", lowered):
         extra_terms.extend(["사실상 해고", "실질적 해고", "갱신거절", "부당해고", "부당해고 인정", "갱신기대권 인정"])
@@ -805,7 +817,7 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
 
     # Q24: 복합 비위 + 전체 정당성
     if re.search(r"(여러|복합|복수|함께).*(비위|사유)", lowered) or re.search(r"(정당성 전체|전체를 본)", lowered):
-        extra_terms.extend(["징계사유", "해고 정당성", "복합 비위"])
+        extra_terms.extend(["징계사유", "해고 정당성", "복합 비위", "징계사유가 모두 인정", "양정이 적정", "절차상 하자 없음", "사유 양정 절차"])
 
     if category == "incompetence" and re.search(r"(정규직|무기계약|상용직)", lowered):
         extra_terms.extend(["정규직", "무기계약", "통상해고"])
@@ -900,7 +912,7 @@ def fetch_candidate_rows_for_query(query_text: str, category: str, keyword_hints
 
     # Q23-type: harassment NOT recognized + conflict escalated
     if re.search(r"(괴롭힘.{0,10}(인정되지|불인정|미해당)|괴롭힘.{0,10}갈등|신고.{0,5}갈등)", query_text):
-        for harass_term in ["괴롭힘 인정되지", "괴롭힘 해당하지", "괴롭힘 존재하지", "괴롭힘 불인정", "괴롭힘 아닌"]:
+        for harass_term in ["괴롭힘 인정되지", "괴롭힘 해당하지", "괴롭힘 존재하지", "괴롭힘 불인정", "괴롭힘 아닌", "괴롭힘이 아니라는 조사 결과", "분리조치", "접촉금지"]:
             merge(
                 safe_fetch_table_rows(
                     {
@@ -919,6 +931,28 @@ def fetch_candidate_rows_for_query(query_text: str, category: str, keyword_hints
                     "reason_category": "cs.{workplace_bullying}",
                     "sanction_type": "eq.suspension",
                     "limit": "60",
+                    "order": "decision_date.desc",
+                }
+            )
+        )
+
+    if re.search(r"(여러|복합|복수|함께).*(비위|사유)|정당성 전체", query_text):
+        merge(
+            safe_fetch_table_rows(
+                {
+                    "select": select,
+                    "or": build_text_or_clause("징계사유가 모두 인정"),
+                    "limit": "40",
+                    "order": "decision_date.desc",
+                }
+            )
+        )
+        merge(
+            safe_fetch_table_rows(
+                {
+                    "select": select,
+                    "or": build_text_or_clause("사유 양정 절차"),
+                    "limit": "40",
                     "order": "decision_date.desc",
                 }
             )
@@ -1375,7 +1409,7 @@ def main() -> None:
                 "evaluation": evaluation,
             }
         )
-        if query.query_id in {"Q05", "Q10", "Q16", "Q20", "Q23"}:
+        if query.query_id in {"Q05", "Q10", "Q16", "Q20", "Q23", "Q24"}:
             debug_path = debug_dir / f"{query.query_id}.json"
             debug_path.write_text(
                 json.dumps(build_debug_payload(query, upgraded, evaluation), ensure_ascii=False, indent=2),

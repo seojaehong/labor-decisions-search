@@ -1,0 +1,166 @@
+{
+  "query_id": "Q23",
+  "query": "괴롭힘은 인정되지 않지만 그 신고나 요구 때문에 갈등이 커진 사건",
+  "category": "workplace_bullying",
+  "rewrite": {
+    "searchQuery": "괴롭힘 불인정 신고 요구 갈등 불이익 취급",
+    "category": "workplace_bullying",
+    "intent": "claim_rejection_with_retaliation",
+    "keywords": [
+      "괴롭힘 불인정",
+      "신고",
+      "요구",
+      "갈등",
+      "불이익 취급"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_51041",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "전보의 정당성이 인정되므로 불이익 취급의 부당노동행위로 볼 수 없고, 본부장이 노동조합 사무실에서 한 언행이 지배·개입의 부당노동행위는 아니라고 판정한 사례",
+      "summary_short": null,
+      "key_issue": "가. 전보의 정당성 여부근로자가 상사인 안전팀장을 직장 내 괴롭힘 행위자로 지목하여 신고하면서 근무장소 변경·분리 및 접촉금지를 요청하였고, 직장 내 괴롭힘이 아니라는 조사 결과가 있었지만, 안전팀장 또한 근로자와 한 팀에서 근무하기 어렵다는 의사를 밝힌 점 등을",
+      "reason_category": [
+        "union_activity",
+        "transfer",
+        "workplace_bullying"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2022-11-23",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=51041&type=HTML",
+      "relevance": 0.718282,
+      "_trigram_score": 0.5539999999999999,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.96,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 1.3116
+    },
+    {
+      "id": "id_401073",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "전보의 업무상 필요성이 존재하고, 생활상 불이익이 크다고 보기 어려워 전보가 정당하고 판정한 사례",
+      "summary_short": "상호 괴롭힘 신고 갈등 상황에서 분리조치 전보가 업무상 필요성 인정되어 정당하다고 판정한 사례",
+      "key_issue": "가. 업무상 필요성인사규정 및 근로계약서에 전보의 근거 규정이 있고, 근로자가 다른 직원들과 상호 직장 내 괴롭힘 신고 등 갈등 관계에 있었으며, 이에 대한 감사실의 조사 결과에 따라 사용자는 근로자와 다른 직원들을 분리 조치하여 불필요한 감정 소모를 줄여야 할",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2025-09-16",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=401073&type=HTML",
+      "relevance": 0.51832,
+      "_trigram_score": 0.43718875502008026,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.6699999999999999,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.9748755020080321
+    },
+    {
+      "id": "id_46547",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "가. 직위해제 및 전보의 정당성 여부직위해제 및 전보는 근로자에 대한 직장 내 괴롭힘 신고에 따라 신고내용에 대한 조사 및 징계 절차 진행 기간 동안 신고인들과 근로자를 분리하기 위하여 이루어진 조치로 업무상 필요성이 인정됨. 직위해제 및 전보로 인하여 근로자의 근무장소나 임금이 일부 변동된 것은 사실이나 이러한 생활상 불이익이 근로자가 통상 감수할 정도를 벗어나지는 않는다고 판단됨. 사용자는 임시적 조치로 이 사건 직위해제 및 전보가 이루어진 것임을 근로자에게 충분히 설명한 것으로 판단되고, 직위해제 및 전보에 앞서 근로자의 의사를 확인하고 반영하지 아니하였다는 사정만으로 신의칙상 요구되는 협의절차를 위반하였다고 볼 수 없으므로 직위해제 및 전보는 정당함나. 해고가 존재하는지 여부당사자 사이의 근로계약은 근로자가 사직서를 제출하고, 사용자가 이를 수리함으로 인하여 근로관계가 종료되었으며, 근로자의 사직서 제출이 내심의 효과의사가 결여된 진의 아닌 의사표시라 볼 수 없으므로 근로관계의 종료는 해고에 해당하지 않음",
+      "summary_short": null,
+      "key_issue": "근로자에 대한 직위해제 및 전보는 직장 내 괴롭힘 신고에 따라 신고인들과 근로자를 분리하기 위하여 이루어진 조치로 업무상 필요성이 인정되고, 생활상 불이익도 크지 않으며 신의칙상 요구되는 협의절차를 위반하였다고 볼 수 없고, 근로자가 사직서를 제출하고 사용자가 이를",
+      "reason_category": [
+        "no_dismissal",
+        "transfer",
+        "workplace_bullying"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2022-06-02",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=46547&type=HTML",
+      "relevance": 0.679263,
+      "_trigram_score": 0.2435856573705179,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.6499999999999999,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.8774342629482071
+    },
+    {
+      "id": "id_408393",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "근로자의 직장 내 괴롭힘 행위가 인정되므로 그에 따른 제재로써 이루어진 전보 및 정직은 정당하다고 판정한 사례",
+      "summary_short": "근로자의 직장 내 괴롭힘 행위가 인정되므로 그에 따른 제재로써 이루어진 전보 및 정직은 정당하다고 판정한 사례",
+      "key_issue": "가. 전보의 정당성 여부전보가 근로자에 대한 직장 내 괴롭힘 신고에 따른 분리조치의 일환으로 이루어진 것으로 업무상 필요성이 인정되고, 전보에 따른 생활상 불이익도 크지 않으므로 정당함나. 정직의 정당성 여부근로자의 직장 내 괴롭힘 행위가 조사결과 사실로",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2024-12-30",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=408393&type=HTML",
+      "relevance": 0.548023,
+      "_trigram_score": 0.36640243902439024,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.6499999999999999,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.876560975609756
+    },
+    {
+      "id": "id_350317",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "dismissed",
+      "holding_summary": "근로자들의 수적 우위를 이용한 괴롭힘을 단정하기 어려워 감급은 부당하나, 괴롭힘 신고에 따른 분리조치 전보는 업무상 필요성이 인정되고 생활상 불이익이 감수범위 내이며 협의 미흡도 무효에 이를 정도가 아니어서 정당",
+      "summary_short": "감급처분은 괴롭힘 입증 부족으로 부당하나 전보는 분리조치로서 업무상 필요성이 인정되어 정당하다고 판정한 사례",
+      "key_issue": "감급처분은 사용자가 감급사유로 삼은 근로자들의 비위행위에 대한 입증이 부족하여 부당하고, 전보는 업무상 필요성이 인정되고 생활상 불이익이 근로자가 감수해야 할 범위 내로 보이며 성실한 협의 미흡은 무효에 이를 정도는 아니므로 정당하다고 판정한 사례",
+      "reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2024-07-17",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=350317&type=HTML",
+      "relevance": 0.65882,
+      "_trigram_score": 0.3574386503067485,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.6499999999999999,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.8729754601226993
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_46547",
+        "score": 2,
+        "reason": "괴롭힘 신고가 있었으나 신고 내용 자체는 인정되지 않은 상황에서, 신고/요구에 따른 분리조치(직위해제, 전보)가 이루어진 사건. 쿼리의 핵심 쟁점인 '괴롭힘 미인정 + 신고로 인한 갈등 확대'를 정확히 다룸"
+      },
+      {
+        "rank": 2,
+        "id": "id_350317",
+        "score": 2,
+        "reason": "괴롭힘 신고가 있었으나 괴롭힘 행위 자체를 단정하기 어려운 경우, 신고에 따른 분리조치 전보가 이루어진 사건. 쿼리의 핵심 구도와 일치하며 신고 후 갈등 심화 상황을 반영"
+      },
+      {
+        "rank": 3,
+        "id": "id_51041",
+        "score": 1,
+        "reason": "전보의 정당성을 다루고 있으나, 괴롭힘 신고와의 직접적 연관성이 명확하지 않음. 노동조합 활동 관련 불이익 취급이 주요 쟁점으로 보여 쿼리의 맥락과 부분적으로만 부합"
+      },
+      {
+        "rank": 4,
+        "id": "id_401073",
+        "score": 1,
+        "reason": "전보의 정당성만을 판단한 사례로, 괴롭힘 신고나 갈등 상황이 구체적으로 드러나지 않음. 관련 분류는 있으나 쿼리가 요구하는 '신고로 인한 갈등' 측면이 부족"
+      },
+      {
+        "rank": 5,
+        "id": "id_408393",
+        "score": 0,
+        "reason": "근로자의 괴롭힘 행위가 인정된 사건으로, 쿼리의 '괴롭힘은 인정되지 않지만'이라는 전제 조건과 정반대. 핵심 법적 쟁점이 상이함"
+      }
+    ],
+    "weighted_score": 6,
+    "precision_hits": 4
+  }
+}
