@@ -1,79 +1,107 @@
-# reason_category 정제 payload 계획
+# reason_category 정교화 payload v2 실행 계획
 
 ## 목적
 
-`browse/list` 품질을 우선 회복하기 위해 `reason_category` 과태깅이 심한 범주부터
-**DB 반영 직전 payload**를 준비한다.
+`reason_category` 과태깅과 browse/list 오염을 줄이기 위해, 각 범주를
+`domain_gate + positive_signals + negative_signals` 구조로 재평가한
+`payload v2`를 만들었다.
 
-이번 단계는 실제 DB 업데이트가 아니라, 안전하게 검토할 수 있는
-`updates.jsonl`, 샘플 비교, 요약 리포트를 만드는 데 초점을 둔다.
+이번 산출물은 **실제 DB 업데이트 전 검토용 자료**이며, 바로 반영하지 않는다.
 
-## 현재 우선순위
+## payload v2 공통 필드
 
-1. `worker_status`
-2. `no_dismissal`
-3. `incompetence`
+- `current_reason_category`
+- `proposed_reason_category`
+- `outcome`: `keep`, `remove`, `needs_review`
+- `removal_basis`: `label_mismatch`, `non_labor_domain`, `guard_miss`, `needs_review`
+- `domain_bucket`: `labor_case`, `non_labor_case`, `needs_review`
+- `review_priority`: `high`, `medium`, `low`
+- `positive_hits`
+- `negative_hits`
+- `domain_hits`
+- `evidence_snippet`
 
-## 최신 payload 기준 수치
+## 전체 결과
 
-- 전체 대상: `28,665`
-- 유지: `12,413`
-- 제거 후보: `16,252`
-- 인정(구제) browse/list 전/후: `5,765 -> 1,976`
+- 전체 대상: `75,815`
+- 유지: `46,806`
+- 제거 후보: `20,892`
+- 검토 필요: `8,117`
+- 인정(구제) 전/후: `17,181 -> 10,287`
 
-### worker_status
+## 우선 검토 순서
 
-- 전체: `12,196`
-- 유지: `3,704`
-- 제거 후보: `8,492`
-- 인정(구제) 전/후: `2,487 -> 631`
+### 1순위
 
-핵심 해석:
-- `도급/파견` 자체가 아니라, `근로자성 판단 문맥`이 없는 사건이 많이 섞여 있다.
-- 양정, 전보, 일반 해고 정당성 사건이 크게 섞여 있어 우선 정제 가치가 가장 높다.
+- `worker_status`
+  - 전체 `12,196`
+  - 제거 후보 `8,152`
+  - 검토 필요 `675`
+- `no_dismissal`
+  - 전체 `14,230`
+  - 제거 후보 `6,358`
+  - 검토 필요 `1,771`
+- `incompetence`
+  - 전체 `2,239`
+  - 제거 후보 `1,142`
+  - 검토 필요 `200`
 
-### no_dismissal
+이 3개는 browse/list 오염과 카테고리 혼선이 가장 크다.
 
-- 전체: `14,230`
-- 유지: `7,755`
-- 제거 후보: `6,475`
-- 인정(구제) 전/후: `2,754 -> 1,105`
+### 2순위
 
-핵심 해석:
-- `권고사직/사직서/합의해지/당연퇴직/해고 존재 여부` 문맥이 없는 사건이 섞여 있다.
-- `해고 절차`, `양정`, 일반 징계 사건과의 혼선이 크다.
+- `probation`
+- `contract_expiry`
+- `transfer`
 
-### incompetence
+이 묶음은 서로 경계가 흐려서, 1순위 이후 묶어서 검토하는 것이 효율적이다.
 
-- 전체: `2,239`
-- 유지: `954`
-- 제거 후보: `1,285`
-- 인정(구제) 전/후: `524 -> 240`
+### 3순위
 
-핵심 해석:
-- `업무능력 부족`, `저성과`, `개선기회`, `경고/시정/교육` 문맥이 없는 사건이 많다.
-- 일반 비위행위, 양정, 수습/본채용 계열 사건과의 경계 정리가 필요하다.
+- `misconduct`
+- `violence`
+- `embezzlement`
+
+비위행위 내부에서 상호 오염이 있어도, 1~2순위보다 화면 오염도는 낮다.
+
+### 4순위
+
+- `workplace_bullying`
+- `sexual_harassment`
+
+하위 intent 분리까지 같이 봐야 해서 뒤로 둔다.
+
+### 5순위
+
+- `union_activity`
+- `discrimination`
+- `redundancy`
+
+현재 precision이 상대적으로 높아 마지막 정리 대상으로 둔다.
 
 ## 산출물 위치
 
-- payload 리포트:
+- 전체 요약:
   - `evaluation/reason_category_refinement/20260401_*/report.json`
-- 전체 업데이트 payload:
-  - `evaluation/reason_category_refinement/20260401_*/all_updates.jsonl`
-- 범주별 payload:
-  - `evaluation/reason_category_refinement/20260401_*/worker_status_updates.jsonl`
-  - `evaluation/reason_category_refinement/20260401_*/no_dismissal_updates.jsonl`
-  - `evaluation/reason_category_refinement/20260401_*/incompetence_updates.jsonl`
+  - `evaluation/reason_category_refinement/20260401_*/summary.md`
+- 범주별 상세:
+  - `evaluation/reason_category_refinement/20260401_*/<reason>_detail_v2.json`
+  - `evaluation/reason_category_refinement/20260401_*/<reason>_updates_v2.jsonl`
+  - `evaluation/reason_category_refinement/20260401_*/<reason>_samples.md`
 
-## 다음 반영 순서
+## 반영 전 체크포인트
 
-1. `worker_status` 제거 후보 샘플 1회 수동 검토
-2. `worker_status`만 DB 반영
+1. `remove` 샘플에 실제 정탐이 많이 섞여 있지 않은지
+2. `needs_review`가 과도하게 큰 범주는 규칙이 아직 흔들리는지
+3. `non_labor_domain`이 잡힌 케이스가 실제 비노동 문서인지
+4. `no_dismissal` 유지 샘플에 `부당해고 인정` 문구가 섞이는지
+5. `worker_status`에서 도급/파견 문맥이 근로자성 판단 문맥과 함께 있을 때 유지되는지
+
+## 다음 실행 순서
+
+1. `worker_status_samples.md` 수동 검토
+2. 이상 없으면 `worker_status`만 DB 반영
 3. browse/list 확인
-4. 같은 방식으로 `no_dismissal`
-5. 마지막으로 `incompetence`
-
-## 주의
-
-- 현재 browse/list 가드는 이미 서비스 코드에 들어가 있어 화면 품질 방어는 시작된 상태다.
-- 그러나 실제 태그 재정제는 대량 DB 업데이트이므로, 반영 전 최종 확인이 필요하다.
+4. `no_dismissal`
+5. `incompetence`
+6. 이후 나머지 범주 확장

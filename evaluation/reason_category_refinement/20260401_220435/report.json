@@ -1,0 +1,278 @@
+{
+  "scope": "reason_category_refinement_payloads_v2",
+  "categories": [
+    "worker_status",
+    "no_dismissal",
+    "incompetence",
+    "contract_expiry",
+    "probation",
+    "transfer",
+    "misconduct",
+    "violence",
+    "embezzlement",
+    "workplace_bullying",
+    "sexual_harassment",
+    "union_activity",
+    "discrimination",
+    "redundancy"
+  ],
+  "total_rows": 75815,
+  "kept_rows": 46806,
+  "removed_rows": 20892,
+  "needs_review_rows": 8117,
+  "granted_before": 17181,
+  "granted_after": 10287,
+  "update_candidates": 20892,
+  "review_candidates": 8117,
+  "db_applied": false,
+  "db_applied_count": 0,
+  "rows": [
+    {
+      "reason": "worker_status",
+      "total": 12196,
+      "kept": 3369,
+      "removed": 8152,
+      "needs_review": 675,
+      "kept_ratio": 0.2762,
+      "granted_before": 2487,
+      "granted_after": 523,
+      "remove_candidates": 8152,
+      "review_candidates": 675,
+      "removal_basis_counts": {
+        "guard_miss": 4879,
+        "label_mismatch": 3273,
+        "needs_review": 675
+      }
+    },
+    {
+      "reason": "no_dismissal",
+      "total": 14230,
+      "kept": 6101,
+      "removed": 6358,
+      "needs_review": 1771,
+      "kept_ratio": 0.4287,
+      "granted_before": 2754,
+      "granted_after": 470,
+      "remove_candidates": 6358,
+      "review_candidates": 1771,
+      "removal_basis_counts": {
+        "guard_miss": 4956,
+        "needs_review": 1771,
+        "label_mismatch": 1387,
+        "non_labor_domain": 15
+      }
+    },
+    {
+      "reason": "incompetence",
+      "total": 2239,
+      "kept": 897,
+      "removed": 1142,
+      "needs_review": 200,
+      "kept_ratio": 0.4006,
+      "granted_before": 524,
+      "granted_after": 240,
+      "remove_candidates": 1142,
+      "review_candidates": 200,
+      "removal_basis_counts": {
+        "guard_miss": 946,
+        "non_labor_domain": 23,
+        "needs_review": 200,
+        "label_mismatch": 173
+      }
+    },
+    {
+      "reason": "contract_expiry",
+      "total": 7629,
+      "kept": 6209,
+      "removed": 690,
+      "needs_review": 730,
+      "kept_ratio": 0.8139,
+      "granted_before": 1357,
+      "granted_after": 1181,
+      "remove_candidates": 690,
+      "review_candidates": 730,
+      "removal_basis_counts": {
+        "needs_review": 730,
+        "guard_miss": 634,
+        "label_mismatch": 43,
+        "non_labor_domain": 13
+      }
+    },
+    {
+      "reason": "probation",
+      "total": 3984,
+      "kept": 2157,
+      "removed": 1389,
+      "needs_review": 438,
+      "kept_ratio": 0.5414,
+      "granted_before": 1075,
+      "granted_after": 543,
+      "remove_candidates": 1389,
+      "review_candidates": 438,
+      "removal_basis_counts": {
+        "needs_review": 438,
+        "guard_miss": 1134,
+        "label_mismatch": 198,
+        "non_labor_domain": 57
+      }
+    },
+    {
+      "reason": "transfer",
+      "total": 5282,
+      "kept": 4253,
+      "removed": 852,
+      "needs_review": 177,
+      "kept_ratio": 0.8052,
+      "granted_before": 1449,
+      "granted_after": 1201,
+      "remove_candidates": 852,
+      "review_candidates": 177,
+      "removal_basis_counts": {
+        "guard_miss": 793,
+        "needs_review": 177,
+        "non_labor_domain": 21,
+        "label_mismatch": 38
+      }
+    },
+    {
+      "reason": "misconduct",
+      "total": 13758,
+      "kept": 10477,
+      "removed": 582,
+      "needs_review": 2699,
+      "kept_ratio": 0.7615,
+      "granted_before": 3728,
+      "granted_after": 3047,
+      "remove_candidates": 582,
+      "review_candidates": 2699,
+      "removal_basis_counts": {
+        "guard_miss": 398,
+        "needs_review": 2699,
+        "label_mismatch": 174,
+        "non_labor_domain": 10
+      }
+    },
+    {
+      "reason": "violence",
+      "total": 2637,
+      "kept": 1992,
+      "removed": 212,
+      "needs_review": 433,
+      "kept_ratio": 0.7554,
+      "granted_before": 623,
+      "granted_after": 487,
+      "remove_candidates": 212,
+      "review_candidates": 433,
+      "removal_basis_counts": {
+        "needs_review": 433,
+        "label_mismatch": 24,
+        "guard_miss": 188
+      }
+    },
+    {
+      "reason": "embezzlement",
+      "total": 1380,
+      "kept": 1267,
+      "removed": 78,
+      "needs_review": 35,
+      "kept_ratio": 0.9181,
+      "granted_before": 391,
+      "granted_after": 360,
+      "remove_candidates": 78,
+      "review_candidates": 35,
+      "removal_basis_counts": {
+        "guard_miss": 71,
+        "needs_review": 35,
+        "non_labor_domain": 3,
+        "label_mismatch": 4
+      }
+    },
+    {
+      "reason": "workplace_bullying",
+      "total": 3659,
+      "kept": 2240,
+      "removed": 817,
+      "needs_review": 602,
+      "kept_ratio": 0.6122,
+      "granted_before": 760,
+      "granted_after": 487,
+      "remove_candidates": 817,
+      "review_candidates": 602,
+      "removal_basis_counts": {
+        "needs_review": 602,
+        "guard_miss": 702,
+        "label_mismatch": 64,
+        "non_labor_domain": 51
+      }
+    },
+    {
+      "reason": "sexual_harassment",
+      "total": 2053,
+      "kept": 1744,
+      "removed": 45,
+      "needs_review": 264,
+      "kept_ratio": 0.8495,
+      "granted_before": 348,
+      "granted_after": 291,
+      "remove_candidates": 45,
+      "review_candidates": 264,
+      "removal_basis_counts": {
+        "needs_review": 264,
+        "guard_miss": 42,
+        "label_mismatch": 1,
+        "non_labor_domain": 2
+      }
+    },
+    {
+      "reason": "union_activity",
+      "total": 4572,
+      "kept": 4453,
+      "removed": 81,
+      "needs_review": 38,
+      "kept_ratio": 0.974,
+      "granted_before": 987,
+      "granted_after": 960,
+      "remove_candidates": 81,
+      "review_candidates": 38,
+      "removal_basis_counts": {
+        "guard_miss": 81,
+        "needs_review": 38
+      }
+    },
+    {
+      "reason": "discrimination",
+      "total": 701,
+      "kept": 596,
+      "removed": 89,
+      "needs_review": 16,
+      "kept_ratio": 0.8502,
+      "granted_before": 73,
+      "granted_after": 51,
+      "remove_candidates": 89,
+      "review_candidates": 16,
+      "removal_basis_counts": {
+        "guard_miss": 72,
+        "label_mismatch": 17,
+        "needs_review": 16
+      }
+    },
+    {
+      "reason": "redundancy",
+      "total": 1495,
+      "kept": 1051,
+      "removed": 405,
+      "needs_review": 39,
+      "kept_ratio": 0.703,
+      "granted_before": 625,
+      "granted_after": 446,
+      "remove_candidates": 405,
+      "review_candidates": 39,
+      "removal_basis_counts": {
+        "guard_miss": 373,
+        "needs_review": 39,
+        "label_mismatch": 18,
+        "non_labor_domain": 14
+      }
+    }
+  ]
+}
