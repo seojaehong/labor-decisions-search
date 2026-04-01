@@ -1,0 +1,163 @@
+{
+  "query_id": "Q10",
+  "query": "정규직 저성과나 업무능력 부족으로 해고된 사건",
+  "category": "incompetence",
+  "rewrite": {
+    "searchQuery": "정규직 저성과 업무능력 부족 해고 적법성",
+    "category": "incompetence",
+    "intent": "validity_check",
+    "keywords": [
+      "저성과",
+      "업무능력 부족",
+      "정규직",
+      "해고",
+      "개선 기회"
+    ]
+  },
+  "reranked": false,
+  "top5": [
+    {
+      "id": "id_46335",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "해고 사유가 존재하지 않고 해고 절차상 하자가 있어 부당하다고 판정한 사례\n\n쟁점: 가. 해고 사유의 존재 여부① 근무성적 평정표만으로 업무능력 부족을 인정하기 어려운 점, ② 인사기록카드에 허위경력을 기재하였다고 하더라도 해당 경력이 근로자의 이력서를 기초로 작성되지 않았고, 근로자의 담당업무와 인사고과에 영향을 미친 것으로 보이지 않는 점 ③\n판단: 가. 해고 사유의 존재 여부① 근무성적 평정표만으로 업무능력 부족을 인정하기 어려운 점, ② 인사기록카드에 허위경력을 기재하였다고 하더라도 해당 경력이 근로자의 이력서를 기초로 작성되지 않았고, 근로자의 담당업무와 인사고과에 영향을 미친 것으로 보이지 않는 점 ③ 직무전결기준표상 일반직원의 복무 전결권자는 부서장으로 되어 있는 등 대표이사 기망 사실 또한 확인되지 않으므로 해고사유가 존재하지 않음나. 해고 절차의 적법성 여부인사위원회 개최 3시간 전에 출석을 통지하고, 재심 절차를 안내하지 않는 등 절차적으로도 부당함",
+      "summary_short": "업무능력 부족·허위경력 해고사유 미인정 + 절차 하자로 부당해고 판정 사례",
+      "key_issue": "가. 해고 사유의 존재 여부① 근무성적 평정표만으로 업무능력 부족을 인정하기 어려운 점, ② 인사기록카드에 허위경력을 기재하였다고 하더라도 해당 경력이 근로자의 이력서를 기초로 작성되지 않았고, 근로자의 담당업무와 인사고과에 영향을 미친 것으로 보이지 않는 점 ③",
+      "reason_category": [
+        "no_dismissal",
+        "incompetence"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2022-05-25",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=46335&type=HTML",
+      "relevance": 0.732902,
+      "_trigram_score": 0.585958904109589,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.4643835616438356
+    },
+    {
+      "id": "id_24041",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "업무지시 불이행 및 직무수행능력 부족 등을 이유로 감봉처분을 받은 근로자가 사용자의 교육 등에도 불구하고 개선되지 않아 정직 1월의 징계처분을 한 것은 정당하다고 판정한 사례",
+      "summary_short": "업무지시 불이행 및 직무수행능력 부족 등을 이유로 감봉처분을 받은 근로자가 사용자의 교육 등에도 불구하고 개선되지 않아 정직 1월의 징계처분을 한 것은 정당하다고",
+      "key_issue": "사용자로부터 20여 건의 과제를 부여받고 이를 제대로 처리하지 못한 점, 사전심사 제안서 작성의 주된 내용은 정해진 서식에 참여 기술자의 경력 등을 기재하는 것으로 특별한 직무교육을 요하는 것으로 보기 어려운 점, 업무수행능력 향상을 위한 교육을 받았음에도 평가에서",
+      "reason_category": [
+        "incompetence",
+        "misconduct"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2017-08-22",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=24041&type=HTML",
+      "relevance": 0.500501,
+      "_trigram_score": 0.4075,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.18,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.423
+    },
+    {
+      "id": "id_400221",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "근로자의 징계해고 처분의 징계사유가 전부가 인정되지 않아 부당하다고 판정한 사례\n\n쟁점: (징계사유1) 상사의 정당한 업무지시 불이행은 고의적으로 보이지 않아 징계사유에 해당되지 않고, (징계사유2) 직책에 맡는 업무능력 부족 및 책임감 미흡은 이 사건 근로자의 문제보다\n판단: (징계사유1) 상사의 정당한 업무지시 불이행은 고의적으로 보이지 않아 징계사유에 해당되지 않고, (징계사유2) 직책에 맡는 업무능력 부족 및 책임감 미흡은 이 사건 근로자의 문제보다 이 사건 병원의 인력 부족 등 구조적인 문제에서 기인한 것으로 보여 징계사유에 해당되지 않으며, (징계사유3) 원무과 보고서 및 업무보고 미수행 및 (징계사유4) 직원과의 갈등？불화 상황으로 직장질서 문란케 하고 조직융화를 방해함은 사용자가 이를 증빙할 수 있는 구체적인 자료를 제출하지 않아 징계사유로 인정할 수 없다.",
+      "summary_short": "업무지시 불이행, 업무능력 부족, 보고서 미수행, 직원 갈등 등 4개 징계사유 전부 인정되지 않아 부당해고라고",
+      "key_issue": "(징계사유1) 상사의 정당한 업무지시 불이행은 고의적으로 보이지 않아 징계사유에 해당되지 않고, (징계사유2) 직책에 맡는 업무능력 부족 및 책임감 미흡은 이 사건 근로자의 문제보다",
+      "reason_category": [
+        "incompetence",
+        "misconduct"
+      ],
+      "sanction_type": "dismissal",
+      "decision_date": "2024-10-08",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=400221&type=HTML",
+      "relevance": 0.722746,
+      "_trigram_score": 0.4291223404255319,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.05,
+      "_effective_relevance": 0.40164893617021274
+    },
+    {
+      "id": "id_4429",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "decision_result": "upheld",
+      "holding_summary": "징계의 정당성이 인정되어 해고는 정당하다고 판정한 사례\n\n쟁점: 가. 징계사유의 존재 여부허위보고, 물품 반출 및 취식, 근무성적 불량 등 징계사유가 인정된다.\n판단: 가. 징계사유의 존재 여부허위보고, 물품 반출 및 취식, 근무성적 불량 등 징계사유가 인정된다.나. 징계양정의 적정성 여부① 승인없이 무단결근하거나 근무시간의 상당 부분을 휴게시간으로 이용하고, 상급자에게 근태상황을 허위보고하는 등 근로자로서 지켜야 할 기본적이고 핵심적인 의무를 위반한 점, ② 식품회사에서 철저한 위생관리가 요구됨에도 작업현장에서 식품을 취식하고, 바닥에 떨어진 원재료를 재사용하는 등 비위사실이 가볍다고 볼 수 없는 점, ③ 과거 유사한 사유로 정직 1개월의 징계처분을 받은 이력이 있음에도 개전의 정이 없고, 누적된 불성실한 근무태도로 신뢰관계가 상실되어 근로관계가 지속되기 힘들 정도에 이르렀다고 보이는 점 등을 고려할 때, 그 양정이 과하다고 볼 수 없다.다. 징계절차의 적법성 여부상벌규정에서 정하고 있는 징계절차를 준수하여 징계절차의 적법성도 인정된다.",
+      "summary_short": "허위보고·물품 반출·근무성적 불량 등 징계사유가 인정되고, 과거 정직 이력에도 불구하고 개전의 정이 없어 양정이 과하지 않으며, 절차도 적법하여 해고가 정당하다고 판정한 사례",
+      "key_issue": "가. 징계사유의 존재 여부허위보고, 물품 반출 및 취식, 근무성적 불량 등 징계사유가 인정된다.",
+      "reason_category": [
+        "absence",
+        "incompetence",
+        "misconduct"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2021-02-08",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=4429&type=HTML",
+      "relevance": 0.504626,
+      "_trigram_score": 0.4075,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.34299999999999997
+    },
+    {
+      "id": "id_30771",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "decision_result": "granted",
+      "holding_summary": "근무태도 및 근무성적 불량 사유가 징계사유에 해당되고 징계해고에 이르지 않을 정도임에도 통상해고한 것은 부당하다고 판정한 사례",
+      "summary_short": "근무태도·근무성적 불량 일반해고 — 징계해고까지는 과중해 부당",
+      "key_issue": "가. 해고의 정당성 여부장기간에 걸쳐 근무성적이 극히 불량하였을 뿐만 아니라 개선의 의지를 보이지 않아 해고한 것이므로 정당하다고 주장하나, ① 징계 처분을 선택하는 것이 더욱 타당함에도 통상해고를 선택한 점, ② 근무성적 불량으로 통상해고 처분한 것이 최초인 점,",
+      "reason_category": [
+        "transfer",
+        "incompetence"
+      ],
+      "sanction_type": "suspension",
+      "decision_date": "2018-08-01",
+      "url": "http://www.law.go.kr/DRF/lawService.do?OC=iceamericano9&target=nlrc&ID=30771&type=HTML",
+      "relevance": 0.507679,
+      "_trigram_score": 0.3853723404255319,
+      "_semantic_score": 0.0,
+      "_metadata_boost": 0.1,
+      "_keyword_boost": 0.0,
+      "_effective_relevance": 0.3341489361702128
+    }
+  ],
+  "ai_rerank": [],
+  "evaluation": {
+    "per_result": [
+      {
+        "rank": 1,
+        "id": "id_46335",
+        "score": 2,
+        "reason": "업무능력 부족을 이유로 한 해고의 정당성을 핵심적으로 다룬 사례. 근무성적 평정표만으로는 업무능력 부족을 인정하기 어렵다는 판단으로 쿼리의 핵심 법적 쟁점을 정확히 다룸"
+      },
+      {
+        "rank": 2,
+        "id": "id_400221",
+        "score": 2,
+        "reason": "직책에 맡는 업무능력 부족을 징계사유로 한 해고 사건. 업무능력 부족이 징계사유에 해당하는지 여부를 직접 판단한 사례로 쿼리의 핵심 쟁점을 정확히 다룸"
+      },
+      {
+        "rank": 3,
+        "id": "id_30771",
+        "score": 2,
+        "reason": "근무성적 불량을 사유로 한 통상해고의 정당성을 판단한 사례. 저성과/업무능력 부족으로 인한 해고의 적법성을 직접 다룬 사건"
+      },
+      {
+        "rank": 4,
+        "id": "id_24041",
+        "score": 1,
+        "reason": "직무수행능력 부족을 이유로 한 징계처분(정직)을 다룬 사례. 쿼리는 해고를 묻고 있으나 본 사례는 징계처분이 주요 쟁점으로 맥락이 다름"
+      },
+      {
+        "rank": 5,
+        "id": "id_4429",
+        "score": 1,
+        "reason": "근무성적 불량을 포함한 여러 징계사유를 다룬 사례이나, 허위보고, 물품 반출 등 다른 비위사실이 주요 쟁점으로 순수한 업무능력 부족 사건과는 맥락이 다름"
+      }
+    ],
+    "weighted_score": 8,
+    "precision_hits": 5
+  }
+}

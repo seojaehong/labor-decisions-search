@@ -405,6 +405,7 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('갱신거절');
     extraTerms.add('갱신기대권 인정');
     extraTerms.add('부당해고 인정');
+    extraTerms.add('부당해고');
   }
 
   if (intent === 'severity_check') {
@@ -444,6 +445,12 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
     extraTerms.add('징계사유');
     extraTerms.add('해고 정당성');
     extraTerms.add('복합 비위');
+  }
+
+  if (category === 'incompetence' && /(정규직|무기계약|상용직)/.test(lowered)) {
+    extraTerms.add('정규직');
+    extraTerms.add('무기계약');
+    extraTerms.add('통상해고');
   }
 
   if (extraTerms.size === 0) return query;

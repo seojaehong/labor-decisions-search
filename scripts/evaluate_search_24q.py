@@ -632,23 +632,33 @@ def metadata_boost(query: str, row: dict[str, Any]) -> float:
     if re.search(r"(사실상 해고|해고처럼|해고.{0,5}다퉈)", query):
         if re.search(r"(갱신거절|갱신기대권|사실상.{0,5}해고|해고.{0,5}다퉈)", text + " " + key_issue):
             boost += 0.15
-        if "contract_expiry" in reason_category and decision_result in ("granted", "partial"):
-            boost += 0.18  # strong boost: renewal recognized = de facto dismissal
-        # Boost cases where renewal expectation WAS recognized
         combined = text + " " + key_issue
+        if "contract_expiry" in reason_category and decision_result in ("granted", "partial"):
+            boost += 0.18
         if re.search(r"갱신기대권.{0,5}(인정|존재|있)", combined):
             if not re.search(r"갱신기대권.{0,5}(인정되지|부정|부인|없|존재하지|존재한다고 볼 수 없)", combined):
                 boost += 0.15
+        if re.search(r"(부당해고)", combined):
+            boost += 0.10
         # Penalize cases where renewal expectation was denied (simple termination)
         if re.search(r"(갱신기대권.{0,5}(인정되지|부정|부인|없|존재하지|존재한다고 볼 수 없)|정상적.{0,5}(계약기간|근로관계).{0,5}(만료|종료))", combined):
-            boost -= 0.15  # strong penalty: opposite of query intent
+            boost -= 0.15
         if decision_result == "dismissed" and "no_dismissal" in reason_category:
-            boost -= 0.10  # dismissed + no_dismissal = clear non-match
+            boost -= 0.06
+        if re.search(r"(갱신기대권.{0,8}인정되지 않|기대권.{0,8}인정되지 않)", combined):
+            boost -= 0.06
 
     # Q10: Regular employee incompetence
     if re.search(r"(정규직|저성과|업무능력 부족)", query) and "incompetence" in reason_category:
         if re.search(r"(저성과|업무능력.{0,5}(부족|미달)|근무성적)", text + " " + key_issue):
             boost += 0.10
+        if re.search(r"(개선.{0,5}기회|경고|시정|교육|직무교육|전환배치)", text + " " + key_issue):
+            boost += 0.08
+    if re.search(r"정규직", query):
+        if "probation" in reason_category and "incompetence" not in reason_category:
+            boost -= 0.10
+        if "transfer" in reason_category and "incompetence" not in reason_category:
+            boost -= 0.08
 
     # Q04: Harassment validity dispute
     if re.search(r"(괴롭힘.{0,5}(성립|해당|인정되는지))", query):
@@ -770,7 +780,7 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
         extra_terms.extend(["신고 후", "갈등", "불이익 취급", "직위해제", "전보", "보직해임", "대기발령"])
 
     if category == "contract_expiry" and re.search(r"(사실상 해고|해고처럼|실질적 해고|갱신거절)", lowered):
-        extra_terms.extend(["사실상 해고", "실질적 해고", "갱신거절", "갱신기대권 인정", "부당해고 인정"])
+        extra_terms.extend(["사실상 해고", "실질적 해고", "갱신거절", "부당해고", "부당해고 인정", "갱신기대권 인정"])
 
     if intent == "severity_check":
         extra_terms.extend(["양정과다", "과중"])
@@ -796,6 +806,9 @@ def build_intent_aware_query(query_text: str, rewrite: dict[str, Any]) -> str:
     # Q24: 복합 비위 + 전체 정당성
     if re.search(r"(여러|복합|복수|함께).*(비위|사유)", lowered) or re.search(r"(정당성 전체|전체를 본)", lowered):
         extra_terms.extend(["징계사유", "해고 정당성", "복합 비위"])
+
+    if category == "incompetence" and re.search(r"(정규직|무기계약|상용직)", lowered):
+        extra_terms.extend(["정규직", "무기계약", "통상해고"])
 
     return add_unique_terms(query_text, extra_terms) if extra_terms else query_text
 
