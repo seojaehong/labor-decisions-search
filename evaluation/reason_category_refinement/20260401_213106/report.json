@@ -1,0 +1,48 @@
+{
+  "scope": "reason_category_refinement_payloads",
+  "categories": [
+    "worker_status",
+    "no_dismissal",
+    "incompetence"
+  ],
+  "total_rows": 28665,
+  "kept_rows": 12413,
+  "removed_rows": 16252,
+  "granted_before": 5765,
+  "granted_after": 1976,
+  "update_candidates": 16252,
+  "db_applied": false,
+  "db_applied_count": 0,
+  "rows": [
+    {
+      "reason": "worker_status",
+      "total": 12196,
+      "kept": 3704,
+      "removed": 8492,
+      "kept_ratio": 0.3037,
+      "granted_before": 2487,
+      "granted_after": 631,
+      "update_candidates": 8492
+    },
+    {
+      "reason": "no_dismissal",
+      "total": 14230,
+      "kept": 7755,
+      "removed": 6475,
+      "kept_ratio": 0.545,
+      "granted_before": 2754,
+      "granted_after": 1105,
+      "update_candidates": 6475
+    },
+    {
+      "reason": "incompetence",
+      "total": 2239,
+      "kept": 954,
+      "removed": 1285,
+      "kept_ratio": 0.4261,
+      "granted_before": 524,
+      "granted_after": 240,
+      "update_candidates": 1285
+    }
+  ]
+}
