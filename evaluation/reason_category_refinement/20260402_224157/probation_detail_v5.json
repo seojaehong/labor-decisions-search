@@ -1,0 +1,2008 @@
+{
+  "reason": "probation",
+  "definition": {
+    "positive": [
+      "시용근로자",
+      "수습근로자",
+      "본채용\\s*거부",
+      "수습기간",
+      "수습\\s*평가",
+      "시용\\s*평가",
+      "수습기간\\s*중",
+      "계속\\s*근로가\\s*부적당"
+    ],
+    "positive_context": [
+      "(업무\\s*적격성|조직\\s*적응력).{0,15}(수습|시용|평가|채용)",
+      "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+    ],
+    "negative": [
+      {
+        "pattern": "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권",
+        "weight": 12,
+        "group": "strong_competitor"
+      },
+      {
+        "pattern": "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료",
+        "weight": 12,
+        "group": "strong_competitor"
+      },
+      {
+        "pattern": "저성과|PIP|개선\\s*기회\\s*부여",
+        "weight": 8,
+        "group": "competitor"
+      },
+      {
+        "pattern": "근로기준법상\\s*근로자|사용종속관계|임금을\\s*목적으로",
+        "weight": 8,
+        "group": "competitor"
+      },
+      {
+        "pattern": "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "weight": 8,
+        "group": "competitor"
+      },
+      {
+        "pattern": "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지",
+        "weight": 3,
+        "group": "context_noise"
+      }
+    ],
+    "competitor_negative": [
+      {
+        "pattern": "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권",
+        "target_reason": "contract_expiry",
+        "weight": 10
+      },
+      {
+        "pattern": "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료",
+        "target_reason": "no_dismissal",
+        "weight": 10
+      },
+      {
+        "pattern": "저성과|PIP|개선\\s*기회\\s*부여",
+        "target_reason": "incompetence",
+        "weight": 5
+      },
+      {
+        "pattern": "근로기준법상\\s*근로자|사용종속관계|임금을\\s*목적으로",
+        "target_reason": "worker_status",
+        "weight": 5
+      },
+      {
+        "pattern": "전보|대기발령",
+        "target_reason": "transfer",
+        "weight": 5
+      },
+      {
+        "pattern": "직장\\s*내\\s*괴롭힘",
+        "target_reason": "workplace_bullying",
+        "weight": 5
+      }
+    ],
+    "force_keep": [
+      "(수습기간\\s*중).{0,30}(본채용\\s*거부)",
+      "(본채용\\s*거부).{0,30}(수습기간\\s*중)"
+    ],
+    "subtype_patterns": [],
+    "review": [
+      "(본채용\\s*거부).{0,30}(기간만료|갱신거절)",
+      "(업무능력\\s*부족).{0,30}(수습|시용)",
+      "교섭단위|차별|재임용"
+    ]
+  },
+  "total": 3984,
+  "kept": 1418,
+  "removed": 774,
+  "needs_review": 1792,
+  "baseline_compare": {
+    "kept": 1466,
+    "removed": 708,
+    "needs_review": 1810
+  },
+  "kept_ratio": 0.3559,
+  "granted_before": 1075,
+  "granted_after": 361,
+  "removal_basis_counts": {
+    "label_mismatch": 717,
+    "needs_review": 1792,
+    "non_labor_domain": 57
+  },
+  "review_sub_bucket_counts": {
+    "lean_remove": 569,
+    "ambiguous": 1100,
+    "lean_keep": 123
+  },
+  "negative_signal_counts": {
+    "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료": 742,
+    "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지": 662,
+    "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권": 341,
+    "전보|대기발령|직장\\s*내\\s*괴롭힘": 273,
+    "전보|대기발령": 180,
+    "근로기준법상\\s*근로자|사용종속관계|임금을\\s*목적으로": 128,
+    "직장\\s*내\\s*괴롭힘": 36,
+    "저성과|PIP|개선\\s*기회\\s*부여": 3
+  },
+  "kept_examples": [
+    {
+      "id": "id_413889",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-28",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로자에 대한 본채용 거부는 그 사유가 인정되고 절차에도 하자가 없어 정당하다고 판정한 사례",
+      "score_current": 20,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413825",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "misconduct"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 시용근로자이고, 사용자의 근로자에 대한 본채용거부가 정당하다고 판정한 사례  쟁점: 가. 시용근로자 해당 여부근로계약서에 3개월의 수습기간이 있고, 수습기간 종료 전 업무평가 실시 후 부적격자로 판단 시 본 근로계약은 연장하지 않고 종료한다고 정하고 있는 점, 취업규칙에도 수습기간을 3개월로 정하고 있는 점 등을 고려하면, 이 사건 근로자는 판단: 가. 시용근로자 해당 여부근로계약서에 3개월의 수습기간이 있고, 수습기",
+      "score_current": 20,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_414075",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [
+        "(업무\\s*적격성|조직\\s*적응력).{0,15}(수습|시용|평가|채용)",
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "수습(시용)기간 3개월 이내에 있는 시용근로자에 대하여 수습평가 결과 본채용 기준에 미달하여 본채용을 거부한 것은 정당하다고 판정한 사례",
+      "score_current": 21,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_414073",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "해고한 정당한 사유가 존재한다고 판정한 사례  쟁점: 근로자는 수습기간 중 업무평가에서 저조한 점수를 받았고, 회사의 조직질서를 크게 훼손하는 행위를 하는 등 근로자를 해고한 정당한 사유가 존재하며, 해고절차에도 중대한 하자가 있다고 보기 어려우므로 해고는 사유와 절차 모두 정당함 판단: 근로자는 수습기간 중 업무평가에서 저조한 점수를 받았고, 회사의 조직질서를 크게 훼손하는 행위를 하는 등 근로자를 해고한 정당한 사유가 존재",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413829",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-16",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "가. 근로자1이 정규직근로자로 전환되었는지나. 본채용 거부가 정당한지(사유, 절차) 여부  쟁점: 시용근로자들에 대한 본채용 거부에 정당한 사유가 존재하고, 그 사유를 기재하여 서면으로 본채용 거부를 통보하였으므로 정당하다고 판정한 사례 판단: 시용근로자들에 대한 본채용 거부에 정당한 사유가 존재하고, 그 사유를 기재하여 서면으로 본채용 거부를 통보하였으므로 정당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_412831",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "제주지방노동위원회",
+      "decision_date": "2026-01-14",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "incompetence"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "수습근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "사용자가 수습근로자의 본채용 거절로 근로관계를 정당하게 종료한 것으로 판정한 사례  쟁점: 가. 본채용 거부의 정당성 여부양 당사자가 체결한 근로계약서 제5조 및 취업규칙 제4조에 따르면 수습기간은 입사 시점부터 3개월로 정하고, 수습기간 동안 업무 적격성을 판단하여 근로계약을 종료할 수 있도록 규정되어 있다. 판단: 가. 본채용 거부의 정당성 여부양 당사자가 체결한 근로계약서 제5조 및 취업규칙 제4조에 따르면 수습기간은 입",
+      "score_current": 22,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413659",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-13",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "수습근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 수습근로자로 본채용 거부의 사유 및 절차가 정당하다고 판정한 사례  쟁점: 가. 수습근로자인지당사자는 근로계약을 체결하면서 수습기간 3개월을 명시하였고, 근로자는 입사 시 수습평가 등에 대해 고지한 '사원 평가 서약서’에 서명한바, 근로자는 수습근로자의 지위에 있었던 것으로 보임나. 본채용 거부가 정당한지근로자는 수습기간 3개월이 만료되기도 판단: 가. 수습근로자인지당사자는 근로계약을 체결하면서 수습기간 3개월을 명시",
+      "score_current": 22,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413685",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "가. 이 사건 근로자가 시용근로자에 해당하는지 여부이 사건 근로자의 근로계약서상에는 시용 관련 문구가 없고, 채용 공고상에도 시용 관련 문구를 찾아볼 수 없으며, 이 사건 사용자는 이 사건 근로자에게 수습사원 직무평가가 존재한다고 안내하거나 그 결과를 통지한 아무런 증거가 없는 점 등에 비추어 보면 이 사건 근로자는 시용근로자에 해당하지 않는다고 봄이 상당하다.나. 해고의 정당성(사유, 절차) 여부이 사건 근로자가 신입직원으로",
+      "score_current": 12,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_412497",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-08",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로계약 관계에서 평가를 통한 본채용 거부가 정당하다고 판정한 사례  쟁점: 가. 근로자가 시용근로자에 해당하는지 여부관리규정, 근로계약서에 명시된 수습 기간 적용 규정에 따라 근로자는 시용근로자에 해당한다. 판단: 가. 근로자가 시용근로자에 해당하는지 여부관리규정, 근로계약서에 명시된 수습 기간 적용 규정에 따라 근로자는 시용근로자에 해당한다.나. 본채용 거부의 정당성 여부근로자의 업무실적, 직무수행능력이 근로관계를 계속",
+      "score_current": 15,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413995",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-08",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로자에 대한 본채용 거부에 합리적인 이유가 있다고 볼 수 없어 본채용 거부가 부당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413743",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "부산지방노동위원회",
+      "decision_date": "2026-01-06",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [
+        "(업무\\s*적격성|조직\\s*적응력).{0,15}(수습|시용|평가|채용)",
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 시용근로자에 해당하고, 근로계약 해지의 합리적인 사유가 존재하며, 절차상 하자도 없어 정당하다고 판정한 사례",
+      "score_current": 14,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413001",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "인천지방노동위원회",
+      "decision_date": "2026-01-05",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "incompetence"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로자에 대한 정당한 평가를 통해 객관적이고 합리적인 이유로 본채용을 거부하였고 절차도 적법하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413169",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-05",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "absence"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로자에 대하여 무단결근 등을 이유로 본채용을 거부한 것은 합리적 이유가 있어 정당하다고 판정한 사례",
+      "score_current": 17,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413587",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "강원지방노동위원회",
+      "decision_date": "2026-01-05",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "absence"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로관계에 있는 근로자의 본채용 거부로서 사유가 정당하고, 절차에도 흠결이 발견되지 않으므로 본채용 거부는 정당하다고 판정한 사례",
+      "score_current": 22,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413051",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-26",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로관계에 해당하고, 본채용 거부에 합리적 이유가 존재하며, 절차상 하자가 없으므로 본채용 거부가 정당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "strong category signals matched"
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "id_413687",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "contract_expiry"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "근로기준법상\\s*근로자|사용종속관계|임금을\\s*목적으로"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로기준법상 근로자에 해당하고 해고는 있었으나 근로계약기간 만료일 이후 구제신청을 하여 구제이익이 없다고 판정한 사례",
+      "score_current": -8,
+      "score_competitor": 5,
+      "competitor_category": "worker_status",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: worker_status"
+    },
+    {
+      "id": "bc_d29032ef",
+      "title": "서울서부지방법원 2025. 11. 28. 선고 2024나49275 판결 기타(금전)",
+      "case_number": "2024나49275",
+      "department": "서울서부지방법원",
+      "decision_date": "2025-11-28",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료",
+        "전보|대기발령|직장\\s*내\\s*괴롭힘"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "노동위원회",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "# 부제소 합의 위반 및 불법행위 책임 부존재로 인한 청구 각하 및 기각 ## 결과 요약 - 원고의 피고 주식회사 C에 대한 소는 부제소 합의 위반으로 각하함. - 원고의 피고 B재단, D, E에 대한 청구는 불법행위 책임 증명 부족으로 기각함. - 제1심판결 중 피고 D, E의 패소 부분을 취소하고 원고의 청구를 기각함. ## 사실관계 - 원고는 피고 주식회사 C 소속 근로자로서 피고 B재단에 파견되어 청소 업무를 수행하였음",
+      "score_current": -20,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: no_dismissal"
+    },
+    {
+      "id": "id_412503",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-27",
+      "decision_result": "overturned",
+      "current_reason_category": [
+        "contract_expiry",
+        "worker_status",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "갱신기대권",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "기간의 정함이 있는 근로자에 해당하고, 근로계약 갱신기대권이 인정되지 않아 계약기간 만료로 고용관계를 종료한 것은 정당하다고 판정한 사례",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "contract_expiry",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: contract_expiry"
+    },
+    {
+      "id": "bc_d16ef9b9",
+      "title": "서울행정법원 2025. 11. 6. 선고 2025구합52783 판결 부당해고구제재심판정취소",
+      "case_number": "2025구합52783",
+      "department": "서울행정법원",
+      "decision_date": "2025-11-06",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "지방노동위원회",
+        "중앙노동위원회",
+        "노동위원회",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "# 해고 사실 증명 책임 및 부당해고 구제 재심판정 취소 ## 결과 요약 - 중앙노동위원회의 재심판정은 위법하므로 취소함. - 소송비용 중 보조참가로 인한 부분은 피고보조참가인이, 나머지는 피고가 각 부담함. ## 사실관계 - 원고는 자동차 렌트업을 영위하는 법인으로, 2024. 6. 10. 참가인을 셀프로더 화물차량 운전직으로 채용함. - 참가인은 2024. 6. 15. 주말 근무 요청에 응하지 않아 원고 대표 D이 직접 업",
+      "score_current": -3,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "negative filters outweighed category signals"
+    },
+    {
+      "id": "bc_03d220cb",
+      "title": "인천지방법원 부천지원 2025. 9. 17. 선고 2025고단1137 판결 근로기준법위반",
+      "case_number": "2025고단1137",
+      "department": "인천지방법원 부천지원",
+      "decision_date": "2025-09-17",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "# 근로기준법 위반(해고예고수당 미지급, 서면 미교부) 및 금품 미지급에 대한 선고유예 및 공소기각 판결 ## 결과 요약 - 피고인에 대한 해고예고수당 미지급 및 근로조건 서면 미교부 혐의에 대해 **형의 선고를 유예함.** - 금품 미지급으로 인한 근로기준법 위반의 점에 대한 공소를 기각함. ## 사실관계 - 피고인은 김포시 소재 'C'의 대표로서 상시근로자 3명을 사용하여 구조용 금속제품 제조업을 경영하는 사용자임. - 피",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: no_dismissal"
+    },
+    {
+      "id": "id_412435",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-08-22",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "contract_expiry",
+        "worker_status",
+        "probation",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "갱신기대권",
+        "본채용",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로계약의 갱신기대권이 인정되나 갱신거절의 합리적인 이유가 인정된다고 판정한 사례  쟁점: 가. 갱신기대권이 인정되는지 여부취업규칙이나 근로계약서에 기간제근로자의 근로계약 갱신에 관한 의무규정이 존재하지는 않으나, 근로계약서에 시용기간 3개월 후 본채용을 거부할 수 있다고만 되어 있을 뿐 계약기간 1년 후 계약이 자동 종료된다고 정하고 있지 않은 점, 판단: 가. 갱신기대권이 인정되는지 여부취업규칙이나 근로계약서에 기간제근로자",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "contract_expiry",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: contract_expiry"
+    },
+    {
+      "id": "id_401175",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-08-19",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "no_dismissal",
+        "probation",
+        "absence",
+        "misconduct"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "시용 근로자에 대한 해고가 사회통념상 상당한 이유가 있어 정당하다고 판정한 사례  쟁점: 가. 해고가 존재하는지근로자가 사용자의 사직 권고를 수용하였음을 입증할 자료가 없고, 사용자가 근로자에게 고용해지 통보서를 교부하였으므로 근로관계는 사용자의 일방적 의사표시로 종료됨나. 해고의 정당성(사유, 절차) 여부근로자가 입사 후에 3주가 지나도록 입사 서류를 판단: 가. 해고가 존재하는지근로자가 사용자의 사직 권고를 수용하였음을 입",
+      "score_current": -3,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "negative filters outweighed category signals"
+    },
+    {
+      "id": "bc_091310e1",
+      "title": "서울행정법원 2025. 7. 25. 선고 2024구합3326 판결 부당해고구제재심판정취소",
+      "case_number": "2024구합3326",
+      "department": "서울행정법원",
+      "decision_date": "2025-07-25",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "중앙노동위원회",
+        "노동위원회",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "# 부당해고 구제신청 후 복직명령 및 일부 금전 지급만으로 구제이익 소멸 여부 ## 결과 요약 - 중앙노동위원회의 재심판정을 취소함. - 소송비용은 피고가 부담함. ## 사실관계 - 원고는 2023. ** *.부터 2024. * *.까지 이 사건 회사와 근로계약을 체결하고 시설관리 및 미화 업무를 담당함. - 2023. 12. 27. D 센터장은 원고에게 업무 미숙 및 태만 반복을 이유로 2023. 12. 31.자로 근로계약 ",
+      "score_current": -8,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: transfer"
+    },
+    {
+      "id": "id_402227",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-07-18",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "contract_expiry",
+        "probation",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권",
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "갱신기대권",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로계약서, 취업규칙 등에 갱신에 관한 규정이 없고 불과 1회의 근로계약을 체결하였을 뿐 계약을 갱신해온 바가 전혀 없다는 점 등에 비추어 보면, 기간제근로자에 대한 근로계약의 갱신기대권이 인정되지 않아 해고가 존재하지 않는다고 판정한 사례",
+      "score_current": -24,
+      "score_competitor": 10,
+      "competitor_category": "contract_expiry",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: contract_expiry"
+    },
+    {
+      "id": "id_403787",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-06-04",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "contract_expiry",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "갱신기대권",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로계약 갱신에 관한 신뢰관계가 형성되어 있다고 볼 만한 관행이나 증거가 없어, 갱신기대권을 인정하기 어렵다고 판정한 사례",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "contract_expiry",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: contract_expiry"
+    },
+    {
+      "id": "bc_acc8dacc",
+      "title": "광주지방법원 2025. 5. 29. 선고 2024가합54893 판결 해고무효확인",
+      "case_number": "2024가합54893",
+      "department": "광주지방법원",
+      "decision_date": "2025-05-29",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "중앙노동위원회",
+        "노동위원회",
+        "근로자",
+        "근로관계",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "# 정년퇴직 근로자의 촉탁직 재고용 거절이 부당해고에 해당하는지 여부 ## 결과 요약 - 피고 회사가 정년퇴직한 원고의 촉탁직 재고용을 거절한 것은 부당해고에 해당하지 않음. - 원고의 청구를 기각하고, 소송비용은 원고가 부담함. ## 사실관계 - 원고는 2012. 7. 20. 피고 회사에 입사하여 버스기사로 근무함. - 원고는 2023. 10. 10. 정년에 도달하여 피고 회사에서 퇴직함. - 원고는 2023. 10. 19.",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: no_dismissal"
+    },
+    {
+      "id": "bc_f479f20c",
+      "title": "서울행정법원 2025. 5. 15. 선고 2024구합58401 판결 계약연장불승인처분취소등청구의소",
+      "case_number": "2024구합58401",
+      "department": "서울행정법원",
+      "decision_date": "2025-05-15",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "징계"
+      ],
+      "evidence_snippet": "# 임기제 군무원 계약연장 불승인 처분 취소 소송에서 절차적 하자로 인한 위법성 인정 ## 결과 요약 - 피고 공군참모총장이 원고에게 한 임기제군무원 계약연장불승인처분을 취소함. - 소송비용은 피고 공군참모총장이 부담함. ## 사실관계 - 원고는 2020. 8. 1.부터 2021. 7. 31.까지 전문군무경력관 나군, 일반임기제군무원 6급으로 공군교육사령부 B센터 C교관으로 근무하였음. - 이후 2022. 8. 1. 전문군무경",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: no_dismissal"
+    },
+    {
+      "id": "id_404095",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-05-14",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "transfer"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "근로기준법상\\s*근로자|사용종속관계|임금을\\s*목적으로",
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 근로기준법상 근로자에 해당하고, 해고하면서 서면통지 의무를 위반하여 해고가 부당하다고 판정한 사례",
+      "score_current": -19,
+      "score_competitor": 5,
+      "competitor_category": "worker_status",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: worker_status"
+    },
+    {
+      "id": "id_403533",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "강원지방노동위원회",
+      "decision_date": "2025-05-13",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "해고의 사유가 객관적으로 입증이 되지 않아 해고의 정당성이 인정되지 않는 것으로 판정한 사례",
+      "score_current": -3,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "negative filters outweighed category signals"
+    },
+    {
+      "id": "id_404415",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-05-08",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation",
+        "transfer",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "구제신청의 구제이익이 있고, 해고가 존재하며, 서면통지하지 않아 부당하다고 판정한 사례  쟁점: 가. 구제신청의 구제이익이 있는지 여부사용자가 원직복직을 명하며 2025. 3. 말까지의 임금을 지급하였으나, ① 판정일까지의 임금이 지급되지 않은 점, ② 사용자가 복직명령을 하며 내용증명만 반복적으로 보냈을 뿐 당사자 간 신뢰관계를 회복하기 위한 노력이 없어 판단: 가. 구제신청의 구제이익이 있는지 여부사용자가 원직복직을 명하며",
+      "score_current": -11,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "competitor category preferred: transfer"
+    }
+  ],
+  "review_examples": [
+    {
+      "id": "id_413747",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-09",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "no_dismissal",
+        "contract_expiry"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "본채용\\s*거부",
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [
+        "(업무\\s*적격성|조직\\s*적응력).{0,15}(수습|시용|평가|채용)"
+      ],
+      "negative_hits": [
+        "갱신기대권|계약만료|기간만료|갱신거절|재계약\\s*거절|계약갱신\\s*기대권",
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료",
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "계약만료로 근로관계 종료를 통보한 것은 본채용 거부에 해당하므로 해고는 존재하며, 본채용 거부를 통보하면서 서면통지 의무를 위반하여 부당하다고 판정한 사례",
+      "score_current": -10,
+      "score_competitor": 10,
+      "competitor_category": "contract_expiry",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: contract_expiry"
+    },
+    {
+      "id": "id_413057",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-07",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "no_dismissal",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "수습",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "사용자가 일방적으로 근로관계를 종료하였다고 보기 어려우므로 해고가 존재하지 않는다고 판정한 사례",
+      "score_current": -7,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_413921",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "강원지방노동위원회",
+      "decision_date": "2026-01-06",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "union_activity",
+        "probation",
+        "contract_expiry"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "간 의사 합치에 따라 재평가에 합의하였으며, 저조한 재평가 결과에 따라 본채용 거부를 통보한 것은 정당하다고 판정한 사례",
+      "score_current": -7,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_412891",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-02",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "no_dismissal",
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자가 수습기간 중 사직서 제출을 수리하여 근로관계를 종료한 것이 유효하다고 판정한 사례",
+      "score_current": -2,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_413999",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-31",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation",
+        "transfer",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "ambiguous",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 시용근로자에 해당하고, 사용자가 본채용 거부(해고) 사유와 시기를 서면으로 통지하지 않아 부당해고라고 판정한 사례",
+      "score_current": 4,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: transfer"
+    },
+    {
+      "id": "id_413395",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-12-29",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "probation",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "근로계약 관계가 사용자의 일방적인 의사표시에 의하여 종료되었다고 인정할 만한 객관적인 증거나 정황이 확인되지 않아 해고가 존재하지 않는다고 판정한 사례",
+      "score_current": -12,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_413047",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-12-24",
+      "decision_result": "overturned",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "workplace_bullying"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_keep",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "직장\\s*내\\s*괴롭힘"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "사용자로서 당사자적격은 이 사건 재단에 있고, 근로자는 시용근로자에 해당하며, 본채용 거부사유가 정당하지 않으므로 부당해고라고 판정한 사례",
+      "score_current": 7,
+      "score_competitor": 5,
+      "competitor_category": "workplace_bullying",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: workplace_bullying"
+    },
+    {
+      "id": "id_413087",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-23",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "transfer"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_keep",
+      "positive_hits": [
+        "수습근로자",
+        "수습기간",
+        "수습\\s*평가"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "절차가 부적법하여 해고가 부당하다고 판정한 사례  쟁점: 가. 근로자가 수습근로자인지 여부수습기간이 명시된 근로계약서를 작성하지 않았으나 채용공고에 수습기간을 명시한 점, 취업규칙에 신규로 채용된 자에 대하여 채용한 날로부터 3개월 간의 수습기간을 두고 업무수습을 하게한다는 규정이 존재하는 점에 비추어 수습 근로자에 판단: 가. 근로자가 수습근로자인지 여부수습기간이 명시된 근로계약서를 작성하지 않았으나 채용공고에 수습기간을 명",
+      "score_current": 9,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: transfer"
+    },
+    {
+      "id": "id_413305",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "강원지방노동위원회",
+      "decision_date": "2025-12-23",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "union_activity",
+        "probation",
+        "contract_expiry"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "본채용\\s*거부"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "간 의사 합치에 따라 재평가에 합의하였으며, 저조한 재평가 결과에 따라 본채용 거부를 통보한 것은 정당하다고 판정한 사례",
+      "score_current": -7,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_412595",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-12-19",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "probation",
+        "transfer"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "수습",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "가 경비업무에 부적합했다고 보기 어려운 점, ③ 사용자는 심문회의에서 '수습기간 중인 근로자에 대한 평가 기준이 별도로 마련되어 있지 않다.’라고 진술하였고, 이외에 사용자가 근로자의 경비업무 적합성에 대해 객관적인 평가를 하였는지는 확인되지 않은 점, ④ 근로계약서상 '업무에 부적합’은 해고사유로 규정되어 있지 않는 점 등을 종합하면, '경비업무에 부적합(불성실)’은 정당한 해고사유로 인정하기 어렵다.또한 ① 사용자는 해고예",
+      "score_current": -1,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: transfer"
+    },
+    {
+      "id": "id_412479",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-16",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "transfer",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_keep",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "상시근로자 수가 5명 이상이고, 시용근로자에 대한 본채용 거부에 합리적인 이유가 없어 부당하다고 판정한 사례",
+      "score_current": 9,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: transfer"
+    },
+    {
+      "id": "id_413179",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-12-16",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "수습기간"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [
+        "권고사직|해고가\\s*존재하지\\s*않|해고\\s*존재하지\\s*않|해고로\\s*볼\\s*수\\s*없|사직서|사직원|사직의\\s*의사|합의해지|합의\\s*퇴직|일용계약\\s*종료|당연퇴직|근로관계\\s*종료"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "수습",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "점: ① 근로자는 2025. 1. 13. 입사하여 근로계약서상 3개월의 수습기간을 적용하여 일하다가 사용자와의 합의로 수습기간을 2025. 8. 31.까지 연장한 점, ② 근로자와 사용자는 2025. 8. 1. 'Termination of Probationary 판단: ① 근로자는 2025. 1. 13. 입사하여 근로계약서상 3개월의 수습기간을 적용하여 일하다가 사용자와의 합의로 수습기간을 2025. 8. 31.까지 연장한 점",
+      "score_current": -5,
+      "score_competitor": 10,
+      "competitor_category": "no_dismissal",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_412031",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-12-15",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "no_dismissal"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_keep",
+      "positive_hits": [
+        "수습기간"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "시용근로계약에 해당하지 아니하고 고용관계를 계속할 수 없을 정도로 근로자에게 책임있는 사유가 없어 부당하다고 판단한 사례",
+      "score_current": 2,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "ambiguous scoring window"
+    },
+    {
+      "id": "bc_80e8b406",
+      "title": "서울고등법원 2025. 12. 12. 선고 2024나2013287 판결 임금등",
+      "case_number": "2024나2013287",
+      "department": "서울고등법원",
+      "decision_date": "2025-12-12",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "probation"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "ambiguous",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "근로자"
+      ],
+      "evidence_snippet": "# 방송사 그래픽 디자이너 임금 차별에 대한 손해배상 청구 사건 ## 결과 요약 - 피고는 원고들에게 계약직 및 연봉직 그래픽 디자이너 근무 기간 동안 호봉직 그래픽 디자이너와 비교하여 차별적으로 지급된 임금 차액 상당의 손해배상금을 지급할 의무가 있음. - 원고 D에게는 미지급 퇴직금도 지급할 의무가 있음. - 계약직 그래픽 디자이너 근무 기간 중 일부 임금 차액에 대한 소멸시효 항변은 인용되었으나, 연봉직 그래픽 디자이너 ",
+      "score_current": 0,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "",
+      "decision_notes": "review-only or mixed context signals matched"
+    },
+    {
+      "id": "id_412547",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-12",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "transfer"
+      ],
+      "target_reason": "probation",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_keep",
+      "positive_hits": [
+        "시용근로자",
+        "본채용\\s*거부",
+        "수습기간",
+        "수습기간\\s*중"
+      ],
+      "positive_context_hits": [
+        "(입사|채용).{0,15}(3개월|수습기간|시용기간)"
+      ],
+      "negative_hits": [
+        "전보|대기발령|직장\\s*내\\s*괴롭힘",
+        "해고의\\s*정당성|해고의\\s*절차적\\s*정당성|서면통지",
+        "전보|대기발령"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "전보",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 시용근로자에 해당하고, 사용자가 본채용 거부사유와 시기를 서면으로 통보하지 않아 부당한 해고라고 판정한 사례",
+      "score_current": 11,
+      "score_competitor": 5,
+      "competitor_category": "transfer",
+      "subtype": "",
+      "decision_notes": "mixed signals with competitor category: transfer"
+    }
+  ]
+}

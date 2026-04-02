@@ -1,0 +1,69 @@
+{
+  "scope": "reason_category_refinement_payloads_v5",
+  "categories": [
+    "probation",
+    "misconduct"
+  ],
+  "total_rows": 17742,
+  "kept_rows": 8310,
+  "removed_rows": 1095,
+  "needs_review_rows": 8337,
+  "granted_before": 4803,
+  "granted_after": 2441,
+  "update_candidates": 1095,
+  "review_candidates": 8337,
+  "db_applied": false,
+  "db_applied_count": 0,
+  "rows": [
+    {
+      "reason": "probation",
+      "total": 3984,
+      "kept": 1418,
+      "removed": 774,
+      "needs_review": 1792,
+      "delta_kept": -48,
+      "delta_removed": 66,
+      "delta_needs_review": -18,
+      "kept_ratio": 0.3559,
+      "granted_before": 1075,
+      "granted_after": 361,
+      "remove_candidates": 774,
+      "review_candidates": 1792,
+      "removal_basis_counts": {
+        "label_mismatch": 717,
+        "needs_review": 1792,
+        "non_labor_domain": 57
+      },
+      "review_sub_bucket_counts": {
+        "lean_remove": 569,
+        "ambiguous": 1100,
+        "lean_keep": 123
+      }
+    },
+    {
+      "reason": "misconduct",
+      "total": 13758,
+      "kept": 6892,
+      "removed": 321,
+      "needs_review": 6545,
+      "delta_kept": 260,
+      "delta_removed": 43,
+      "delta_needs_review": -303,
+      "kept_ratio": 0.5009,
+      "granted_before": 3728,
+      "granted_after": 2080,
+      "remove_candidates": 321,
+      "review_candidates": 6545,
+      "removal_basis_counts": {
+        "label_mismatch": 311,
+        "needs_review": 6545,
+        "non_labor_domain": 10
+      },
+      "review_sub_bucket_counts": {
+        "lean_remove": 4376,
+        "ambiguous": 1924,
+        "lean_keep": 245
+      }
+    }
+  ]
+}

@@ -1,0 +1,1931 @@
+{
+  "reason": "misconduct",
+  "definition": {
+    "positive": [
+      "비위행위",
+      "징계사유가\\s*(인정|존재)",
+      "(취업규칙|사규|복무규정|인사규정)\\s*위반",
+      "복무규정\\s*위반",
+      "복종의무\\s*위반",
+      "업무\\s*지시\\s*불이행",
+      "허위\\s*보고",
+      "허위\\s*기재",
+      "허위\\s*작성",
+      "지시\\s*불이행",
+      "무단\\s*(결근|외출|이탈|조퇴)",
+      "(주의|성실|복무)\\s*의무\\s*(위반|게을리|해태)",
+      "겸직",
+      "징계사유"
+    ],
+    "positive_context": [],
+    "negative": [
+      {
+        "pattern": "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행",
+        "weight": 15,
+        "group": "strong_competitor"
+      },
+      {
+        "pattern": "횡령|배임|유용|법인카드|공금|금품\\s*수수",
+        "weight": 15,
+        "group": "strong_competitor"
+      },
+      {
+        "pattern": "성희롱|성추행|성비위|불륜|스토킹|성관계",
+        "weight": 15,
+        "group": "strong_competitor"
+      },
+      {
+        "pattern": "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사",
+        "weight": 15,
+        "group": "strong_competitor"
+      },
+      {
+        "pattern": "업무능력\\s*부족|저성과|PIP|근무성적\\s*불량|역량\\s*부족",
+        "weight": 10,
+        "group": "competitor"
+      },
+      {
+        "pattern": "시용|수습|본채용\\s*거부",
+        "weight": 10,
+        "group": "competitor"
+      },
+      {
+        "pattern": "갱신거절|계약갱신\\s*거절|갱신기대권",
+        "weight": 10,
+        "group": "competitor"
+      },
+      {
+        "pattern": "전보|대기발령|직위해제|보직변경",
+        "weight": 10,
+        "group": "competitor"
+      },
+      {
+        "pattern": "당연퇴직|권고사직|면허취소|통상해고",
+        "weight": 3,
+        "group": "context_noise"
+      }
+    ],
+    "competitor_negative": [
+      {
+        "pattern": "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행",
+        "target_reason": "violence",
+        "weight": 12
+      },
+      {
+        "pattern": "횡령|배임|유용|법인카드|공금|금품\\s*수수",
+        "target_reason": "embezzlement",
+        "weight": 10
+      },
+      {
+        "pattern": "성희롱|성추행|성비위|불륜|스토킹|성관계",
+        "target_reason": "sexual_harassment",
+        "weight": 12
+      },
+      {
+        "pattern": "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사",
+        "target_reason": "workplace_bullying",
+        "weight": 12
+      },
+      {
+        "pattern": "업무능력\\s*부족|저성과|PIP|근무성적\\s*불량|역량\\s*부족",
+        "target_reason": "incompetence",
+        "weight": 5
+      },
+      {
+        "pattern": "시용|수습|본채용\\s*거부",
+        "target_reason": "probation",
+        "weight": 7
+      },
+      {
+        "pattern": "갱신거절|계약갱신\\s*거절|갱신기대권",
+        "target_reason": "contract_expiry",
+        "weight": 7
+      },
+      {
+        "pattern": "전보|대기발령|직위해제|보직변경",
+        "target_reason": "transfer",
+        "weight": 7
+      }
+    ],
+    "force_keep": [],
+    "subtype_patterns": [
+      {
+        "pattern": "음주운전|도로교통법위반.{0,30}(당연퇴직|면허취소|운전직|통상해고)",
+        "subtype": "dui_termination",
+        "weight": 7
+      },
+      {
+        "pattern": "음주운전|도로교통법위반",
+        "subtype": "dui",
+        "weight": 5
+      }
+    ],
+    "review": [
+      "근무태만",
+      "업무\\s*미이행",
+      "당연퇴직|면허취소|통상해고"
+    ]
+  },
+  "total": 13758,
+  "kept": 6892,
+  "removed": 321,
+  "needs_review": 6545,
+  "baseline_compare": {
+    "kept": 6632,
+    "removed": 278,
+    "needs_review": 6848
+  },
+  "kept_ratio": 0.5009,
+  "granted_before": 3728,
+  "granted_after": 2080,
+  "removal_basis_counts": {
+    "label_mismatch": 311,
+    "needs_review": 6545,
+    "non_labor_domain": 10
+  },
+  "review_sub_bucket_counts": {
+    "lean_remove": 4376,
+    "ambiguous": 1924,
+    "lean_keep": 245
+  },
+  "negative_signal_counts": {
+    "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행": 2310,
+    "성희롱|성추행|성비위|불륜|스토킹|성관계": 1562,
+    "횡령|배임|유용|법인카드|공금|금품\\s*수수": 1328,
+    "전보|대기발령|직위해제|보직변경": 1238,
+    "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사": 1133,
+    "당연퇴직|권고사직|면허취소|통상해고": 232,
+    "시용|수습|본채용\\s*거부": 184,
+    "갱신거절|계약갱신\\s*거절|갱신기대권": 142,
+    "업무능력\\s*부족|저성과|PIP|근무성적\\s*불량|역량\\s*부족": 95
+  },
+  "kept_examples": [
+    {
+      "id": "id_414083",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-02-03",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자들에 대한 징계사유가 대부분 인정되고, 징계양정이 과하다고 볼 수 없다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_414065",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-30",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "misconduct",
+        "no_dismissal"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "절차상 하자는 존재하지 않으나, 복수의 징계사유 중 제2 징계사유의 존재는 인정하기 어려워 양정은 부당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413549",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-29",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "absence",
+        "incompetence",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "비위행위",
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "일부 징계사유가 인정되나, 인정되는 징계사유만으로 감봉 3개월의 처분은 양정이 과하여 부당하며, 징계절차상 하자는 없다고 판정한 사례",
+      "score_current": 15,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413901",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct",
+        "no_dismissal"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계사유가 존재하고 양정도 적정하며 절차에도 하자가 없어 정당한 징계라고 판정한 사례  쟁점: 가. 징계사유의 존재 여부대손충당금 과소적립을 통한 배당금 지급 부적정 및 불법 대출 수수료 지급은 모두 객관적 자료를 통해 확인되므로 징계사유로 인정된다. 판단: 가. 징계사유의 존재 여부대손충당금 과소적립을 통한 배당금 지급 부적정 및 불법 대출 수수료 지급은 모두 객관적 자료를 통해 확인되므로 징계사유로 인정된다.나. 징계양정의",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_414045",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계사유가 존재하고, 양정이 적정하며, 절차에도 하자가 없어 징계가 정당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_414035",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충북지방노동위원회",
+      "decision_date": "2026-01-23",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "정직은 징계사유가 인정되고 징계절차에 하자는 없으나 징계양정이 과도하여 부당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413693",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-21",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "비위행위",
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "'임의할인’의 징계사유는 인정되나, 인정되는 징계사유에 비하여 해고의 양정은 과하므로 부당하다고 판정한 사례",
+      "score_current": 15,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413839",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-21",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "인정되고, 양정 및 절차가 모두 정당하다고 판정한 사례  쟁점: 가. 징계사유의 존재 여부① 회사 정책에 위배되는 수수료 기반 판매 중개인(SI)과의 계약, ② 무단 통신 채널 사용, ③ 경쟁사 기밀정보 취득 및 이용, ④ 위반 사항 보고 의무 불이행, ⑤ 경영 윤리 위반 중 ③을 제외한 나머지 ①, ②, ④, ⑤가 징계사유로 판단: 가. 징계사유의 존재 여부① 회사 정책에 위배되는 수수료 기반 판매 중개인(SI)과의 계약,",
+      "score_current": 5,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413691",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "no_dismissal",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "비위행위",
+        "허위\\s*작성",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "농장장인 근로자에 관한 일부 징계사유는 인정되나, 인정되는 징계사유에 비하여 해고의 양정은 과하므로 부당한 징계해고라고 판정한 사례",
+      "score_current": 15,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_414037",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "부당징계",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "“회사는 징계에 회부된 직원 및 위원에게 인사위원회 개최 3일 전까지 징계사유, 인사위원회 개최일시, 장소를 통보하여야 한다”라고, 같은 조 제4항에 “직원은 인사위원회에 출석하여 소명할 기회를 보장받는다”라고 각각 정하고 판단: ① 취업규칙 제53조(징계절차) 제3항에 “회사는 징계에 회부된 직원 및 위원에게 인사위원회 개최 3일 전까지 징계사유, 인사위원회 개최일시, 장소를 통보하여야 한다”라고, 같은 조 제4항에 “직원",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413631",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-16",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "비위행위",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자에게 적용되는 15개의 징계사유들은 모두 징계사유로 인정되고 고용관계를 계속할 수 없을 정도에 이르렀다고 보아 해고가 정당하다고 판정한 사례",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413665",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-16",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "비위행위",
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계의 사유, 양정, 절차가 모두 정당하다고 판정한 사례  쟁점: 가. 징계사유가 존재하는지 여부근로자가 연번1 사업장의 무단열람 및 유출, 연번2, 연번3, 연번4 사업장에 대한 무단열람은 징계사유로 인정되고, 연번5 사업장에 대한 무단열람은 입증이 부족하여 징계사유로 인정되지 않음나. 징계양정이 적정한지 여부① 공단은 공공성이 판단: 가. 징계사유가 존재하는지 여부근로자가 연번1 사업장의 무단열람 및 유출, 연번2, 연번3",
+      "score_current": 15,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413035",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-01-15",
+      "decision_result": "partial",
+      "current_reason_category": [
+        "worker_status",
+        "no_dismissal",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "'협력업체로부터 골프 접대 등 향응 수수 행위’ 등 징계사유는 모두 인정되나, 해고 처분은 징계로 달성하려는 목적에 비해 그 양정이 과하므로 부당해고라고 판정한 사례",
+      "score_current": 5,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413063",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경북지방노동위원회",
+      "decision_date": "2026-01-14",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "misconduct",
+        "no_dismissal"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계사유가 존재하지 않아 파면이 부당하다고 판정한 사례  쟁점: 가. 징계사유의 존재 여부근로자들의 행위가 공익신고가 아니라고 볼 근거가 부족해 부패방지권익위법 제62조(불이익조치 등의 금지)와 제66조(책임의 감면 등), 공익신고자보호법 제14조(책임의 감면 등)와 제15조(불이익조치 등의 금지) 및 형법 제310조(위법성의 조각)에 따라 근로자들에 대한 징계사유가 존재한다고 볼 수 없다. 판단: 가. 징계사유의 존재 여부근",
+      "score_current": 10,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    },
+    {
+      "id": "id_413733",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-14",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "absence",
+        "misconduct",
+        "no_dismissal"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "keep",
+      "removal_basis": "",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "무단\\s*(결근|외출|이탈|조퇴)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "1차 감봉은 징계사유가 인정되지 않고, 2차 감봉은 일부 징계사유가 인정되지 않아 징계양정이 과도하여 부당하다고 판정한 사례",
+      "score_current": 15,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "general_misconduct",
+      "decision_notes": "strong category signals matched"
+    }
+  ],
+  "removed_examples": [
+    {
+      "id": "bc_074485dd",
+      "title": "서울고등법원 2026. 2. 13. 선고 2025노2844 판결 상관모욕",
+      "case_number": "2025노2844",
+      "department": "서울고등법원",
+      "decision_date": "2026-02-13",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행"
+      ],
+      "domain_hits": [
+        "징계"
+      ],
+      "evidence_snippet": "# 상관모욕죄에 대한 양형부당 항소심 판단 ## 결과 요약 - 피고인의 상관모욕죄에 대한 원심의 형(징역 4개월, 집행유예 1년)이 다소 무겁다고 판단하여 원심판결을 파기하고, 형의 선고를 유예함. ## 사실관계 - 피고인은 상관인 피해자들의 정당한 지시에 대해 경멸적 감정을 담아 욕설을 함. - 원심은 피고인에게 징역 4개월, 집행유예 1년을 선고함. - 피고인은 원심의 형이 너무 무거워 부당하다며 항소함. ## 핵심 쟁점,",
+      "score_current": -15,
+      "score_competitor": 12,
+      "competitor_category": "violence",
+      "subtype": "general_misconduct",
+      "decision_notes": "competitor category preferred: violence"
+    },
+    {
+      "id": "id_413861",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자가 징계사유에 대해 인정하고 있고, 징계절차에 대해서도 달리 주장하고 있지 않으며, 관련 규정에 따라 절차적 하자 없이 진행된 것으로 판단됨양정에 대해 살펴보면, ① 근로자는 2020. 12. 4. 음주 운전으로 적발되어 벌금 700만 원의 벌금형을 선고받은 점, ② 근로자는 2025. 1. 27. 22:40경 자동차 좌측 앞바퀴 타이어가 터진 상태에서 위험하게 운전하다 순찰 중인 경찰에 의해 적발되었고, 경찰관으로부터 ",
+      "score_current": -2,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "id_412329",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-12-22",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "no_dismissal",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "노동조합",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자의 징계사유가 모두 인정되고, 징계해고가 재량권의 범위를 벗어난 위법한 처분이라 볼 수 없으며, 징계절차상 하자가 없어 정당하다고 판정한 사례",
+      "score_current": -2,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "id_413339",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2025-12-18",
+      "decision_result": "partial",
+      "current_reason_category": [
+        "worker_status",
+        "transfer",
+        "union_activity",
+        "workplace_bullying",
+        "violence",
+        "absence",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "부당노동행위",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자2 내지 4에 대한 징계는 정당하나, 근로자1은 징계 형평성에 어긋나 부당하고, 전직은 직장 내 괴롭힘 행위로 인한 피해자와의 분리를 위한 것으로 정당하며, 근로자들에 대한 전직과 징계가 부당노동행위에 해당하지 않는다고 판정한 사례",
+      "score_current": -15,
+      "score_competitor": 12,
+      "competitor_category": "workplace_bullying",
+      "subtype": "general_misconduct",
+      "decision_notes": "competitor category preferred: workplace_bullying"
+    },
+    {
+      "id": "id_400755",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2025-11-03",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "contract_expiry",
+        "worker_status",
+        "violence",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행",
+        "갱신거절|계약갱신\\s*거절|갱신기대권"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "갱신기대권",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "가. 갱신기대권이 존재하는지 여부정년이 지난 촉탁직 근로자에 대한 근로계약 갱신절차 규정이 마련되어 있고, 근로자가 수행하는 시설관리직 업무는 상시？계속적인 업무에 해당하며, 이 사건 근로자가 3차례에 걸쳐 근로계약이 갱신된 점을 고려하면 근로자에게 갱신기대권이 인정된다.나. 갱신거절의 합리적 이유가 존재하는지 여부근로자가 행정실 직원, 행정실장 및 교장 등에게 반말, 고성, 욕설 및 협박성 발언을 하여 품위유지 위반 및 복종",
+      "score_current": -25,
+      "score_competitor": 12,
+      "competitor_category": "violence",
+      "subtype": "general_misconduct",
+      "decision_notes": "competitor category preferred: violence"
+    },
+    {
+      "id": "id_410943",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-11-03",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "no_dismissal",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "도로교통법 위반으로 징역 8개월의 형을 선고받은 자에 대해 직권면직 처분을 한 것은 정당하다고 판정한 사례",
+      "score_current": -7,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "bc_a5f14d0a",
+      "title": "헌법재판소 2025. 9. 23. 선고 2025헌마1092 결정 포상·승진제한위헌확인",
+      "case_number": "2025헌마1092",
+      "department": "헌법재판소",
+      "decision_date": "2025-09-23",
+      "decision_result": "rejected",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "징계"
+      ],
+      "evidence_snippet": "# 음주운전으로 인한 포상 및 특별승진 제외 규정 위헌확인 심판청구 각하 ## 결과 요약 - 청구인의 이 사건 심판청구는 청구기간을 준수하지 못하여 부적법하므로 각하함. ## 사실관계 - 청구인은 1996. 7. 1. 공무원으로 임용되어 현재 ○○부 소속기관에 재직 중임. - 청구인은 2015. 11. 5. 음주운전으로 벌금 100만 원의 형사 처분 및 견책의 징계를 받은 사실이 있다고 주장함. - **2024년도 정부포상업무",
+      "score_current": -7,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "id_401381",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2025-08-18",
+      "decision_result": "partial",
+      "current_reason_category": [
+        "worker_status",
+        "union_activity",
+        "transfer",
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사",
+        "전보|대기발령|직위해제|보직변경"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "부당노동행위",
+        "전보",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자들의 직장 내 괴롭힘 사유가 인정되나 전보는 부당하고, 감봉 1개월은 정당하며, 부당노동행위에는 해당하지 않는다고 판정한 사례",
+      "score_current": -25,
+      "score_competitor": 12,
+      "competitor_category": "workplace_bullying",
+      "subtype": "general_misconduct",
+      "decision_notes": "competitor category preferred: workplace_bullying"
+    },
+    {
+      "id": "id_413401",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2025-08-18",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "가. 당연면직 사유의 정당성 여부① 근로자는 도로교통법 위반(음주운전, 무면허운전)으로 이미 4차례 유죄판결(벌금형)을 받은 점, ② 사용자가 '집행유예에 대한 당연면직 처리지침’을 통해 인사규정 제41조제4호의 당연면직 예외 사유인 '직무수행에 지장이 없을 때’를 판단함에 있어 직원으로서의 신뢰성, 도덕성 및 사회적 인식 등을 종합적으로 고려하여 판단함을 기본원칙으로 삼고 있는 점, ③ 공기업에 종사하는 근로자는 보다 높은 ",
+      "score_current": -2,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "id_401703",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2025-07-30",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "probation",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "시용|수습|본채용\\s*거부"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "근로자는 시용근로자에 해당하나, 본채용 거부에 합리적 이유가 없어 해고가 부당하다고 판정한 사례",
+      "score_current": -17,
+      "score_competitor": 7,
+      "competitor_category": "probation",
+      "subtype": "dui_termination",
+      "decision_notes": "competitor category preferred: probation"
+    },
+    {
+      "id": "bc_521867c6",
+      "title": "서울고등법원 2025. 7. 10. 선고 2024누48505 판결 부당전보구제재심판정취소",
+      "case_number": "2024누48505",
+      "department": "서울고등법원",
+      "decision_date": "2025-07-10",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "전보|대기발령|직위해제|보직변경"
+      ],
+      "domain_hits": [
+        "전보",
+        "징계"
+      ],
+      "evidence_snippet": "# 재료비 부당 수령을 이유로 한 보직해임의 업무상 필요성 불인정 ## 결과 요약 - 원고의 항소를 기각하고, 항소비용은 원고가 부담함. ## 사실관계 - 원고는 재료비 부당 수령 편취행위와 관련하여 참가인이 사기죄로 재판 절차가 진행 중임에도 제1심 법원이 관련 형사사건 결과를 검토하지 않은 채 판단을 내린 잘못이 있다고 주장함. - D병원에서 실습 보조를 한 한약사들에게 지급해야 할 인건비가 따로 편성되지 않은 상황이었음.",
+      "score_current": -10,
+      "score_competitor": 7,
+      "competitor_category": "transfer",
+      "subtype": "general_misconduct",
+      "decision_notes": "competitor category preferred: transfer"
+    },
+    {
+      "id": "id_402443",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충남지방노동위원회",
+      "decision_date": "2025-07-08",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "no_dismissal",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "사용자가 일방적으로 근로관계를 종료하였다고 볼 수 없어 해고가 존재하지 않는다고 판정한 사례",
+      "score_current": -7,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "bc_18dfceda",
+      "title": "광주고등법원 2025. 6. 26. 선고 2025나20115 판결 해임처분무효확인의소",
+      "case_number": "2025나20115",
+      "department": "광주고등법원",
+      "decision_date": "2025-06-26",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "medium",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사"
+      ],
+      "domain_hits": [
+        "징계"
+      ],
+      "evidence_snippet": "# 직장 내 괴롭힘 및 직무 이용 부당행위 징계 해임의 정당성 여부 ## 결과 요약 - 원고의 항소를 기각하고, 항소비용은 원고가 부담함. ## 사실관계 - 원고는 D의 차량을 이용하여 얻은 이익과 관련하여, D의 감사 과정에서의 진술이 강압에 의한 허위 진술이며, 차량 관리 시간은 원고의 이익을 위한 운행 시간에 포함되어서는 안 되고, D에게 제공한 경제적 이익을 공제하면 징계양정 기준에 미달하므로 해임은 과중하다고 주장함.",
+      "score_current": -15,
+      "score_competitor": 12,
+      "competitor_category": "workplace_bullying",
+      "subtype": "general_misconduct",
+      "decision_notes": "competitor category preferred: workplace_bullying"
+    },
+    {
+      "id": "bc_8ade7ae4",
+      "title": "부산고등법원 2025. 6. 11. 선고 2025누2230 판결 해임처분취소",
+      "case_number": "2025누2230",
+      "department": "부산고등법원",
+      "decision_date": "2025-06-11",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [
+        "비위행위"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "징계"
+      ],
+      "evidence_snippet": "# 음주운전으로 해임된 공업직렬 공무원의 징계처분 취소 항소 기각 ## 결과 요약 - 원고의 항소를 기각함. - 항소비용은 원고가 부담함. ## 사실관계 - 원고는 공업직렬 공무원으로 채용되어 영주국토관리사무소 소속으로 근무함. - 원고는 2023. 8.경 혈중알코올농도 0.157%의 음주 상태로 약 1km 구간을 운전하여 운전면허가 취소됨. - 피고는 원고를 '운전업무 관련 공무원'으로 보아 내부 징계기준을 적용, 해임 처분",
+      "score_current": -2,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    },
+    {
+      "id": "id_404117",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2025-06-05",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "no_dismissal",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "remove",
+      "removal_basis": "label_mismatch",
+      "domain_bucket": "labor_case",
+      "review_priority": "low",
+      "review_sub_bucket": "",
+      "positive_hits": [],
+      "positive_context_hits": [],
+      "negative_hits": [],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "해고"
+      ],
+      "evidence_snippet": "도로교통법위반으로 징역 8개월의 형을 선고받은 자에 대해 직권면직 처분을 한 것은 정당하다고 판정한 사례",
+      "score_current": -7,
+      "score_competitor": 0,
+      "competitor_category": "",
+      "subtype": "dui_termination",
+      "decision_notes": "browse/list guard miss"
+    }
+  ],
+  "review_examples": [
+    {
+      "id": "id_413731",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-02-02",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "sexual_harassment",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "성희롱|성추행|성비위|불륜|스토킹|성관계"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자의 징계사유가 일부 인정되나 징계 양정이 과다하며 징계 절차 또한 하자가 있어 부당하다고 판정한 사례",
+      "score_current": -10,
+      "score_competitor": 12,
+      "competitor_category": "sexual_harassment",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: sexual_harassment"
+    },
+    {
+      "id": "id_413701",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-29",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계의 사유, 양정, 절차가 모두 정당하다고 판정한 사례  쟁점: 가. 징계사유가 존재하는지 여부사용자가 근로자에게 직장 내 괴롭힘 조사 시 인정한 3가지 사유(① 신고인에 대한 과중한 업무할당으로 인한 업무량 증가 및 이로 인한 신고인의 신체적, 정신적 부담가중, ② 업무미처리 상태로 퇴근함으로써 신고인에게 업무량 가중, ③ 판단: 가. 징계사유가 존재하는지 여부사용자가 근로자에게 직장 내 괴롭힘 조사 시 인정한 3가지 사유",
+      "score_current": -5,
+      "score_competitor": 12,
+      "competitor_category": "workplace_bullying",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: workplace_bullying"
+    },
+    {
+      "id": "id_413661",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "sexual_harassment",
+        "absence",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "ambiguous",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "업무\\s*지시\\s*불이행",
+        "지시\\s*불이행",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "성희롱|성추행|성비위|불륜|스토킹|성관계"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계사유가 존재하고, 양정이 적정하며, 절차에도 하자가 없어 징계해고가 정당하다고 판정한 사례",
+      "score_current": 5,
+      "score_competitor": 12,
+      "competitor_category": "sexual_harassment",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: sexual_harassment"
+    },
+    {
+      "id": "id_413807",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-01-27",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "workplace_bullying",
+        "misconduct",
+        "no_dismissal"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "사용자1에게 당사자 적격이 인정되고, 근로자의 징계사유가 모두 인정되고 징계양정이 적정하며 징계절차상 하자가 없어 징계가 정당하다고 판정한 사례",
+      "score_current": -10,
+      "score_competitor": 12,
+      "competitor_category": "workplace_bullying",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: workplace_bullying"
+    },
+    {
+      "id": "id_414001",
+      "title": "○ ○ ○ 부당해고 구제 재심신청",
+      "case_number": "2025부해OOO",
+      "department": "중앙노동위원회",
+      "decision_date": "2026-01-26",
+      "decision_result": "upheld",
+      "current_reason_category": [
+        "worker_status",
+        "union_activity",
+        "workplace_bullying",
+        "no_dismissal",
+        "violence",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "중앙노동위원회",
+        "노동위원회",
+        "부당노동행위",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "욕설 및 폭언, 폭행 등은 징계사유로 인정되고, 징계양정이 과도하지 않으며, 징계절차에도 하자가 없으므로 해고는 정당하며, 해고가 불이익 취급 및 지배ㆍ개입의 부당노동행위라고 보기는 어렵다고 판정한 사례",
+      "score_current": -10,
+      "score_competitor": 12,
+      "competitor_category": "violence",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: violence"
+    },
+    {
+      "id": "id_413911",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "충북지방노동위원회",
+      "decision_date": "2026-01-23",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "비위행위",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "성희롱|성추행|성비위|불륜|스토킹|성관계"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "근로자의 비위행위가 징계사유에 해당하고, 징계양정도 적정하며, 징계절차에 하자도 없다고 판정한 사례",
+      "score_current": -5,
+      "score_competitor": 12,
+      "competitor_category": "sexual_harassment",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: sexual_harassment"
+    },
+    {
+      "id": "id_413575",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전남지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "ambiguous",
+      "positive_hits": [
+        "비위행위",
+        "업무\\s*지시\\s*불이행",
+        "지시\\s*불이행",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "횡령|배임|유용|법인카드|공금|금품\\s*수수"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "가. 징계사유의 존재 여부징계사유인 '① 퇴직금 중간정산 절차 위반 행위’는 당시 관리소장이 공석이었던 사정이 있었고 최종 결재자인 당시 입대회의 회장이 승인한 상황이므로 이를 징계사유로 삼을 수 없으며, '③ 업무 지시 불이행 및 보고 누락 행위’, '④ 기본 업무 태도 및 조직 질서 훼손 행위’의 징계사유는 객관적인 자료가 확인되지 않아 부당하나, '② 회계 처리 및 공금 입금 절차 오류 행위’의 징계사유는 근로자가 용접기",
+      "score_current": 5,
+      "score_competitor": 10,
+      "competitor_category": "embezzlement",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: embezzlement"
+    },
+    {
+      "id": "id_413683",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "제주지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "granted",
+      "current_reason_category": [
+        "worker_status",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "ambiguous",
+      "positive_hits": [
+        "(취업규칙|사규|복무규정|인사규정)\\s*위반",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "전보|대기발령|직위해제|보직변경"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "대기발령",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "는 상당한 경제적 불이익이 있으므로 이 사건 대기발령 처분은 부당함나. 징계사유의 존재 여부근로자가 요소수 1병을 반출한 사실은 인정되므로 징계사유는 정당함다. 징계양정의 적정성 여부이OO 전 팀장이 요소수를 반환하였고 사용자에게 경제적 손실이 발생하지 않은 점, 근로자가 개인적 이득을 취한 사실이 없는 점, 반출 사실을 인정하고 깊이 반성한다는 경위서를 제출하였고 과거 징계이력이 없는 점, 사용자의 과거 징계 사례를 보면 정",
+      "score_current": 0,
+      "score_competitor": 7,
+      "competitor_category": "transfer",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: transfer"
+    },
+    {
+      "id": "id_413769",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "성희롱|성추행|성비위|불륜|스토킹|성관계",
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "내 성비위 행위를 하여 징계해고가 정당하다고 판정한 사례  쟁점: 가. 징계사유의 존재 여부① 회식 과정에서의 성추행 행위, ② 택시 안에서 성추행 행위, ③ 만취로 정상적인 판단능력이 없거나 항거불능인 피해자에 대한 성행위는 직장 내 성희롱, 직장 내 괴롭힘 및 사업장 규율과 질서 문란 등에 해당하므로 징계사유는 있음나. 판단: 가. 징계사유의 존재 여부① 회식 과정에서의 성추행 행위, ② 택시 안에서 성추행 행위, ③ 만취",
+      "score_current": -25,
+      "score_competitor": 12,
+      "competitor_category": "sexual_harassment",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: sexual_harassment"
+    },
+    {
+      "id": "id_413927",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "전북지방노동위원회",
+      "decision_date": "2026-01-22",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "sexual_harassment",
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "성희롱|성추행|성비위|불륜|스토킹|성관계",
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사",
+        "전보|대기발령|직위해제|보직변경"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "대기발령",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "및 대기발령 모두 정당하여 기각  쟁점: 가. 강등의 정당성 여부1) 징계사유의 존재 여부사용자가 징계사유로 삼은 근로자의 성희롱 및 직장 내 괴롭힘 행위 모두 징계사유로 인정된다. 판단: 가. 강등의 정당성 여부1) 징계사유의 존재 여부사용자가 징계사유로 삼은 근로자의 성희롱 및 직장 내 괴롭힘 행위 모두 징계사유로 인정된다.2) 징계양정의 적정성 여부근로자는 피해자의 입사 초기부터 약 2년이라는 기간 동안 근무시간 중 노",
+      "score_current": -35,
+      "score_competitor": 12,
+      "competitor_category": "sexual_harassment",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: sexual_harassment"
+    },
+    {
+      "id": "id_413677",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "violence",
+        "transfer",
+        "misconduct",
+        "no_dismissal"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "비위행위",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "동료 근로자와 쌍방 폭행의 비위행위를 저지른 근로자에 대한 정직의 징계가 정당하다고 판정한 사례",
+      "score_current": -5,
+      "score_competitor": 12,
+      "competitor_category": "violence",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: violence"
+    },
+    {
+      "id": "id_413819",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경남지방노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "sexual_harassment",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "성희롱|성추행|성비위|불륜|스토킹|성관계"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계사유가 인정되고, 양정 또한 적정하며, 징계절차에도 하자가 없어 해고가 부당하다 볼 수 없다고 판정한 사례",
+      "score_current": -5,
+      "score_competitor": 12,
+      "competitor_category": "sexual_harassment",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: sexual_harassment"
+    },
+    {
+      "id": "id_413825",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-20",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "worker_status",
+        "probation",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "ambiguous",
+      "positive_hits": [
+        "업무\\s*지시\\s*불이행",
+        "지시\\s*불이행"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "시용|수습|본채용\\s*거부"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "본채용",
+        "수습",
+        "시용",
+        "근로자",
+        "근로관계",
+        "해고"
+      ],
+      "evidence_snippet": "및 담당 부장 모두 39점, 29점을 각각 부여한 점, ③ 근로자의 업무지시 불이행 및 업무태도 문제로 수습기간 종료 전 수습평가결과에 따라 근로관계를 종료한 것이고, 이러한 결정이 합리적 이유가 없다거나 공정하지 못하다고 보기 어려운 점, ④ 2025. 10. 20. 이후 출근을 면한 조치는 수습종료가 예정된 상황에서 남은 기간 구직활동에 전념할 수 있도록 편의를 제공한 것으로 보이는 점, ⑤ 사용자는 2025. 10. 20",
+      "score_current": 0,
+      "score_competitor": 7,
+      "competitor_category": "probation",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: probation"
+    },
+    {
+      "id": "id_413655",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "서울지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "transfer",
+        "workplace_bullying",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "비위행위",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "직장\\s*내\\s*괴롭힘|괴롭힘\\s*행위|분리조치|괴롭힘\\s*조사",
+        "전보|대기발령|직위해제|보직변경"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "전보",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "직장 내 괴롭힘 비위행위에 따른 전보 및 불문경고 처분이 모두 정당하다고 판정한 사례  쟁점: 가. 전보의 정당성(업무상 필요성의 존재 여부, 생활상 불이익의 정도, 신의칙상 요구되는 협의절차 준수 여부) 여부① 직장 내 괴롭힘 사실이 인정되므로 사용자가 취업규칙과 직장 내 괴롭힘 예방 및 대응 지침에 따라 근로자를 전보한 것이므로 업무상 필요성이 인정되고, 판단: 가. 전보의 정당성(업무상 필요성의 존재 여부, 생활상 불이익",
+      "score_current": -15,
+      "score_competitor": 12,
+      "competitor_category": "workplace_bullying",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: workplace_bullying"
+    },
+    {
+      "id": "id_413967",
+      "title": "○ ○ ○ 부당해고 구제신청",
+      "case_number": "2025부해OOO",
+      "department": "경기지방노동위원회",
+      "decision_date": "2026-01-19",
+      "decision_result": "dismissed",
+      "current_reason_category": [
+        "violence",
+        "misconduct"
+      ],
+      "target_reason": "misconduct",
+      "outcome": "needs_review",
+      "removal_basis": "needs_review",
+      "domain_bucket": "needs_review",
+      "review_priority": "high",
+      "review_sub_bucket": "lean_remove",
+      "positive_hits": [
+        "징계사유가\\s*(인정|존재)",
+        "징계사유"
+      ],
+      "positive_context_hits": [],
+      "negative_hits": [
+        "폭행|상해|욕설|폭언|신체\\s*접촉|위협|협박|모욕|쌍방\\s*폭행"
+      ],
+      "domain_hits": [
+        "부당해고",
+        "구제신청",
+        "지방노동위원회",
+        "노동위원회",
+        "근로자",
+        "징계",
+        "해고"
+      ],
+      "evidence_snippet": "징계사유가 인정되고, 징계양정이 과하다고 볼 수 없으며, 징계절차에 하자가 없어 해고가 정당하다고 판정한 사례",
+      "score_current": -5,
+      "score_competitor": 12,
+      "competitor_category": "violence",
+      "subtype": "general_misconduct",
+      "decision_notes": "mixed signals with competitor category: violence"
+    }
+  ]
+}

@@ -85,10 +85,17 @@ def make_patterns(values: tuple[str, ...]) -> tuple[re.Pattern[str], ...]:
 
 
 @dataclass(frozen=True)
+class NegativePattern:
+    pattern: str
+    weight: int = 10
+    group: str = "default"
+
+
+@dataclass(frozen=True)
 class CategoryRule:
     positive: tuple[str, ...]
     positive_context: tuple[str, ...] = ()
-    negative: tuple[str, ...] = ()
+    negative: tuple[NegativePattern | str, ...] = ()
     competitor_negative: tuple[tuple[str, str, int], ...] = ()
     force_keep: tuple[str, ...] = ()
     subtype_patterns: tuple[tuple[str, str, int], ...] = ()
@@ -233,33 +240,12 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"(입사|채용).{0,15}(3개월|수습기간|시용기간)",
         ),
         negative=(
-            r"갱신기대권",
-            r"계약만료",
-            r"기간만료",
-            r"갱신거절",
-            r"재계약\s*거절",
-            r"계약갱신\s*기대권",
-            r"권고사직",
-            r"해고가\s*존재하지\s*않",
-            r"해고\s*존재하지\s*않",
-            r"해고로\s*볼\s*수\s*없",
-            r"사직서",
-            r"사직원",
-            r"사직의\s*의사",
-            r"합의해지",
-            r"합의\s*퇴직",
-            r"일용계약\s*종료",
-            r"당연퇴직",
-            r"근로관계\s*종료",
-            r"저성과",
-            r"PIP",
-            r"개선\s*기회\s*부여",
-            r"근로기준법상\s*근로자",
-            r"사용종속관계",
-            r"임금을\s*목적으로",
-            r"전보",
-            r"대기발령",
-            r"직장\s*내\s*괴롭힘",
+            NegativePattern(r"갱신기대권|계약만료|기간만료|갱신거절|재계약\s*거절|계약갱신\s*기대권", weight=12, group="strong_competitor"),
+            NegativePattern(r"권고사직|해고가\s*존재하지\s*않|해고\s*존재하지\s*않|해고로\s*볼\s*수\s*없|사직서|사직원|사직의\s*의사|합의해지|합의\s*퇴직|일용계약\s*종료|당연퇴직|근로관계\s*종료", weight=12, group="strong_competitor"),
+            NegativePattern(r"저성과|PIP|개선\s*기회\s*부여", weight=8, group="competitor"),
+            NegativePattern(r"근로기준법상\s*근로자|사용종속관계|임금을\s*목적으로", weight=8, group="competitor"),
+            NegativePattern(r"전보|대기발령|직장\s*내\s*괴롭힘", weight=8, group="competitor"),
+            NegativePattern(r"해고의\s*정당성|해고의\s*절차적\s*정당성|서면통지", weight=3, group="context_noise"),
         ),
         competitor_negative=(
             (r"갱신기대권|계약만료|기간만료|갱신거절|재계약\s*거절|계약갱신\s*기대권", "contract_expiry", 10),
@@ -314,46 +300,15 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
         ),
         positive_context=(),
         negative=(
-            r"음주운전",
-            r"절도",
-            r"사기",
-            r"폭행",
-            r"성희롱",
-            r"성추행",
-            r"성비위",
-            r"불륜",
-            r"스토킹",
-            r"상해",
-            r"욕설",
-            r"폭언",
-            r"신체\s*접촉",
-            r"위협",
-            r"협박",
-            r"모욕",
-            r"횡령",
-            r"배임",
-            r"유용",
-            r"법인카드",
-            r"공금",
-            r"금품\s*수수",
-            r"직장\s*내\s*괴롭힘",
-            r"업무능력\s*부족",
-            r"저성과",
-            r"PIP",
-            r"근무성적\s*불량",
-            r"역량\s*부족",
-            r"시용",
-            r"수습",
-            r"본채용\s*거부",
-            r"갱신거절",
-            r"계약갱신\s*거절",
-            r"갱신기대권",
-            r"당연퇴직",
-            r"권고사직",
-            r"전보",
-            r"대기발령",
-            r"직위해제",
-            r"보직변경",
+            NegativePattern(r"폭행|상해|욕설|폭언|신체\s*접촉|위협|협박|모욕|쌍방\s*폭행", weight=15, group="strong_competitor"),
+            NegativePattern(r"횡령|배임|유용|법인카드|공금|금품\s*수수", weight=15, group="strong_competitor"),
+            NegativePattern(r"성희롱|성추행|성비위|불륜|스토킹|성관계", weight=15, group="strong_competitor"),
+            NegativePattern(r"직장\s*내\s*괴롭힘|괴롭힘\s*행위|분리조치|괴롭힘\s*조사", weight=15, group="strong_competitor"),
+            NegativePattern(r"업무능력\s*부족|저성과|PIP|근무성적\s*불량|역량\s*부족", weight=10, group="competitor"),
+            NegativePattern(r"시용|수습|본채용\s*거부", weight=10, group="competitor"),
+            NegativePattern(r"갱신거절|계약갱신\s*거절|갱신기대권", weight=10, group="competitor"),
+            NegativePattern(r"전보|대기발령|직위해제|보직변경", weight=10, group="competitor"),
+            NegativePattern(r"당연퇴직|권고사직|면허취소|통상해고", weight=3, group="context_noise"),
         ),
         competitor_negative=(
             (r"폭행|상해|욕설|폭언|신체\s*접촉|위협|협박|모욕|쌍방\s*폭행", "violence", 12),
@@ -366,6 +321,7 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             (r"전보|대기발령|직위해제|보직변경", "transfer", 7),
         ),
         subtype_patterns=(
+            (r"음주운전|도로교통법위반.{0,30}(당연퇴직|면허취소|운전직|통상해고)", "dui_termination", 7),
             (r"음주운전|도로교통법위반", "dui", 5),
         ),
         review=(
@@ -456,6 +412,7 @@ class EvaluationResult:
     removal_basis: str
     domain_bucket: str
     review_priority: str
+    review_sub_bucket: str
     positive_hits: list[str]
     positive_context_hits: list[str]
     negative_hits: list[str]
@@ -595,6 +552,31 @@ def find_hits(text: str, patterns: tuple[str, ...]) -> list[str]:
     return hits
 
 
+def normalize_negative_patterns(patterns: tuple[NegativePattern | str, ...]) -> list[NegativePattern]:
+    normalized: list[NegativePattern] = []
+    for pattern in patterns:
+        if isinstance(pattern, NegativePattern):
+            normalized.append(pattern)
+        else:
+            normalized.append(NegativePattern(pattern=pattern))
+    return normalized
+
+
+def find_negative_hits(text: str, patterns: tuple[NegativePattern | str, ...]) -> tuple[list[str], int, dict[str, int]]:
+    hits: list[str] = []
+    total_penalty = 0
+    group_counter: dict[str, int] = {}
+
+    for pattern in normalize_negative_patterns(patterns):
+        compiled = re.compile(pattern.pattern, re.IGNORECASE)
+        if compiled.search(text):
+            hits.append(pattern.pattern)
+            total_penalty += pattern.weight
+            group_counter[pattern.group] = group_counter.get(pattern.group, 0) + 1
+
+    return hits, total_penalty, group_counter
+
+
 def infer_domain_bucket(text: str, positive_hits: list[str]) -> tuple[str, list[str]]:
     domain_hits = find_hits(text, LABOR_POSITIVE_PATTERNS)
     non_labor_hits = find_hits(text, NON_LABOR_NEGATIVE_PATTERNS)
@@ -717,23 +699,68 @@ def decide_notes(
     return "ambiguous scoring window"
 
 
+def decide_review_sub_bucket(
+    score_current: int,
+    score_competitor: int,
+    positive_hits: list[str],
+    positive_context_hits: list[str],
+    negative_hits: list[str],
+    competitor_category: str,
+    negative_group_counts: dict[str, int],
+) -> str:
+    has_positive = bool(positive_hits or positive_context_hits)
+    strong_competitor_hits = negative_group_counts.get("strong_competitor", 0)
+    default_negative_hits = negative_group_counts.get("default", 0) + negative_group_counts.get("competitor", 0)
+
+    if score_current > 0 and has_positive and score_current >= score_competitor and strong_competitor_hits == 0:
+        return "lean_keep"
+    if score_current < 0 and (bool(competitor_category) or len(negative_hits) >= 2 or strong_competitor_hits >= 1 or default_negative_hits >= 2):
+        return "lean_remove"
+    return "ambiguous"
+
+
 def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
     rule = CATEGORY_RULES[reason]
     text = build_text(row)
     positive_hits = find_hits(text, rule.positive)
     positive_context_hits = find_hits(text, rule.positive_context)
-    negative_hits = find_hits(text, rule.negative)
+    negative_hits, negative_penalty, negative_group_counts = find_negative_hits(text, rule.negative)
     review_hits = find_hits(text, rule.review)
     domain_bucket, domain_hits = infer_domain_bucket(text, positive_hits)
     competitor_category, competitor_score, competitor_hits = infer_competitor(rule, text)
     subtype, subtype_penalty = infer_subtype(rule, text)
     force_keep_hits = has_force_keep(rule, text)
 
-    score_current = (len(positive_hits) * 5) + (len(positive_context_hits) * 2) - (len(negative_hits) * 10) - subtype_penalty
+    score_current = (len(positive_hits) * 5) + (len(positive_context_hits) * 2) - negative_penalty - subtype_penalty
     score_competitor = competitor_score
 
+    if reason == "probation":
+        has_probation_only = bool(re.search(r"시용|수습", text, re.IGNORECASE))
+        has_core_rejection = bool(re.search(r"본채용\s*거부", text, re.IGNORECASE))
+        has_no_dismissal_negative = bool(
+            re.search(
+                r"권고사직|해고가\s*존재하지\s*않|해고\s*존재하지\s*않|해고로\s*볼\s*수\s*없|사직서|사직원|사직의\s*의사|합의해지|합의\s*퇴직|일용계약\s*종료|당연퇴직|근로관계\s*종료",
+                text,
+                re.IGNORECASE,
+            )
+        )
+        if has_probation_only and not has_core_rejection and has_no_dismissal_negative:
+            review_hits = review_hits + ["probation_without_core_but_no_dismissal_context"]
+            score_current = min(score_current, -2)
+
+    # review-hit score capping intentionally happens before force_keep; force_keep can still restore core probation cases.
     if review_hits:
         score_current = min(score_current, 2)
+
+    review_sub_bucket = decide_review_sub_bucket(
+        score_current=score_current,
+        score_competitor=score_competitor,
+        positive_hits=positive_hits,
+        positive_context_hits=positive_context_hits,
+        negative_hits=negative_hits,
+        competitor_category=competitor_category,
+        negative_group_counts=negative_group_counts,
+    )
 
     if domain_bucket == "non_labor_case":
         return EvaluationResult(
@@ -741,6 +768,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             removal_basis="non_labor_domain",
             domain_bucket=domain_bucket,
             review_priority="high",
+            review_sub_bucket="",
             positive_hits=positive_hits,
             positive_context_hits=positive_context_hits,
             negative_hits=negative_hits,
@@ -767,6 +795,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             removal_basis="",
             domain_bucket=domain_bucket,
             review_priority="low",
+            review_sub_bucket="",
             positive_hits=positive_hits + force_keep_hits,
             positive_context_hits=positive_context_hits,
             negative_hits=negative_hits,
@@ -793,6 +822,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
                 review_hits,
                 competitor_category,
             ),
+            review_sub_bucket="",
             positive_hits=positive_hits,
             positive_context_hits=positive_context_hits,
             negative_hits=negative_hits,
@@ -817,7 +847,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
         review_hits
         or (0 <= score_current <= 2)
         or (score_current == score_competitor and score_current > 0)
-        or (positive_hits or positive_context_hits) and negative_hits
+        or ((positive_hits or positive_context_hits) and negative_hits)
         or (competitor_category and score_current >= 0 and score_competitor >= score_current)
     ):
         return EvaluationResult(
@@ -833,6 +863,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
                 review_hits,
                 competitor_category,
             ),
+            review_sub_bucket=review_sub_bucket,
             positive_hits=positive_hits,
             positive_context_hits=positive_context_hits,
             negative_hits=negative_hits + [hit for hit in competitor_hits if hit not in negative_hits],
@@ -870,6 +901,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
                 review_hits,
                 competitor_category,
             ),
+            review_sub_bucket="",
             positive_hits=positive_hits,
             positive_context_hits=positive_context_hits,
             negative_hits=negative_hits + [hit for hit in competitor_hits if hit not in negative_hits],
@@ -899,6 +931,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             removal_basis=basis,
             domain_bucket=domain_bucket,
             review_priority=priority,
+            review_sub_bucket="lean_remove" if outcome == "needs_review" else "",
             positive_hits=[],
             positive_context_hits=[],
             negative_hits=[],
@@ -932,6 +965,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             review_hits,
             competitor_category,
         ),
+        review_sub_bucket=review_sub_bucket,
         positive_hits=positive_hits,
         positive_context_hits=positive_context_hits,
         negative_hits=negative_hits,
@@ -967,6 +1001,7 @@ def summarize_row(row: DecisionRow, evaluation: EvaluationResult, reason: str) -
         "removal_basis": evaluation.removal_basis,
         "domain_bucket": evaluation.domain_bucket,
         "review_priority": evaluation.review_priority,
+        "review_sub_bucket": evaluation.review_sub_bucket,
         "positive_hits": evaluation.positive_hits,
         "positive_context_hits": evaluation.positive_context_hits,
         "negative_hits": evaluation.negative_hits,
@@ -1000,6 +1035,7 @@ def build_update_payload(row: DecisionRow, reason: str, evaluation: EvaluationRe
         "removal_basis": evaluation.removal_basis,
         "domain_bucket": evaluation.domain_bucket,
         "review_priority": evaluation.review_priority,
+        "review_sub_bucket": evaluation.review_sub_bucket,
         "positive_hits": evaluation.positive_hits,
         "positive_context_hits": evaluation.positive_context_hits,
         "negative_hits": evaluation.negative_hits,
@@ -1065,7 +1101,7 @@ def write_samples_markdown(path: Path, reason: str, kept: list[dict[str, Any]], 
             lines.append(
                 f"- `{row['case_number']}` {row['title']} | {row['decision_result']} | "
                 f"{row['removal_basis'] or 'keep'} | {row['domain_bucket']} | "
-                f"{row.get('subtype') or '-'} | "
+                f"{row.get('subtype') or '-'} | {row.get('review_sub_bucket') or '-'} | "
                 f"score {row['score_current']}/{row['score_competitor']} | {row['evidence_snippet']}"
             )
         lines.append("")
@@ -1100,9 +1136,9 @@ def main() -> None:
     compare_report = load_compare_report(args.compare_report)
 
     markdown_lines = [
-        "# reason_category 정교화 payload v2",
+        f"# reason_category 정교화 payload {args.version_label or 'v2'}",
         "",
-        "이번 산출물은 `positive + negative + domain gate` 기준으로 생성한 검토용 payload v2입니다.",
+        "이번 산출물은 `positive + negative + domain gate + review sub-bucket` 기준으로 생성한 검토용 payload입니다.",
         "",
     ]
 
@@ -1121,6 +1157,7 @@ def main() -> None:
         updates: list[dict[str, Any]] = []
         removal_basis_counter: Counter[str] = Counter()
         negative_signal_counter: Counter[str] = Counter()
+        review_sub_bucket_counter: Counter[str] = Counter()
 
         granted_before = sum(1 for row in rows if row.decision_result == "granted")
         granted_after = 0
@@ -1140,6 +1177,8 @@ def main() -> None:
             else:
                 review.append(summarize_row(row, evaluation, reason))
                 removal_basis_counter[evaluation.removal_basis] += 1
+                if evaluation.review_sub_bucket:
+                    review_sub_bucket_counter[evaluation.review_sub_bucket] += 1
             for hit in evaluation.negative_hits:
                 negative_signal_counter[hit] += 1
 
@@ -1155,7 +1194,10 @@ def main() -> None:
             "definition": {
                 "positive": list(CATEGORY_RULES[reason].positive),
                 "positive_context": list(CATEGORY_RULES[reason].positive_context),
-                "negative": list(CATEGORY_RULES[reason].negative),
+                "negative": [
+                    {"pattern": pattern.pattern, "weight": pattern.weight, "group": pattern.group}
+                    for pattern in normalize_negative_patterns(CATEGORY_RULES[reason].negative)
+                ],
                 "competitor_negative": [
                     {"pattern": pattern, "target_reason": target_reason, "weight": weight}
                     for pattern, target_reason, weight in CATEGORY_RULES[reason].competitor_negative
@@ -1176,6 +1218,7 @@ def main() -> None:
             "granted_before": granted_before,
             "granted_after": granted_after,
             "removal_basis_counts": dict(removal_basis_counter),
+            "review_sub_bucket_counts": dict(review_sub_bucket_counter),
             "negative_signal_counts": dict(negative_signal_counter.most_common(20)),
             "kept_examples": kept[:15],
             "removed_examples": removed[:15],
@@ -1212,6 +1255,7 @@ def main() -> None:
                 "remove_candidates": len(removed),
                 "review_candidates": len(review),
                 "removal_basis_counts": dict(removal_basis_counter),
+                "review_sub_bucket_counts": dict(review_sub_bucket_counter),
             }
         )
 
@@ -1223,8 +1267,9 @@ def main() -> None:
                 f"- 제거 후보: {len(removed):,}",
                 f"- 검토 필요: {len(review):,}",
                 f"- 변화량(v2 대비): keep {delta_kept:+,} / remove {delta_removed:+,} / review {delta_review:+,}",
+                f"- review 세부분류: {dict(review_sub_bucket_counter) if review_sub_bucket_counter else '{}'}",
                 f"- 인정(구제) 전/후: {granted_before:,} -> {granted_after:,}",
-                f"- 핵심 정의: positive={len(CATEGORY_RULES[reason].positive)} / context={len(CATEGORY_RULES[reason].positive_context)} / negative={len(CATEGORY_RULES[reason].negative)}",
+                f"- 핵심 정의: positive={len(CATEGORY_RULES[reason].positive)} / context={len(CATEGORY_RULES[reason].positive_context)} / negative={len(normalize_negative_patterns(CATEGORY_RULES[reason].negative))}",
                 f"- payload: `{updates_name}`",
                 f"- samples: `{samples_name}`",
                 "",
@@ -1239,7 +1284,7 @@ def main() -> None:
         applied_count = apply_updates(all_updates, timeout=args.timeout, batch_size=args.batch_size)
 
     report = {
-        "scope": "reason_category_refinement_payloads_v2",
+        "scope": f"reason_category_refinement_payloads_{args.version_label or 'v2'}",
         "categories": args.categories,
         "total_rows": overall_counter["total"],
         "kept_rows": overall_counter["kept"],

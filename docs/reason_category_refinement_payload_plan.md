@@ -193,6 +193,64 @@
 - 즉 블랙홀 성향은 더 줄었지만, 그만큼 보수적인 review 비율이 올라갔다.
 - `dui` subtype은 유지하되, `당연퇴직`, `면허취소 후 해고`, `통상해고` 같은 후속 처분 문맥 분리는 다음 단계 보강 포인트로 남는다.
 
+## 2026-04-02 Phase 2 v5 결과
+
+- 범위: `probation`, `misconduct`
+- 산출물 폴더: `evaluation/reason_category_refinement/20260402_224157/`
+- 전체:
+  - 대상 `17,742`
+  - 유지 `8,310`
+  - 제거 후보 `1,095`
+  - 검토 필요 `8,337`
+  - DB 반영 `false`
+
+### v5 공통 변화
+
+- `needs_review`를 `lean_keep`, `lean_remove`, `ambiguous`로 세분화했다.
+- negative는 단순 개수 차감이 아니라 `weight + group` 기반으로 평가한다.
+- 따라서 `review`가 많더라도, 다음 라운드에서 자동 `keep/remove`로 옮길 우선군이 드러난다.
+
+### `probation` v5
+
+- 전체 `3,984`
+- 유지 `1,418`
+- 제거 후보 `774`
+- 검토 필요 `1,792`
+- v4 대비: `keep -48 / remove +66 / review -18`
+- review 세부분류:
+  - `lean_remove 569`
+  - `ambiguous 1,100`
+  - `lean_keep 123`
+
+판단:
+
+- `사직서`, `합의해지`, `해고 부존재`, `당연퇴직` 계열은 v4보다 더 안정적으로 `remove/lean_remove`로 이동했다.
+- `수습/시용 + 본채용 거부` 코어는 여전히 유지되지만, `수습` 단어만 있고 `본채용 거부`가 없는 케이스는 더 보수적으로 분류된다.
+- 다음 보정은 `ambiguous` 1,100건을
+  - `본채용 거부 실질 판단`
+  - `기간만료/갱신거절`
+  - `해고 존재/절차`
+  로 더 쪼개는 방향이 맞다.
+
+### `misconduct` v5
+
+- 전체 `13,758`
+- 유지 `6,892`
+- 제거 후보 `321`
+- 검토 필요 `6,545`
+- v4 대비: `keep +260 / remove +43 / review -303`
+- review 세부분류:
+  - `lean_remove 4,376`
+  - `ambiguous 1,924`
+  - `lean_keep 245`
+
+판단:
+
+- `misconduct` 블랙홀은 한 단계 더 완화됐다.
+- `violence`, `embezzlement`, `sexual_harassment`, `workplace_bullying`, `transfer`, `probation` 충돌 사례가 `lean_remove`로 많이 모여, 다음 자동 이관 후보군이 선명해졌다.
+- `dui`는 완전 제거하지 않고 `dui`, `dui_termination` 하위유형을 남겨 실무 맥락을 보존했다.
+- 다음 보정은 `lean_remove` 대량 묶음을 하위유형별로 더 정리하는 것이다.
+
 ## 다음 실행 순서
 
 1. `worker_status_samples.md` 수동 검토
@@ -201,3 +259,10 @@
 4. `no_dismissal`
 5. `incompetence`
 6. 이후 나머지 범주 확장
+
+## v5 이후 권장 순서
+
+1. `probation.ambiguous`를 `contract_expiry / no_dismissal / dismissal_procedure` 축으로 세분화
+2. `misconduct.lean_remove`를 `violence / sexual_harassment / workplace_bullying / embezzlement / transfer / probation` 하위군으로 자동 이관
+3. `dui`와 `dui_termination`의 browse/list 표시 정책 별도 정리
+4. 그 다음에야 DB 반영 검토
