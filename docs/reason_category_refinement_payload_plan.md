@@ -115,6 +115,45 @@
 - `worker_status`, `no_dismissal`, `incompetence`는 아직 수기 판단을 바탕으로 2차 규칙 보정이 필요하다.
 - `probation`, `misconduct`는 이번 1차 정교화에서 새로 점수화 규칙과 경쟁 카테고리 이관 로직을 도입하므로, 새 산출물 검토 전에는 DB 반영하지 않는다.
 
+## 2026-04-02 Phase 2 v3 결과
+
+- 범위: `probation`, `misconduct`
+- 산출물 폴더: `evaluation/reason_category_refinement/20260402_111010/`
+- 전체:
+  - 대상 `17,742`
+  - 유지 `8,843`
+  - 제거 후보 `782`
+  - 검토 필요 `8,117`
+  - DB 반영 `false`
+
+### `probation` v3
+
+- 전체 `3,984`
+- 유지 `1,774`
+- 제거 후보 `492`
+- 검토 필요 `1,718`
+- v2 대비: `keep +3 / remove +0 / review -3`
+
+판단:
+
+- `시용/수습 + 본채용 거부` 코어는 유지됐고, browse/list 방어에도 유의미하다.
+- 다만 `해고 부존재`, `사직서`, `합의해지`, `일용계약 종료` 계열이 일부 남아 있어 `no_dismissal`과의 경계가 아직 완전히 정리되지는 않았다.
+- 따라서 DB 반영 전에는 `사직/합의해지/해고 부존재` 문맥을 더 적극적으로 review 쪽으로 보내는 추가 보정이 필요하다.
+
+### `misconduct` v3
+
+- 전체 `13,758`
+- 유지 `7,069`
+- 제거 후보 `290`
+- 검토 필요 `6,399`
+- v2 대비: `keep -34 / remove +0 / review +34`
+
+판단:
+
+- `misconduct`의 블랙홀 성향은 줄었고, `violence`, `embezzlement`, `sexual_harassment`, `workplace_bullying`, `transfer`, `probation` 분리 방향도 맞다.
+- 다만 `징계사유`, `양정`, `절차` 같은 일반 문구 때문에 특수 비위가 `keep` 또는 `needs_review`에 남는 경우가 있다.
+- `음주운전`은 `subtype=dui` 보조 신호를 유지하되, `당연퇴직`, `면허취소 후 해고`, `통상해고` 같은 후속 처분 문맥은 일반 `misconduct` keep으로 두지 않도록 한 번 더 정리할 필요가 있다.
+
 ## 다음 실행 순서
 
 1. `worker_status_samples.md` 수동 검토

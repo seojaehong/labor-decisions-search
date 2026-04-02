@@ -89,7 +89,9 @@ class CategoryRule:
     positive: tuple[str, ...]
     positive_context: tuple[str, ...] = ()
     negative: tuple[str, ...] = ()
-    competitor_negative: tuple[tuple[str, str], ...] = ()
+    competitor_negative: tuple[tuple[str, str, int], ...] = ()
+    force_keep: tuple[str, ...] = ()
+    subtype_patterns: tuple[tuple[str, str, int], ...] = ()
     review: tuple[str, ...] = ()
 
 
@@ -237,6 +239,13 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"갱신거절",
             r"재계약\s*거절",
             r"계약갱신\s*기대권",
+            r"해고가\s*존재하지\s*않",
+            r"해고\s*존재하지\s*않",
+            r"사직서",
+            r"사직원",
+            r"합의해지",
+            r"일용계약\s*종료",
+            r"당연퇴직",
             r"저성과",
             r"PIP",
             r"개선\s*기회\s*부여",
@@ -248,11 +257,15 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"직장\s*내\s*괴롭힘",
         ),
         competitor_negative=(
-            (r"갱신기대권|계약만료|기간만료|갱신거절|재계약\s*거절|계약갱신\s*기대권", "contract_expiry"),
-            (r"저성과|PIP|개선\s*기회\s*부여", "incompetence"),
-            (r"근로기준법상\s*근로자|사용종속관계|임금을\s*목적으로", "worker_status"),
-            (r"전보|대기발령", "transfer"),
-            (r"직장\s*내\s*괴롭힘", "workplace_bullying"),
+            (r"갱신기대권|계약만료|기간만료|갱신거절|재계약\s*거절|계약갱신\s*기대권", "contract_expiry", 10),
+            (r"저성과|PIP|개선\s*기회\s*부여", "incompetence", 5),
+            (r"근로기준법상\s*근로자|사용종속관계|임금을\s*목적으로", "worker_status", 5),
+            (r"전보|대기발령", "transfer", 5),
+            (r"직장\s*내\s*괴롭힘", "workplace_bullying", 5),
+        ),
+        force_keep=(
+            r"(수습기간\s*중).{0,30}(본채용\s*거부)",
+            r"(본채용\s*거부).{0,30}(수습기간\s*중)",
         ),
         review=(
             r"(본채용\s*거부).{0,30}(기간만료|갱신거절)",
@@ -325,13 +338,16 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"보직변경",
         ),
         competitor_negative=(
-            (r"폭행|상해|욕설|폭언|신체\s*접촉|위협", "violence"),
-            (r"횡령|배임|유용|법인카드|공금|금품\s*수수", "embezzlement"),
-            (r"성희롱|성추행", "sexual_harassment"),
-            (r"직장\s*내\s*괴롭힘", "workplace_bullying"),
-            (r"업무능력\s*부족|저성과|PIP|근무성적\s*불량|역량\s*부족", "incompetence"),
-            (r"시용|수습|본채용\s*거부", "probation"),
-            (r"전보|대기발령|직위해제|보직변경", "transfer"),
+            (r"폭행|상해|욕설|폭언|신체\s*접촉|위협", "violence", 10),
+            (r"횡령|배임|유용|법인카드|공금|금품\s*수수", "embezzlement", 10),
+            (r"성희롱|성추행", "sexual_harassment", 10),
+            (r"직장\s*내\s*괴롭힘", "workplace_bullying", 10),
+            (r"업무능력\s*부족|저성과|PIP|근무성적\s*불량|역량\s*부족", "incompetence", 5),
+            (r"시용|수습|본채용\s*거부", "probation", 5),
+            (r"전보|대기발령|직위해제|보직변경", "transfer", 5),
+        ),
+        subtype_patterns=(
+            (r"음주운전", "dui", 5),
         ),
         review=(
             r"근무태만",
@@ -428,6 +444,7 @@ class EvaluationResult:
     score_current: int
     score_competitor: int
     competitor_category: str
+    subtype: str
     decision_notes: str
 
 
@@ -446,6 +463,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
     parser.add_argument("--output-dir")
     parser.add_argument("--limit-per-reason", type=int, default=0)
+    parser.add_argument("--compare-report", help="이전 report.json 경로")
+    parser.add_argument("--version-label", help="산출물 파일명 suffix 예: v3")
     return parser.parse_args()
 
 
@@ -588,24 +607,48 @@ def next_reason_category(row: DecisionRow, removed_reason: str) -> list[str]:
     return remaining or ["other"]
 
 
-def infer_competitor(rule: CategoryRule, text: str) -> tuple[str, list[str]]:
+def infer_competitor(rule: CategoryRule, text: str) -> tuple[str, int, list[str]]:
     scores: Counter[str] = Counter()
     hits_by_reason: dict[str, list[str]] = {}
 
-    for pattern, target_reason in rule.competitor_negative:
+    for pattern, target_reason, weight in rule.competitor_negative:
         compiled = re.compile(pattern, re.IGNORECASE)
         if compiled.search(text):
-            scores[target_reason] += 5
+            scores[target_reason] += weight
             hits_by_reason.setdefault(target_reason, []).append(pattern)
 
     if not scores:
-        return "", []
+        return "", 0, []
 
     competitor_category, competitor_score = max(scores.items(), key=lambda item: item[1])
     if competitor_score <= 0:
-        return "", []
+        return "", 0, []
 
-    return competitor_category, hits_by_reason.get(competitor_category, [])
+    return competitor_category, competitor_score, hits_by_reason.get(competitor_category, [])
+
+
+def infer_subtype(rule: CategoryRule, text: str) -> tuple[str, int]:
+    for pattern, subtype, weight in rule.subtype_patterns:
+        compiled = re.compile(pattern, re.IGNORECASE)
+        if compiled.search(text):
+            return subtype, weight
+    if rule is CATEGORY_RULES.get("misconduct"):
+        return "general_misconduct", 0
+    return "", 0
+
+
+def has_force_keep(rule: CategoryRule, text: str) -> list[str]:
+    hits: list[str] = []
+    for pattern in rule.force_keep:
+        compiled = re.compile(pattern, re.IGNORECASE)
+        if compiled.search(text):
+            hits.append(pattern)
+    return hits
+
+
+def build_reason_file_name(reason: str, kind: str, version_label: str | None) -> str:
+    suffix = f"_{version_label}" if version_label else ""
+    return f"{reason}_{kind}{suffix}"
 
 
 def decide_review_priority(
@@ -662,10 +705,12 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
     negative_hits = find_hits(text, rule.negative)
     review_hits = find_hits(text, rule.review)
     domain_bucket, domain_hits = infer_domain_bucket(text, positive_hits)
-    competitor_category, competitor_hits = infer_competitor(rule, text)
+    competitor_category, competitor_score, competitor_hits = infer_competitor(rule, text)
+    subtype, subtype_penalty = infer_subtype(rule, text)
+    force_keep_hits = has_force_keep(rule, text)
 
-    score_current = (len(positive_hits) * 5) + (len(positive_context_hits) * 2) - (len(negative_hits) * 10)
-    score_competitor = len(competitor_hits) * 5
+    score_current = (len(positive_hits) * 5) + (len(positive_context_hits) * 2) - (len(negative_hits) * 10) - subtype_penalty
+    score_competitor = competitor_score
 
     if review_hits:
         score_current = min(score_current, 2)
@@ -684,6 +729,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             score_current=score_current,
             score_competitor=score_competitor,
             competitor_category=competitor_category,
+            subtype=subtype,
             decision_notes=decide_notes(
                 outcome="remove",
                 domain_bucket=domain_bucket,
@@ -693,6 +739,24 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
                 negative_hits=negative_hits,
                 review_hits=review_hits,
             ),
+        )
+
+    if force_keep_hits:
+        return EvaluationResult(
+            outcome="keep",
+            removal_basis="",
+            domain_bucket=domain_bucket,
+            review_priority="low",
+            positive_hits=positive_hits + force_keep_hits,
+            positive_context_hits=positive_context_hits,
+            negative_hits=negative_hits,
+            domain_hits=domain_hits,
+            evidence_snippet=build_evidence_snippet(row, positive_hits + positive_context_hits + force_keep_hits),
+            score_current=max(score_current, 12),
+            score_competitor=score_competitor,
+            competitor_category=competitor_category,
+            subtype=subtype,
+            decision_notes="forced keep by core pattern combination",
         )
 
     if score_current >= 3 and score_current >= score_competitor and not review_hits and not (negative_hits and competitor_category):
@@ -717,6 +781,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             score_current=score_current,
             score_competitor=score_competitor,
             competitor_category=competitor_category,
+            subtype=subtype,
             decision_notes=decide_notes(
                 outcome="keep",
                 domain_bucket=domain_bucket,
@@ -759,6 +824,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             score_current=score_current,
             score_competitor=score_competitor,
             competitor_category=competitor_category,
+            subtype=subtype,
             decision_notes=decide_notes(
                 outcome="needs_review",
                 domain_bucket="needs_review",
@@ -792,6 +858,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             score_current=score_current,
             score_competitor=score_competitor,
             competitor_category=competitor_category,
+            subtype=subtype,
             decision_notes=decide_notes(
                 outcome="remove",
                 domain_bucket=domain_bucket,
@@ -820,6 +887,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             score_current=score_current,
             score_competitor=score_competitor,
             competitor_category=competitor_category,
+            subtype=subtype,
             decision_notes=decide_notes(
                 outcome=outcome,
                 domain_bucket=domain_bucket,
@@ -852,6 +920,7 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
         score_current=score_current,
         score_competitor=score_competitor,
         competitor_category=competitor_category,
+        subtype=subtype,
         decision_notes=decide_notes(
             outcome="needs_review",
             domain_bucket="needs_review",
@@ -886,6 +955,7 @@ def summarize_row(row: DecisionRow, evaluation: EvaluationResult, reason: str) -
         "score_current": evaluation.score_current,
         "score_competitor": evaluation.score_competitor,
         "competitor_category": evaluation.competitor_category,
+        "subtype": evaluation.subtype,
         "decision_notes": evaluation.decision_notes,
     }
 
@@ -918,6 +988,7 @@ def build_update_payload(row: DecisionRow, reason: str, evaluation: EvaluationRe
         "score_current": evaluation.score_current,
         "score_competitor": evaluation.score_competitor,
         "competitor_category": evaluation.competitor_category,
+        "subtype": evaluation.subtype,
         "decision_notes": evaluation.decision_notes,
         "title": row.title,
         "case_number": row.case_number,
@@ -974,16 +1045,39 @@ def write_samples_markdown(path: Path, reason: str, kept: list[dict[str, Any]], 
             lines.append(
                 f"- `{row['case_number']}` {row['title']} | {row['decision_result']} | "
                 f"{row['removal_basis'] or 'keep'} | {row['domain_bucket']} | "
+                f"{row.get('subtype') or '-'} | "
                 f"score {row['score_current']}/{row['score_competitor']} | {row['evidence_snippet']}"
             )
         lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def load_compare_report(path_arg: str | None) -> dict[str, dict[str, int]]:
+    if not path_arg:
+        return {}
+    path = Path(path_arg)
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = payload.get("rows") or []
+    result: dict[str, dict[str, int]] = {}
+    for row in rows:
+        reason = str(row.get("reason") or "")
+        if not reason:
+            continue
+        result[reason] = {
+            "kept": int(row.get("kept") or 0),
+            "removed": int(row.get("removed") or 0),
+            "needs_review": int(row.get("needs_review") or 0),
+        }
+    return result
+
+
 def main() -> None:
     load_env_file()
     args = parse_args()
     output_dir = ensure_output_dir(args.output_dir)
+    compare_report = load_compare_report(args.compare_report)
 
     markdown_lines = [
         "# reason_category 정교화 payload v2",
@@ -1043,8 +1137,13 @@ def main() -> None:
                 "positive_context": list(CATEGORY_RULES[reason].positive_context),
                 "negative": list(CATEGORY_RULES[reason].negative),
                 "competitor_negative": [
-                    {"pattern": pattern, "target_reason": target_reason}
-                    for pattern, target_reason in CATEGORY_RULES[reason].competitor_negative
+                    {"pattern": pattern, "target_reason": target_reason, "weight": weight}
+                    for pattern, target_reason, weight in CATEGORY_RULES[reason].competitor_negative
+                ],
+                "force_keep": list(CATEGORY_RULES[reason].force_keep),
+                "subtype_patterns": [
+                    {"pattern": pattern, "subtype": subtype, "weight": weight}
+                    for pattern, subtype, weight in CATEGORY_RULES[reason].subtype_patterns
                 ],
                 "review": list(CATEGORY_RULES[reason].review),
             },
@@ -1052,6 +1151,7 @@ def main() -> None:
             "kept": len(kept),
             "removed": len(removed),
             "needs_review": len(review),
+            "baseline_compare": compare_report.get(reason, {}),
             "kept_ratio": round((len(kept) / len(rows)) if rows else 0.0, 4),
             "granted_before": granted_before,
             "granted_after": granted_after,
@@ -1061,12 +1161,20 @@ def main() -> None:
             "removed_examples": removed[:15],
             "review_examples": review[:15],
         }
-        (output_dir / f"{reason}_detail_v2.json").write_text(
+        detail_name = build_reason_file_name(reason, "detail", args.version_label) + ".json"
+        updates_name = build_reason_file_name(reason, "updates", args.version_label) + ".jsonl"
+        samples_name = build_reason_file_name(reason, "samples", args.version_label) + ".md"
+        (output_dir / detail_name).write_text(
             json.dumps(detail, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
-        write_jsonl(output_dir / f"{reason}_updates_v2.jsonl", updates)
-        write_samples_markdown(output_dir / f"{reason}_samples.md", reason, kept, removed, review)
+        write_jsonl(output_dir / updates_name, updates)
+        write_samples_markdown(output_dir / samples_name, reason, kept, removed, review)
+
+        baseline = compare_report.get(reason, {})
+        delta_kept = len(kept) - int(baseline.get("kept", 0))
+        delta_removed = len(removed) - int(baseline.get("removed", 0))
+        delta_review = len(review) - int(baseline.get("needs_review", 0))
 
         report_rows.append(
             {
@@ -1075,6 +1183,9 @@ def main() -> None:
                 "kept": len(kept),
                 "removed": len(removed),
                 "needs_review": len(review),
+                "delta_kept": delta_kept,
+                "delta_removed": delta_removed,
+                "delta_needs_review": delta_review,
                 "kept_ratio": round((len(kept) / len(rows)) if rows else 0.0, 4),
                 "granted_before": granted_before,
                 "granted_after": granted_after,
@@ -1091,15 +1202,17 @@ def main() -> None:
                 f"- 유지: {len(kept):,}",
                 f"- 제거 후보: {len(removed):,}",
                 f"- 검토 필요: {len(review):,}",
+                f"- 변화량(v2 대비): keep {delta_kept:+,} / remove {delta_removed:+,} / review {delta_review:+,}",
                 f"- 인정(구제) 전/후: {granted_before:,} -> {granted_after:,}",
                 f"- 핵심 정의: positive={len(CATEGORY_RULES[reason].positive)} / context={len(CATEGORY_RULES[reason].positive_context)} / negative={len(CATEGORY_RULES[reason].negative)}",
-                f"- payload: `{reason}_updates_v2.jsonl`",
-                f"- samples: `{reason}_samples.md`",
+                f"- payload: `{updates_name}`",
+                f"- samples: `{samples_name}`",
                 "",
             ]
         )
 
-    write_jsonl(output_dir / "all_updates_v2.jsonl", all_updates)
+    all_updates_name = f"all_updates_{args.version_label}.jsonl" if args.version_label else "all_updates_v2.jsonl"
+    write_jsonl(output_dir / all_updates_name, all_updates)
 
     applied_count = 0
     if args.apply_db:

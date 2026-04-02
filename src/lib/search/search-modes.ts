@@ -119,6 +119,8 @@ const REASON_TEXT_GUARDS: Partial<Record<ReasonCategory, string[]>> = {
     '능력 부족',
     '업무수행 능력',
   ],
+  // browse/list guard is intentionally narrower than payload v3:
+  // keep only core probation markers, and leave contract_expiry/no_dismissal conflicts to payload review.
   probation: [
     '수습',
     '시용',
@@ -146,6 +148,8 @@ const REASON_TEXT_GUARDS: Partial<Record<ReasonCategory, string[]>> = {
     '전직명령',
     '보직 변경',
   ],
+  // browse/list guard is intentionally narrower than payload v3:
+  // special misconducts like violence/embezzlement/harassment are filtered in payload scoring, not broadened here.
   misconduct: [
     '비위행위',
     '복무규정 위반',
