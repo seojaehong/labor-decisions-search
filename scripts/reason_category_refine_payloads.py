@@ -87,7 +87,9 @@ def make_patterns(values: tuple[str, ...]) -> tuple[re.Pattern[str], ...]:
 @dataclass(frozen=True)
 class CategoryRule:
     positive: tuple[str, ...]
-    negative: tuple[str, ...]
+    positive_context: tuple[str, ...] = ()
+    negative: tuple[str, ...] = ()
+    competitor_negative: tuple[tuple[str, str], ...] = ()
     review: tuple[str, ...] = ()
 
 
@@ -113,6 +115,7 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"독자적\s*사업",
             r"업무수행\s*과정",
         ),
+        positive_context=(),
         negative=(
             r"양정이\s*(과도|과중|과하여)",
             r"감봉",
@@ -143,6 +146,7 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"사직의\s*의사",
             r"근로관계\s*종료",
         ),
+        positive_context=(),
         negative=(
             r"부당해고에\s*해당",
             r"실질적인\s*해고",
@@ -169,9 +173,12 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"경고",
             r"시정",
             r"교육",
-            r"본채용\s*거부",
             r"능력\s*부족",
             r"업무수행\s*능력",
+        ),
+        positive_context=(
+            r"(개선\s*기회|개선기회|시정|교육|재교육).{0,20}(부여|제공|후)",
+            r"(저성과|근무성적\s*불량|업무능력\s*부족).{0,20}(해고|통상해고|종료)",
         ),
         negative=(
             r"음주운전",
@@ -186,6 +193,7 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"건강상\s*이유",
             r"적격성",
             r"배치전환",
+            r"본채용\s*거부",
         ),
     ),
     "contract_expiry": CategoryRule(
@@ -198,6 +206,7 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
             r"근로계약\s*기간",
             r"갱신거절",
         ),
+        positive_context=(),
         negative=(
             r"권고사직",
             r"합의해지",
@@ -208,18 +217,46 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
     ),
     "probation": CategoryRule(
         positive=(
-            r"수습",
-            r"시용",
+            r"시용근로자",
+            r"수습근로자",
             r"본채용\s*거부",
             r"수습기간",
             r"수습\s*평가",
-            r"시용근로자",
+            r"시용\s*평가",
+            r"수습기간\s*중",
+            r"계속\s*근로가\s*부적당",
+        ),
+        positive_context=(
+            r"(업무\s*적격성|조직\s*적응력).{0,15}(수습|시용|평가|채용)",
+            r"(입사|채용).{0,15}(3개월|수습기간|시용기간)",
         ),
         negative=(
             r"갱신기대권",
             r"계약만료",
+            r"기간만료",
+            r"갱신거절",
+            r"재계약\s*거절",
+            r"계약갱신\s*기대권",
+            r"저성과",
+            r"PIP",
+            r"개선\s*기회\s*부여",
+            r"근로기준법상\s*근로자",
+            r"사용종속관계",
+            r"임금을\s*목적으로",
             r"전보",
+            r"대기발령",
             r"직장\s*내\s*괴롭힘",
+        ),
+        competitor_negative=(
+            (r"갱신기대권|계약만료|기간만료|갱신거절|재계약\s*거절|계약갱신\s*기대권", "contract_expiry"),
+            (r"저성과|PIP|개선\s*기회\s*부여", "incompetence"),
+            (r"근로기준법상\s*근로자|사용종속관계|임금을\s*목적으로", "worker_status"),
+            (r"전보|대기발령", "transfer"),
+            (r"직장\s*내\s*괴롭힘", "workplace_bullying"),
+        ),
+        review=(
+            r"(본채용\s*거부).{0,30}(기간만료|갱신거절)",
+            r"(업무능력\s*부족).{0,30}(수습|시용)",
         ),
     ),
     "transfer": CategoryRule(
@@ -241,19 +278,64 @@ CATEGORY_RULES: dict[str, CategoryRule] = {
     "misconduct": CategoryRule(
         positive=(
             r"비위행위",
+            r"징계사유가\s*(인정|존재)",
+            r"(취업규칙|사규|복무규정|인사규정)\s*위반",
             r"복무규정\s*위반",
             r"복종의무\s*위반",
             r"업무\s*지시\s*불이행",
             r"허위\s*보고",
+            r"허위\s*기재",
+            r"허위\s*작성",
+            r"지시\s*불이행",
+            r"무단\s*(결근|외출|이탈|조퇴)",
+            r"(주의|성실|복무)\s*의무\s*(위반|게을리|해태)",
             r"겸직",
             r"징계사유",
         ),
+        positive_context=(),
         negative=(
             r"음주운전",
             r"절도",
             r"사기",
             r"폭행",
             r"성희롱",
+            r"상해",
+            r"욕설",
+            r"폭언",
+            r"신체\s*접촉",
+            r"위협",
+            r"횡령",
+            r"배임",
+            r"유용",
+            r"법인카드",
+            r"공금",
+            r"금품\s*수수",
+            r"직장\s*내\s*괴롭힘",
+            r"업무능력\s*부족",
+            r"저성과",
+            r"PIP",
+            r"근무성적\s*불량",
+            r"역량\s*부족",
+            r"시용",
+            r"수습",
+            r"본채용\s*거부",
+            r"전보",
+            r"대기발령",
+            r"직위해제",
+            r"보직변경",
+        ),
+        competitor_negative=(
+            (r"폭행|상해|욕설|폭언|신체\s*접촉|위협", "violence"),
+            (r"횡령|배임|유용|법인카드|공금|금품\s*수수", "embezzlement"),
+            (r"성희롱|성추행", "sexual_harassment"),
+            (r"직장\s*내\s*괴롭힘", "workplace_bullying"),
+            (r"업무능력\s*부족|저성과|PIP|근무성적\s*불량|역량\s*부족", "incompetence"),
+            (r"시용|수습|본채용\s*거부", "probation"),
+            (r"전보|대기발령|직위해제|보직변경", "transfer"),
+        ),
+        review=(
+            r"근무태만",
+            r"업무\s*미이행",
         ),
     ),
     "violence": CategoryRule(
@@ -339,9 +421,14 @@ class EvaluationResult:
     domain_bucket: str
     review_priority: str
     positive_hits: list[str]
+    positive_context_hits: list[str]
     negative_hits: list[str]
     domain_hits: list[str]
     evidence_snippet: str
+    score_current: int
+    score_competitor: int
+    competitor_category: str
+    decision_notes: str
 
 
 def parse_args() -> argparse.Namespace:
@@ -501,13 +588,87 @@ def next_reason_category(row: DecisionRow, removed_reason: str) -> list[str]:
     return remaining or ["other"]
 
 
+def infer_competitor(rule: CategoryRule, text: str) -> tuple[str, list[str]]:
+    scores: Counter[str] = Counter()
+    hits_by_reason: dict[str, list[str]] = {}
+
+    for pattern, target_reason in rule.competitor_negative:
+        compiled = re.compile(pattern, re.IGNORECASE)
+        if compiled.search(text):
+            scores[target_reason] += 5
+            hits_by_reason.setdefault(target_reason, []).append(pattern)
+
+    if not scores:
+        return "", []
+
+    competitor_category, competitor_score = max(scores.items(), key=lambda item: item[1])
+    if competitor_score <= 0:
+        return "", []
+
+    return competitor_category, hits_by_reason.get(competitor_category, [])
+
+
+def decide_review_priority(
+    outcome: str,
+    domain_bucket: str,
+    positive_hits: list[str],
+    positive_context_hits: list[str],
+    negative_hits: list[str],
+    review_hits: list[str],
+    competitor_category: str,
+) -> str:
+    if domain_bucket == "non_labor_case":
+        return "high"
+    if outcome == "needs_review":
+        return "high" if competitor_category or negative_hits or review_hits else "medium"
+    if outcome == "remove":
+        return "medium" if negative_hits else "low"
+    return "low" if positive_hits or positive_context_hits else "medium"
+
+
+def decide_notes(
+    outcome: str,
+    domain_bucket: str,
+    competitor_category: str,
+    positive_hits: list[str],
+    positive_context_hits: list[str],
+    negative_hits: list[str],
+    review_hits: list[str],
+) -> str:
+    if domain_bucket == "non_labor_case":
+        return "non-labor domain gate matched"
+    if outcome == "keep":
+        if positive_hits:
+            return "strong category signals matched"
+        return "context signals matched"
+    if outcome == "remove":
+        if competitor_category:
+            return f"competitor category preferred: {competitor_category}"
+        if negative_hits:
+            return "negative filters outweighed category signals"
+        return "browse/list guard miss"
+    if review_hits:
+        return "review-only or mixed context signals matched"
+    if competitor_category and negative_hits:
+        return f"mixed signals with competitor category: {competitor_category}"
+    return "ambiguous scoring window"
+
+
 def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
     rule = CATEGORY_RULES[reason]
     text = build_text(row)
     positive_hits = find_hits(text, rule.positive)
+    positive_context_hits = find_hits(text, rule.positive_context)
     negative_hits = find_hits(text, rule.negative)
     review_hits = find_hits(text, rule.review)
     domain_bucket, domain_hits = infer_domain_bucket(text, positive_hits)
+    competitor_category, competitor_hits = infer_competitor(rule, text)
+
+    score_current = (len(positive_hits) * 5) + (len(positive_context_hits) * 2) - (len(negative_hits) * 10)
+    score_competitor = len(competitor_hits) * 5
+
+    if review_hits:
+        score_current = min(score_current, 2)
 
     if domain_bucket == "non_labor_case":
         return EvaluationResult(
@@ -516,60 +677,133 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             domain_bucket=domain_bucket,
             review_priority="high",
             positive_hits=positive_hits,
+            positive_context_hits=positive_context_hits,
             negative_hits=negative_hits,
             domain_hits=domain_hits,
-            evidence_snippet=build_evidence_snippet(row, positive_hits or negative_hits or domain_hits),
+            evidence_snippet=build_evidence_snippet(row, positive_hits or positive_context_hits or negative_hits or domain_hits),
+            score_current=score_current,
+            score_competitor=score_competitor,
+            competitor_category=competitor_category,
+            decision_notes=decide_notes(
+                outcome="remove",
+                domain_bucket=domain_bucket,
+                competitor_category=competitor_category,
+                positive_hits=positive_hits,
+                positive_context_hits=positive_context_hits,
+                negative_hits=negative_hits,
+                review_hits=review_hits,
+            ),
         )
 
-    if positive_hits and not negative_hits:
+    if score_current >= 3 and score_current >= score_competitor and not review_hits and not (negative_hits and competitor_category):
         return EvaluationResult(
             outcome="keep",
             removal_basis="",
             domain_bucket=domain_bucket,
-            review_priority="low",
+            review_priority=decide_review_priority(
+                "keep",
+                domain_bucket,
+                positive_hits,
+                positive_context_hits,
+                negative_hits,
+                review_hits,
+                competitor_category,
+            ),
             positive_hits=positive_hits,
+            positive_context_hits=positive_context_hits,
             negative_hits=negative_hits,
             domain_hits=domain_hits,
-            evidence_snippet=build_evidence_snippet(row, positive_hits),
+            evidence_snippet=build_evidence_snippet(row, positive_hits or positive_context_hits),
+            score_current=score_current,
+            score_competitor=score_competitor,
+            competitor_category=competitor_category,
+            decision_notes=decide_notes(
+                outcome="keep",
+                domain_bucket=domain_bucket,
+                competitor_category=competitor_category,
+                positive_hits=positive_hits,
+                positive_context_hits=positive_context_hits,
+                negative_hits=negative_hits,
+                review_hits=review_hits,
+            ),
         )
 
-    if positive_hits and negative_hits:
+    if (
+        review_hits
+        or (0 <= score_current <= 2)
+        or (score_current == score_competitor and score_current > 0)
+        or (positive_hits or positive_context_hits) and negative_hits
+        or (competitor_category and score_current >= 0 and score_competitor >= score_current)
+    ):
         return EvaluationResult(
             outcome="needs_review",
             removal_basis="needs_review",
             domain_bucket="needs_review",
-            review_priority="high",
+            review_priority=decide_review_priority(
+                "needs_review",
+                "needs_review",
+                positive_hits,
+                positive_context_hits,
+                negative_hits,
+                review_hits,
+                competitor_category,
+            ),
             positive_hits=positive_hits,
-            negative_hits=negative_hits,
+            positive_context_hits=positive_context_hits,
+            negative_hits=negative_hits + [hit for hit in competitor_hits if hit not in negative_hits],
             domain_hits=domain_hits,
-            evidence_snippet=build_evidence_snippet(row, positive_hits + negative_hits),
+            evidence_snippet=build_evidence_snippet(
+                row,
+                positive_hits + positive_context_hits + negative_hits + review_hits + competitor_hits,
+            ),
+            score_current=score_current,
+            score_competitor=score_competitor,
+            competitor_category=competitor_category,
+            decision_notes=decide_notes(
+                outcome="needs_review",
+                domain_bucket="needs_review",
+                competitor_category=competitor_category,
+                positive_hits=positive_hits,
+                positive_context_hits=positive_context_hits,
+                negative_hits=negative_hits,
+                review_hits=review_hits,
+            ),
         )
 
-    if review_hits:
-        return EvaluationResult(
-            outcome="needs_review",
-            removal_basis="needs_review",
-            domain_bucket="needs_review",
-            review_priority="medium",
-            positive_hits=positive_hits,
-            negative_hits=review_hits,
-            domain_hits=domain_hits,
-            evidence_snippet=build_evidence_snippet(row, review_hits),
-        )
-
-    if not positive_hits and negative_hits:
+    if score_current < 0 or (competitor_category and score_competitor > score_current):
         return EvaluationResult(
             outcome="remove",
             removal_basis="label_mismatch",
             domain_bucket=domain_bucket,
-            review_priority="medium",
+            review_priority=decide_review_priority(
+                "remove",
+                domain_bucket,
+                positive_hits,
+                positive_context_hits,
+                negative_hits,
+                review_hits,
+                competitor_category,
+            ),
             positive_hits=positive_hits,
-            negative_hits=negative_hits,
+            positive_context_hits=positive_context_hits,
+            negative_hits=negative_hits + [hit for hit in competitor_hits if hit not in negative_hits],
             domain_hits=domain_hits,
-            evidence_snippet=build_evidence_snippet(row, negative_hits),
+            evidence_snippet=build_evidence_snippet(row, negative_hits + competitor_hits),
+            score_current=score_current,
+            score_competitor=score_competitor,
+            competitor_category=competitor_category,
+            decision_notes=decide_notes(
+                outcome="remove",
+                domain_bucket=domain_bucket,
+                competitor_category=competitor_category,
+                positive_hits=positive_hits,
+                positive_context_hits=positive_context_hits,
+                negative_hits=negative_hits,
+                review_hits=review_hits,
+            ),
         )
 
-    if not positive_hits:
+    if not positive_hits and not positive_context_hits:
         priority = "medium" if domain_bucket == "labor_case" else "high"
         basis = "guard_miss" if domain_bucket == "labor_case" else "needs_review"
         outcome = "remove" if domain_bucket == "labor_case" else "needs_review"
@@ -579,20 +813,54 @@ def evaluate_row(row: DecisionRow, reason: str) -> EvaluationResult:
             domain_bucket=domain_bucket,
             review_priority=priority,
             positive_hits=[],
+            positive_context_hits=[],
             negative_hits=[],
             domain_hits=domain_hits,
             evidence_snippet=build_evidence_snippet(row, domain_hits),
+            score_current=score_current,
+            score_competitor=score_competitor,
+            competitor_category=competitor_category,
+            decision_notes=decide_notes(
+                outcome=outcome,
+                domain_bucket=domain_bucket,
+                competitor_category=competitor_category,
+                positive_hits=[],
+                positive_context_hits=[],
+                negative_hits=[],
+                review_hits=review_hits,
+            ),
         )
 
     return EvaluationResult(
         outcome="needs_review",
         removal_basis="needs_review",
         domain_bucket="needs_review",
-        review_priority="medium",
+        review_priority=decide_review_priority(
+            "needs_review",
+            "needs_review",
+            positive_hits,
+            positive_context_hits,
+            negative_hits,
+            review_hits,
+            competitor_category,
+        ),
         positive_hits=positive_hits,
+        positive_context_hits=positive_context_hits,
         negative_hits=negative_hits,
         domain_hits=domain_hits,
-        evidence_snippet=build_evidence_snippet(row, positive_hits),
+        evidence_snippet=build_evidence_snippet(row, positive_hits + positive_context_hits + negative_hits + review_hits),
+        score_current=score_current,
+        score_competitor=score_competitor,
+        competitor_category=competitor_category,
+        decision_notes=decide_notes(
+            outcome="needs_review",
+            domain_bucket="needs_review",
+            competitor_category=competitor_category,
+            positive_hits=positive_hits,
+            positive_context_hits=positive_context_hits,
+            negative_hits=negative_hits,
+            review_hits=review_hits,
+        ),
     )
 
 
@@ -611,14 +879,28 @@ def summarize_row(row: DecisionRow, evaluation: EvaluationResult, reason: str) -
         "domain_bucket": evaluation.domain_bucket,
         "review_priority": evaluation.review_priority,
         "positive_hits": evaluation.positive_hits,
+        "positive_context_hits": evaluation.positive_context_hits,
         "negative_hits": evaluation.negative_hits,
         "domain_hits": evaluation.domain_hits,
         "evidence_snippet": evaluation.evidence_snippet,
+        "score_current": evaluation.score_current,
+        "score_competitor": evaluation.score_competitor,
+        "competitor_category": evaluation.competitor_category,
+        "decision_notes": evaluation.decision_notes,
     }
 
 
 def build_update_payload(row: DecisionRow, reason: str, evaluation: EvaluationResult) -> dict[str, Any]:
-    proposed = next_reason_category(row, reason) if evaluation.outcome == "remove" else row.reason_category
+    if evaluation.outcome == "remove":
+        if evaluation.competitor_category:
+            competitor_reasons = [candidate for candidate in row.reason_category if candidate != reason]
+            if evaluation.competitor_category not in competitor_reasons:
+                competitor_reasons.append(evaluation.competitor_category)
+            proposed = competitor_reasons or [evaluation.competitor_category]
+        else:
+            proposed = next_reason_category(row, reason)
+    else:
+        proposed = row.reason_category
     return {
         "id": row.id,
         "current_reason_category": row.reason_category,
@@ -629,9 +911,14 @@ def build_update_payload(row: DecisionRow, reason: str, evaluation: EvaluationRe
         "domain_bucket": evaluation.domain_bucket,
         "review_priority": evaluation.review_priority,
         "positive_hits": evaluation.positive_hits,
+        "positive_context_hits": evaluation.positive_context_hits,
         "negative_hits": evaluation.negative_hits,
         "domain_hits": evaluation.domain_hits,
         "evidence_snippet": evaluation.evidence_snippet,
+        "score_current": evaluation.score_current,
+        "score_competitor": evaluation.score_competitor,
+        "competitor_category": evaluation.competitor_category,
+        "decision_notes": evaluation.decision_notes,
         "title": row.title,
         "case_number": row.case_number,
         "department": row.department,
@@ -686,7 +973,8 @@ def write_samples_markdown(path: Path, reason: str, kept: list[dict[str, Any]], 
         for row in rows:
             lines.append(
                 f"- `{row['case_number']}` {row['title']} | {row['decision_result']} | "
-                f"{row['removal_basis'] or 'keep'} | {row['domain_bucket']} | {row['evidence_snippet']}"
+                f"{row['removal_basis'] or 'keep'} | {row['domain_bucket']} | "
+                f"score {row['score_current']}/{row['score_competitor']} | {row['evidence_snippet']}"
             )
         lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -752,7 +1040,12 @@ def main() -> None:
             "reason": reason,
             "definition": {
                 "positive": list(CATEGORY_RULES[reason].positive),
+                "positive_context": list(CATEGORY_RULES[reason].positive_context),
                 "negative": list(CATEGORY_RULES[reason].negative),
+                "competitor_negative": [
+                    {"pattern": pattern, "target_reason": target_reason}
+                    for pattern, target_reason in CATEGORY_RULES[reason].competitor_negative
+                ],
                 "review": list(CATEGORY_RULES[reason].review),
             },
             "total": len(rows),
@@ -799,6 +1092,7 @@ def main() -> None:
                 f"- 제거 후보: {len(removed):,}",
                 f"- 검토 필요: {len(review):,}",
                 f"- 인정(구제) 전/후: {granted_before:,} -> {granted_after:,}",
+                f"- 핵심 정의: positive={len(CATEGORY_RULES[reason].positive)} / context={len(CATEGORY_RULES[reason].positive_context)} / negative={len(CATEGORY_RULES[reason].negative)}",
                 f"- payload: `{reason}_updates_v2.jsonl`",
                 f"- samples: `{reason}_samples.md`",
                 "",

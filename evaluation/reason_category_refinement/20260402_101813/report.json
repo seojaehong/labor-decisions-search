@@ -1,0 +1,106 @@
+{
+  "scope": "reason_category_refinement_payloads_v2",
+  "categories": [
+    "worker_status",
+    "no_dismissal",
+    "incompetence",
+    "probation",
+    "misconduct"
+  ],
+  "total_rows": 46407,
+  "kept_rows": 18189,
+  "removed_rows": 5653,
+  "needs_review_rows": 22565,
+  "granted_before": 10568,
+  "granted_after": 3769,
+  "update_candidates": 5653,
+  "review_candidates": 22565,
+  "db_applied": false,
+  "db_applied_count": 0,
+  "rows": [
+    {
+      "reason": "worker_status",
+      "total": 12196,
+      "kept": 3069,
+      "removed": 3273,
+      "needs_review": 5854,
+      "kept_ratio": 0.2516,
+      "granted_before": 2487,
+      "granted_after": 494,
+      "remove_candidates": 3273,
+      "review_candidates": 5854,
+      "removal_basis_counts": {
+        "needs_review": 5854,
+        "label_mismatch": 3273
+      }
+    },
+    {
+      "reason": "no_dismissal",
+      "total": 14230,
+      "kept": 5519,
+      "removed": 1402,
+      "needs_review": 7309,
+      "kept_ratio": 0.3878,
+      "granted_before": 2754,
+      "granted_after": 483,
+      "remove_candidates": 1402,
+      "review_candidates": 7309,
+      "removal_basis_counts": {
+        "needs_review": 7309,
+        "label_mismatch": 1387,
+        "non_labor_domain": 15
+      }
+    },
+    {
+      "reason": "incompetence",
+      "total": 2239,
+      "kept": 727,
+      "removed": 196,
+      "needs_review": 1316,
+      "kept_ratio": 0.3247,
+      "granted_before": 524,
+      "granted_after": 201,
+      "remove_candidates": 196,
+      "review_candidates": 1316,
+      "removal_basis_counts": {
+        "needs_review": 1316,
+        "non_labor_domain": 23,
+        "label_mismatch": 173
+      }
+    },
+    {
+      "reason": "probation",
+      "total": 3984,
+      "kept": 1771,
+      "removed": 492,
+      "needs_review": 1721,
+      "kept_ratio": 0.4445,
+      "granted_before": 1075,
+      "granted_after": 444,
+      "remove_candidates": 492,
+      "review_candidates": 1721,
+      "removal_basis_counts": {
+        "label_mismatch": 435,
+        "needs_review": 1721,
+        "non_labor_domain": 57
+      }
+    },
+    {
+      "reason": "misconduct",
+      "total": 13758,
+      "kept": 7103,
+      "removed": 290,
+      "needs_review": 6365,
+      "kept_ratio": 0.5163,
+      "granted_before": 3728,
+      "granted_after": 2147,
+      "remove_candidates": 290,
+      "review_candidates": 6365,
+      "removal_basis_counts": {
+        "label_mismatch": 280,
+        "needs_review": 6365,
+        "non_labor_domain": 10
+      }
+    }
+  ]
+}
