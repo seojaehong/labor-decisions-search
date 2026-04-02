@@ -1,0 +1,59 @@
+{
+  "scope": "reason_category_refinement_payloads_v2",
+  "categories": [
+    "probation",
+    "misconduct"
+  ],
+  "total_rows": 17742,
+  "kept_rows": 8098,
+  "removed_rows": 986,
+  "needs_review_rows": 8658,
+  "granted_before": 4803,
+  "granted_after": 2411,
+  "update_candidates": 986,
+  "review_candidates": 8658,
+  "db_applied": false,
+  "db_applied_count": 0,
+  "rows": [
+    {
+      "reason": "probation",
+      "total": 3984,
+      "kept": 1466,
+      "removed": 708,
+      "needs_review": 1810,
+      "delta_kept": -308,
+      "delta_removed": 216,
+      "delta_needs_review": 92,
+      "kept_ratio": 0.368,
+      "granted_before": 1075,
+      "granted_after": 384,
+      "remove_candidates": 708,
+      "review_candidates": 1810,
+      "removal_basis_counts": {
+        "label_mismatch": 651,
+        "needs_review": 1810,
+        "non_labor_domain": 57
+      }
+    },
+    {
+      "reason": "misconduct",
+      "total": 13758,
+      "kept": 6632,
+      "removed": 278,
+      "needs_review": 6848,
+      "delta_kept": -437,
+      "delta_removed": -12,
+      "delta_needs_review": 449,
+      "kept_ratio": 0.482,
+      "granted_before": 3728,
+      "granted_after": 2027,
+      "remove_candidates": 278,
+      "review_candidates": 6848,
+      "removal_basis_counts": {
+        "label_mismatch": 268,
+        "needs_review": 6848,
+        "non_labor_domain": 10
+      }
+    }
+  ]
+}

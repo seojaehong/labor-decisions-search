@@ -163,7 +163,7 @@ const REASON_TEXT_GUARDS: Partial<Record<ReasonCategory, string[]>> = {
     '무단결근',
     '무단외출',
     '겸직',
-    '징계사유',
+    // v4: plain '징계사유' is too broad for browse/list and leaked harassment/violence cases.
   ],
   contract_expiry: [
     '갱신기대권',

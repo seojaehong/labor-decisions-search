@@ -154,6 +154,45 @@
 - 다만 `징계사유`, `양정`, `절차` 같은 일반 문구 때문에 특수 비위가 `keep` 또는 `needs_review`에 남는 경우가 있다.
 - `음주운전`은 `subtype=dui` 보조 신호를 유지하되, `당연퇴직`, `면허취소 후 해고`, `통상해고` 같은 후속 처분 문맥은 일반 `misconduct` keep으로 두지 않도록 한 번 더 정리할 필요가 있다.
 
+## 2026-04-02 Phase 2 v4 결과
+
+- 범위: `probation`, `misconduct`
+- 산출물 폴더: `evaluation/reason_category_refinement/20260402_122500/`
+- 전체:
+  - 대상 `17,742`
+  - 유지 `8,098`
+  - 제거 후보 `986`
+  - 검토 필요 `8,658`
+  - DB 반영 `false`
+
+### `probation` v4
+
+- 전체 `3,984`
+- 유지 `1,466`
+- 제거 후보 `708`
+- 검토 필요 `1,810`
+- v3 대비: `keep -308 / remove +216 / review +92`
+
+판단:
+
+- `사직서`, `합의해지`, `해고 부존재`, `일용계약 종료` 계열이 더 잘 빠져 browse/list 방어 측면은 개선됐다.
+- 반면 자동 `keep`이 줄고 `review`가 늘어, DB 정제 자동화 관점에서는 더 보수적인 판정이 되었다.
+- 오늘 기준으로는 **precision 우선의 안전한 분리안**으로 볼 수 있다.
+
+### `misconduct` v4
+
+- 전체 `13,758`
+- 유지 `6,632`
+- 제거 후보 `278`
+- 검토 필요 `6,848`
+- v3 대비: `keep -437 / remove -12 / review +449`
+
+판단:
+
+- `violence`, `sexual_harassment`, `workplace_bullying`, `transfer`, `probation`과 충돌하는 사례가 `keep`보다 `review`로 더 이동했다.
+- 즉 블랙홀 성향은 더 줄었지만, 그만큼 보수적인 review 비율이 올라갔다.
+- `dui` subtype은 유지하되, `당연퇴직`, `면허취소 후 해고`, `통상해고` 같은 후속 처분 문맥 분리는 다음 단계 보강 포인트로 남는다.
+
 ## 다음 실행 순서
 
 1. `worker_status_samples.md` 수동 검토
