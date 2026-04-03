@@ -18,11 +18,26 @@ const LEVEL3_PATTERN = /^[①-⑳]\s*/;
 const NUMBERED_PATTERN = /^\d+\.\s+/;
 const BULLET_PATTERN = /^[-·]\s+/;
 
+function stripMarkdownFormatting(input: string): string {
+  return input
+    // Strip markdown headers → plain text
+    .replace(/^#{1,4}\s+(.+)$/gm, '$1')
+    // Strip bold markers ** **
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    // Strip italic markers * *
+    .replace(/\*(.+?)\*/g, '$1')
+    // Strip □ prefix used in some decisions
+    .replace(/^□\s*/gm, '');
+}
+
 function injectStructuralBreaks(input: string): string {
   return input
-    .replace(/\s*(?=([가-힣]\.\s+\S{2,}))/g, (match, marker, offset) => (offset === 0 ? "" : "\n"))
-    .replace(/\s*(?=(\(\d+\)\s+\S{2,}))/g, (match, marker, offset) => (offset === 0 ? "" : "\n"))
-    .replace(/\s*(?=([①-⑳]\s*\S{2,}))/g, (match, marker, offset) => (offset === 0 ? "" : "\n"));
+    // Handle 가./나./다. markers - with or without preceding whitespace
+    .replace(/([^\n])(?=[가-힣]\.\s)/g, '$1\n')
+    // Also handle cases where marker follows text directly without space: "인정됨나. "
+    .replace(/([가-힣]{2,})([가-힣]\.\s+\S{2,})/g, '$1\n$2')
+    .replace(/\s*(?=(\(\d+\)\s+\S{2,}))/g, (match, _marker, offset) => (offset === 0 ? "" : "\n"))
+    .replace(/\s*(?=([①-⑳]\s*\S{2,}))/g, (match, _marker, offset) => (offset === 0 ? "" : "\n"));
 }
 
 function clampIndent(value: number): 0 | 1 | 2 {
@@ -34,7 +49,7 @@ function clampIndent(value: number): 0 | 1 | 2 {
 export function parseHoldingText(input: string | null | undefined): HoldingBlock[] {
   if (!input) return [];
 
-  const normalizedInput = injectStructuralBreaks(input);
+  const normalizedInput = injectStructuralBreaks(stripMarkdownFormatting(input));
 
   const lines = normalizedInput
     .split(/\r?\n/)
