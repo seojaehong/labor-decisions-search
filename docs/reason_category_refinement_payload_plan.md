@@ -266,3 +266,55 @@
 2. `misconduct.lean_remove`를 `violence / sexual_harassment / workplace_bullying / embezzlement / transfer / probation` 하위군으로 자동 이관
 3. `dui`와 `dui_termination`의 browse/list 표시 정책 별도 정리
 4. 그 다음에야 DB 반영 검토
+
+## 2026-04-03 v6 분석 결과
+
+- 입력 폴더: `evaluation/reason_category_refinement/20260402_224157/`
+- 출력 폴더: `evaluation/reason_category_refinement/20260403_171441/`
+- DB 반영: `false`
+
+### Step 1: `misconduct lean_remove` 자동 이관
+
+- 대상: `4,376`
+- 모든 케이스가 `competitor_category` 기준으로 우선 분류되어 신뢰도 `high`
+- 분포:
+  - `violence 1,778`
+  - `sexual_harassment 891`
+  - `embezzlement 767`
+  - `workplace_bullying 469`
+  - `transfer 267`
+  - `other_special_misconduct 79`
+  - `probation 57`
+  - `contract_expiry 54`
+  - `incompetence 14`
+
+판단:
+
+- `misconduct`의 review 중 상당 부분은 사실상 다음 단계에서 자동 이관해도 되는 수준이다.
+- 특히 `violence`, `sexual_harassment`, `embezzlement`, `workplace_bullying`는 하위유형 자동 분리 우선순위가 높다.
+- `other_special_misconduct`는 현재 `dui / dui_termination / 징계양정·절차`를 임시로 묶은 버킷이므로, 차기에는 다시 분해하는 것이 좋다.
+
+### Step 2: `probation ambiguous + lean_remove` 세분화
+
+- 대상: `1,669`
+- 분포:
+  - `mixed_review 1,000`
+  - `no_dismissal 416`
+  - `contract_expiry 162`
+  - `dismissal_procedure 53`
+  - `worker_status 38`
+- 신뢰도:
+  - `high 576`
+  - `medium 129`
+  - `low 964`
+
+판단:
+
+- `probation`은 `no_dismissal`과 `contract_expiry`로 자동 이관할 후보군이 분명히 존재한다.
+- 다만 `mixed_review 1,000`이 커서, 아직은 `probation` 경계 케이스를 더 쪼개는 1단계가 남아 있다.
+- 다음 라운드에서는 `mixed_review`를
+  - `본채용 거부 실질판단`
+  - `수습 중 해고 절차`
+  - `기간만료/갱신거절`
+  - `근로자성/당사자적격`
+  로 나눌 필요가 있다.

@@ -1,0 +1,47 @@
+{
+  "scope": "reason_category_refinement_v6_analysis",
+  "input_dir": "C:\\dev\\labor-decisions-search\\evaluation\\reason_category_refinement\\20260402_224157",
+  "db_applied": false,
+  "step1": {
+    "target": "misconduct lean_remove",
+    "total": 4376,
+    "bucket_counts": {
+      "sexual_harassment": 891,
+      "workplace_bullying": 469,
+      "violence": 1778,
+      "transfer": 267,
+      "contract_expiry": 54,
+      "embezzlement": 767,
+      "probation": 57,
+      "other_special_misconduct": 79,
+      "incompetence": 14
+    },
+    "confidence_counts": {
+      "high": 4376
+    },
+    "match_stage_counts": {
+      "competitor_category": 4376
+    }
+  },
+  "step2": {
+    "target": "probation ambiguous + lean_remove",
+    "total": 1669,
+    "segment_counts": {
+      "contract_expiry": 162,
+      "no_dismissal": 416,
+      "mixed_review": 1000,
+      "dismissal_procedure": 53,
+      "worker_status": 38
+    },
+    "confidence_counts": {
+      "high": 576,
+      "medium": 129,
+      "low": 964
+    },
+    "match_stage_counts": {
+      "competitor_category": 615,
+      "negative_hits": 90,
+      "evidence": 964
+    }
+  }
+}
