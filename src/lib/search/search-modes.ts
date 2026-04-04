@@ -376,7 +376,7 @@ function buildBaselineSelect(page: number, pageSize: number) {
   return supabase
     .from('nlrc_decisions')
     .select(
-      'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category',
+      'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category',
       { count: 'exact' }
     )
     .range(page * pageSize, (page + 1) * pageSize - 1)
@@ -549,7 +549,7 @@ async function runBaselineSearch({
     let nlrcQuery = supabase
       .from('nlrc_decisions')
       .select(
-        'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category',
+        'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category',
         { count: 'exact' }
       )
       .limit(COMBINED_QUERY_FETCH_SIZE)
@@ -562,7 +562,7 @@ async function runBaselineSearch({
       nlrcResp = await supabase
         .from('nlrc_decisions')
         .select(
-          'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category',
+          'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category',
           { count: 'exact' }
         )
         .or(`title.ilike.%${escaped}%,key_issue.ilike.%${escaped}%,holding_points.ilike.%${escaped}%,holding_summary.ilike.%${escaped}%`)
@@ -582,6 +582,7 @@ async function runBaselineSearch({
       key_issue: row.key_issue,
       holding_summary: row.holding_summary || null,
       holding_points: row.holding_points || null,
+      summary_short: row.summary_short || null,
       url: row.url,
       reason_category: row.reason_category || [],
       source_provider: 'nlrc',
@@ -646,6 +647,7 @@ async function runBaselineSearch({
     key_issue: row.key_issue,
     holding_summary: row.holding_summary || null,
     holding_points: row.holding_points || null,
+    summary_short: row.summary_short || null,
     url: row.url,
     reason_category: row.reason_category || [],
     source_provider: 'nlrc' as const,
@@ -665,7 +667,7 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
 
   const { data, error } = await supabase
     .from('nlrc_decisions')
-    .select('id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, url, reason_category')
+    .select('id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category')
     .in('id', ids);
 
   if (error) throw error;
@@ -684,6 +686,7 @@ async function hydrateCandidateRows(rows: CandidateMetaRow[]): Promise<SearchCar
       key_issue: base?.key_issue || null,
       holding_summary: base?.holding_summary || null,
       holding_points: base?.holding_points || null,
+      summary_short: base?.summary_short || null,
       url: base?.url || null,
       reason_category: base?.reason_category || [],
     };

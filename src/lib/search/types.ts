@@ -12,6 +12,7 @@ export interface SearchCard {
   key_issue: string | null;
   holding_summary?: string | null;
   holding_points?: string | null;
+  summary_short?: string | null;
   url: string | null;
   reason_category: string[];
   source_provider?: 'nlrc' | 'bigcase' | 'lawgo' | null;

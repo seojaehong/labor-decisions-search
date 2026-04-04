@@ -141,8 +141,9 @@ function getDebugScenarioLabel(payload: SearchResponsePayload | null): string | 
 
 function getIssuePreview(item: SearchCard): string {
   const preview =
-    item.holding_summary?.trim() ||
+    item.summary_short?.trim() ||
     item.key_issue?.trim() ||
+    item.holding_summary?.trim() ||
     item.holding_points?.trim() ||
     item.title?.trim() ||
     "";
