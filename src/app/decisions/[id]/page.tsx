@@ -11,6 +11,7 @@ import {
   type SanctionType,
 } from "@/lib/types";
 import { parseHoldingText } from "@/lib/format-holding";
+import { getDecisionSourceLabel, resolveDecisionSourceContract, type DecisionSourceProvider } from "@/lib/search/source-contracts";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -23,6 +24,22 @@ function getSourceStatusLabel(hasDetailedHoldingPoints: boolean, hasHoldingPoint
   if (hasDetailedHoldingPoints) return "서비스 내 추출 원문 제공";
   if (hasHoldingPoints) return "추출 원문 일부 제공";
   return "서비스 내 정리본 제공";
+}
+
+function getSummaryLabel(source: DecisionSourceProvider) {
+  return source === "bigcase" || source === "lawgo" ? "판결요지" : "판정요지";
+}
+
+function getLeadCopy(source: DecisionSourceProvider) {
+  if (source === "lawgo") {
+    return "법제처 공식 API 기준으로 판시사항, 판결요지, 참조법령, 판례내용을 내부에서 확인할 수 있습니다.";
+  }
+
+  if (source === "bigcase") {
+    return "법원 판례 기준으로 판결요지와 원문 출처를 내부에서 확인하세요.";
+  }
+
+  return "노동위 판정례 기준으로 판정요지와 절차 정보를 확인할 수 있습니다.";
 }
 
 function renderHoldingBlocks(text: string) {
@@ -62,13 +79,20 @@ function renderLawgoSections(sections: LawgoSection[]) {
 
 export default async function DecisionPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ source?: string | string[] }> | { source?: string | string[] };
 }) {
   const { id } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const sourceParam = Array.isArray(resolvedSearchParams?.source)
+    ? resolvedSearchParams?.source[0]
+    : resolvedSearchParams?.source;
+  const decisionSource = resolveDecisionSourceContract({ id, sourceProvider: sourceParam }).provider;
 
-  if (id.startsWith("prec_")) {
-    const apiId = id.replace(/^prec_/, "");
+  if (decisionSource === "lawgo") {
+    const apiId = id.startsWith("prec_") ? id.replace(/^prec_/, "") : id;
     const [{ data: precedent }, { data: document }] = await Promise.all([
       supabase
         .from("lawgo_precedents")
@@ -114,10 +138,10 @@ export default async function DecisionPage({
               <div className="space-y-2">
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">상세 페이지</Badge>
-                  <Badge variant="outline">서비스 내 원문 제공</Badge>
+                  <Badge variant="outline">{getDecisionSourceLabel(decisionSource)}</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  법제처 공식 API 기준으로 판시사항, 판결요지, 참조법령, 판례내용을 내부에서 확인할 수 있습니다.
+                  {getLeadCopy(decisionSource)}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -210,6 +234,148 @@ export default async function DecisionPage({
     );
   }
 
+  if (decisionSource === "bigcase") {
+    const { data: c } = await supabase
+      .from("cases")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (!c) {
+      return <div className="p-8">판결을 찾을 수 없습니다.</div>;
+    }
+
+    const holdingPointsText = typeof c.holding_points === "string" ? c.holding_points.trim() : "";
+    const summaryText = typeof c.summary === "string" ? c.summary.trim() : "";
+    const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
+    const hasHoldingPoints = holdingPointsText.length > 0;
+    const hasSummary = summaryText.length > 0;
+    const hasSourceSection = hasHoldingPoints || Boolean(c.url);
+
+    return (
+      <main className="min-h-screen bg-background">
+        <div className="max-w-3xl mx-auto px-4 py-8">
+          <Link href="/search" className="text-sm text-muted-foreground hover:text-primary mb-4 inline-block">
+            &larr; 검색으로
+          </Link>
+
+          <h1 className="text-xl font-bold mb-2">{c.title}</h1>
+          <p className="text-sm text-muted-foreground mb-4">
+            {c.court} | {c.decision_date}
+            {c.case_number ? ` | ${c.case_number}` : ""}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            <Badge className="bg-blue-100 text-blue-800">{c.verdict_type || "판결"}</Badge>
+            <Badge variant="outline">{getDecisionSourceLabel(decisionSource)}</Badge>
+            {Array.isArray(c.keywords_matched) ? c.keywords_matched.map((tag: string) => (
+              <Badge key={tag} variant="outline">
+                {tag}
+              </Badge>
+            )) : null}
+          </div>
+
+          <Card className="p-4 mb-6 bg-muted/30">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">상세 페이지</Badge>
+                  <Badge variant="outline">{getDecisionSourceLabel(decisionSource)}</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {getLeadCopy(decisionSource)}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href="#decision-summary"
+                  className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
+                >
+                  요약 보기
+                </a>
+                {hasSourceSection ? (
+                  <a
+                    href="#source-text"
+                    className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
+                  >
+                    원문·출처 보기
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          </Card>
+
+          <section id="decision-summary" className="scroll-mt-24 space-y-4">
+            {summaryText ? (
+              <Card className="p-4 bg-muted/50">
+                <h3 className="font-semibold text-sm mb-2">{getSummaryLabel(decisionSource)}</h3>
+                <div>{renderHoldingBlocks(summaryText)}</div>
+              </Card>
+            ) : null}
+          </section>
+
+          <Separator className="my-6" />
+
+          <section id="source-text" className="scroll-mt-24">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div>
+                <h2 className="font-semibold">원문·출처</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  법원 판례의 내부 요약과 외부 원문을 함께 확인하세요.
+                </p>
+              </div>
+              <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
+            </div>
+
+            {hasDetailedHoldingPoints ? (
+              <Card className="p-4 mb-4">
+                <h3 className="font-semibold text-sm mb-2">서비스 내 추출 원문</h3>
+                <div>{renderHoldingBlocks(holdingPointsText)}</div>
+              </Card>
+            ) : (
+              <Card className="p-4 mb-4 bg-muted/40">
+                <h3 className="font-semibold text-sm mb-2">서비스 내 확인 가능한 내용</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  이 판례는 상세한 추출 원문이 충분하지 않아, 아래 요약을 제공합니다.
+                </p>
+                <div className="space-y-3">
+                  {hasHoldingPoints ? (
+                    <div>
+                      <p className="text-xs font-medium text-muted-foreground mb-1">추출된 원문 일부</p>
+                      <div>{renderHoldingBlocks(holdingPointsText)}</div>
+                    </div>
+                  ) : null}
+                  {hasSummary ? (
+                    <div>
+                      <p className="text-xs font-medium text-muted-foreground mb-1">판결요지 정리</p>
+                      <div>{renderHoldingBlocks(summaryText)}</div>
+                    </div>
+                  ) : null}
+                </div>
+              </Card>
+            )}
+
+            <Card className="p-4 bg-muted/40">
+              <p className="text-sm text-muted-foreground mb-3">
+                위 판결요지와 정리본이 이 판례의 핵심 내용입니다. 추가 검토가 필요하면 외부 원문을 열어 확인하세요.
+              </p>
+              {c.url ? (
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
+                >
+                  외부 원문 참고
+                </a>
+              ) : null}
+            </Card>
+          </section>
+        </div>
+      </main>
+    );
+  }
+
   const { data: d } = await supabase
     .from("nlrc_decisions")
     .select("*")
@@ -251,7 +417,7 @@ export default async function DecisionPage({
               {REASON_LABELS[r as ReasonCategory] || r}
             </Badge>
           ))}
-          {!id.startsWith("bc_") && d.sanction_type && (
+          {d.sanction_type && (
             <Badge variant="secondary">
               {SANCTION_LABELS[d.sanction_type as SanctionType] || d.sanction_type}
             </Badge>
@@ -303,24 +469,22 @@ export default async function DecisionPage({
             </Card>
           )}
 
-          {!id.startsWith("bc_") && (
-            <Card className="p-4 mb-4">
-              <h3 className="font-semibold text-sm mb-2">절차 확인</h3>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div>{d.procedure_committee ? "✅" : "❌"} 징계위원회</div>
-                <div>{d.procedure_defense ? "✅" : "❌"} 소명기회 부여</div>
-                <div>{d.procedure_written_notice ? "✅" : "❌"} 서면통지</div>
-                <div>{d.procedure_advance_notice ? "✅" : "❌"} 해고예고 30일</div>
-              </div>
-              {d.procedure_note && (
-                <p className="text-xs text-muted-foreground mt-2">{d.procedure_note}</p>
-              )}
-            </Card>
-          )}
+          <Card className="p-4 mb-4">
+            <h3 className="font-semibold text-sm mb-1">절차 확인</h3>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>{d.procedure_committee ? "✅" : "❌"} 징계위원회</div>
+              <div>{d.procedure_defense ? "✅" : "❌"} 소명기회 부여</div>
+              <div>{d.procedure_written_notice ? "✅" : "❌"} 서면통지</div>
+              <div>{d.procedure_advance_notice ? "✅" : "❌"} 해고예고 30일</div>
+            </div>
+            {d.procedure_note && (
+              <p className="text-xs text-muted-foreground mt-2">{d.procedure_note}</p>
+            )}
+          </Card>
 
           {hasSummary && (
             <div className="mb-6">
-              <h3 className="font-semibold mb-2">{id.startsWith("bc_") ? "판결요지" : "판정요지"}</h3>
+              <h3 className="font-semibold mb-2">{getSummaryLabel(decisionSource)}</h3>
               <div>{renderHoldingBlocks(holdingSummaryText)}</div>
             </div>
           )}

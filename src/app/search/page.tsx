@@ -12,6 +12,7 @@ import {
   type ReasonCategory,
   type DecisionResult,
 } from "@/lib/types";
+import { getDecisionDetailHref } from "@/lib/search/source-contracts";
 import type { MolabInterpretation, SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
 import Link from "next/link";
 const IS_DEV = process.env.NODE_ENV === "development";
@@ -167,7 +168,7 @@ function SearchResultCard({ item }: { item: SearchCard }) {
     ) : null;
 
   return (
-    <Link key={item.id} href={`/decisions/${item.id}`}>
+    <Link key={item.id} href={getDecisionDetailHref(item)}>
       <Card className="p-4 hover:border-primary transition-colors cursor-pointer mb-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">

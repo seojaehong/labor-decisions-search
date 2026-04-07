@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Send, Bot, User, Loader2, Scale, CheckCircle2, GitCompareArrows, ClipboardList } from 'lucide-react';
 import { PromptSuggestion } from '@/components/ui/prompt-suggestion';
+import { getDecisionDetailHref } from '@/lib/search/source-contracts';
 
 interface CaseCard {
   id: string;
@@ -211,7 +212,7 @@ export default function SanctionPage() {
         ? 'block rounded-xl border border-blue-200 bg-white p-3 hover:bg-blue-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500'
         : 'block rounded-xl border border-amber-200 bg-white p-3 hover:bg-amber-100/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500'
     const titleClass = tone === 'worker' ? 'mb-1 text-xs font-semibold text-blue-700' : 'mb-1 text-xs font-semibold text-amber-700'
-    const href = (c.id && !c.id.startsWith('ai_case_') ? `/decisions/${c.id}` : '')
+    const href = (c.id && !c.id.startsWith('ai_case_') ? getDecisionDetailHref({ id: c.id, sourceProvider: c.source === 'court' ? 'bigcase' : 'nlrc' }) : '')
 
     const sourceBadge = c.source === 'court'
       ? <span className="ml-1.5 rounded-full bg-purple-100 px-1.5 py-0.5 text-[9px] font-medium text-purple-700">법원</span>
@@ -439,7 +440,7 @@ export default function SanctionPage() {
                       {extraCases.map((c) => (
                         <a
                           key={c.id}
-                          href={`/decisions/${c.id}`}
+                          href={getDecisionDetailHref({ id: c.id, sourceProvider: c.source === 'court' ? 'bigcase' : 'nlrc' })}
                           aria-label={`추가 참고 판정례 열기: ${c.title}`}
                           className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                         >
