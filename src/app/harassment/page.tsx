@@ -82,9 +82,18 @@ function getDisplayCaseNumber(caseNumber?: string | null): string {
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
 }
 
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/^#{1,4}\s+(.+)$/gm, "$1")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .trim();
+}
+
 function getPreview(summary: string | null): string {
   if (!summary) return "";
-  return summary.length > 200 ? `${summary.slice(0, 200)}...` : summary;
+  const clean = stripMarkdown(summary);
+  return clean.length > 200 ? `${clean.slice(0, 200)}...` : clean;
 }
 
 function getLabelFor(key: string, map: Record<string, string>): string {
