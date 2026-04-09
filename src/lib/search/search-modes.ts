@@ -376,7 +376,7 @@ function buildBaselineSelect(page: number, pageSize: number) {
   return supabase
     .from('nlrc_decisions')
     .select(
-      'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category',
+      'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category, legal_focus, disposition_type, fact_markers, confidence_level, tier, tier_subcategory',
       { count: 'exact' }
     )
     .range(page * pageSize, (page + 1) * pageSize - 1)
@@ -549,7 +549,7 @@ async function runBaselineSearch({
     let nlrcQuery = supabase
       .from('nlrc_decisions')
       .select(
-        'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category',
+        'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category, legal_focus, disposition_type, fact_markers, confidence_level, tier, tier_subcategory',
         { count: 'exact' }
       )
       .limit(COMBINED_QUERY_FETCH_SIZE)
@@ -562,7 +562,7 @@ async function runBaselineSearch({
       nlrcResp = await supabase
         .from('nlrc_decisions')
         .select(
-          'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category',
+          'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category, legal_focus, disposition_type, fact_markers, confidence_level, tier, tier_subcategory',
           { count: 'exact' }
         )
         .or(`title.ilike.%${escaped}%,key_issue.ilike.%${escaped}%,holding_points.ilike.%${escaped}%,holding_summary.ilike.%${escaped}%`)
@@ -586,6 +586,12 @@ async function runBaselineSearch({
       url: row.url,
       reason_category: row.reason_category || [],
       source_provider: 'nlrc',
+      legal_focus: row.legal_focus || null,
+      disposition_type: row.disposition_type || null,
+      fact_markers: row.fact_markers || null,
+      confidence_level: row.confidence_level || null,
+      tier: row.tier || null,
+      tier_subcategory: row.tier_subcategory || null,
     }));
 
     const bigcaseBucket = await runBigcaseSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE);

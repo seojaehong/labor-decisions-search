@@ -29,6 +29,7 @@ function Nav() {
           {[
             { href: '/', label: '홈' },
             { href: '/search', label: '검색' },
+            { href: '/harassment', label: '괴롭힘·성희롱' },
             { href: '/sanction', label: 'AI 징계양정' },
             { href: '/stats', label: '통계' },
           ].map((l) => (

@@ -403,10 +403,14 @@ export default async function DecisionPage({
         </Link>
 
         <h1 className="text-xl font-bold mb-2">{d.title}</h1>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-muted-foreground">
           {d.department} | {d.decision_date}
-          {displayCaseNumber ? ` | ${displayCaseNumber}` : ""}
         </p>
+        {displayCaseNumber && (
+          <p className="text-sm font-semibold text-foreground mb-4">
+            사건번호: {displayCaseNumber}
+          </p>
+        )}
 
         <div className="flex flex-wrap gap-2 mb-6">
           <Badge className="bg-blue-100 text-blue-800">
@@ -424,35 +428,24 @@ export default async function DecisionPage({
           )}
         </div>
 
-        <Card className="p-4 mb-6 bg-muted/30">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div className="space-y-2">
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline">상세 페이지</Badge>
-                <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                이 페이지에서 판정요지와 절차 정보를 확인할 수 있습니다. 아래에서 추출 본문과 정리본을 검토하세요.
-              </p>
+        {/* AI 분류 태깅 정보 */}
+        {(d.legal_focus?.filter((f: string) => f !== '불명').length > 0 ||
+          d.disposition_type?.filter((t: string) => t !== '불명').length > 0) && (
+          <Card className="p-4 mb-4 bg-muted/30">
+            <p className="text-xs text-muted-foreground mb-2">AI 분류</p>
+            <div className="flex flex-wrap gap-1.5">
+              {d.disposition_type?.filter((t: string) => t !== '불명').map((t: string) => (
+                <Badge key={t} className="text-xs">{t}</Badge>
+              ))}
+              {d.legal_focus?.filter((f: string) => f !== '불명').map((f: string) => (
+                <Badge key={f} variant="outline" className="text-xs">{f}</Badge>
+              ))}
+              {d.confidence_level && (
+                <Badge variant="secondary" className="text-xs">{d.confidence_level} 신뢰도</Badge>
+              )}
             </div>
-            <div className="flex flex-wrap gap-2">
-              <a
-                href="#decision-summary"
-                className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
-              >
-                요약 보기
-              </a>
-              {hasSourceSection ? (
-                <a
-                  href="#source-text"
-                  className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
-                >
-                  원문·출처 보기
-                </a>
-              ) : null}
-            </div>
-          </div>
-        </Card>
+          </Card>
+        )}
 
         {d.key_issue && (
           <Card id="decision-summary" className="p-4 mb-6 bg-muted/50 scroll-mt-24">
@@ -483,65 +476,11 @@ export default async function DecisionPage({
           </Card>
 
           {hasSummary && (
-            <div className="mb-6">
-              <h3 className="font-semibold mb-2">{getSummaryLabel(decisionSource)}</h3>
+            <Card id="decision-summary" className="p-5 mb-4 border-primary/30 bg-primary/5 scroll-mt-24">
+              <h3 className="font-bold text-base mb-3">판정 요지</h3>
               <div>{renderHoldingBlocks(holdingSummaryText)}</div>
-            </div>
-          )}
-        </section>
-
-        <Separator className="my-6" />
-
-        <section id="source-text" className="scroll-mt-24">
-          <div className="flex items-start justify-between gap-4 mb-3">
-            <div>
-              <h2 className="font-semibold">원문·출처</h2>
-              <p className="text-sm text-muted-foreground mt-1">
-                서비스 내 정리본과 추출된 본문 범위를 확인하세요.
-              </p>
-            </div>
-            <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
-          </div>
-
-          {hasDetailedHoldingPoints ? (
-            <Card className="p-4 mb-4">
-              <h3 className="font-semibold text-sm mb-2">서비스 내 추출 원문</h3>
-              <div>{renderHoldingBlocks(holdingPointsText)}</div>
-            </Card>
-          ) : (
-            <Card className="p-4 mb-4 bg-muted/40">
-              <h3 className="font-semibold text-sm mb-2">서비스 내 확인 가능한 내용</h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                이 판정례는 상세한 추출 원문이 충분하지 않아, 아래 정리본을 제공합니다.
-              </p>
-              <div className="space-y-3">
-                {hasHoldingPoints ? (
-                  <div>
-                    <p className="text-xs font-medium text-muted-foreground mb-1">추출된 원문 일부</p>
-                    <div>{renderHoldingBlocks(holdingPointsText)}</div>
-                  </div>
-                ) : null}
-                {hasSummary ? (
-                  <div>
-                    <p className="text-xs font-medium text-muted-foreground mb-1">판정요지 정리</p>
-                    <div>{renderHoldingBlocks(holdingSummaryText)}</div>
-                  </div>
-                ) : null}
-                {!hasHoldingPoints && !hasSummary && keyIssueText ? (
-                  <div>
-                    <p className="text-xs font-medium text-muted-foreground mb-1">핵심 쟁점 메모</p>
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{keyIssueText}</p>
-                  </div>
-                ) : null}
-              </div>
             </Card>
           )}
-
-          <Card className="p-4 bg-muted/40">
-            <p className="text-sm text-muted-foreground">
-              위 판정요지와 정리본이 이 판정례의 핵심 내용입니다. 추가 검토가 필요하면 AI 비교분석을 활용하세요.
-            </p>
-          </Card>
         </section>
       </div>
     </main>

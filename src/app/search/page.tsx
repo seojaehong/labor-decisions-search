@@ -149,7 +149,7 @@ function getIssuePreview(item: SearchCard): string {
     item.title?.trim() ||
     "";
   if (!preview) return "";
-  return preview.length > 100 ? `${preview.slice(0, 100)}...` : preview;
+  return preview.length > 200 ? `${preview.slice(0, 200)}...` : preview;
 }
 
 function getDisplayCaseNumber(caseNumber?: string | null): string {
@@ -167,6 +167,16 @@ function SearchResultCard({ item }: { item: SearchCard }) {
       <Badge variant="outline" className="text-[10px]">노동위 판정례</Badge>
     ) : null;
 
+  const tierBadge = item.tier === 'high_demand' ? (
+    <Badge variant="destructive" className="text-[10px]">괴롭힘·성희롱</Badge>
+  ) : null;
+
+  const legalFocusBadges = item.legal_focus?.filter(f => f !== '불명').slice(0, 2).map(f => (
+    <Badge key={f} variant="outline" className="text-[10px]">{f}</Badge>
+  ));
+
+  const caseNum = getDisplayCaseNumber(item.case_number);
+
   return (
     <Link key={item.id} href={getDecisionDetailHref(item)}>
       <Card className="p-4 hover:border-primary transition-colors cursor-pointer mb-3">
@@ -175,14 +185,24 @@ function SearchResultCard({ item }: { item: SearchCard }) {
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="font-medium text-sm line-clamp-2">{item.title}</h3>
               {sourceBadge}
+              {tierBadge}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
               {item.department || "-"} | {item.decision_date || "-"}
-              {getDisplayCaseNumber(item.case_number) ? ` | ${getDisplayCaseNumber(item.case_number)}` : ""}
             </p>
-            <p className="text-xs mt-2 text-muted-foreground line-clamp-2">
+            {caseNum && (
+              <p className="text-xs font-semibold text-foreground mt-0.5">
+                사건번호: {caseNum}
+              </p>
+            )}
+            <p className="text-xs mt-2 text-muted-foreground line-clamp-3">
               {getIssuePreview(item)}
             </p>
+            {legalFocusBadges && legalFocusBadges.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-2">
+                {legalFocusBadges}
+              </div>
+            )}
           </div>
           <div className="flex flex-col gap-1 items-end shrink-0">
             <Badge className={RESULT_COLORS[item.decision_result] || ""}>

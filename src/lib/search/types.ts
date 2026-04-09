@@ -17,6 +17,13 @@ export interface SearchCard {
   reason_category: string[];
   source_provider?: 'nlrc' | 'bigcase' | 'lawgo' | null;
   duplicate_group_id?: string | null;
+  // BigCase 태깅 필드
+  legal_focus?: string[] | null;
+  disposition_type?: string[] | null;
+  fact_markers?: string[] | null;
+  confidence_level?: 'high' | 'medium' | 'low' | null;
+  tier?: 'high_demand' | 'standard' | 'low_priority' | null;
+  tier_subcategory?: string | null;
 }
 
 export interface SearchBucket {
