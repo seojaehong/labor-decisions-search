@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 const INTAKE_TOKEN = "winhr_call_32719";
+// server-side only: service role key for storage bypass RLS
+const SUPABASE_URL = "https://mewqgevgdgghhatqtuos.supabase.co";
+const SUPABASE_SERVICE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ld3FnZXZnZGdnaGhhdHF0dW9zIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjcxNTUxMCwiZXhwIjoyMDg4MjkxNTEwfQ.cfDNqZoMmoUTzSWJtt4y90R0gPMr2yRVA-OAj_ZSl-Y";
 
 export async function POST(req: NextRequest) {
   const token =
@@ -12,11 +16,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
   try {
     const formData = await req.formData();
