@@ -12,7 +12,8 @@ export interface HoldingBlock {
   indent: 0 | 1 | 2;
 }
 
-const LEVEL1_PATTERN = /^[가-힣]\.\s+/;
+// 가나다 순번만 매칭 (가~하). "습니다." 같은 문장 끝이 줄바꿈 후 "다."로 잘려 매칭되는 것을 방지
+const LEVEL1_PATTERN = /^[가나다라마바사아자차카타파하]\.\s+/;
 const LEVEL2_PATTERN = /^\(\d+\)\s+/;
 const LEVEL3_PATTERN = /^[①-⑳]\s*/;
 const NUMBERED_PATTERN = /^\d+\.\s+/;
@@ -30,12 +31,17 @@ function stripMarkdownFormatting(input: string): string {
     .replace(/^□\s*/gm, '');
 }
 
+// 가나다 순번 문자 목록
+const GANADA = '가나다라마바사아자차카타파하';
+
+// 가나다 마커 앞 글자가 한글이면 분리하지 않음 (문장 끝 "~다.", "~나." 등 오탐 방지)
+// 한글이 아닌 경우(마침표, 공백, 숫자 등)만 구조적 줄바꿈 삽입
 function injectStructuralBreaks(input: string): string {
   return input
-    // Handle 가./나./다. markers - with or without preceding whitespace
-    .replace(/([^\n])(?=[가-힣]\.\s)/g, '$1\n')
-    // Also handle cases where marker follows text directly without space: "인정됨나. "
-    .replace(/([가-힣]{2,})([가-힣]\.\s+\S{2,})/g, '$1\n$2')
+    .replace(
+      new RegExp(`([^\\n])(?=[${GANADA}]\\.\\s)`, 'g'),
+      (match, prev) => /[가-힣]/.test(prev) ? match : prev + '\n'
+    )
     .replace(/\s*(?=(\(\d+\)\s+\S{2,}))/g, (match, _marker, offset) => (offset === 0 ? "" : "\n"))
     .replace(/\s*(?=([①-⑳]\s*\S{2,}))/g, (match, _marker, offset) => (offset === 0 ? "" : "\n"));
 }
