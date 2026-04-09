@@ -4,13 +4,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 const PAGE_SIZE = 20;
 
@@ -85,26 +79,14 @@ export default function HarassmentPage() {
   async function fetchCases() {
     setLoading(true);
     try {
-      let query = supabase
-        .from("nlrc_decisions")
-        .select(
-          "id, title, case_number, department, decision_date, decision_result, holding_summary, legal_focus, disposition_type, tier_subcategory",
-          { count: "exact" }
-        )
-        .eq("issue_type_primary", "workplace_harassment")
-        .order("decision_date", { ascending: false })
-        .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
-
-      if (subcategory !== "all") {
-        query = query.eq("tier_subcategory", subcategory);
-      }
-
-      if (legalFocus !== "all") {
-        query = query.contains("legal_focus", [legalFocus]);
-      }
-
-      const { data, count, error } = await query;
-      if (error) throw error;
+      const params = new URLSearchParams({
+        page: String(page),
+        subcategory,
+        legalFocus,
+      });
+      const res = await fetch(`/api/harassment?${params}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const { data, count } = await res.json();
       setCases(data || []);
       setTotal(count || 0);
     } catch (err) {
