@@ -9,8 +9,60 @@ import Link from "next/link";
 
 const PAGE_SIZE = 20;
 
-type SubcategoryFilter = "all" | "harassment" | "sexual_harassment" | "both";
-type LegalFocusFilter = "all" | "성립_인정" | "성립_부인" | "징계_정당" | "징계_과중" | "절차하자";
+type LegalFocusFilter = string;
+
+// legal_focus 영문 → 한글 라벨
+const LEGAL_FOCUS_LABELS: Record<string, string> = {
+  all: "전체",
+  just_cause: "정당한 사유",
+  proportionality: "비례원칙(양정)",
+  procedural_due_process: "절차적 정당성",
+  appropriateness_of_discipline: "징계 적정성",
+  evidentiary_sufficiency: "증거 충분성",
+  social_norm_reasonableness: "사회통념 합리성",
+  employer_burden_of_proof: "사용자 입증책임",
+  duty_of_investigation: "조사의무",
+  protection_against_retaliation: "보복 금지",
+  suitability_for_regular_employment: "정규직 적합성",
+  worker_status_determination: "근로자성 판단",
+  "성립_인정": "성립 인정",
+  "성립_부인": "성립 부인",
+  "징계_정당": "징계 정당",
+  "징계_과중": "징계 과중",
+  "절차하자": "절차 하자",
+};
+
+// disposition_type 영문 → 한글 라벨
+const DISPOSITION_LABELS: Record<string, string> = {
+  dismissal: "해고",
+  disciplinary_dismissal: "징계해고",
+  suspension: "정직",
+  pay_cut: "감봉",
+  reprimand: "견책/경고",
+  transfer: "전보/전직",
+  demotion: "강등",
+  rejection_of_regular_employment: "정규직 전환 거부",
+  probation_termination: "수습 해지",
+  other: "기타",
+  "폭언": "폭언",
+  "폭력": "폭력",
+  "따돌림": "따돌림·배제",
+  "성적_언행": "성적 언행",
+  "갑질": "갑질",
+  "협박": "협박",
+  "업무_배제": "업무 배제",
+};
+
+// 주요 legal_focus 필터 옵션 (데이터에 실제 존재하는 것)
+const FILTER_OPTIONS: { value: string; label: string }[] = [
+  { value: "all", label: "전체" },
+  { value: "just_cause", label: "정당한 사유" },
+  { value: "proportionality", label: "비례원칙" },
+  { value: "procedural_due_process", label: "절차적 정당성" },
+  { value: "성립_인정", label: "성립 인정" },
+  { value: "징계_정당", label: "징계 정당" },
+  { value: "징계_과중", label: "징계 과중" },
+];
 
 interface Case {
   id: string;
@@ -25,32 +77,6 @@ interface Case {
   tier_subcategory: string | null;
 }
 
-const SUBCATEGORY_LABELS: Record<SubcategoryFilter, string> = {
-  all: "전체",
-  harassment: "직장 내 괴롭힘",
-  sexual_harassment: "성희롱",
-  both: "복합",
-};
-
-const LEGAL_FOCUS_LABELS: Record<LegalFocusFilter, string> = {
-  all: "전체",
-  "성립_인정": "성립 인정",
-  "성립_부인": "성립 부인",
-  "징계_정당": "징계 정당",
-  "징계_과중": "징계 과중",
-  "절차하자": "절차 하자",
-};
-
-const DISPOSITION_LABELS: Record<string, string> = {
-  "폭언": "폭언",
-  "폭력": "폭력",
-  "따돌림": "따돌림·배제",
-  "성적_언행": "성적 언행",
-  "갑질": "갑질",
-  "협박": "협박",
-  "업무_배제": "업무 배제",
-};
-
 function getDisplayCaseNumber(caseNumber?: string | null): string {
   if (!caseNumber) return "";
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
@@ -61,21 +87,24 @@ function getPreview(summary: string | null): string {
   return summary.length > 200 ? `${summary.slice(0, 200)}...` : summary;
 }
 
+function getLabelFor(key: string, map: Record<string, string>): string {
+  return map[key] || key.replace(/_/g, " ");
+}
+
 export default function HarassmentPage() {
   const [cases, setCases] = useState<Case[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [subcategory, setSubcategory] = useState<SubcategoryFilter>("all");
   const [legalFocus, setLegalFocus] = useState<LegalFocusFilter>("all");
 
   useEffect(() => {
     setPage(0);
-  }, [subcategory, legalFocus]);
+  }, [legalFocus]);
 
   useEffect(() => {
     fetchCases();
-  }, [page, subcategory, legalFocus]);
+  }, [page, legalFocus]);
 
   async function fetchCases() {
     setLoading(true);
@@ -89,10 +118,6 @@ export default function HarassmentPage() {
         .eq("issue_type_primary", "workplace_harassment")
         .order("decision_date", { ascending: false })
         .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
-
-      if (subcategory !== "all") {
-        query = query.eq("tier_subcategory", subcategory);
-      }
 
       if (legalFocus !== "all") {
         query = query.contains("legal_focus", [legalFocus]);
@@ -121,34 +146,18 @@ export default function HarassmentPage() {
         </p>
       </div>
 
-      {/* 필터 */}
-      <div className="space-y-3 mb-6">
-        {/* 유형 필터 */}
+      {/* 법적 쟁점 필터 */}
+      <div className="mb-6">
         <div className="flex flex-wrap gap-2">
-          {(Object.keys(SUBCATEGORY_LABELS) as SubcategoryFilter[]).map((key) => (
+          {FILTER_OPTIONS.map((opt) => (
             <Button
-              key={key}
-              variant={subcategory === key ? "default" : "outline"}
+              key={opt.value}
+              variant={legalFocus === opt.value ? "default" : "outline"}
               size="sm"
-              onClick={() => setSubcategory(key)}
+              onClick={() => setLegalFocus(opt.value)}
               className="text-xs"
             >
-              {SUBCATEGORY_LABELS[key]}
-            </Button>
-          ))}
-        </div>
-
-        {/* 법적 판단 필터 */}
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(LEGAL_FOCUS_LABELS) as LegalFocusFilter[]).map((key) => (
-            <Button
-              key={key}
-              variant={legalFocus === key ? "secondary" : "outline"}
-              size="sm"
-              onClick={() => setLegalFocus(key)}
-              className="text-xs"
-            >
-              {LEGAL_FOCUS_LABELS[key]}
+              {opt.label}
             </Button>
           ))}
         </div>
@@ -171,29 +180,20 @@ export default function HarassmentPage() {
       {!loading && cases.map((item) => {
         const caseNum = getDisplayCaseNumber(item.case_number);
         const validDispositions = item.disposition_type?.filter(
-          (d) => d !== "불명" && DISPOSITION_LABELS[d]
+          (d) => d !== "불명"
         ) || [];
         const validLegalFocus = item.legal_focus?.filter(
           (f) => f !== "불명"
         ) || [];
 
         return (
-          <Link key={item.id} href={`/decisions/${item.id}`}>
+          <Link key={item.id} href={`/decisions/${item.id}?source=nlrc`}>
             <Card className="p-4 hover:border-primary transition-colors cursor-pointer mb-3">
               <div className="space-y-2">
                 <div className="flex flex-wrap items-start gap-2">
                   <h3 className="font-medium text-sm line-clamp-2 flex-1">
                     {item.title}
                   </h3>
-                  {item.tier_subcategory === "sexual_harassment" && (
-                    <Badge variant="destructive" className="text-[10px] shrink-0">성희롱</Badge>
-                  )}
-                  {item.tier_subcategory === "harassment" && (
-                    <Badge className="text-[10px] bg-orange-500 shrink-0">괴롭힘</Badge>
-                  )}
-                  {item.tier_subcategory === "both" && (
-                    <Badge variant="destructive" className="text-[10px] shrink-0">복합</Badge>
-                  )}
                 </div>
 
                 <p className="text-xs text-muted-foreground">
@@ -217,12 +217,12 @@ export default function HarassmentPage() {
                   <div className="flex flex-wrap gap-1 pt-1">
                     {validDispositions.map((d) => (
                       <Badge key={d} className="text-[10px]">
-                        {DISPOSITION_LABELS[d] || d}
+                        {getLabelFor(d, DISPOSITION_LABELS)}
                       </Badge>
                     ))}
                     {validLegalFocus.map((f) => (
                       <Badge key={f} variant="outline" className="text-[10px]">
-                        {f}
+                        {getLabelFor(f, LEGAL_FOCUS_LABELS)}
                       </Badge>
                     ))}
                   </div>
