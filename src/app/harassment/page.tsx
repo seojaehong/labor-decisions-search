@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
+import { stripMarkdownFormatting } from "@/lib/format-holding";
 import Link from "next/link";
 
 const PAGE_SIZE = 20;
@@ -82,17 +83,9 @@ function getDisplayCaseNumber(caseNumber?: string | null): string {
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
 }
 
-function stripMarkdown(text: string): string {
-  return text
-    .replace(/^#{1,4}\s+(.+)$/gm, "$1")
-    .replace(/\*\*(.+?)\*\*/g, "$1")
-    .replace(/\*(.+?)\*/g, "$1")
-    .trim();
-}
-
 function getPreview(summary: string | null): string {
   if (!summary) return "";
-  const clean = stripMarkdown(summary);
+  const clean = stripMarkdownFormatting(summary);
   return clean.length > 200 ? `${clean.slice(0, 200)}...` : clean;
 }
 

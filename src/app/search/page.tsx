@@ -13,6 +13,7 @@ import {
   type DecisionResult,
 } from "@/lib/types";
 import { getDecisionDetailHref } from "@/lib/search/source-contracts";
+import { stripMarkdownFormatting } from "@/lib/format-holding";
 import type { MolabInterpretation, SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
 import Link from "next/link";
 const IS_DEV = process.env.NODE_ENV === "development";
@@ -149,7 +150,8 @@ function getIssuePreview(item: SearchCard): string {
     item.title?.trim() ||
     "";
   if (!preview) return "";
-  return preview.length > 200 ? `${preview.slice(0, 200)}...` : preview;
+  const clean = stripMarkdownFormatting(preview);
+  return clean.length > 200 ? `${clean.slice(0, 200)}...` : clean;
 }
 
 function getDisplayCaseNumber(caseNumber?: string | null): string {

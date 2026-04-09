@@ -10,7 +10,7 @@ import {
   type DecisionResult,
   type SanctionType,
 } from "@/lib/types";
-import { parseHoldingText } from "@/lib/format-holding";
+import { parseHoldingText, stripMarkdownFormatting } from "@/lib/format-holding";
 import { getDecisionSourceLabel, resolveDecisionSourceContract, type DecisionSourceProvider } from "@/lib/search/source-contracts";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -494,7 +494,7 @@ export default async function DecisionPage({
         {d.key_issue && (
           <Card id="decision-summary" className="p-4 mb-6 bg-muted/50 scroll-mt-24">
             <h3 className="font-semibold text-sm mb-1">핵심쟁점</h3>
-            <p className="text-sm">{d.key_issue}</p>
+            <div className="text-sm">{renderHoldingBlocks(d.key_issue)}</div>
           </Card>
         )}
 
@@ -502,7 +502,7 @@ export default async function DecisionPage({
           {d.reason_detail && (
             <Card className="p-4 mb-4">
               <h3 className="font-semibold text-sm mb-1">해고 사유</h3>
-              <p className="text-sm">{d.reason_detail}</p>
+              <p className="text-sm">{stripMarkdownFormatting(d.reason_detail)}</p>
             </Card>
           )}
 

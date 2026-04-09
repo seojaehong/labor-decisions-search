@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Send, Bot, User, Loader2, Scale, CheckCircle2, GitCompareArrows, ClipboardList } from 'lucide-react';
 import { PromptSuggestion } from '@/components/ui/prompt-suggestion';
 import { getDecisionDetailHref } from '@/lib/search/source-contracts';
+import { stripMarkdownFormatting } from '@/lib/format-holding';
 
 interface CaseCard {
   id: string;
@@ -224,7 +225,7 @@ export default function SanctionPage() {
           <div className={titleClass}>{c.title}</div>
           {sourceBadge}
         </div>
-        <p className="text-xs leading-relaxed text-gray-700">{c.holding_points || c.summary_short || c.key_issue}</p>
+        <p className="text-xs leading-relaxed text-gray-700">{stripMarkdownFormatting(c.holding_points || c.summary_short || c.key_issue || '')}</p>
       </>
     )
 
@@ -456,7 +457,7 @@ export default function SanctionPage() {
                               </span>
                           </div>
                           <p className="text-xs text-gray-600 line-clamp-2">
-                            {c.holding_points || c.summary_short || c.holding_summary || c.title}
+                            {stripMarkdownFormatting(c.holding_points || c.summary_short || c.holding_summary || c.title || '')}
                           </p>
                         </a>
                       ))}

@@ -19,7 +19,7 @@ const LEVEL3_PATTERN = /^[①-⑳]\s*/;
 const NUMBERED_PATTERN = /^\d+\.\s+/;
 const BULLET_PATTERN = /^[-·]\s+/;
 
-function stripMarkdownFormatting(input: string): string {
+export function stripMarkdownFormatting(input: string): string {
   return input
     // Strip markdown headers → plain text
     .replace(/^#{1,4}\s+(.+)$/gm, '$1')
