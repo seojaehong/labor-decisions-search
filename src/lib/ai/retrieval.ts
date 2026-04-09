@@ -469,25 +469,12 @@ function buildIntentAwareQuery(query: string, rewrite: QueryRewriteLike | null):
 async function searchCasesViaRpc(query: string, category: string, limit: number): Promise<Record<string, unknown>[]> {
   const embedding = await createQueryEmbedding(query);
 
-  if (embedding) {
-    const { data, error } = await supabase.rpc('search_similar_cases_hybrid', {
-      query,
-      query_embedding: toVectorLiteral(embedding),
-      category,
-      limit,
-      trigram_weight: 0.4,
-      semantic_weight: 0.6,
-    });
-
-    if (!error && Array.isArray(data) && data.length > 0) {
-      return data as Record<string, unknown>[];
-    }
-  }
-
-  const { data, error } = await supabase.rpc('search_similar_cases', {
-    query,
+  const { data, error } = await supabase.rpc('search_similar_cases_hybrid', {
+    query_text: query,
+    query_embedding: embedding ? toVectorLiteral(embedding) : null,
     category,
-    limit,
+    match_count: limit,
+    semantic_weight: 0.6,
   });
 
   if (error || !Array.isArray(data)) {

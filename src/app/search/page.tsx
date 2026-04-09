@@ -142,15 +142,15 @@ function getDebugScenarioLabel(payload: SearchResponsePayload | null): string | 
 }
 
 function getIssuePreview(item: SearchCard): string {
-  const preview =
+  const raw =
     item.summary_short?.trim() ||
     item.key_issue?.trim() ||
     item.holding_summary?.trim() ||
     item.holding_points?.trim() ||
     item.title?.trim() ||
     "";
-  if (!preview) return "";
-  const clean = stripMarkdownFormatting(preview);
+  if (!raw) return "";
+  const clean = stripMarkdownFormatting(raw);
   return clean.length > 200 ? `${clean.slice(0, 200)}...` : clean;
 }
 
