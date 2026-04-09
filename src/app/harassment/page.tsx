@@ -91,7 +91,7 @@ export default function HarassmentPage() {
           "id, title, case_number, department, decision_date, decision_result, holding_summary, legal_focus, disposition_type, tier_subcategory",
           { count: "exact" }
         )
-        .eq("tier", "high_demand")
+        .eq("issue_type_primary", "workplace_harassment")
         .order("decision_date", { ascending: false })
         .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
 
