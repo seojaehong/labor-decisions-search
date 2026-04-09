@@ -93,5 +93,5 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  return NextResponse.json({ status: "intake-call live", version: "1.0" });
+  return NextResponse.json({ status: "intake-call live", version: "1.1" });
 }
