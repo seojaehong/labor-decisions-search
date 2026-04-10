@@ -555,7 +555,7 @@ async function runBaselineSearch({
       .limit(COMBINED_QUERY_FETCH_SIZE)
       .order('decision_date', { ascending: false });
 
-    nlrcQuery = nlrcQuery.textSearch('search_vector', searchTerms);
+    nlrcQuery = nlrcQuery.textSearch('search_tsv', searchTerms);
     let nlrcResp = await nlrcQuery;
 
     if (nlrcResp.error || (nlrcResp.count || 0) === 0) {
@@ -617,7 +617,7 @@ async function runBaselineSearch({
     const normalized = normalizeQuery(effectiveQuery);
     const searchTerms =
       normalized.keywords.length > 0 ? normalized.keywords.slice(0, 4).join(' & ') : effectiveQuery.split(' ').join(' & ');
-    q = q.textSearch('search_vector', searchTerms);
+    q = q.textSearch('search_tsv', searchTerms);
   }
 
   let { data, count, error } = await q;
