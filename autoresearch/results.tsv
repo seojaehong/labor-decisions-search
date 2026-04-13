@@ -1,0 +1,7 @@
+timestamp	quality_score	conf_null_pct	tier_null_pct	holding_null_pct	status	description
+2026-04-11T14:30	16.6803	29.9	36.3	1.2	keep	baseline — bc_ conf 99.5% NULL, tier 36.3% NULL
+2026-04-11T14:40	8.5209	2.7	36.3	1.2	keep	exp001: bc_ confidence_level 15,059건 세팅 (0.9/0.7/0.5/0.3)
+2026-04-11T14:55	1.2801	2.7	0.1	1.2	keep	exp002: tier 20,844건 세팅 (high=5,399 standard=15,445 by reason_category)
+2026-04-11T15:05	0.4631	0.0	0.0	1.2	keep	exp003: id_ confidence_level 1,568건 + tier 나머지 68건 세팅
+2026-04-11T15:15	0.1420	0.0	0.0	0.0	keep	exp004: holding_summary NULL 685건 보강 (key_issue 복사 또는 title 추출)
+2026-04-11T15:20	0.0000	0.0	0.0	0.0	keep	exp005: key_issue NULL 545건 보강 (holding_summary 복사 또는 title 추출) — ALL CLEAR

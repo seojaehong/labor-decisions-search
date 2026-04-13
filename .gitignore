@@ -45,3 +45,16 @@ evaluation/bigcase_bulk/all_details.jsonl
 evaluation/bigcase_bulk/*_details.jsonl
 evaluation/bigcase_bulk/court_decisions_ready.jsonl
 evaluation/bigcase_bulk/ai_test_results.jsonl
+
+# Large data files — do not commit
+evaluation/search_quality_99/
+evaluation/bigcase_bulk/logs/
+evaluation/bigcase_bulk/q11_q23/
+lawgo_admrul/
+molab_interpretations/
+case_summaries*.json
+backfill_summary_results.json
+scripts/__pycache__/
+
+# Windows path artifact
+C:\\dev\\*/
