@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "노동위원회 판정례 검색 | AI 징계양정 추천",
   description: "노동위 판정례 42,000건+ 태그 기반 검색 & AI 징계양정 추천",
+  other: {
+    "mcp-server": "/.well-known/mcp/server-card.json",
+    "agent-card": "/.well-known/agent-card.json",
+    "api-catalog": "/.well-known/api-catalog",
+  },
 };
 
 function Nav() {

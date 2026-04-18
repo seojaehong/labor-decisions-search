@@ -43,5 +43,8 @@ Disallow: /
 User-agent: SemrushBot
 Disallow: /
 
+# Content Signals (contentsignals.org)
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
 # Sitemap
 Sitemap: https://www.xn--o80bk8isxeinax68f.com/sitemap.xml
