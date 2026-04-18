@@ -1,0 +1,16 @@
+{
+  "skills": [
+    {
+      "name": "labor-case-search",
+      "type": "skill",
+      "description": "노동위원회 판정례 29,622건을 키워드·카테고리·징계사유·결과로 검색. 부당해고, 부당징계, 성희롱, 직장내괴롭힘 등 16개 카테고리.",
+      "url": "/.well-known/agent-skills/labor-case-search/SKILL.md"
+    },
+    {
+      "name": "sanction-analysis",
+      "type": "skill",
+      "description": "징계 상황을 입력하면 유사 판정례를 AI가 비교분석하여 양정 수준을 안내. 확률/점수 출력 없이 근거 기반 비교만 제공.",
+      "url": "/.well-known/agent-skills/sanction-analysis/SKILL.md"
+    }
+  ]
+}

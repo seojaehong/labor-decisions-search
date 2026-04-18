@@ -1,0 +1,32 @@
+{
+  "name": "노란봉투법 가이드 에이전트",
+  "version": "1.0.0",
+  "description": "대한민국 노동위원회 판정례 29,622건 검색 및 AI 징계양정 비교분석 에이전트. 확률/점수 출력 없이 근거 기반 비교만 제공.",
+  "url": "https://www.xn--o80bk8isxeinax68f.com",
+  "provider": {
+    "organization": "노무법인 위너스",
+    "url": "https://www.xn--o80bk8isxeinax68f.com"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://www.xn--o80bk8isxeinax68f.com/api",
+      "transport": "https"
+    }
+  ],
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "labor-case-search",
+      "name": "판정례 검색",
+      "description": "노동위원회 판정례를 키워드·카테고리·사유·결과로 검색"
+    },
+    {
+      "id": "sanction-analysis",
+      "name": "징계양정 비교분석",
+      "description": "징계 상황 입력 시 유사 판정례 기반 AI 비교분석"
+    }
+  ]
+}

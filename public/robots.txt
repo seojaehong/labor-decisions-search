@@ -1,0 +1,47 @@
+# robots.txt — 노란봉투법.com (노동위원회 판정례 검색)
+# Agent-Ready: AI 크롤러 허용, 악성 봇 차단
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# AI Search & Assistant Bots — Allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Blocked Bots
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://www.xn--o80bk8isxeinax68f.com/sitemap.xml

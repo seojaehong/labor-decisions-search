@@ -1,0 +1,23 @@
+{
+  "serverInfo": {
+    "name": "노란봉투법 가이드 — 판정례 검색 AI",
+    "version": "1.0.0",
+    "description": "노동위원회 판정례 29,622건 검색 및 AI 징계양정 비교분석 서비스"
+  },
+  "transport": {
+    "type": "https",
+    "url": "https://www.xn--o80bk8isxeinax68f.com/api"
+  },
+  "capabilities": {
+    "tools": [
+      {
+        "name": "search-cases",
+        "description": "노동위원회 판정례를 키워드, 카테고리, 사유, 결과로 검색합니다."
+      },
+      {
+        "name": "analyze-sanction",
+        "description": "징계 상황을 입력하면 유사 판정례를 비교분석하여 양정 수준을 안내합니다."
+      }
+    ]
+  }
+}

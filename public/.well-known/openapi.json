@@ -1,0 +1,128 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "노란봉투법 가이드 API",
+    "description": "노동위원회 판정례 검색 및 AI 징계양정 비교분석 API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "노무법인 위너스",
+      "url": "https://www.xn--o80bk8isxeinax68f.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.xn--o80bk8isxeinax68f.com",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/api/search": {
+      "get": {
+        "operationId": "searchCases",
+        "summary": "판정례 검색",
+        "description": "노동위원회 판정례 29,622건을 키워드, 카테고리, 사유, 결과로 검색합니다.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "검색 키워드",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "description": "검색 모드",
+            "schema": { "type": "string", "enum": ["keyword", "semantic"] }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "description": "징계사유 필터",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "result",
+            "in": "query",
+            "description": "결과 필터 (인용/기각/화해)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "페이지 번호",
+            "schema": { "type": "integer", "default": 1 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": { "type": "string" },
+                          "case_number": { "type": "string" },
+                          "category": { "type": "string" },
+                          "result": { "type": "string" },
+                          "summary": { "type": "string" }
+                        }
+                      }
+                    },
+                    "total": { "type": "integer" },
+                    "page": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sanction": {
+      "post": {
+        "operationId": "analyzeSanction",
+        "summary": "AI 징계양정 비교분석",
+        "description": "징계 상황을 입력하면 유사 판정례를 비교분석합니다. 확률/점수 출력 없이 근거 기반 비교만 제공.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["messages"],
+                "properties": {
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": { "type": "string", "enum": ["user", "assistant"] },
+                        "content": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "비교분석 결과 (스트리밍)",
+            "content": {
+              "text/event-stream": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
