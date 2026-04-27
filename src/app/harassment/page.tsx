@@ -6,26 +6,20 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
 import { stripMarkdownFormatting } from "@/lib/format-holding";
+import {
+  LEGAL_FOCUS_LABELS as BASE_LEGAL_FOCUS_LABELS,
+  DISPOSITION_TYPE_LABELS as BASE_DISPOSITION_LABELS,
+} from "@/lib/types";
 import Link from "next/link";
 
 const PAGE_SIZE = 20;
 
 type LegalFocusFilter = string;
 
-// legal_focus 영문 → 한글 라벨
+// 괴롭힘/성희롱 페이지 추가 토큰 (한글 합성 키 + 한글 처분 키)
 const LEGAL_FOCUS_LABELS: Record<string, string> = {
+  ...BASE_LEGAL_FOCUS_LABELS,
   all: "전체",
-  just_cause: "정당한 사유",
-  proportionality: "비례원칙(양정)",
-  procedural_due_process: "절차적 정당성",
-  appropriateness_of_discipline: "징계 적정성",
-  evidentiary_sufficiency: "증거 충분성",
-  social_norm_reasonableness: "사회통념 합리성",
-  employer_burden_of_proof: "사용자 입증책임",
-  duty_of_investigation: "조사의무",
-  protection_against_retaliation: "보복 금지",
-  suitability_for_regular_employment: "정규직 적합성",
-  worker_status_determination: "근로자성 판단",
   "성립_인정": "성립 인정",
   "성립_부인": "성립 부인",
   "징계_정당": "징계 정당",
@@ -33,18 +27,8 @@ const LEGAL_FOCUS_LABELS: Record<string, string> = {
   "절차하자": "절차 하자",
 };
 
-// disposition_type 영문 → 한글 라벨
 const DISPOSITION_LABELS: Record<string, string> = {
-  dismissal: "해고",
-  disciplinary_dismissal: "징계해고",
-  suspension: "정직",
-  pay_cut: "감봉",
-  reprimand: "견책/경고",
-  transfer: "전보/전직",
-  demotion: "강등",
-  rejection_of_regular_employment: "정규직 전환 거부",
-  probation_termination: "수습 해지",
-  other: "기타",
+  ...BASE_DISPOSITION_LABELS,
   "폭언": "폭언",
   "폭력": "폭력",
   "따돌림": "따돌림·배제",

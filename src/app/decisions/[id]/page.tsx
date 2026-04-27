@@ -6,6 +6,8 @@ import {
   REASON_LABELS,
   RESULT_LABELS,
   SANCTION_LABELS,
+  LEGAL_FOCUS_LABELS,
+  DISPOSITION_TYPE_LABELS,
   type ReasonCategory,
   type DecisionResult,
   type SanctionType,
@@ -15,46 +17,7 @@ import { getDecisionSourceLabel, resolveDecisionSourceContract, type DecisionSou
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-// AI 분류 한글 라벨
-const LEGAL_FOCUS_LABELS: Record<string, string> = {
-  just_cause: "정당한 사유",
-  proportionality: "비례원칙(양정)",
-  procedural_due_process: "절차적 정당성",
-  appropriateness_of_discipline: "징계 적정성",
-  evidentiary_sufficiency: "증거 충분성",
-  social_norm_reasonableness: "사회통념 합리성",
-  employer_burden_of_proof: "사용자 입증책임",
-  duty_of_investigation: "조사의무",
-  protection_against_retaliation: "보복 금지",
-  suitability_for_regular_employment: "정규직 적합성",
-  worker_status_determination: "근로자성 판단",
-  "성립_인정": "성립 인정",
-  "성립_부인": "성립 부인",
-  "징계_정당": "징계 정당",
-  "징계_과중": "징계 과중",
-  "절차하자": "절차 하자",
-};
-
-const DISPOSITION_TYPE_LABELS: Record<string, string> = {
-  dismissal: "해고",
-  disciplinary_dismissal: "징계해고",
-  suspension: "정직",
-  pay_cut: "감봉",
-  reprimand: "견책/경고",
-  transfer: "전보/전직",
-  demotion: "강등",
-  rejection_of_regular_employment: "정규직 전환 거부",
-  probation_termination: "수습 해지",
-  other: "기타",
-  "폭언": "폭언",
-  "폭력": "폭력",
-  "따돌림": "따돌림·배제",
-  "성적_언행": "성적 언행",
-  "갑질": "갑질",
-  "협박": "협박",
-  "업무_배제": "업무 배제",
-};
-
+// AI 분류 라벨 fallback: 미매핑 영문은 underscore→space로 보정
 function getAiLabel(key: string, map: Record<string, string>): string {
   return map[key] || key.replace(/_/g, " ");
 }

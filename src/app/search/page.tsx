@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import {
   REASON_LABELS,
   RESULT_LABELS,
+  LEGAL_FOCUS_LABELS,
+  labelize,
   type ReasonCategory,
   type DecisionResult,
 } from "@/lib/types";
@@ -174,7 +176,7 @@ function SearchResultCard({ item }: { item: SearchCard }) {
   ) : null;
 
   const legalFocusBadges = item.legal_focus?.filter(f => f !== '불명').slice(0, 2).map(f => (
-    <Badge key={f} variant="outline" className="text-[10px]">{f}</Badge>
+    <Badge key={f} variant="outline" className="text-[10px]">{labelize(f, LEGAL_FOCUS_LABELS)}</Badge>
   ));
 
   const caseNum = getDisplayCaseNumber(item.case_number);
