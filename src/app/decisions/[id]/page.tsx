@@ -454,10 +454,10 @@ export default async function DecisionPage({
           </Card>
         )}
 
-        {d.key_issue && (
+        {(holdingPointsText || keyIssueText) && (
           <Card id="decision-summary" className="p-4 mb-6 bg-muted/50 scroll-mt-24">
             <h3 className="font-semibold text-sm mb-1">핵심쟁점</h3>
-            <div className="text-sm">{renderHoldingBlocks(d.key_issue)}</div>
+            <div className="text-sm">{renderHoldingBlocks(holdingPointsText || keyIssueText)}</div>
           </Card>
         )}
 

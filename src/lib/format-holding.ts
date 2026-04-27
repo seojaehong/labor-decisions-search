@@ -34,13 +34,23 @@ export function stripMarkdownFormatting(input: string): string {
 // 가나다 순번 문자 목록
 const GANADA = '가나다라마바사아자차카타파하';
 
-// 가나다 마커 앞 글자가 한글이면 분리하지 않음 (문장 끝 "~다.", "~나." 등 오탐 방지)
-// 한글이 아닌 경우(마침표, 공백, 숫자 등)만 구조적 줄바꿈 삽입
+// 가나다 마커 앞 글자가 한글이면 보통 분리하지 않음 (문장 끝 "~다.", "~나." 등 오탐 방지)
+// 단, 법률 문서의 명사형 종결(~음/함/임/됨/봄/옴/짐) 뒤 가-하 마커는 진짜 섹션 구분이라 분리
+// 예) "징계사유는 있음나. 징계양정의 ..." → "있음" 다음 "나." 섹션으로 분리
+const NOMINAL_ENDINGS = /[음함임됨봄옴짐]/;
+
 function injectStructuralBreaks(input: string): string {
   return input
     .replace(
       new RegExp(`([^\\n])(?=[${GANADA}]\\.\\s)`, 'g'),
-      (match, prev) => /[가-힣]/.test(prev) ? match : prev + '\n'
+      (match, prev) => {
+        // 한글이 아닌 prev (마침표, 공백, 숫자 등) → 항상 분리
+        if (!/[가-힣]/.test(prev)) return prev + '\n';
+        // 명사형 종결 어미 (음/함/임/됨/봄/옴/짐) → 섹션 구분으로 보고 분리
+        if (NOMINAL_ENDINGS.test(prev)) return prev + '\n';
+        // 그 외 한글 (대부분 동사 활용 어미 ~다/~나/~까) → 분리하지 않음
+        return match;
+      }
     )
     .replace(/\s*(?=(\(\d+\)\s+\S{2,}))/g, (match, _marker, offset) => (offset === 0 ? "" : "\n"))
     .replace(/\s*(?=([①-⑳]\s*\S{2,}))/g, (match, _marker, offset) => (offset === 0 ? "" : "\n"));
