@@ -227,26 +227,39 @@ export async function rerankResults(
     return cached.results.slice(0, topK);
   }
 
-  try {
-    const reranked = process.env.ANTHROPIC_API_KEY
-      ? await rerankWithAnthropic(userQuery, results)
-      : process.env.OPENAI_API_KEY
-      ? await rerankWithOpenAI(userQuery, results)
-      : [];
+  // OpenAI 우선 + Anthropic fallback (Anthropic 한도 도달 시 자동 전환).
+  // 4/27 Anthropic API usage limit 도달 발견으로 우선순위 변경.
+  let reranked: RankedResult[] = [];
+  const errors: string[] = [];
 
-    if (reranked.length === 0) {
-      return [];
+  if (process.env.OPENAI_API_KEY) {
+    try {
+      reranked = await rerankWithOpenAI(userQuery, results);
+    } catch (e) {
+      errors.push(`openai: ${e instanceof Error ? e.message : String(e)}`);
     }
+  }
+  if (reranked.length === 0 && process.env.ANTHROPIC_API_KEY) {
+    try {
+      reranked = await rerankWithAnthropic(userQuery, results);
+    } catch (e) {
+      errors.push(`anthropic: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
 
-    rerankCache.set(cacheKey, {
-      expiresAt: Date.now() + CACHE_TTL_MS,
-      results: reranked,
-    });
-
-    return reranked
-      .sort((a, b) => b.relevanceScore - a.relevanceScore || a.id.localeCompare(b.id))
-      .slice(0, topK);
-  } catch {
+  if (reranked.length === 0) {
+    if (errors.length > 0) {
+      console.warn('[reranker] 모두 실패:', errors.join(' | '));
+    }
     return [];
   }
+
+  rerankCache.set(cacheKey, {
+    expiresAt: Date.now() + CACHE_TTL_MS,
+    results: reranked,
+  });
+
+  return reranked
+    .sort((a, b) => b.relevanceScore - a.relevanceScore || a.id.localeCompare(b.id))
+    .slice(0, topK);
 }
