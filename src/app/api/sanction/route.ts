@@ -17,12 +17,15 @@ const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
 
+type LLMProvider = 'gemini' | 'openai' | 'anthropic';
+
 // 우선순위: Gemini → OpenAI gpt-4o-mini → Anthropic (한도 회복 후)
+// provider를 명시 반환 (detectProvider via resp.url은 Vercel runtime에서 신뢰 X)
 async function callLLM(
   systemPrompt: string,
   messages: Array<{ role: string; content: string }>,
   options: { stream?: boolean; signal?: AbortSignal } = {}
-): Promise<Response> {
+): Promise<{ resp: Response; provider: LLMProvider }> {
   const tryOpenAICompat = async (url: string, key: string, model: string, label: string) => {
     const resp = await fetch(url, {
       method: 'POST',
@@ -78,27 +81,21 @@ async function callLLM(
   };
 
   const errors: string[] = [];
-  for (const [label, attempt] of [
-    ['Gemini', tryGemini],
-    ['OpenAI', tryOpenAI],
-    ['Anthropic', tryAnthropic],
-  ] as const) {
+  const providerMap: Array<[LLMProvider, () => Promise<Response>]> = [
+    ['gemini', tryGemini],
+    ['openai', tryOpenAI],
+    ['anthropic', tryAnthropic],
+  ];
+  for (const [provider, attempt] of providerMap) {
     try {
-      return await attempt();
+      const resp = await attempt();
+      return { resp, provider };
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      errors.push(`${label}: ${msg}`);
+      errors.push(`${provider}: ${msg}`);
     }
   }
   throw new Error(`모든 LLM 실패: ${errors.join(' | ')}`);
-}
-
-type LLMProvider = 'gemini' | 'openai' | 'anthropic';
-function detectProvider(resp: Response): LLMProvider {
-  const url = resp.url || '';
-  if (url.includes('googleapis.com')) return 'gemini';
-  if (url.includes('api.openai.com')) return 'openai';
-  return 'anthropic';
 }
 
 interface StructuredAiCase {
@@ -351,11 +348,10 @@ export async function POST(req: NextRequest) {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'meta', tags: retrieval.tags, cases: retrieval.cases, comparison })}\n\n`));
 
           try {
-            const resp = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
+            const { resp, provider } = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
               stream: true,
               signal: AbortSignal.timeout(25_000),
             });
-            const provider: LLMProvider = detectProvider(resp);
 
             if (!resp.body) {
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', content: '응답 생성에 실패했습니다.' })}\n\n`));
@@ -408,12 +404,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 기존 블로킹 모드 (하위 호환) — Gemini 우선 + Anthropic fallback
-    const resp = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
+    // 기존 블로킹 모드 (하위 호환) — Gemini 우선 + OpenAI/Anthropic fallback
+    const { resp, provider } = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
       stream: false,
       signal: AbortSignal.timeout(25_000),
     });
-    const provider: LLMProvider = detectProvider(resp);
     const data = await resp.json();
     // OpenAI-compat (Gemini, OpenAI): choices[0].message.content
     // Anthropic: content[0].text
