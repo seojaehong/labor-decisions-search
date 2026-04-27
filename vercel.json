@@ -1,0 +1,50 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/sanction",
+      "destination": "https://www.노란봉투법.com/sanction",
+      "permanent": true
+    },
+    {
+      "source": "/sanction/:path*",
+      "destination": "https://www.노란봉투법.com/sanction/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/search",
+      "destination": "https://www.노란봉투법.com/search",
+      "permanent": true
+    },
+    {
+      "source": "/search/:path*",
+      "destination": "https://www.노란봉투법.com/search/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/decisions/:id",
+      "destination": "https://www.노란봉투법.com/decisions/:id",
+      "permanent": true
+    },
+    {
+      "source": "/harassment",
+      "destination": "https://www.노란봉투법.com/harassment",
+      "permanent": true
+    },
+    {
+      "source": "/harassment/:path*",
+      "destination": "https://www.노란봉투법.com/harassment/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/stats",
+      "destination": "https://www.노란봉투법.com/stats",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "destination": "https://www.노란봉투법.com/sanction",
+      "permanent": true
+    }
+  ]
+}
