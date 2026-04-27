@@ -45,20 +45,37 @@ def load_env() -> None:
 def fetch_decisions_to_embed(
     sb_url: str, key: str, batch: int, offset: int
 ) -> list[dict]:
-    """nlrc_decisions에서 (title, key_issue, holding_points) 페이지네이션."""
-    r = requests.get(
-        f"{sb_url}/rest/v1/nlrc_decisions",
-        params={
-            "select": "id,title,key_issue,holding_points",
-            "order": "id.asc",
-            "limit": batch,
-            "offset": offset,
-        },
-        headers={"apikey": key, "Authorization": f"Bearer {key}"},
-        timeout=60,
-    )
-    r.raise_for_status()
-    return r.json()
+    """nlrc_decisions에서 페이지네이션. 5xx 일시 에러는 exponential backoff."""
+    last_err = None
+    for attempt in range(5):
+        try:
+            r = requests.get(
+                f"{sb_url}/rest/v1/nlrc_decisions",
+                params={
+                    "select": "id,title,key_issue,holding_points",
+                    "order": "id.asc",
+                    "limit": batch,
+                    "offset": offset,
+                },
+                headers={"apikey": key, "Authorization": f"Bearer {key}"},
+                timeout=60,
+            )
+            if r.status_code == 200:
+                return r.json()
+            if r.status_code >= 500 or r.status_code == 429:
+                wait = 5 * (2**attempt)
+                print(f"  fetch {r.status_code} offset={offset}, {wait}s 대기 후 재시도 ({attempt+1}/5)")
+                time.sleep(wait)
+                last_err = f"{r.status_code}: {r.text[:200]}"
+                continue
+            r.raise_for_status()
+        except requests.RequestException as e:
+            wait = 5 * (2**attempt)
+            print(f"  fetch RequestException, {wait}s 후 재시도: {e}")
+            time.sleep(wait)
+            last_err = str(e)
+    print(f"  fetch 5회 실패, offset={offset} skip: {last_err}")
+    return []
 
 
 def build_input_text(row: dict) -> str:
