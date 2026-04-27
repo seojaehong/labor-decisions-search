@@ -4,15 +4,15 @@ restore_key_issue_from_obsidian.py
 ==================================
 nlrc_decisions.key_issue가 ~150자에서 truncate된 문제 복원.
 
-옵시디언 볼트의 id_NNNNNN.md 파일에서 ## 판정요지 섹션을 추출 →
-nlrc_decisions.key_issue 컬럼을 풀버전으로 업데이트.
-
-매칭: nlrc_decisions.id (id_NNNNNN) ↔ obsidian 파일명 (id_NNNNNN.md)
+전략:
+1. DB에서 short-key_issue 행 페이지네이션으로 fetch (빠름)
+2. 각 행마다 옵시디언 id_NNNNNN.md 파일 직접 path 접근 (lookup)
+3. 옵시디언 vs DB 컬럼(key_issue/holding_summary/holding_points) 중 가장 긴 텍스트로 UPDATE
 
 사용법:
-    python scripts/restore_key_issue_from_obsidian.py            # DRY RUN (5건 미리보기)
-    python scripts/restore_key_issue_from_obsidian.py --check    # 매칭 통계만
-    python scripts/restore_key_issue_from_obsidian.py --apply    # 실제 UPDATE
+    python scripts/restore_key_issue_from_obsidian.py            # DRY 5건 미리보기
+    python scripts/restore_key_issue_from_obsidian.py --limit N  # 처음 N건 처리
+    python scripts/restore_key_issue_from_obsidian.py --apply    # 전체 실제 UPDATE
 """
 
 from __future__ import annotations
@@ -22,7 +22,6 @@ import re
 import sys
 import time
 from pathlib import Path
-from typing import Iterator
 
 import requests
 
@@ -43,168 +42,180 @@ if not SUPABASE_KEY:
 if not SUPABASE_KEY:
     sys.exit("SUPABASE_SERVICE_KEY 환경변수 또는 .env 파일 필요")
 
-HEADERS = {
+PATCH_HEADERS = {
     "apikey": SUPABASE_KEY,
     "Authorization": f"Bearer {SUPABASE_KEY}",
     "Content-Type": "application/json",
     "Prefer": "return=minimal",
 }
+GET_HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+}
 
-# 판정요지 섹션 추출: "## 판정요지" 다음 줄부터 다음 ## 또는 --- 까지
 PANJEONG_RE = re.compile(
     r"##\s*판정요지\s*\n+(.+?)(?=\n##|\n---|\Z)", re.DOTALL
 )
 
 
-def parse_obsidian(path: Path) -> str | None:
-    """옵시디언 md 파일에서 판정요지 본문 추출."""
+def parse_obsidian_file(stem: str) -> str | None:
+    """파일명(stem) → 판정요지 본문."""
+    p = VAULT_DIR / f"{stem}.md"
     try:
-        text = path.read_text(encoding="utf-8")
-    except Exception:
+        text = p.read_text(encoding="utf-8")
+    except (FileNotFoundError, OSError):
         return None
     m = PANJEONG_RE.search(text)
     if not m:
         return None
     body = m.group(1).strip()
-    # frontmatter 잔여 제거
-    body = re.sub(r"^---\n.*?\n---\n", "", body, flags=re.DOTALL)
     return body if len(body) >= 50 else None
 
 
-def iter_id_files() -> Iterator[tuple[str, Path]]:
-    """id_NNNNNN.md 형식 파일만 yield."""
-    for p in VAULT_DIR.iterdir():
-        if not p.is_file() or p.suffix != ".md":
-            continue
-        if not p.stem.startswith("id_"):
-            continue
-        yield p.stem, p
+def find_obsidian(case_id: str, case_number: str | None) -> str | None:
+    """nlrc_decisions.id 또는 case_number로 옵시디언 파일 lookup. 둘 다 시도."""
+    # 1차: id_NNNNNN.md 형식 (newer files)
+    if case_id and case_id.startswith("id_"):
+        body = parse_obsidian_file(case_id)
+        if body:
+            return body
+    # 2차: case_number (예: 2015부해OOO.md, older files)
+    if case_number:
+        body = parse_obsidian_file(case_number)
+        if body:
+            return body
+    return None
 
 
-def fetch_db_best(case_id: str) -> tuple[str | None, str | None, int | None]:
-    """DB에서 key_issue/holding_summary/holding_points 중 가장 긴 텍스트를 반환.
-    returns: (current_key_issue, longest_db_text, longest_db_len)"""
+def fetch_short_rows(offset: int, batch: int) -> list[dict]:
+    """key_issue가 짧은 (200자 이하) 행을 페이지네이션으로 가져옴."""
     r = requests.get(
         f"{SUPABASE_URL}/rest/v1/nlrc_decisions",
         params={
-            "select": "key_issue,holding_summary,holding_points",
-            "id": f"eq.{case_id}",
+            "select": "id,case_number,key_issue,holding_summary,holding_points",
+            "order": "id.asc",
+            "limit": batch,
+            "offset": offset,
         },
-        headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
-        timeout=15,
+        headers=GET_HEADERS,
+        timeout=30,
     )
     if r.status_code != 200:
-        return None, None, None
-    arr = r.json()
-    if not arr:
-        return None, None, None
-    ki = (arr[0].get("key_issue") or "").strip()
-    hs = (arr[0].get("holding_summary") or "").strip()
-    hp = (arr[0].get("holding_points") or "").strip()
-    longest = max(ki, hs, hp, key=len)
-    return ki, longest, len(longest)
+        return []
+    return r.json()
 
 
 def update_key_issue(case_id: str, new_text: str) -> bool:
     r = requests.patch(
         f"{SUPABASE_URL}/rest/v1/nlrc_decisions",
         params={"id": f"eq.{case_id}"},
-        headers=HEADERS,
+        headers=PATCH_HEADERS,
         json={"key_issue": new_text},
         timeout=20,
     )
     return r.status_code in (200, 204)
 
 
+def pick_best(ki: str, hs: str, hp: str, obsidian: str | None) -> tuple[str, str]:
+    """key_issue/holding_summary/holding_points/obsidian 중 가장 긴 것을 선택. (text, source) 반환"""
+    candidates = [(ki or "", "key_issue"), (hs or "", "holding_summary"), (hp or "", "holding_points")]
+    if obsidian:
+        candidates.append((obsidian, "obsidian"))
+    best = max(candidates, key=lambda c: len(c[0]))
+    return best
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true", help="실제 UPDATE 수행")
-    ap.add_argument("--check", action="store_true", help="매칭 통계만 출력")
-    ap.add_argument(
-        "--limit", type=int, default=0, help="처리할 최대 건수 (0=전체)"
-    )
+    ap.add_argument("--limit", type=int, default=0, help="처리할 행 수 (0=전체)")
+    ap.add_argument("--batch", type=int, default=200, help="페이지 사이즈")
     ap.add_argument(
         "--min-improvement",
         type=int,
         default=200,
-        help="옵시디언 텍스트가 DB보다 최소 N자 길어야 업데이트 (기본 200)",
+        help="key_issue 대비 +N자 이상 개선되어야 update (기본 200)",
+    )
+    ap.add_argument("--start-offset", type=int, default=0)
+    ap.add_argument(
+        "--no-obsidian",
+        action="store_true",
+        help="옵시디언 lookup 건너뛰기 (DB 컬럼만 사용, 빠름)",
+    )
+    ap.add_argument(
+        "--vault-dir",
+        type=str,
+        default=str(VAULT_DIR),
+        help="옵시디언 vault 경로 (로컬 캐시 사용 시 변경)",
     )
     args = ap.parse_args()
+    if args.vault_dir != str(VAULT_DIR):
+        globals()["VAULT_DIR"] = Path(args.vault_dir)
 
-    print(f"[scan] {VAULT_DIR}")
-    files = list(iter_id_files())
-    print(f"[scan] id_*.md 파일 {len(files):,}건 발견")
-
-    if args.check:
-        # 처음 100개로 샘플 통계
-        parsed_ok = 0
-        for stem, path in files[:200]:
-            if parse_obsidian(path):
-                parsed_ok += 1
-        print(
-            f"[check] 200개 샘플 중 판정요지 파싱 성공: {parsed_ok}/200 "
-            f"({parsed_ok/200*100:.0f}%)"
-        )
-        return 0
-
-    updated = 0
-    skipped_short = 0
-    skipped_nodb = 0
-    skipped_parse = 0
-    preview_done = 0
+    print(f"[run] apply={args.apply}  limit={args.limit}  batch={args.batch}")
     started = time.time()
 
-    target = files if args.limit == 0 else files[: args.limit]
-    print(f"[run] 처리 대상: {len(target):,}건  apply={args.apply}")
+    seen = 0
+    updated = 0
+    by_source = {"obsidian": 0, "holding_summary": 0, "holding_points": 0, "key_issue": 0}
+    skipped_no_change = 0
+    preview_done = 0
+    offset = args.start_offset
 
-    for idx, (stem, path) in enumerate(target):
-        new_text = parse_obsidian(path)
-        if not new_text:
-            skipped_parse += 1
-            continue
+    while True:
+        rows = fetch_short_rows(offset, args.batch)
+        if not rows:
+            break
 
-        cur_ki, longest_db, longest_len = fetch_db_best(stem)
-        if longest_len is None:
-            skipped_nodb += 1
-            continue
+        for row in rows:
+            seen += 1
+            cur_id = row["id"]
+            case_no = (row.get("case_number") or "").strip()
+            ki = (row.get("key_issue") or "").strip()
+            hs = (row.get("holding_summary") or "").strip()
+            hp = (row.get("holding_points") or "").strip()
 
-        # 옵시디언 vs DB 컬럼 중 가장 긴 것 비교 (key_issue 기준 개선분만 측정)
-        cur_ki_len = len(cur_ki or "")
-        # final_text: 옵시디언과 DB 최장값 중 더 긴 것
-        final_text = new_text if len(new_text) >= longest_len else longest_db
-        improvement = len(final_text) - cur_ki_len
-        if improvement < args.min_improvement:
-            skipped_short += 1
-            continue
+            obsidian_text = None if args.no_obsidian else find_obsidian(cur_id, case_no)
 
-        if not args.apply:
-            if preview_done < 5:
-                src = "옵시디언" if final_text == new_text else "DB(holding_summary/points)"
-                print(f"\n=== [{stem}] DRY (소스: {src}) ===")
-                print(f"  현재 key_issue({cur_ki_len}자): ...{(cur_ki or '')[-60:]}")
-                print(f"  새 텍스트({len(final_text)}자): ...{final_text[-80:]}")
-                preview_done += 1
-            updated += 1
-        else:
-            if update_key_issue(stem, final_text):
+            best_text, source = pick_best(ki, hs, hp, obsidian_text)
+            improvement = len(best_text) - len(ki)
+            if improvement < args.min_improvement or best_text == ki:
+                skipped_no_change += 1
+                continue
+
+            by_source[source] = by_source.get(source, 0) + 1
+
+            if not args.apply:
+                if preview_done < 5:
+                    print(f"\n=== [{cur_id}] DRY (소스: {source}) ===")
+                    print(f"  현재 ki({len(ki)}자): {ki[:80]}...")
+                    print(f"  새 텍스트({len(best_text)}자, +{improvement}): {best_text[:120]}")
+                    preview_done += 1
                 updated += 1
-                if updated % 200 == 0:
-                    elapsed = time.time() - started
-                    rate = updated / elapsed if elapsed else 0
-                    print(
-                        f"  진행: {updated:,}건 업데이트 ({rate:.1f} req/s, "
-                        f"{idx+1}/{len(target)})"
-                    )
             else:
-                skipped_nodb += 1
+                if update_key_issue(cur_id, best_text):
+                    updated += 1
+                    if updated % 200 == 0:
+                        elapsed = time.time() - started
+                        rate = updated / max(elapsed, 1)
+                        print(
+                            f"  진행: {updated:,} update / {seen:,} seen ({rate:.1f}/s)"
+                        )
+
+            if args.limit > 0 and seen >= args.limit:
+                break
+
+        if args.limit > 0 and seen >= args.limit:
+            break
+        offset += args.batch
 
     elapsed = time.time() - started
     print(
         f"\n=== 완료 ({elapsed:.0f}s) ===\n"
+        f"  스캔: {seen:,}\n"
         f"  업데이트{'' if args.apply else ' (DRY)'}: {updated:,}\n"
-        f"  스킵 (DB 미존재): {skipped_nodb:,}\n"
-        f"  스킵 (개선 < {args.min_improvement}자): {skipped_short:,}\n"
-        f"  스킵 (판정요지 파싱 실패): {skipped_parse:,}"
+        f"  소스별: {by_source}\n"
+        f"  변경 없음: {skipped_no_change:,}"
     )
     return 0
 
