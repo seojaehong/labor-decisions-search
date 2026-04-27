@@ -470,10 +470,10 @@ async function searchCasesViaRpc(query: string, category: string, limit: number)
   const embedding = await createQueryEmbedding(query);
 
   const { data, error } = await supabase.rpc('search_similar_cases_hybrid', {
-    query_text: query,
+    query,
     query_embedding: embedding ? toVectorLiteral(embedding) : null,
     category,
-    match_count: limit,
+    limit,
     semantic_weight: 0.6,
   });
 
