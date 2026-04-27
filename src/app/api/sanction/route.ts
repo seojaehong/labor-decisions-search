@@ -306,9 +306,12 @@ function validateMessages(messages: unknown): { valid: true; messages: { role: s
 }
 
 export async function POST(req: NextRequest) {
+  // LLM 실패 시 catch에서 raw 검색 결과 보존용 (UX 안전장치)
+  let retrievalCache: { tags: string[]; cases: unknown[]; comparison: ComparisonMeta | null } | null = null;
+
   try {
-    if (!GEMINI_API_KEY && !ANTHROPIC_API_KEY) {
-      return NextResponse.json({ content: 'AI 서비스가 준비되지 않았습니다 (GEMINI/ANTHROPIC 키 부재).', tags: [], cases: [] });
+    if (!GEMINI_API_KEY && !OPENAI_API_KEY && !ANTHROPIC_API_KEY) {
+      return NextResponse.json({ content: 'AI 서비스가 준비되지 않았습니다 (LLM 키 부재).', tags: [], cases: [] });
     }
 
     const body = await req.json();
@@ -329,6 +332,8 @@ export async function POST(req: NextRequest) {
     // Step 2: DB 검색
     const retrieval = await searchCases(tags, lastUserMsg.content);
     const comparison = buildComparisonMeta(lastUserMsg.content, tags, retrieval.cases as unknown as Record<string, unknown>[]);
+    // LLM 실패 시 사용자에게 보여줄 검색 결과 보존
+    retrievalCache = { tags: retrieval.tags, cases: retrieval.cases as unknown[], comparison };
 
     // Step 3: 프롬프트 조립 + 히스토리 트리밍
     const userContext = buildUserContext(lastUserMsg.content, tags, retrieval.cases as unknown as Record<string, unknown>[]);
@@ -428,15 +433,23 @@ export async function POST(req: NextRequest) {
       comparison: finalComparison,
     });
   } catch (error) {
-    const message = error instanceof Error && error.name === 'TimeoutError'
+    const isTimeout = error instanceof Error && error.name === 'TimeoutError';
+    const llmFailedButHasResults = retrievalCache && (retrievalCache.cases?.length ?? 0) > 0;
+
+    // LLM 실패해도 검색 결과 있으면 사용자에게 노출 (UX 안전장치)
+    const message = llmFailedButHasResults
+      ? 'AI 분석은 일시적으로 제공되지 않습니다. 아래 검색된 판정례를 직접 확인해 주세요.'
+      : isTimeout
       ? '응답 생성이 지연되고 있습니다. 잠시 후 다시 시도해 주세요.'
       : '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
 
+    console.error('[sanction] POST error:', error instanceof Error ? error.message : String(error));
+
     return NextResponse.json({
       content: message,
-      tags: [],
-      cases: [],
-      comparison: null,
+      tags: retrievalCache?.tags || [],
+      cases: retrievalCache?.cases || [],
+      comparison: retrievalCache?.comparison || null,
     });
   }
 }
