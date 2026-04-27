@@ -7,9 +7,81 @@ import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
+
+// Gemini 우선 + Anthropic fallback (Anthropic API 한도 도달 시 자동 전환)
+async function callLLM(
+  systemPrompt: string,
+  messages: Array<{ role: string; content: string }>,
+  options: { stream?: boolean; signal?: AbortSignal } = {}
+): Promise<Response> {
+  const tryGemini = async () => {
+    if (!GEMINI_API_KEY) throw new Error('GEMINI_API_KEY 없음');
+    const resp = await fetch(GEMINI_URL, {
+      method: 'POST',
+      signal: options.signal,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GEMINI_API_KEY}` },
+      body: JSON.stringify({
+        model: GEMINI_MODEL,
+        max_completion_tokens: 4096,
+        temperature: 0.3,
+        stream: options.stream === true,
+        messages: [{ role: 'system', content: systemPrompt }, ...messages],
+      }),
+    });
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => 'unknown');
+      throw new Error(`Gemini ${resp.status}: ${errText.slice(0, 300)}`);
+    }
+    return resp;
+  };
+
+  const tryAnthropic = async () => {
+    if (!ANTHROPIC_API_KEY) throw new Error('ANTHROPIC_API_KEY 없음');
+    const resp = await fetch(ANTHROPIC_URL, {
+      method: 'POST',
+      signal: options.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: ANTHROPIC_MODEL,
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages,
+        temperature: 0.3,
+        stream: options.stream === true,
+      }),
+    });
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => 'unknown');
+      throw new Error(`Anthropic ${resp.status}: ${errText.slice(0, 300)}`);
+    }
+    return resp;
+  };
+
+  // Gemini 우선
+  try {
+    return await tryGemini();
+  } catch (err) {
+    console.warn('[sanction] Gemini 실패 → Anthropic fallback:', err instanceof Error ? err.message : err);
+    return await tryAnthropic();
+  }
+}
+
+// 응답 어떤 LLM에서 왔는지 식별 (헤더 또는 body 형식)
+type LLMProvider = 'gemini' | 'anthropic';
+function detectProvider(resp: Response): LLMProvider {
+  const url = resp.url || '';
+  return url.includes('googleapis.com') ? 'gemini' : 'anthropic';
+}
 
 interface StructuredAiCase {
   title: string
@@ -217,8 +289,8 @@ function validateMessages(messages: unknown): { valid: true; messages: { role: s
 
 export async function POST(req: NextRequest) {
   try {
-    if (!ANTHROPIC_API_KEY) {
-      return NextResponse.json({ content: 'ANTHROPIC_API_KEY가 설정되지 않았습니다.', tags: [], cases: [] });
+    if (!GEMINI_API_KEY && !ANTHROPIC_API_KEY) {
+      return NextResponse.json({ content: 'AI 서비스가 준비되지 않았습니다 (GEMINI/ANTHROPIC 키 부재).', tags: [], cases: [] });
     }
 
     const body = await req.json();
@@ -256,25 +328,13 @@ export async function POST(req: NextRequest) {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'meta', tags: retrieval.tags, cases: retrieval.cases, comparison })}\n\n`));
 
           try {
-            const resp = await fetch(ANTHROPIC_URL, {
-              method: 'POST',
+            const resp = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
+              stream: true,
               signal: AbortSignal.timeout(25_000),
-              headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': ANTHROPIC_API_KEY,
-                'anthropic-version': '2023-06-01',
-              },
-              body: JSON.stringify({
-                model: ANTHROPIC_MODEL,
-                max_tokens: 4096,
-                system: SYSTEM_PROMPT,
-                messages: trimmedMessages,
-                temperature: 0.3,
-                stream: true,
-              }),
             });
+            const provider: LLMProvider = detectProvider(resp);
 
-            if (!resp.ok || !resp.body) {
+            if (!resp.body) {
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', content: '응답 생성에 실패했습니다.' })}\n\n`));
               controller.close();
               return;
@@ -292,7 +352,11 @@ export async function POST(req: NextRequest) {
                 if (!line.startsWith('data: ') || line === 'data: [DONE]') continue;
                 try {
                   const parsed = JSON.parse(line.slice(6));
-                  const delta = parsed.delta?.text;
+                  // Gemini OpenAI-compat: choices[0].delta.content
+                  // Anthropic SSE: delta.text (event type content_block_delta)
+                  const delta = provider === 'gemini'
+                    ? parsed.choices?.[0]?.delta?.content
+                    : parsed.delta?.text;
                   if (delta) {
                     fullText += delta;
                     controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'delta', text: delta })}\n\n`));
@@ -319,27 +383,16 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 기존 블로킹 모드 (하위 호환)
-    const resp = await fetch(ANTHROPIC_URL, {
-      method: 'POST',
+    // 기존 블로킹 모드 (하위 호환) — Gemini 우선 + Anthropic fallback
+    const resp = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
+      stream: false,
       signal: AbortSignal.timeout(25_000),
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: ANTHROPIC_MODEL,
-        max_tokens: 4096,
-        system: SYSTEM_PROMPT,
-        messages: trimmedMessages,
-        temperature: 0.3,
-      }),
     });
-
-    if (!resp.ok) throw new Error(await resp.text());
+    const provider: LLMProvider = detectProvider(resp);
     const data = await resp.json();
-    const rawAnalysis = data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.';
+    const rawAnalysis = provider === 'gemini'
+      ? (data.choices?.[0]?.message?.content || '분석 결과를 생성할 수 없습니다.')
+      : (data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.');
     const structured = parseStructuredAiResponse(rawAnalysis);
     const analysis = sanitizeAnalysis(structured?.plain_text || rawAnalysis);
     const finalComparison = structured
