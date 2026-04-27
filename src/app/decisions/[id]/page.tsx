@@ -397,6 +397,11 @@ export default async function DecisionPage({
   const holdingPointsText = typeof d.holding_points === "string" ? d.holding_points.trim() : "";
   const holdingSummaryText = typeof d.holding_summary === "string" ? d.holding_summary.trim() : "";
   const keyIssueText = typeof d.key_issue === "string" ? d.key_issue.trim() : "";
+
+  // 핵심쟁점 카드: ingestion 파이프라인 truncation 대응 — 3개 컬럼 중 가장 긴 텍스트 선택
+  // (key_issue는 ~150자 잘림, holding_summary/points는 케이스에 따라 풀콘텐츠)
+  const bestKeyIssueText = [holdingSummaryText, holdingPointsText, keyIssueText]
+    .reduce((longest, t) => (t.length > longest.length ? t : longest), "");
   const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
   const hasHoldingPoints = holdingPointsText.length > 0;
   const hasSummary = holdingSummaryText.length > 0;
@@ -454,10 +459,10 @@ export default async function DecisionPage({
           </Card>
         )}
 
-        {(holdingPointsText || keyIssueText) && (
+        {bestKeyIssueText && (
           <Card id="decision-summary" className="p-4 mb-6 bg-muted/50 scroll-mt-24">
             <h3 className="font-semibold text-sm mb-1">핵심쟁점</h3>
-            <div className="text-sm">{renderHoldingBlocks(holdingPointsText || keyIssueText)}</div>
+            <div className="text-sm">{renderHoldingBlocks(bestKeyIssueText)}</div>
           </Card>
         )}
 
