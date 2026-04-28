@@ -27,6 +27,23 @@ function getDisplayCaseNumber(caseNumber?: string | null) {
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
 }
 
+// BigCase 페이월/네비게이션 페이지가 full_text_raw에 통째 저장된 케이스 감지.
+// 키워드는 사용자가 실제로 본 페이월 페이지(bc_0004c925)에서 추출.
+function isPaywallText(text: string): boolean {
+  if (!text) return false;
+  const signals = [
+    "콘텐츠 이용량이 많아",
+    "서비스 접속이 원활하지 않",
+    "친구초대 30,000P",
+    "MY빅케이스",
+    "Law&Company Co., Ltd",
+    "(C) Law",
+    "슈퍼로이어",
+    "로톡뉴스",
+  ];
+  return signals.some((s) => text.includes(s));
+}
+
 // holding_summary가 ingestion에서 "{원본}\n\n쟁점: X\n판단: Y" 형태로 저장되며
 // X/Y가 동일하거나 원본과 prefix 동일한 케이스(8,271건/14%)가 다수.
 // 같은 텍스트 중복 노출 방지를 위해 정규화 — 쟁점=판단이면 한 번만, intro와 같으면 intro만.
@@ -332,14 +349,31 @@ export default async function DecisionPage({
       .limit(5);
 
     const docs = sourceDocs ?? [];
-    const fullDoc = docs.find((d) => d.completeness_flag === "full") ?? docs[0];
-    const fullTextClean = typeof fullDoc?.full_text_clean === "string" ? fullDoc.full_text_clean.trim() : "";
-    const fullTextRaw = typeof fullDoc?.full_text_raw === "string" ? fullDoc.full_text_raw.trim() : "";
-    const bodySections: LawgoSection[] = Array.isArray(fullDoc?.body_sections) ? (fullDoc.body_sections as LawgoSection[]) : [];
-    // clean이 충분하면 그걸, 아니면 raw — 단 500자 이상일 때만 의미 있음
-    const realFulltext = fullTextClean.length >= 500
-      ? fullTextClean
-      : (fullTextRaw.length >= 500 ? fullTextRaw : "");
+    // 진짜 판결문 선택 — clean 1000자+ 또는 raw 1000자+ 중 페이월 키워드 없는 row.
+    // full_text_raw에 BigCase 사이트 페이월/네비게이션 HTML 통째로 저장된 케이스가 있어
+    // 페이월 텍스트 감지 후 거부.
+    let realFulltext = "";
+    let bodySections: LawgoSection[] = [];
+    for (const d of docs) {
+      const clean = typeof d.full_text_clean === "string" ? d.full_text_clean.trim() : "";
+      if (clean.length >= 1000 && !isPaywallText(clean)) {
+        realFulltext = clean;
+        const sections = Array.isArray(d.body_sections) ? (d.body_sections as LawgoSection[]) : [];
+        if (sections.length > 0) bodySections = sections;
+        break;
+      }
+    }
+    if (!realFulltext) {
+      for (const d of docs) {
+        const raw = typeof d.full_text_raw === "string" ? d.full_text_raw.trim() : "";
+        if (raw.length >= 1000 && !isPaywallText(raw)) {
+          realFulltext = raw;
+          const sections = Array.isArray(d.body_sections) ? (d.body_sections as LawgoSection[]) : [];
+          if (sections.length > 0) bodySections = sections;
+          break;
+        }
+      }
+    }
     const hasRealFulltext = realFulltext.length > 0 || bodySections.length > 0;
 
     const holdingPointsText = typeof c.holding_points === "string" ? c.holding_points.trim() : "";
