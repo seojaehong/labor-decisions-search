@@ -120,6 +120,8 @@ export default function SanctionPage() {
       let streamedContent = '';
       let finalComparison: ComparisonMeta | null = null;
       let metaReceived = false;
+      let buffer = '';
+      let serverError: string | null = null;
 
       // 빈 어시스턴트 메시지 먼저 추가 (점진적 업데이트용)
       setMessages((prev) => [
@@ -131,45 +133,50 @@ export default function SanctionPage() {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        for (const line of chunk.split('\n')) {
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+        for (const line of lines) {
           if (!line.startsWith('data: ')) continue;
+          let event: { type?: string; content?: string; text?: string; tags?: string[]; cases?: CaseCard[]; comparison?: ComparisonMeta };
           try {
-            const event = JSON.parse(line.slice(6));
+            event = JSON.parse(line.slice(6));
+          } catch {
+            // 부분 chunk면 다음 라운드에서 합쳐져 들어옴 — silent skip
+            continue;
+          }
 
-            if (event.type === 'meta') {
-              metaReceived = true;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === msgId
-                    ? { ...m, content: '유사 판례를 찾았습니다. AI 분석 생성 중...', tags: event.tags, cases: event.cases, comparison: event.comparison }
-                    : m
-                )
-              );
-            } else if (event.type === 'delta') {
-              streamedContent += event.text;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === msgId ? { ...m, content: streamedContent } : m
-                )
-              );
-            } else if (event.type === 'done') {
-              finalComparison = event.comparison;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === msgId
-                    ? { ...m, content: event.content || streamedContent, comparison: finalComparison }
-                    : m
-                )
-              );
-            } else if (event.type === 'error') {
-              throw new Error(event.content);
-            }
-          } catch (e) {
-            if (e instanceof Error && e.message !== 'error') throw e;
+          if (event.type === 'meta') {
+            metaReceived = true;
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === msgId
+                  ? { ...m, content: '유사 판례를 찾았습니다. AI 분석 생성 중...', tags: event.tags, cases: event.cases, comparison: event.comparison ?? null }
+                  : m
+              )
+            );
+          } else if (event.type === 'delta') {
+            streamedContent += event.text || '';
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === msgId ? { ...m, content: streamedContent } : m
+              )
+            );
+          } else if (event.type === 'done') {
+            finalComparison = event.comparison ?? null;
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === msgId
+                  ? { ...m, content: event.content || streamedContent, comparison: finalComparison }
+                  : m
+              )
+            );
+          } else if (event.type === 'error') {
+            serverError = event.content || '응답 생성에 실패했습니다.';
           }
         }
       }
+      if (serverError) throw new Error(serverError);
 
       if (!metaReceived && !streamedContent) {
         throw new Error('응답을 받지 못했습니다.');

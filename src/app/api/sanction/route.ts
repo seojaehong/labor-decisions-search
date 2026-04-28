@@ -33,7 +33,7 @@ async function callLLM(
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
       body: JSON.stringify({
         model,
-        max_completion_tokens: 4096,
+        max_completion_tokens: 8192,
         temperature: 0.3,
         stream: options.stream === true,
         messages: [{ role: 'system', content: systemPrompt }, ...messages],
@@ -66,7 +66,7 @@ async function callLLM(
       },
       body: JSON.stringify({
         model: ANTHROPIC_MODEL,
-        max_tokens: 4096,
+        max_tokens: 8192,
         system: systemPrompt,
         messages,
         temperature: 0.3,
@@ -140,6 +140,17 @@ function extractJsonPayload(text: string): string {
   }
 
   return trimmed;
+}
+
+function extractPlainTextFromJsonLike(text: string): string | null {
+  // truncated JSON에서도 "plain_text" 값만 정규식으로 살리기
+  const match = text.match(/"plain_text"\s*:\s*"((?:\\.|[^"\\])*)/);
+  if (!match) return null;
+  return match[1]
+    .replace(/\\n/g, '\n')
+    .replace(/\\t/g, '\t')
+    .replace(/\\"/g, '"')
+    .replace(/\\\\/g, '\\');
 }
 
 function parseStructuredAiResponse(text: string): StructuredAiResponse | null {
@@ -362,19 +373,19 @@ export async function POST(req: NextRequest) {
             const reader = resp.body.getReader();
             const decoder = new TextDecoder();
             let fullText = '';
+            let buffer = '';
 
             while (true) {
               const { done, value } = await reader.read();
               if (done) break;
-              const chunk = decoder.decode(value, { stream: true });
-              for (const line of chunk.split('\n')) {
+              buffer += decoder.decode(value, { stream: true });
+              // newline 기준으로 split하되 마지막 incomplete line은 buffer에 남김
+              const lines = buffer.split('\n');
+              buffer = lines.pop() ?? '';
+              for (const line of lines) {
                 if (!line.startsWith('data: ') || line === 'data: [DONE]') continue;
                 try {
                   const parsed = JSON.parse(line.slice(6));
-                  // Gemini OpenAI-compat: choices[0].delta.content
-                  // Anthropic SSE: delta.text (event type content_block_delta)
-                  // OpenAI-compat (Gemini, OpenAI): choices[0].delta.content
-                  // Anthropic SSE: delta.text
                   const delta = provider === 'anthropic'
                     ? parsed.delta?.text
                     : parsed.choices?.[0]?.delta?.content;
@@ -387,7 +398,8 @@ export async function POST(req: NextRequest) {
             }
 
             const structured = parseStructuredAiResponse(fullText);
-            const analysis = sanitizeAnalysis(structured?.plain_text || fullText);
+            const fallbackPlain = extractPlainTextFromJsonLike(fullText) || fullText;
+            const analysis = sanitizeAnalysis(structured?.plain_text || fallbackPlain);
             const finalComparison = structured
               ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
               : comparison;
@@ -416,7 +428,8 @@ export async function POST(req: NextRequest) {
       ? (data.content?.[0]?.text || '분석 결과를 생성할 수 없습니다.')
       : (data.choices?.[0]?.message?.content || '분석 결과를 생성할 수 없습니다.');
     const structured = parseStructuredAiResponse(rawAnalysis);
-    const analysis = sanitizeAnalysis(structured?.plain_text || rawAnalysis);
+    const fallbackPlain = extractPlainTextFromJsonLike(rawAnalysis) || rawAnalysis;
+    const analysis = sanitizeAnalysis(structured?.plain_text || fallbackPlain);
     const finalComparison = structured
       ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
       : comparison;
