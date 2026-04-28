@@ -91,7 +91,15 @@ export default async function DecisionPage({
   params: Promise<{ id: string }>;
   searchParams?: Promise<{ source?: string | string[] }> | { source?: string | string[] };
 }) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  // 한글/특수문자 ID(예: 2015부해OOO) 처리 — Next.js dynamic route param이 URL-encoded
+  // 상태로 그대로 supabase 쿼리에 들어가면 DB의 한글 ID와 매칭 실패. 명시적 디코드.
+  let id: string;
+  try {
+    id = decodeURIComponent(rawId);
+  } catch {
+    id = rawId;
+  }
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const sourceParam = Array.isArray(resolvedSearchParams?.source)
     ? resolvedSearchParams?.source[0]
