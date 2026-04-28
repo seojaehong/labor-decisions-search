@@ -242,11 +242,50 @@ export default async function DecisionPage({
   }
 
   if (decisionSource === "bigcase") {
-    const { data: c } = await supabase
+    // cases (legacy) → nlrc_decisions (current) fallback
+    // BigCase 데이터가 nlrc_decisions로 통합되어 cases 테이블엔 bc_ ID가 0건
+    type CaseLike = {
+      id: string;
+      title: string;
+      court?: string | null;
+      decision_date?: string | null;
+      case_number?: string | null;
+      verdict_type?: string | null;
+      holding_points?: string | null;
+      summary?: string | null;
+      url?: string | null;
+      keywords_matched?: string[] | null;
+    };
+
+    let c: CaseLike | null = null;
+    const { data: legacy } = await supabase
       .from("cases")
       .select("*")
       .eq("id", id)
-      .single();
+      .maybeSingle();
+    if (legacy) {
+      c = legacy as CaseLike;
+    } else {
+      const { data: d } = await supabase
+        .from("nlrc_decisions")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+      if (d) {
+        c = {
+          id: d.id,
+          title: d.title,
+          court: d.department,
+          decision_date: d.decision_date,
+          case_number: d.case_number,
+          verdict_type: d.decision_result,
+          holding_points: d.holding_points,
+          summary: d.holding_summary || d.summary_short,
+          url: d.url,
+          keywords_matched: d.tags,
+        };
+      }
+    }
 
     if (!c) {
       return <div className="p-8">판결을 찾을 수 없습니다.</div>;
