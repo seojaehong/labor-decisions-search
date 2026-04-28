@@ -484,12 +484,27 @@ export default async function DecisionPage({
   const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
   const hasHoldingPoints = holdingPointsText.length > 0;
   const hasSummary = holdingSummaryText.length > 0;
-  // 핵심쟁점 카드와 판정 요지 카드가 같은 내용이면 판정 요지는 숨김 (dedup)
-  const summaryDifferentFromKeyIssue =
-    holdingSummaryText.length > 0 &&
-    holdingSummaryText !== bestKeyIssueText &&
-    !bestKeyIssueText.startsWith(holdingSummaryText) &&
-    !holdingSummaryText.startsWith(bestKeyIssueText);
+  // 핵심쟁점 ↔ 판정 요지 dedup — character-trigram Jaccard로 유사도 측정.
+  // 0.5+면 같은 본문(또는 prefix/한 줄 요약+본문 변형)으로 보고 판정 요지 카드 숨김.
+  const summaryDifferentFromKeyIssue = (() => {
+    if (!hasSummary) return false;
+    if (holdingSummaryText === bestKeyIssueText) return false;
+    if (bestKeyIssueText.includes(holdingSummaryText.slice(0, 80))) return false;
+    if (holdingSummaryText.includes(bestKeyIssueText.slice(0, 80))) return false;
+    const trigrams = (s: string) => {
+      const norm = s.replace(/\s+/g, '');
+      const set = new Set<string>();
+      for (let i = 0; i < norm.length - 2; i++) set.add(norm.slice(i, i + 3));
+      return set;
+    };
+    const a = trigrams(holdingSummaryText);
+    const b = trigrams(bestKeyIssueText);
+    if (a.size === 0 || b.size === 0) return true;
+    let inter = 0;
+    for (const t of a) if (b.has(t)) inter++;
+    const jaccard = inter / (a.size + b.size - inter);
+    return jaccard < 0.5; // 절반 이상 겹치면 같은 내용으로 간주, 카드 숨김
+  })();
   const hasSourceSection = hasHoldingPoints || Boolean(d.url);
 
   return (
