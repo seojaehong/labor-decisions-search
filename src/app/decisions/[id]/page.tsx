@@ -321,12 +321,33 @@ export default async function DecisionPage({
       return <div className="p-8">판결을 찾을 수 없습니다.</div>;
     }
 
+    // 진짜 원본 본문 — decision_source_documents에 BigCase 26,498건이 raw 1,000자+ 보유.
+    // nlrc_decisions의 holding_points는 AI 요약본이라 원본 노출 시 이걸 우선 사용.
+    const { data: sourceDocs } = await supabase
+      .from("decision_source_documents")
+      .select("full_text_raw, full_text_clean, body_sections, completeness_flag, coverage_ratio")
+      .eq("internal_decision_id", id)
+      .eq("source_provider", "bigcase")
+      .order("coverage_ratio", { ascending: false })
+      .limit(5);
+
+    const docs = sourceDocs ?? [];
+    const fullDoc = docs.find((d) => d.completeness_flag === "full") ?? docs[0];
+    const fullTextClean = typeof fullDoc?.full_text_clean === "string" ? fullDoc.full_text_clean.trim() : "";
+    const fullTextRaw = typeof fullDoc?.full_text_raw === "string" ? fullDoc.full_text_raw.trim() : "";
+    const bodySections: LawgoSection[] = Array.isArray(fullDoc?.body_sections) ? (fullDoc.body_sections as LawgoSection[]) : [];
+    // clean이 충분하면 그걸, 아니면 raw — 단 500자 이상일 때만 의미 있음
+    const realFulltext = fullTextClean.length >= 500
+      ? fullTextClean
+      : (fullTextRaw.length >= 500 ? fullTextRaw : "");
+    const hasRealFulltext = realFulltext.length > 0 || bodySections.length > 0;
+
     const holdingPointsText = typeof c.holding_points === "string" ? c.holding_points.trim() : "";
     const summaryText = typeof c.summary === "string" ? c.summary.trim() : "";
     const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
     const hasHoldingPoints = holdingPointsText.length > 0;
     const hasSummary = summaryText.length > 0;
-    const hasSourceSection = hasHoldingPoints || Boolean(c.url);
+    const hasSourceSection = hasRealFulltext || hasHoldingPoints;
 
     return (
       <main className="min-h-screen bg-background">
@@ -395,17 +416,32 @@ export default async function DecisionPage({
           <section id="source-text" className="scroll-mt-24">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div>
-                <h2 className="font-semibold">판결 본문</h2>
+                <h2 className="font-semibold">판결 원문</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  법원 판례 본문을 사이트 내에서 그대로 확인하세요.
+                  법원 판례 원문을 사이트 내에서 그대로 확인하세요.
                 </p>
               </div>
-              <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
+              <Badge variant="outline">
+                {hasRealFulltext ? "원본 본문" : getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}
+              </Badge>
             </div>
 
-            {hasDetailedHoldingPoints ? (
+            {bodySections.length > 0 ? (
               <Card className="p-4 mb-4">
-                <h3 className="font-semibold text-sm mb-2">서비스 내 추출 원문</h3>
+                <h3 className="font-semibold text-sm mb-3">법원 판례 원문</h3>
+                <div>{renderLawgoSections(bodySections)}</div>
+              </Card>
+            ) : realFulltext ? (
+              <Card className="p-4 mb-4">
+                <h3 className="font-semibold text-sm mb-3">법원 판례 원문</h3>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{realFulltext}</p>
+              </Card>
+            ) : hasDetailedHoldingPoints ? (
+              <Card className="p-4 mb-4 bg-muted/40">
+                <h3 className="font-semibold text-sm mb-2">서비스 내 정리본</h3>
+                <p className="text-xs text-muted-foreground mb-3">
+                  법원 원문을 확보하지 못해 AI가 정리한 요약본으로 표시합니다.
+                </p>
                 <div>{renderHoldingBlocks(holdingPointsText)}</div>
               </Card>
             ) : (
