@@ -40,6 +40,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--offset", type=int, default=0, help="시작 오프셋")
     parser.add_argument("--dry-run", action="store_true", help="DB 업데이트 없이 테스트")
     parser.add_argument("--max-summary-len", type=int, default=100, help="이 길이 미만인 건만 대상")
+    parser.add_argument("--target", choices=["hs", "hp", "both"], default="hs", help="기준 컬럼: hs(holding_summary), hp(holding_points), both")
+    parser.add_argument("--bc-only", action="store_true", help="bc_ (BigCase 법원 판례) 사건만")
     return parser.parse_args()
 
 
@@ -192,13 +194,24 @@ def build_headers() -> dict[str, str]:
     }
 
 
-def fetch_short_summary_decisions(max_len: int) -> list[dict[str, Any]]:
-    """holding_summary가 짧은 전체 건 조회 (URL 종류 무관)"""
+def fetch_short_summary_decisions(
+    max_len: int,
+    target: str = "hs",
+    bc_only: bool = False,
+) -> list[dict[str, Any]]:
+    """짧은 사건 조회. target=hs(holding_summary)|hp(holding_points)|both."""
     service_key = require_env("SUPABASE_SERVICE_KEY")
     supabase_url = require_env("SUPABASE_URL")
     rows: list[dict[str, Any]] = []
     page_size = 1000
     start = 0
+
+    params: dict[str, str] = {
+        "select": "id,case_number,url,holding_summary,holding_points",
+        "order": "id",
+    }
+    if bc_only:
+        params["id"] = "like.bc_*"
 
     while True:
         headers = {
@@ -210,11 +223,7 @@ def fetch_short_summary_decisions(max_len: int) -> list[dict[str, Any]]:
         resp = requests.get(
             f"{supabase_url}/rest/v1/nlrc_decisions",
             headers=headers,
-            params={
-                "select": "id,case_number,url,holding_summary,holding_points",
-                "holding_summary": "not.is.null",
-                "order": "id",
-            },
+            params=params,
             timeout=60,
         )
         if resp.status_code == 416:
@@ -225,8 +234,17 @@ def fetch_short_summary_decisions(max_len: int) -> list[dict[str, Any]]:
             break
         for row in chunk:
             hs = row.get("holding_summary") or ""
-            if 0 < len(hs) < max_len:
-                rows.append(row)
+            hp = row.get("holding_points") or ""
+            if target == "hs":
+                if 0 < len(hs) < max_len:
+                    rows.append(row)
+            elif target == "hp":
+                # hp는 NULL 허용 (bc_ 일부는 NULL)
+                if len(hp) < max_len:
+                    rows.append(row)
+            elif target == "both":
+                if len(hs) < max_len and len(hp) < max_len:
+                    rows.append(row)
         if len(chunk) < page_size:
             break
         start += page_size
@@ -432,15 +450,15 @@ def main() -> None:
     load_env_file()
     args = parse_args()
 
-    print(f"=== BigCase holding_summary 보강 수집기 (회원 인증) ===")
-    print(f"DELAY: {args.delay}s | MAX_SUMMARY_LEN: {args.max_summary_len}")
+    print(f"=== BigCase holding 보강 수집기 (회원 인증) ===")
+    print(f"DELAY: {args.delay}s | MAX_LEN: {args.max_summary_len} | TARGET: {args.target} | BC_ONLY: {args.bc_only}")
 
     # 회원 인증 세션 구축
     print("Building authenticated session...")
     session = build_cookie_session()
 
     print(f"Fetching target decisions...")
-    all_targets = fetch_short_summary_decisions(args.max_summary_len)
+    all_targets = fetch_short_summary_decisions(args.max_summary_len, target=args.target, bc_only=args.bc_only)
 
     # BigCase URL 있는 건 우선, 나머지는 뒤로
     bc_targets = [r for r in all_targets if "bigcase" in (r.get("url") or "")]
