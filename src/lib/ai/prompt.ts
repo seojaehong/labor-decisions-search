@@ -168,7 +168,50 @@ function countKeywordHits(cases: Record<string, unknown>[], keywords: string[]):
   return cases.filter((c) => keywords.some((kw) => String(c.holding_points || '').includes(kw))).length;
 }
 
-function buildChecklist(cases: Record<string, unknown>[]): string[] {
+// 도메인 분기 — 정리해고/갱신기대권/부당노동행위는 징계 체크리스트가 안 맞음.
+// LLM이 structured JSON 못 만들 때 fallback으로 쓰이므로 도메인별로 의미 있어야 함.
+function detectDomain(tags: string[]): 'restructuring' | 'renewal' | 'unfair_labor' | 'discipline' {
+  const set = new Set(tags);
+  if (set.has('정리해고') || set.has('회피노력') || set.has('대상자선정')) return 'restructuring';
+  if (set.has('갱신기대권')) return 'renewal';
+  if (set.has('부당노동행위')) return 'unfair_labor';
+  return 'discipline';
+}
+
+function buildChecklist(cases: Record<string, unknown>[], tags: string[] = []): string[] {
+  const domain = detectDomain(tags);
+
+  if (domain === 'restructuring') {
+    return [
+      '경영상 긴박성: 매출/이익 감소의 객관적 자료와 임박성 근거를 확인할 것',
+      '회피노력 충분성: 임원 급여 삭감 외 휴업·배치전환·희망퇴직 등을 실제 시도했는지',
+      '대상자 선정 합리성: 선정 기준의 객관성 + 노조원·특정 그룹 편중 여부',
+      '근로자대표 협의: 50일 전 통보 + 성실 협의 횟수·내용을 점검할 것',
+      '회피 우회 정황: 정리해고 직후 신규 채용 등 사유의 진정성을 의심할 사실',
+    ];
+  }
+
+  if (domain === 'renewal') {
+    return [
+      '갱신 횟수와 관행: 반복 갱신 횟수·기간·관행이 기대권 형성 수준인지',
+      '동료 차별: 동일 처지의 동료들과의 갱신 여부 차이',
+      '동일 직무 후임 채용: 갱신 거절 후 같은 자리에 신규 채용 여부',
+      '근로계약서 자동종료 문구의 실제 적용 엄격성과 근로자 인지',
+      '거절 사유의 합리성: 사용자 측이 합리적 사유를 객관적으로 입증했는지',
+    ];
+  }
+
+  if (domain === 'unfair_labor') {
+    return [
+      '시점 근접성: 노조 가입·활동 시점과 불이익 처분 시점의 간격',
+      '대상자 편중: 노조원과 비조합원 사이의 차별 처분 여부',
+      '회사의 노조 대응 발언/문서·정황 기록',
+      '동일 처지 비조합원 비교군에서 같은 처분이 있었는지',
+      '구제이익 요건: 현재진행성·계속성 충족 여부',
+    ];
+  }
+
+  // default: 징계 (기존 keyword 매칭)
   const checklistMap: Array<{ label: string; keywords: string[]; helper: string }> = [
     { label: '서면통지', keywords: ['서면통지', '서면 통지'], helper: '서면 통지 여부와 통지 시점을 바로 확인할 것' },
     { label: '소명기회', keywords: ['소명기회', '소명 기회', '변명의 기회', '의견 진술'], helper: '의견 제출과 진술 기회를 실제로 부여했는지 확인할 것' },
@@ -189,9 +232,35 @@ function buildChecklist(cases: Record<string, unknown>[]): string[] {
   return checklistMap.slice(0, 5).map((item) => item.helper);
 }
 
-function buildDecisionGuide(cases: Record<string, unknown>[]): string[] {
-  const guides: string[] = [];
+function buildDecisionGuide(cases: Record<string, unknown>[], tags: string[] = []): string[] {
+  const domain = detectDomain(tags);
 
+  if (domain === 'restructuring') {
+    return [
+      '경영상 긴박성과 회피노력의 충분성이 회사 측 입증 핵심이며, 임원 급여 삭감만으로는 부족하다고 판단되기 쉽습니다.',
+      '대상자 선정 기준에 노조원 편중이 있으면 부당해고와 부당노동행위가 동시에 인정될 위험이 커집니다.',
+      '정리해고 직후 신규 채용은 사유의 진정성을 부정하는 강력한 정황으로 작용합니다.',
+    ];
+  }
+
+  if (domain === 'renewal') {
+    return [
+      '반복 갱신 4회 이상이면 갱신기대권이 강하게 형성되며, 자동종료 문구만으로 배제하기 어렵습니다.',
+      '동일 직무 후임 채용은 정원 감축 등 사유의 진정성을 직접 부정하는 증거가 됩니다.',
+      '동료 다수가 갱신되고 본인만 거절된 정황은 합리적 거절 사유 입증 부담을 회사 측에 더 무겁게 합니다.',
+    ];
+  }
+
+  if (domain === 'unfair_labor') {
+    return [
+      '노조 가입·활동과 불이익 처분 시점의 근접성은 부당노동행위 의도 추정의 핵심 정황입니다.',
+      '같은 처지의 비조합원에게는 같은 처분이 없었다는 비교군이 입증되면 인정 가능성이 매우 높아집니다.',
+      '회사 측 발언·문서가 노조 무력화 의도를 시사하면 부당노동행위 인정에 직접 영향을 줍니다.',
+    ];
+  }
+
+  // default: 징계
+  const guides: string[] = [];
   if (countKeywordHits(cases, ['서면통지', '서면 통지']) > 0) {
     guides.push('서면 통지 시점과 징계 사유 특정이 명확하면 유지 논리를 세우기 쉽습니다.');
   }
@@ -237,21 +306,55 @@ export function buildComparisonMeta(
   const workerWinCases = normalizedCases.filter((c) => c.bucket === 'worker_win').slice(0, 2);
   const employerWinCases = normalizedCases.filter((c) => c.bucket === 'employer_win').slice(0, 2);
 
-  const coreDifferences: string[] = [];
-  if (countKeywordHits(cases, ['서면통지', '서면 통지']) > 0) coreDifferences.push('서면통지 유무가 결과를 갈랐는지 확인해야 합니다.');
-  if (countKeywordHits(cases, ['소명기회', '소명 기회', '변명의 기회']) > 0) coreDifferences.push('소명기회 부여 여부가 절차 적법성 판단에 직접 연결됩니다.');
-  if (countKeywordHits(cases, ['인사위원회', '징계위원회']) > 0) coreDifferences.push('인사위원회 개최와 의결 과정의 적법성이 유지 여부에 영향을 줍니다.');
-  if (countKeywordHits(cases, ['양정', '과도하', '과중', '비례']) > 0) coreDifferences.push('비위 정도에 비해 처분 수위가 과하면 뒤집힐 위험이 커집니다.');
-  if (countKeywordHits(cases, ['개선기회', '경고', '시정요구', 'PIP']) > 0) coreDifferences.push('개선기회를 줬는지가 저성과·통상해고 영역에서 중요합니다.');
+  const coreDifferences = buildCoreDifferences(cases, tags);
 
   return {
     issueSummary: buildIssueSummary(userInput, tags),
     workerWinCases,
     employerWinCases,
     coreDifferences: coreDifferences.slice(0, 4),
-    checklist: buildChecklist(cases),
-    decisionGuide: buildDecisionGuide(cases),
+    checklist: buildChecklist(cases, tags),
+    decisionGuide: buildDecisionGuide(cases, tags),
   };
+}
+
+function buildCoreDifferences(cases: Record<string, unknown>[], tags: string[]): string[] {
+  const domain = detectDomain(tags);
+
+  if (domain === 'restructuring') {
+    return [
+      '경영상 긴박성의 객관적 증거 유무가 회사 측 정당성 입증의 출발점입니다.',
+      '회피노력 시도의 폭과 진정성이 결과를 가르는 핵심 차이로 작용합니다.',
+      '대상자 선정 기준의 객관성과 노조원 편중 여부가 부당노동행위 인정과 직결됩니다.',
+      '정리해고 직후 신규 채용 등 회피 우회 정황은 사유의 진정성을 직접 부정합니다.',
+    ];
+  }
+
+  if (domain === 'renewal') {
+    return [
+      '반복 갱신 횟수와 갱신 관행이 기대권 형성 수준에 도달했는지가 분수령입니다.',
+      '동일 직무 후임 채용 여부가 사유의 진정성을 직접 가립니다.',
+      '동료 갱신 여부와의 차별 정황이 거절의 합리성 판단을 좌우합니다.',
+      '근로계약서 자동종료 문구가 실제 운영에서 엄격히 적용됐는지가 핵심입니다.',
+    ];
+  }
+
+  if (domain === 'unfair_labor') {
+    return [
+      '노조 가입·활동과 불이익 처분 시점의 근접성이 의도 추정의 강력한 정황입니다.',
+      '동일 처지 비조합원과의 차별 처분 비교가 인정 여부를 가릅니다.',
+      '회사 측 발언·문서에 노조 무력화 의도가 드러나는지가 결정적입니다.',
+    ];
+  }
+
+  // default: 징계
+  const diffs: string[] = [];
+  if (countKeywordHits(cases, ['서면통지', '서면 통지']) > 0) diffs.push('서면통지 유무가 결과를 갈랐는지 확인해야 합니다.');
+  if (countKeywordHits(cases, ['소명기회', '소명 기회', '변명의 기회']) > 0) diffs.push('소명기회 부여 여부가 절차 적법성 판단에 직접 연결됩니다.');
+  if (countKeywordHits(cases, ['인사위원회', '징계위원회']) > 0) diffs.push('인사위원회 개최와 의결 과정의 적법성이 유지 여부에 영향을 줍니다.');
+  if (countKeywordHits(cases, ['양정', '과도하', '과중', '비례']) > 0) diffs.push('비위 정도에 비해 처분 수위가 과하면 뒤집힐 위험이 커집니다.');
+  if (countKeywordHits(cases, ['개선기회', '경고', '시정요구', 'PIP']) > 0) diffs.push('개선기회를 줬는지가 저성과·통상해고 영역에서 중요합니다.');
+  return diffs;
 }
 
 export function splitIssueSummary(issueSummary: string): string[] {
