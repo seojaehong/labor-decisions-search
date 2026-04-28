@@ -261,19 +261,9 @@ export default async function DecisionPage({
             </Card>
 
             <Card className="p-4 bg-muted/40">
-              <p className="text-sm text-muted-foreground mb-3">
-                위 원문은 법제처 공식 판례 API를 기준으로 수집한 내용입니다.
+              <p className="text-sm text-muted-foreground">
+                위 원문은 법제처 공식 판례 API를 기준으로 수집해 사이트 내 노출하는 내용입니다.
               </p>
-              {precedent.source_url ? (
-                <a
-                  href={precedent.source_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
-                >
-                  외부 원문 참고
-                </a>
-              ) : null}
             </Card>
           </section>
         </div>
@@ -405,9 +395,9 @@ export default async function DecisionPage({
           <section id="source-text" className="scroll-mt-24">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div>
-                <h2 className="font-semibold">원문·출처</h2>
+                <h2 className="font-semibold">판결 본문</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  법원 판례의 내부 요약과 외부 원문을 함께 확인하세요.
+                  법원 판례 본문을 사이트 내에서 그대로 확인하세요.
                 </p>
               </div>
               <Badge variant="outline">{getSourceStatusLabel(hasDetailedHoldingPoints, hasHoldingPoints)}</Badge>
@@ -441,21 +431,6 @@ export default async function DecisionPage({
               </Card>
             )}
 
-            <Card className="p-4 bg-muted/40">
-              <p className="text-sm text-muted-foreground mb-3">
-                위 판결요지와 정리본이 이 판례의 핵심 내용입니다. 추가 검토가 필요하면 외부 원문을 열어 확인하세요.
-              </p>
-              {c.url ? (
-                <a
-                  href={c.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted"
-                >
-                  외부 원문 참고
-                </a>
-              ) : null}
-            </Card>
           </section>
         </div>
       </main>
