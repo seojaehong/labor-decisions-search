@@ -35,6 +35,7 @@ interface Message {
   tags?: string[];
   cases?: CaseCard[];
   comparison?: ComparisonMeta | null;
+  provider?: string;
 }
 
 const RESULT_LABELS: Record<string, string> = {
@@ -138,7 +139,7 @@ export default function SanctionPage() {
         buffer = lines.pop() ?? '';
         for (const line of lines) {
           if (!line.startsWith('data: ')) continue;
-          let event: { type?: string; content?: string; text?: string; tags?: string[]; cases?: CaseCard[]; comparison?: ComparisonMeta };
+          let event: { type?: string; content?: string; text?: string; tags?: string[]; cases?: CaseCard[]; comparison?: ComparisonMeta; provider?: string };
           try {
             event = JSON.parse(line.slice(6));
           } catch {
@@ -167,7 +168,7 @@ export default function SanctionPage() {
             setMessages((prev) =>
               prev.map((m) =>
                 m.id === msgId
-                  ? { ...m, content: event.content || streamedContent, comparison: finalComparison }
+                  ? { ...m, content: event.content || streamedContent, comparison: finalComparison, provider: event.provider }
                   : m
               )
             );
@@ -408,6 +409,10 @@ export default function SanctionPage() {
                             ))}
                           </div>
                         </div>
+                      )}
+
+                      {msg.provider && (
+                        <p className="text-right text-[10px] text-gray-400">analyzed by {msg.provider}</p>
                       )}
 
                       {msg.comparison.decisionGuide.length > 0 && (

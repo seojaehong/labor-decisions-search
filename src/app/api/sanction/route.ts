@@ -403,7 +403,7 @@ export async function POST(req: NextRequest) {
             const finalComparison = structured
               ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
               : comparison;
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done', content: analysis, comparison: finalComparison })}\n\n`));
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done', content: analysis, comparison: finalComparison, provider })}\n\n`));
           } catch {
             controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', content: '응답 생성이 지연되고 있습니다.' })}\n\n`));
           }
@@ -439,6 +439,7 @@ export async function POST(req: NextRequest) {
       tags: retrieval.tags,
       cases: retrieval.cases,
       comparison: finalComparison,
+      provider,
     });
   } catch (error) {
     const isTimeout = error instanceof Error && error.name === 'TimeoutError';
