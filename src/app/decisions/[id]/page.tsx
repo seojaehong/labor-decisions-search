@@ -552,9 +552,6 @@ export default async function DecisionPage({
               {d.legal_focus?.filter((f: string) => f !== '불명').map((f: string) => (
                 <Badge key={f} variant="outline" className="text-xs">{getAiLabel(f, LEGAL_FOCUS_LABELS)}</Badge>
               ))}
-              {d.confidence_level && (
-                <Badge variant="secondary" className="text-xs">{d.confidence_level} 신뢰도</Badge>
-              )}
             </div>
           </Card>
         )}
