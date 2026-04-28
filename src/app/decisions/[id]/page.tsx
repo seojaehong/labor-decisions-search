@@ -27,6 +27,38 @@ function getDisplayCaseNumber(caseNumber?: string | null) {
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
 }
 
+// holding_summary가 ingestion에서 "{원본}\n\n쟁점: X\n판단: Y" 형태로 저장되며
+// X/Y가 동일하거나 원본과 prefix 동일한 케이스(8,271건/14%)가 다수.
+// 같은 텍스트 중복 노출 방지를 위해 정규화 — 쟁점=판단이면 한 번만, intro와 같으면 intro만.
+function normalizeHoldingSummary(rawSummary: string): string {
+  if (!rawSummary) return "";
+  const text = rawSummary.trim();
+  const match = text.match(/^([\s\S]*?)\n+쟁점:\s*([\s\S]*?)\n+판단:\s*([\s\S]*)$/);
+  if (!match) return text;
+
+  const intro = match[1].trim();
+  const issue = match[2].trim();
+  const judgment = match[3].trim();
+
+  // 쟁점 ≈ 판단 (정확히 같거나 한쪽이 다른 쪽 prefix)
+  const issueEqJudgment =
+    issue === judgment ||
+    (issue.length > 20 && judgment.startsWith(issue.slice(0, Math.min(issue.length, 80)))) ||
+    (judgment.length > 20 && issue.startsWith(judgment.slice(0, Math.min(judgment.length, 80))));
+  const introEqIssue =
+    intro === issue ||
+    (intro.length > 0 && issue.startsWith(intro)) ||
+    (intro.length > 0 && intro.startsWith(issue));
+
+  if (issueEqJudgment && introEqIssue) return intro || issue;
+  if (issueEqJudgment) {
+    const longer = issue.length >= judgment.length ? issue : judgment;
+    return intro ? `${intro}\n\n${longer}` : longer;
+  }
+  if (introEqIssue) return `${intro || issue}\n\n판단\n${judgment}`;
+  return `${intro}\n\n쟁점\n${issue}\n\n판단\n${judgment}`.trim();
+}
+
 function getSourceStatusLabel(hasDetailedHoldingPoints: boolean, hasHoldingPoints: boolean) {
   if (hasDetailedHoldingPoints) return "서비스 내 추출 원문 제공";
   if (hasHoldingPoints) return "추출 원문 일부 제공";
@@ -442,16 +474,22 @@ export default async function DecisionPage({
 
   const displayCaseNumber = getDisplayCaseNumber(d.case_number);
   const holdingPointsText = typeof d.holding_points === "string" ? d.holding_points.trim() : "";
-  const holdingSummaryText = typeof d.holding_summary === "string" ? d.holding_summary.trim() : "";
+  const rawHoldingSummary = typeof d.holding_summary === "string" ? d.holding_summary.trim() : "";
+  const holdingSummaryText = normalizeHoldingSummary(rawHoldingSummary);
   const keyIssueText = typeof d.key_issue === "string" ? d.key_issue.trim() : "";
 
-  // 핵심쟁점 카드: ingestion 파이프라인 truncation 대응 — 3개 컬럼 중 가장 긴 텍스트 선택
-  // (key_issue는 ~150자 잘림, holding_summary/points는 케이스에 따라 풀콘텐츠)
+  // 핵심쟁점 카드: 정규화된 summary/holding_points/key_issue 중 가장 긴 텍스트
   const bestKeyIssueText = [holdingSummaryText, holdingPointsText, keyIssueText]
     .reduce((longest, t) => (t.length > longest.length ? t : longest), "");
   const hasDetailedHoldingPoints = holdingPointsText.length >= 50;
   const hasHoldingPoints = holdingPointsText.length > 0;
   const hasSummary = holdingSummaryText.length > 0;
+  // 핵심쟁점 카드와 판정 요지 카드가 같은 내용이면 판정 요지는 숨김 (dedup)
+  const summaryDifferentFromKeyIssue =
+    holdingSummaryText.length > 0 &&
+    holdingSummaryText !== bestKeyIssueText &&
+    !bestKeyIssueText.startsWith(holdingSummaryText) &&
+    !holdingSummaryText.startsWith(bestKeyIssueText);
   const hasSourceSection = hasHoldingPoints || Boolean(d.url);
 
   return (
@@ -534,7 +572,7 @@ export default async function DecisionPage({
             )}
           </Card>
 
-          {hasSummary && (
+          {hasSummary && summaryDifferentFromKeyIssue && (
             <Card id="decision-summary" className="p-5 mb-4 border-primary/30 bg-primary/5 scroll-mt-24">
               <h3 className="font-bold text-base mb-3">판정 요지</h3>
               <div>{renderHoldingBlocks(holdingSummaryText)}</div>
