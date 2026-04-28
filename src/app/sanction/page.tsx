@@ -38,27 +38,6 @@ interface Message {
   provider?: string;
 }
 
-const RESULT_LABELS: Record<string, string> = {
-  granted: '인용',
-  dismissed: '기각',
-  rejected: '각하',
-  upheld: '초심유지',
-  overturned: '초심취소',
-  settled: '화해/취하',
-  partial: '일부인정',
-  other: '기타',
-};
-
-const RESULT_COLORS: Record<string, string> = {
-  granted: 'bg-blue-100 text-blue-700',
-  dismissed: 'bg-amber-100 text-amber-800',
-  rejected: 'bg-gray-100 text-gray-600',
-  upheld: 'bg-slate-100 text-slate-700',
-  overturned: 'bg-purple-100 text-purple-700',
-  settled: 'bg-orange-100 text-orange-700',
-  partial: 'bg-sky-100 text-sky-700',
-};
-
 const QUICK_REPLIES = [
   '직원이 회사 물품을 횡령했습니다',
   '반복적으로 무단결근하는 직원',
@@ -437,45 +416,9 @@ export default function SanctionPage() {
                     </div>
                   )}
 
-                  {/* Assistant: Case Cards */}
-                  {msg.cases && msg.cases.length > 0 && (() => {
-                    const comparisonIds = new Set([
-                      ...(msg.comparison?.workerWinCases.map((c) => c.id) || []),
-                      ...(msg.comparison?.employerWinCases.map((c) => c.id) || []),
-                    ]);
-                    const extraCases = msg.cases.filter((c) => !comparisonIds.has(c.id));
-
-                    if (extraCases.length === 0) return null;
-
-                    return (
-                    <div className="space-y-2">
-                      <span className="text-xs font-medium text-gray-500">추가 참고 판정례</span>
-                      {extraCases.map((c) => (
-                        <a
-                          key={c.id}
-                          href={getDecisionDetailHref({ id: c.id, sourceProvider: c.source === 'court' ? 'bigcase' : 'nlrc' })}
-                          aria-label={`추가 참고 판정례 열기: ${c.title}`}
-                          className="block rounded-xl border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                        >
-                          <div className="mb-2 flex items-center justify-between gap-2">
-                              <div className="flex items-center gap-1.5 text-xs font-medium text-gray-800 line-clamp-1">
-                                {c.title}
-                                {c.source === 'court'
-                                  ? <span className="shrink-0 rounded-full bg-purple-100 px-1.5 py-0.5 text-[9px] font-medium text-purple-700">법원</span>
-                                  : <span className="shrink-0 rounded-full bg-gray-100 px-1.5 py-0.5 text-[9px] font-medium text-gray-600">노동위</span>}
-                              </div>
-                              <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${RESULT_COLORS[c.decision_result] || 'bg-gray-100 text-gray-600'}`}>
-                                {RESULT_LABELS[c.decision_result] || c.decision_result}
-                              </span>
-                          </div>
-                          <p className="text-xs text-gray-600 line-clamp-2">
-                            {stripMarkdownFormatting(c.holding_points || c.summary_short || c.holding_summary || c.title || '')}
-                          </p>
-                        </a>
-                      ))}
-                    </div>
-                    );
-                  })()}
+                  {/* "추가 참고 판정례" 노출 제거 — LLM이 similar_cases로 고른 사건만 보여줌.
+                      이전엔 retrieval에서 가져온 미선별 사건이 그대로 노출되어 무관 판례
+                      (정정보도/대리점 갱신 등)가 사용자에게 보였음. */}
                 </div>
               </div>
             ))}
