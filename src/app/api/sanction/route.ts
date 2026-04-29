@@ -361,7 +361,7 @@ export async function POST(req: NextRequest) {
           try {
             const { resp, provider } = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
               stream: true,
-              signal: AbortSignal.timeout(25_000),
+              signal: AbortSignal.timeout(45_000),
             });
 
             if (!resp.body) {
@@ -419,7 +419,7 @@ export async function POST(req: NextRequest) {
     // 기존 블로킹 모드 (하위 호환) — Gemini 우선 + OpenAI/Anthropic fallback
     const { resp, provider } = await callLLM(SYSTEM_PROMPT, trimmedMessages, {
       stream: false,
-      signal: AbortSignal.timeout(25_000),
+      signal: AbortSignal.timeout(45_000),
     });
     const data = await resp.json();
     // OpenAI-compat (Gemini, OpenAI): choices[0].message.content
