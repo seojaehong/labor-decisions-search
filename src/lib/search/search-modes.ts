@@ -377,7 +377,7 @@ function buildBaselineSelect(page: number, pageSize: number) {
     .from('nlrc_decisions')
     .select(
       'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category, legal_focus, disposition_type, fact_markers, confidence_level, tier, tier_subcategory',
-      { count: 'exact' }
+      { count: 'planned' }
     )
     .range(page * pageSize, (page + 1) * pageSize - 1)
     .order('decision_date', { ascending: false });
@@ -388,7 +388,7 @@ function buildLawgoSelect(limit: number) {
     .from('lawgo_precedents')
     .select(
       'id, api_id, title, reference_number, decision_date, court, judgment_type, issue_text, summary_text, reference_statutes, reference_cases, source_url, keywords_matched, bigcase_case_id',
-      { count: 'exact' }
+      { count: 'planned' }
     )
     .limit(limit)
     .order('decision_date', { ascending: false, nullsFirst: false });
@@ -399,7 +399,7 @@ function buildBigcaseSelect(limit: number) {
     .from('cases')
     .select(
       'id, title, case_number, court, decision_date, verdict_type, summary, holding_points, keywords_matched, url',
-      { count: 'exact' }
+      { count: 'planned' }
     )
     .limit(limit)
     .order('decision_date', { ascending: false, nullsFirst: false });
@@ -550,20 +550,28 @@ async function runBaselineSearch({
       .from('nlrc_decisions')
       .select(
         'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category, legal_focus, disposition_type, fact_markers, confidence_level, tier, tier_subcategory',
-        { count: 'exact' }
+        { count: 'planned' }
       )
       .limit(COMBINED_QUERY_FETCH_SIZE)
       .order('decision_date', { ascending: false });
 
     nlrcQuery = nlrcQuery.textSearch('search_tsv', searchTerms);
-    let nlrcResp = await nlrcQuery;
 
+    // ⚡ 병렬화 (#43): nlrc / bigcase / lawgo 동시 실행 → 11.5s → ~4s
+    const [nlrcRespInitial, bigcaseBucket, lawgoBucket] = await Promise.all([
+      nlrcQuery,
+      runBigcaseSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE),
+      runLawgoSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE),
+    ]);
+
+    let nlrcResp = nlrcRespInitial;
     if (nlrcResp.error || (nlrcResp.count || 0) === 0) {
+      // FTS 0건 fallback — count는 'planned' (지연 적은 estimate)
       nlrcResp = await supabase
         .from('nlrc_decisions')
         .select(
           'id, title, case_number, department, decision_date, decision_result, key_issue, holding_summary, holding_points, summary_short, url, reason_category, legal_focus, disposition_type, fact_markers, confidence_level, tier, tier_subcategory',
-          { count: 'exact' }
+          { count: 'planned' }
         )
         .or(`title.ilike.%${escaped}%,key_issue.ilike.%${escaped}%,holding_points.ilike.%${escaped}%,holding_summary.ilike.%${escaped}%`)
         .limit(COMBINED_QUERY_FETCH_SIZE)
@@ -594,8 +602,6 @@ async function runBaselineSearch({
       tier_subcategory: row.tier_subcategory || null,
     }));
 
-    const bigcaseBucket = await runBigcaseSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE);
-    const lawgoBucket = await runLawgoSearch(effectiveQuery, COMBINED_QUERY_FETCH_SIZE);
     const merged = mergeAndRankSearchCards([...nlrcItems, ...bigcaseBucket.items, ...lawgoBucket.items], effectiveQuery, page, pageSize);
 
     return {
