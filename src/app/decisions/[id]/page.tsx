@@ -44,6 +44,14 @@ function isPaywallText(text: string): boolean {
   return signals.some((s) => text.includes(s));
 }
 
+// data ingestion 단계에서 Python list[dict]를 str()로 저장한 row가 2,774건 존재.
+// 본문이 "{'item': '사건', 'content': '...'}\n{'item': '원고', ...}" 형식으로 노출되는 사용자 가시 버그.
+// 데이터 cleanup 전까지 frontend에서 거부 + 다음 row로 폴백.
+function isPyReprText(text: string): boolean {
+  if (!text) return false;
+  return text.includes("'item':") && text.includes("'content':");
+}
+
 // holding_summary가 ingestion에서 "{원본}\n\n쟁점: X\n판단: Y" 형태로 저장되며
 // X/Y가 동일하거나 원본과 prefix 동일한 케이스(8,271건/14%)가 다수.
 // 같은 텍스트 중복 노출 방지를 위해 정규화 — 쟁점=판단이면 한 번만, intro와 같으면 intro만.
@@ -349,14 +357,25 @@ export default async function DecisionPage({
       .limit(5);
 
     const docs = sourceDocs ?? [];
-    // 진짜 판결문 선택 — clean 1000자+ 또는 raw 1000자+ 중 페이월 키워드 없는 row.
-    // full_text_raw에 BigCase 사이트 페이월/네비게이션 HTML 통째로 저장된 케이스가 있어
-    // 페이월 텍스트 감지 후 거부.
+    // 진짜 판결문 선택 — clean 1000자+ 또는 raw 1000자+ 중 페이월/PyRepr 거부.
+    // 우선순위: (1) Array.isArray(body_sections)인 row가 가장 깨끗 (dict는 ingestion 오류 흔적, 2,453건).
+    // (2) clean이 PyRepr 형식인 row(2,774건)는 다음 row로 폴백 — coverage_ratio 무시.
+    // (3) full_text_raw는 페이월/네비게이션 HTML 통째 저장 케이스가 많아 후순위.
     let realFulltext = "";
     let bodySections: LawgoSection[] = [];
-    for (const d of docs) {
+
+    const listRowFirst = [...docs].sort((a, b) => {
+      const aIsList = Array.isArray(a.body_sections) && (a.body_sections as unknown[]).length > 0 ? 1 : 0;
+      const bIsList = Array.isArray(b.body_sections) && (b.body_sections as unknown[]).length > 0 ? 1 : 0;
+      if (aIsList !== bIsList) return bIsList - aIsList;
+      const aCov = typeof a.coverage_ratio === "number" ? a.coverage_ratio : 0;
+      const bCov = typeof b.coverage_ratio === "number" ? b.coverage_ratio : 0;
+      return bCov - aCov;
+    });
+
+    for (const d of listRowFirst) {
       const clean = typeof d.full_text_clean === "string" ? d.full_text_clean.trim() : "";
-      if (clean.length >= 1000 && !isPaywallText(clean)) {
+      if (clean.length >= 1000 && !isPaywallText(clean) && !isPyReprText(clean)) {
         realFulltext = clean;
         const sections = Array.isArray(d.body_sections) ? (d.body_sections as LawgoSection[]) : [];
         if (sections.length > 0) bodySections = sections;
@@ -364,9 +383,9 @@ export default async function DecisionPage({
       }
     }
     if (!realFulltext) {
-      for (const d of docs) {
+      for (const d of listRowFirst) {
         const raw = typeof d.full_text_raw === "string" ? d.full_text_raw.trim() : "";
-        if (raw.length >= 1000 && !isPaywallText(raw)) {
+        if (raw.length >= 1000 && !isPaywallText(raw) && !isPyReprText(raw)) {
           realFulltext = raw;
           const sections = Array.isArray(d.body_sections) ? (d.body_sections as LawgoSection[]) : [];
           if (sections.length > 0) bodySections = sections;
