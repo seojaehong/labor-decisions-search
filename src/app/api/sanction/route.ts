@@ -323,7 +323,25 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const validation = validateMessages(body?.messages);
+
+    // body 형식 호환 — 외부 호출자(챗봇/MCP/구버전 클라이언트)가
+    // {messages:[...]} 외의 형식으로 보내면 자동 정규화.
+    // 지원 형식: {query|prompt|message|text|content: "..."} → 단일 user 메시지로 변환.
+    let candidateMessages: unknown = body?.messages;
+    if (!Array.isArray(candidateMessages)) {
+      const singleText =
+        (typeof body?.query === 'string' && body.query) ||
+        (typeof body?.prompt === 'string' && body.prompt) ||
+        (typeof body?.message === 'string' && body.message) ||
+        (typeof body?.text === 'string' && body.text) ||
+        (typeof body?.content === 'string' && body.content) ||
+        '';
+      if (singleText.trim()) {
+        candidateMessages = [{ role: 'user', content: singleText.trim() }];
+      }
+    }
+
+    const validation = validateMessages(candidateMessages);
     if (!validation.valid) {
       return NextResponse.json({ content: validation.error, tags: [], cases: [], comparison: null }, { status: 400 });
     }
