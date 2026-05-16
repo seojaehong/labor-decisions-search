@@ -3,6 +3,7 @@ import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
 import { buildComparisonMeta, buildUserContext, splitIssueSummary, trimHistory, type ComparisonCase, type ComparisonMeta } from '@/lib/ai/prompt';
 import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
+import { hashText, logApiEvent, safeIds, safeTitles, shortText } from '@/lib/api-logger';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
@@ -316,6 +317,10 @@ function validateMessages(messages: unknown): { valid: true; messages: { role: s
 export async function POST(req: NextRequest) {
   // LLM 실패 시 catch에서 raw 검색 결과 보존용 (UX 안전장치)
   let retrievalCache: { tags: string[]; cases: unknown[]; comparison: ComparisonMeta | null } | null = null;
+  const startedAt = Date.now();
+  let logUserContent: string | null = null;
+  let logWantsStream = false;
+  let logProvider: string | null = null;
 
   try {
     if (!GEMINI_API_KEY && !OPENAI_API_KEY && !ANTHROPIC_API_KEY) {
@@ -351,6 +356,7 @@ export async function POST(req: NextRequest) {
     if (!lastUserMsg) {
       return NextResponse.json({ content: '질문을 입력해주세요.', tags: [], cases: [], comparison: null }, { status: 400 });
     }
+    logUserContent = lastUserMsg.content;
 
     // Step 1: 키워드 추출 (~1ms)
     const tags = extractTags(lastUserMsg.content);
@@ -367,6 +373,7 @@ export async function POST(req: NextRequest) {
 
     // Step 4: 스트리밍 여부 확인
     const wantsStream = body?.stream === true;
+    logWantsStream = wantsStream;
 
     if (wantsStream) {
       // SSE 스트리밍: DB 결과 즉시 전송 + AI 텍스트 점진적 전송
@@ -422,8 +429,42 @@ export async function POST(req: NextRequest) {
               ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
               : comparison;
             controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done', content: analysis, comparison: finalComparison, provider })}\n\n`));
-          } catch {
+
+            void logApiEvent({
+              route: '/api/sanction',
+              event_type: 'ai_analysis_completed',
+              method: 'POST',
+              stream: true,
+              query_short: shortText(lastUserMsg.content),
+              query_hash: hashText(lastUserMsg.content),
+              status: 'ok',
+              status_code: 200,
+              latency_ms: Date.now() - startedAt,
+              tag_count: tags.length,
+              retrieved_case_count: retrieval.cases?.length ?? 0,
+              comparison_worker_case_count: finalComparison?.workerWinCases?.length ?? 0,
+              comparison_employer_case_count: finalComparison?.employerWinCases?.length ?? 0,
+              returned_case_ids: safeIds(retrieval.cases as Array<{ id?: unknown }>),
+              returned_case_titles: safeTitles(retrieval.cases as Array<{ title?: unknown }>),
+              ai_model: provider,
+            });
+          } catch (streamErr) {
             controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', content: '응답 생성이 지연되고 있습니다.' })}\n\n`));
+            void logApiEvent({
+              route: '/api/sanction',
+              event_type: 'ai_analysis_failed',
+              method: 'POST',
+              stream: true,
+              query_short: shortText(lastUserMsg.content),
+              query_hash: hashText(lastUserMsg.content),
+              status: 'error',
+              status_code: 500,
+              latency_ms: Date.now() - startedAt,
+              tag_count: tags.length,
+              retrieved_case_count: retrieval.cases?.length ?? 0,
+              error_class: streamErr instanceof Error ? streamErr.name : 'UnknownError',
+              ai_model: ANTHROPIC_MODEL,
+            });
           }
           controller.close();
         },
@@ -439,6 +480,7 @@ export async function POST(req: NextRequest) {
       stream: false,
       signal: AbortSignal.timeout(45_000),
     });
+    logProvider = provider;
     const data = await resp.json();
     // OpenAI-compat (Gemini, OpenAI): choices[0].message.content
     // Anthropic: content[0].text
@@ -451,6 +493,25 @@ export async function POST(req: NextRequest) {
     const finalComparison = structured
       ? buildComparisonFromStructured(structured, retrieval.allCases, comparison)
       : comparison;
+
+    void logApiEvent({
+      route: '/api/sanction',
+      event_type: 'ai_analysis_completed',
+      method: 'POST',
+      stream: false,
+      query_short: shortText(lastUserMsg.content),
+      query_hash: hashText(lastUserMsg.content),
+      status: 'ok',
+      status_code: 200,
+      latency_ms: Date.now() - startedAt,
+      tag_count: tags.length,
+      retrieved_case_count: retrieval.cases?.length ?? 0,
+      comparison_worker_case_count: finalComparison?.workerWinCases?.length ?? 0,
+      comparison_employer_case_count: finalComparison?.employerWinCases?.length ?? 0,
+      returned_case_ids: safeIds(retrieval.cases as Array<{ id?: unknown }>),
+      returned_case_titles: safeTitles(retrieval.cases as Array<{ title?: unknown }>),
+      ai_model: provider,
+    });
 
     return NextResponse.json({
       content: analysis,
@@ -471,6 +532,22 @@ export async function POST(req: NextRequest) {
       : '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
 
     console.error('[sanction] POST error:', error instanceof Error ? error.message : String(error));
+
+    void logApiEvent({
+      route: '/api/sanction',
+      event_type: 'ai_analysis_failed',
+      method: 'POST',
+      stream: logWantsStream,
+      query_short: shortText(logUserContent),
+      query_hash: hashText(logUserContent),
+      status: 'error',
+      status_code: 500,
+      latency_ms: Date.now() - startedAt,
+      tag_count: retrievalCache?.tags?.length ?? 0,
+      retrieved_case_count: retrievalCache?.cases?.length ?? 0,
+      error_class: error instanceof Error ? error.name : 'UnknownError',
+      ai_model: logProvider,
+    });
 
     return NextResponse.json({
       content: message,

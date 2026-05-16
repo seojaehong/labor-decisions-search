@@ -17,6 +17,7 @@ import {
 import { getDecisionDetailHref } from "@/lib/search/source-contracts";
 import { stripMarkdownFormatting } from "@/lib/format-holding";
 import type { MolabInterpretation, SearchBucket, SearchCard, SearchMode, SearchResponsePayload } from "@/lib/search/types";
+import { reportClick } from "@/lib/log-client";
 import Link from "next/link";
 const IS_DEV = process.env.NODE_ENV === "development";
 const SEARCH_CACHE_TTL_MS = 30_000;
@@ -161,7 +162,7 @@ function getDisplayCaseNumber(caseNumber?: string | null): string {
   return /^id_/i.test(caseNumber) ? "" : caseNumber;
 }
 
-function SearchResultCard({ item }: { item: SearchCard }) {
+function SearchResultCard({ item, source }: { item: SearchCard; source: "baseline" | "candidate" }) {
   const sourceBadge =
     item.source_provider === "lawgo" ? (
       <Badge variant="outline" className="text-[10px]">법제처 판례</Badge>
@@ -182,7 +183,19 @@ function SearchResultCard({ item }: { item: SearchCard }) {
   const caseNum = getDisplayCaseNumber(item.case_number);
 
   return (
-    <Link key={item.id} href={getDecisionDetailHref(item)}>
+    <Link
+      key={item.id}
+      href={getDecisionDetailHref(item)}
+      onClick={() =>
+        reportClick({
+          event_type: "search_result_click",
+          clicked_case_id: item.id,
+          clicked_case_title: item.title,
+          clicked_source: source,
+          source_provider: item.source_provider ?? null,
+        })
+      }
+    >
       <Card className="p-4 hover:border-primary transition-colors cursor-pointer mb-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -248,7 +261,7 @@ function SearchBucketSection({
       )}
       <div className="space-y-3">
         {(bucket?.items || []).map((item) => (
-          <SearchResultCard key={`${source}-${item.id}`} item={item} />
+          <SearchResultCard key={`${source}-${item.id}`} item={item} source={source} />
         ))}
         {(!bucket || bucket.items.length === 0) && (
           <Card className="p-4 text-sm text-muted-foreground">

@@ -5,6 +5,7 @@ import { Send, Bot, User, Loader2, Scale, CheckCircle2, GitCompareArrows, Clipbo
 import { PromptSuggestion } from '@/components/ui/prompt-suggestion';
 import { getDecisionDetailHref } from '@/lib/search/source-contracts';
 import { stripMarkdownFormatting } from '@/lib/format-holding';
+import { reportClick } from '@/lib/log-client';
 
 interface CaseCard {
   id: string;
@@ -230,6 +231,15 @@ export default function SanctionPage() {
         href={href}
         aria-label={`${tone === 'worker' ? '근로자가 이긴' : '사용자가 이긴'} 판정례 열기: ${c.title}`}
         className={cardClass}
+        onClick={() =>
+          reportClick({
+            event_type: 'ai_comparison_case_click',
+            clicked_case_id: c.id,
+            clicked_case_title: c.title,
+            clicked_source: 'ai',
+            source_provider: c.source === 'court' ? 'bigcase' : 'nlrc',
+          })
+        }
       >
         {content}
       </a>
