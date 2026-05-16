@@ -58,3 +58,13 @@ scripts/__pycache__/
 
 # Windows path artifact
 C:\\dev\\*/
+
+# embedding checkpoints + run logs (large, ephemeral)
+evaluation/embed_recompute_checkpoint.jsonl*
+evaluation/search_tsv_backfill.log
+evaluation/link-verify/
+eval/rubrics/*.log
+
+# claude scratch
+.claude/
+
