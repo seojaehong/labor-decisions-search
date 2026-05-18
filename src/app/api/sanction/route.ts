@@ -1,24 +1,57 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { GoogleAuth } from 'google-auth-library';
 import { bucketDecisionResult } from '@/lib/ai/decision-bucket';
 import { extractTags, searchCases } from '@/lib/ai/retrieval';
 import { buildComparisonMeta, buildUserContext, splitIssueSummary, trimHistory, type ComparisonCase, type ComparisonMeta } from '@/lib/ai/prompt';
 import { SYSTEM_PROMPT } from '@/lib/ai/prompt';
 import { hashText, logApiEvent, safeIds, safeTitles, shortText } from '@/lib/api-logger';
 
+export const runtime = 'nodejs';
+
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_MODEL = 'claude-haiku-4-5-20251001';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
-const GEMINI_MODEL = 'gemini-2.5-flash';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const OPENAI_URL = 'https://api.openai.com/v1/chat/completions';
 const OPENAI_MODEL = 'gpt-4o-mini';
+const VERTEX_PROJECT = process.env.GCP_PROJECT_ID || '';
+const VERTEX_LOCATION = process.env.GCP_LOCATION || 'asia-northeast3';
+const VERTEX_MODEL = 'google/gemini-2.5-flash';
+const VERTEX_URL = VERTEX_PROJECT
+  ? `https://${VERTEX_LOCATION}-aiplatform.googleapis.com/v1beta1/projects/${VERTEX_PROJECT}/locations/${VERTEX_LOCATION}/endpoints/openapi/chat/completions`
+  : '';
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_CHARS = 16000;
 
-type LLMProvider = 'gemini' | 'openai' | 'anthropic';
+type LLMProvider = 'vertex' | 'openai' | 'anthropic';
+
+// Vertex OAuth access token 메모리 캐시 (3,000초 = 50분; 실제 TTL 60분 - 안전 마진)
+let vertexAuthClient: GoogleAuth | null = null;
+let cachedVertexToken: { token: string; expiresAt: number } | null = null;
+
+function getVertexAuth(): GoogleAuth {
+  if (vertexAuthClient) return vertexAuthClient;
+  const credentialsJson = process.env.GCP_SERVICE_ACCOUNT_JSON;
+  if (!credentialsJson) throw new Error('GCP_SERVICE_ACCOUNT_JSON 없음');
+  vertexAuthClient = new GoogleAuth({
+    credentials: JSON.parse(credentialsJson),
+    scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+  });
+  return vertexAuthClient;
+}
+
+async function getVertexAccessToken(): Promise<string> {
+  const now = Date.now();
+  if (cachedVertexToken && cachedVertexToken.expiresAt > now + 60_000) {
+    return cachedVertexToken.token;
+  }
+  const client = await getVertexAuth().getClient();
+  const tokenResp = await client.getAccessToken();
+  if (!tokenResp.token) throw new Error('Vertex access token 발급 실패');
+  cachedVertexToken = { token: tokenResp.token, expiresAt: now + 3_000_000 };
+  return tokenResp.token;
+}
 
 // 우선순위: Gemini → OpenAI gpt-4o-mini → Anthropic (한도 회복 후)
 // provider를 명시 반환 (detectProvider via resp.url은 Vercel runtime에서 신뢰 X)
@@ -47,9 +80,10 @@ async function callLLM(
     return resp;
   };
 
-  const tryGemini = () => {
-    if (!GEMINI_API_KEY) throw new Error('GEMINI_API_KEY 없음');
-    return tryOpenAICompat(GEMINI_URL, GEMINI_API_KEY, GEMINI_MODEL, 'Gemini');
+  const tryVertex = async () => {
+    if (!VERTEX_PROJECT || !VERTEX_URL) throw new Error('GCP_PROJECT_ID/JSON 없음');
+    const token = await getVertexAccessToken();
+    return tryOpenAICompat(VERTEX_URL, token, VERTEX_MODEL, 'Vertex');
   };
   const tryOpenAI = () => {
     if (!OPENAI_API_KEY) throw new Error('OPENAI_API_KEY 없음');
@@ -83,7 +117,7 @@ async function callLLM(
 
   const errors: string[] = [];
   const providerMap: Array<[LLMProvider, () => Promise<Response>]> = [
-    ['gemini', tryGemini],
+    ['vertex', tryVertex],
     ['openai', tryOpenAI],
     ['anthropic', tryAnthropic],
   ];
@@ -323,7 +357,7 @@ export async function POST(req: NextRequest) {
   let logProvider: string | null = null;
 
   try {
-    if (!GEMINI_API_KEY && !OPENAI_API_KEY && !ANTHROPIC_API_KEY) {
+    if (!VERTEX_PROJECT && !OPENAI_API_KEY && !ANTHROPIC_API_KEY) {
       return NextResponse.json({ content: 'AI 서비스가 준비되지 않았습니다 (LLM 키 부재).', tags: [], cases: [] });
     }
 
